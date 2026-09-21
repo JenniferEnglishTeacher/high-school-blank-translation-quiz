@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>龍騰 B3U2 全題型互動測驗</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__copy">
+      <p class="eyebrow">LONGTENG · BOOK 3 · UNIT 2</p>
+      <h1>全題型互動測驗</h1>
+      <p>從單字到閱讀，一次收齊。作答會自動儲存在這台裝置。</p>
+    </div>
+    <div class="hero__score" aria-live="polite">
+      <span id="progressText">0 / 0 已作答</span>
+      <strong id="scoreText">尚未評分</strong>
+    </div>
+  </header>
+
+  <main class="shell">
+    <aside class="sidebar" aria-label="測驗單元">
+      <div class="sidebar__top">
+        <label class="search"><span>搜尋題目</span><input id="searchInput" type="search" placeholder="輸入關鍵字"></label>
+        <button id="dashboardBtn" class="nav-home" type="button">全部單元</button>
+      </div>
+      <nav id="sectionNav"></nav>
+      <div class="sidebar__actions">
+        <button id="gradeAllBtn" class="button button--primary" type="button">批改可自動評分題</button>
+        <button id="resetBtn" class="button button--quiet" type="button">清除作答紀錄</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div id="dashboard" class="dashboard"></div>
+      <div id="quizView" class="quiz-view" hidden>
+        <div class="section-heading">
+          <button id="backBtn" class="back" type="button">← 返回單元</button>
+          <div>
+            <p id="sectionKicker" class="eyebrow"></p>
+            <h2 id="sectionTitle"></h2>
+          </div>
+          <button id="revealSectionBtn" class="button button--quiet" type="button">顯示本單元答案</button>
+        </div>
+        <div id="questionList"></div>
+      </div>
+      <div id="emptyState" class="empty" hidden>找不到符合的題目，請換一個搜尋字詞。</div>
+    </section>
+  </main>
+
+  <template id="questionTemplate">
+    <article class="question-card">
+      <div class="question-card__head"><span class="number"></span><span class="status-dot" aria-hidden="true"></span></div>
+      <div class="prompt"></div>
+      <div class="response"></div>
+      <div class="question-actions">
+        <button class="check button button--primary" type="button">檢查答案</button>
+        <button class="reveal button button--quiet" type="button">看答案</button>
+      </div>
+      <div class="feedback" hidden></div>
+      <div class="answer" hidden></div>
+    </article>
+  </template>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
