@@ -1,0 +1,2024 @@
+[
+  {
+    "id": "category-01",
+    "title": "Food 食物",
+    "items": [
+      {
+        "word": "breakfast",
+        "pos": "n.",
+        "definition": "the first meal you eat in the morning",
+        "chinese": "早餐",
+        "question": "What time do you have breakfast?",
+        "answerTemplate": "I usually have ____________ at seven o'clock.",
+        "questionZh": "你幾點吃早餐？",
+        "answerZh": "我通常七點吃早餐。"
+      },
+      {
+        "word": "brunch",
+        "pos": "n.",
+        "definition": "a meal eaten late in the morning that is both breakfast and lunch",
+        "chinese": "早午餐",
+        "question": "What time does Amy have brunch on Sundays?",
+        "answerTemplate": "She sometimes has ____________ at eleven o'clock.",
+        "questionZh": "艾咪星期天幾點吃早午餐？",
+        "answerZh": "她有時候十一點吃早午餐。"
+      },
+      {
+        "word": "lunch",
+        "pos": "n.",
+        "definition": "the meal you eat in the middle of the day",
+        "chinese": "午餐",
+        "question": "What time does Ben have lunch?",
+        "answerTemplate": "He always has ____________ at twelve o'clock.",
+        "questionZh": "班幾點吃午餐？",
+        "answerZh": "他總是十二點吃午餐。"
+      },
+      {
+        "word": "dinner",
+        "pos": "n.",
+        "definition": "the main meal that people usually eat in the evening",
+        "chinese": "晚餐",
+        "question": "What do you have for dinner?",
+        "answerTemplate": "I often have rice and fish for ____________.",
+        "questionZh": "你晚餐吃什麼？",
+        "answerZh": "我晚餐常常吃飯和魚。"
+      },
+      {
+        "word": "supper",
+        "pos": "n.",
+        "definition": "a light meal eaten in the evening or late at night",
+        "chinese": "晚餐；宵夜",
+        "question": "What does Grandpa have for supper?",
+        "answerTemplate": "He usually has a bowl of noodles for ____________.",
+        "questionZh": "爺爺宵夜吃什麼？",
+        "answerZh": "他宵夜通常吃一碗麵。"
+      },
+      {
+        "word": "meal",
+        "pos": "n.",
+        "definition": "the food you eat at one time, like breakfast or dinner",
+        "chinese": "一餐",
+        "question": "How many meals do you eat a day?",
+        "answerTemplate": "I always eat three ____________ a day.",
+        "questionZh": "你一天吃幾餐？",
+        "answerZh": "我總是一天吃三餐。"
+      },
+      {
+        "word": "buffet",
+        "pos": "n.",
+        "definition": "a meal where you serve yourself and can choose many different foods",
+        "chinese": "自助餐",
+        "question": "How often does your family go to a buffet?",
+        "answerTemplate": "We go to a ____________ once a month.",
+        "questionZh": "你們家多久去吃一次自助餐？",
+        "answerZh": "我們一個月去吃一次自助餐。"
+      },
+      {
+        "word": "menu",
+        "pos": "n.",
+        "definition": "a list of food that you can order in a restaurant",
+        "chinese": "菜單",
+        "question": "What does the waiter give you?",
+        "answerTemplate": "He always gives us a ____________ first.",
+        "questionZh": "服務生給你什麼？",
+        "answerZh": "他總是先給我們一份菜單。"
+      },
+      {
+        "word": "diet",
+        "pos": "n.",
+        "definition": "the food that a person usually eats every day",
+        "chinese": "日常飲食",
+        "question": "What kind of diet does Lily have?",
+        "answerTemplate": "She has a healthy ____________. She often eats vegetables.",
+        "questionZh": "莉莉的飲食習慣如何？",
+        "answerZh": "她的飲食很健康。她常常吃蔬菜。"
+      },
+      {
+        "word": "food",
+        "pos": "n.",
+        "definition": "things that people and animals eat",
+        "chinese": "食物",
+        "question": "How much food do they need for the picnic?",
+        "answerTemplate": "They need a lot of ____________ for the picnic.",
+        "questionZh": "他們野餐需要多少食物？",
+        "answerZh": "他們野餐需要很多食物。"
+      },
+      {
+        "word": "snack",
+        "pos": "n.",
+        "definition": "a small amount of food eaten between meals",
+        "chinese": "點心；零食",
+        "question": "How many snacks does Tom eat after school?",
+        "answerTemplate": "He usually eats two ____________ after school.",
+        "questionZh": "湯姆放學後吃幾份點心？",
+        "answerZh": "他放學後通常吃兩份點心。"
+      },
+      {
+        "word": "bread",
+        "pos": "n.",
+        "definition": "a common food made from flour, water, and yeast, baked in an oven",
+        "chinese": "麵包",
+        "question": "How much bread does Mom buy?",
+        "answerTemplate": "She buys some ____________ every morning.",
+        "questionZh": "媽媽買多少麵包？",
+        "answerZh": "她每天早上買一些麵包。"
+      },
+      {
+        "word": "bun",
+        "pos": "n.",
+        "definition": "a small, round piece of bread",
+        "chinese": "小圓麵包",
+        "question": "How many buns does Mrs. Lin sell?",
+        "answerTemplate": "She sells fifty red-bean ____________ every day.",
+        "questionZh": "林太太賣多少個小圓麵包？",
+        "answerZh": "她每天賣五十個紅豆麵包。"
+      },
+      {
+        "word": "toast",
+        "pos": "n.",
+        "definition": "bread that has been heated until it is brown and crisp",
+        "chinese": "吐司",
+        "question": "What do you have for breakfast?",
+        "answerTemplate": "I often have a piece of ____________ with jam.",
+        "questionZh": "你早餐吃什麼？",
+        "answerZh": "我常常吃一片塗果醬的吐司。"
+      },
+      {
+        "word": "sandwich",
+        "pos": "n.",
+        "definition": "food made of two pieces of bread with meat, cheese, or vegetables inside",
+        "chinese": "三明治",
+        "question": "How many sandwiches does Mia want?",
+        "answerTemplate": "She wants two ham ____________.",
+        "questionZh": "米亞想要幾個三明治？",
+        "answerZh": "她想要兩個火腿三明治。"
+      },
+      {
+        "word": "burger",
+        "pos": "n.",
+        "definition": "a round piece of cooked meat served inside a bread bun",
+        "chinese": "漢堡",
+        "question": "What does Jack order at the fast-food restaurant?",
+        "answerTemplate": "He always orders a beef ____________.",
+        "questionZh": "傑克在速食店點什麼？",
+        "answerZh": "他總是點一個牛肉漢堡。"
+      },
+      {
+        "word": "hot dog",
+        "pos": "n.",
+        "definition": "a hot sausage served in a long piece of bread",
+        "chinese": "熱狗",
+        "question": "How many hot dogs does Uncle Bill buy at the baseball game?",
+        "answerTemplate": "He buys three ____________.",
+        "questionZh": "比爾叔叔在棒球賽買幾根熱狗？",
+        "answerZh": "他買三根熱狗。"
+      },
+      {
+        "word": "pizza",
+        "pos": "n.",
+        "definition": "a flat, round bread with cheese, tomato, and other food on top, baked in an oven",
+        "chinese": "披薩",
+        "question": "How many slices of pizza does Jake's mom order?",
+        "answerTemplate": "She orders three large slices of ____________.",
+        "questionZh": "傑克的媽媽點幾片披薩？",
+        "answerZh": "她點三片大披薩。"
+      },
+      {
+        "word": "spaghetti",
+        "pos": "n.",
+        "definition": "long, thin strings of pasta usually served with sauce",
+        "chinese": "義大利麵",
+        "question": "What does Rachel have at the Italian restaurant?",
+        "answerTemplate": "She usually has ____________ with tomato sauce.",
+        "questionZh": "瑞秋在義大利餐廳吃什麼？",
+        "answerZh": "她通常吃番茄醬義大利麵。"
+      },
+      {
+        "word": "noodle",
+        "pos": "n.",
+        "definition": "a long, thin piece of food made from flour, often cooked in soup",
+        "chinese": "麵條",
+        "question": "How many bowls of noodles does Tom’s dad eat?",
+        "answerTemplate": "He sometimes eats two bowls of beef ____________.",
+        "questionZh": "Tom的爸爸吃幾碗麵？",
+        "answerZh": "他有時候吃兩碗牛肉麵。"
+      },
+      {
+        "word": "rice",
+        "pos": "n.",
+        "definition": "small white or brown grains that are cooked and eaten as food",
+        "chinese": "米飯",
+        "question": "How much rice do you eat for dinner?",
+        "answerTemplate": "I usually eat a bowl of ____________ for dinner.",
+        "questionZh": "你晚餐吃多少飯？",
+        "answerZh": "我晚餐通常吃一碗飯。"
+      },
+      {
+        "word": "soup",
+        "pos": "n.",
+        "definition": "a liquid food made by cooking meat or vegetables in water",
+        "chinese": "湯",
+        "question": "How much soup does Lucy drink?",
+        "answerTemplate": "She often drinks a bowl of chicken ____________.",
+        "questionZh": "露西喝多少湯？",
+        "answerZh": "她常常喝一碗雞湯。"
+      },
+      {
+        "word": "salad",
+        "pos": "n.",
+        "definition": "a mix of vegetables, often eaten cold before or with a meal",
+        "chinese": "沙拉",
+        "question": "What does Emma eat for lunch?",
+        "answerTemplate": "She often eats a green ____________ for lunch.",
+        "questionZh": "艾瑪午餐吃什麼？",
+        "answerZh": "她午餐常常吃生菜沙拉。"
+      },
+      {
+        "word": "tofu",
+        "pos": "n.",
+        "definition": "a soft, white food made from soybeans",
+        "chinese": "豆腐",
+        "question": "How much tofu does Peter need?",
+        "answerTemplate": "He needs a block of ____________.",
+        "questionZh": "彼得需要多少豆腐？",
+        "answerZh": "他需要一塊豆腐。"
+      },
+      {
+        "word": "egg",
+        "pos": "n.",
+        "definition": "an oval food laid by a hen, often eaten for breakfast",
+        "chinese": "蛋",
+        "question": "How many eggs do you eat for breakfast?",
+        "answerTemplate": "I usually eat two ____________ for breakfast.",
+        "questionZh": "你早餐吃幾顆蛋？",
+        "answerZh": "我早餐通常吃兩顆蛋。"
+      },
+      {
+        "word": "dumpling",
+        "pos": "n.",
+        "definition": "small food made of meat or vegetables wrapped in dough",
+        "chinese": "水餃",
+        "question": "How many dumplings does Ken want?",
+        "answerTemplate": "He wants twenty ____________.",
+        "questionZh": "肯想要幾顆水餃？",
+        "answerZh": "他想要二十顆水餃。"
+      },
+      {
+        "word": "French fries",
+        "pos": "n.",
+        "definition": "long, thin pieces of potato cooked in hot oil",
+        "chinese": "薯條",
+        "question": "How many bags of French fries does Ben want?",
+        "answerTemplate": "He always wants two bags of ____________.",
+        "questionZh": "班想要幾包薯條？",
+        "answerZh": "他總是想要兩包薯條。"
+      },
+      {
+        "word": "cereal",
+        "pos": "n.",
+        "definition": "a breakfast food made from grain, usually eaten with milk",
+        "chinese": "穀片",
+        "question": "What does Amy have for breakfast?",
+        "answerTemplate": "She usually has a bowl of ____________ with milk.",
+        "questionZh": "艾咪早餐吃什麼？",
+        "answerZh": "她通常吃一碗加牛奶的穀片。"
+      },
+      {
+        "word": "popcorn",
+        "pos": "n.",
+        "definition": "a snack food made from corn that pops when heated",
+        "chinese": "爆米花",
+        "question": "How much popcorn do they buy at the movies?",
+        "answerTemplate": "They always buy a big bucket of ____________.",
+        "questionZh": "他們在電影院買多少爆米花？",
+        "answerZh": "他們總是買一大桶爆米花。"
+      },
+      {
+        "word": "cheese",
+        "pos": "n.",
+        "definition": "a solid food made from milk, often yellow or white",
+        "chinese": "乳酪",
+        "question": "How much cheese does Rachel want on her pizza?",
+        "answerTemplate": "She always wants extra ____________ on her pizza.",
+        "questionZh": "瑞秋的披薩上想要多少乳酪？",
+        "answerZh": "她總是想在披薩上加額外的乳酪。"
+      },
+      {
+        "word": "nut",
+        "pos": "n.",
+        "definition": "a hard-shelled fruit or seed that people eat as a snack",
+        "chinese": "堅果",
+        "question": "How many nuts does the squirrel eat?",
+        "answerTemplate": "It eats ten ____________ a day.",
+        "questionZh": "松鼠吃幾顆堅果？",
+        "answerZh": "牠一天吃十顆堅果。"
+      },
+      {
+        "word": "peanut",
+        "pos": "n.",
+        "definition": "a small nut that grows underground and is often eaten as a snack",
+        "chinese": "花生",
+        "question": "How much peanut butter do you put on your toast?",
+        "answerTemplate": "I put a spoon of ____________ butter on it.",
+        "questionZh": "你在吐司上塗多少花生醬？",
+        "answerZh": "我在上面塗一匙花生醬。"
+      },
+      {
+        "word": "loaf",
+        "pos": "n.",
+        "definition": "a large piece of bread baked in one shape, usually cut into slices",
+        "chinese": "一條",
+        "question": "How many loaves of bread does Mom buy?",
+        "answerTemplate": "She buys one ____________ of bread once a week.",
+        "questionZh": "媽媽買幾條麵包？",
+        "answerZh": "她一週買一次，一次一條麵包。"
+      },
+      {
+        "word": "chicken nugget",
+        "pos": "n.",
+        "definition": "a small piece of chicken meat, coated and fried until crispy",
+        "chinese": "雞塊",
+        "question": "How many chicken nuggets does your brother eat?",
+        "answerTemplate": "He often eats six ____________.",
+        "questionZh": "你弟弟吃幾塊雞塊？",
+        "answerZh": "他常常吃六塊雞塊。"
+      },
+      {
+        "word": "fried chicken",
+        "pos": "n.",
+        "definition": "chicken meat that is cooked in hot oil until crispy and golden",
+        "chinese": "炸雞",
+        "question": "How much fried chicken do they order?",
+        "answerTemplate": "They order a big box of ____________.",
+        "questionZh": "他們點多少炸雞？",
+        "answerZh": "他們點一大盒炸雞。"
+      }
+    ]
+  },
+  {
+    "id": "category-02",
+    "title": "Meat & Seafood 肉類與海鮮",
+    "items": [
+      {
+        "word": "meat",
+        "pos": "n.",
+        "definition": "food that comes from an animal's body",
+        "chinese": "肉",
+        "question": "Does Sue eat meat?",
+        "answerTemplate": "No, she doesn't. She never eats ____________.",
+        "questionZh": "蘇吃肉嗎？",
+        "answerZh": "不，她不吃。她從不吃肉。"
+      },
+      {
+        "word": "barbecue",
+        "pos": "n.",
+        "definition": "a meal cooked outside over a fire, or the party where this happens",
+        "chinese": "烤肉",
+        "question": "How often does your family have a barbecue?",
+        "answerTemplate": "We have a ____________ twice a year.",
+        "questionZh": "你們家多久烤一次肉？",
+        "answerZh": "我們一年烤兩次肉。"
+      },
+      {
+        "word": "beef",
+        "pos": "n.",
+        "definition": "meat that comes from a cow",
+        "chinese": "牛肉",
+        "question": "How much beef does Dad buy?",
+        "answerTemplate": "He usually buys a kilo of ____________.",
+        "questionZh": "爸爸買多少牛肉？",
+        "answerZh": "他通常買一公斤牛肉。"
+      },
+      {
+        "word": "steak",
+        "pos": "n.",
+        "definition": "a thick, flat piece of meat, usually cooked quickly",
+        "chinese": "牛排",
+        "question": "How many steaks do they order?",
+        "answerTemplate": "They order two ____________.",
+        "questionZh": "他們點幾份牛排？",
+        "answerZh": "他們點兩份牛排。"
+      },
+      {
+        "word": "pork",
+        "pos": "n.",
+        "definition": "meat that comes from a pig",
+        "chinese": "豬肉",
+        "question": "How much pork does Grandma need for dumplings?",
+        "answerTemplate": "She needs a pound of ____________.",
+        "questionZh": "奶奶包水餃需要多少豬肉？",
+        "answerZh": "她需要一磅豬肉。"
+      },
+      {
+        "word": "ham",
+        "pos": "n.",
+        "definition": "meat from a pig's leg that is cooked or dried",
+        "chinese": "火腿",
+        "question": "How many slices of ham do you want?",
+        "answerTemplate": "I want two slices of ____________.",
+        "questionZh": "你想要幾片火腿？",
+        "answerZh": "我想要兩片火腿。"
+      },
+      {
+        "word": "bacon",
+        "pos": "n.",
+        "definition": "thin strips of salty meat from a pig, often fried",
+        "chinese": "培根",
+        "question": "How much bacon does Dad fry?",
+        "answerTemplate": "He fries some ____________ every Sunday.",
+        "questionZh": "爸爸煎多少培根？",
+        "answerZh": "他每個星期天煎一些培根。"
+      },
+      {
+        "word": "sausage",
+        "pos": "n.",
+        "definition": "small pieces of meat mixed with spices inside a thin skin",
+        "chinese": "香腸",
+        "question": "How many sausages does the class sell?",
+        "answerTemplate": "They sell fifty ____________ at the festival.",
+        "questionZh": "這班賣了幾根香腸？",
+        "answerZh": "他們在園遊會賣了五十根香腸。"
+      },
+      {
+        "word": "seafood",
+        "pos": "n.",
+        "definition": "food such as fish and shellfish that comes from the sea",
+        "chinese": "海鮮",
+        "question": "What does your uncle's restaurant sell?",
+        "answerTemplate": "It always sells fresh ____________.",
+        "questionZh": "你叔叔的餐廳賣什麼？",
+        "answerZh": "它總是賣新鮮的海鮮。"
+      },
+      {
+        "word": "shrimp",
+        "pos": "n.",
+        "definition": "a small sea animal with a shell that people eat",
+        "chinese": "蝦",
+        "question": "How many shrimp does Tom eat?",
+        "answerTemplate": "He usually eats ten ____________.",
+        "questionZh": "湯姆吃幾隻蝦？",
+        "answerZh": "他通常吃十隻蝦。"
+      },
+      {
+        "word": "salmon",
+        "pos": "n.",
+        "definition": "a large pink fish that lives in the sea and rivers",
+        "chinese": "鮭魚",
+        "question": "How many plates of salmon does your sister eat?",
+        "answerTemplate": "She often eats three plates of ____________.",
+        "questionZh": "你妹妹吃幾盤鮭魚？",
+        "answerZh": "她常常吃三盤鮭魚。"
+      },
+      {
+        "word": "tuna",
+        "pos": "n.",
+        "definition": "a large sea fish that people often eat from a can",
+        "chinese": "鮪魚",
+        "question": "How much tuna does Mom need for the sandwiches?",
+        "answerTemplate": "She needs a can of ____________.",
+        "questionZh": "媽媽做三明治需要多少鮪魚？",
+        "answerZh": "她需要一罐鮪魚。"
+      },
+      {
+        "word": "lobster",
+        "pos": "n.",
+        "definition": "a large sea animal with a hard shell and big claws",
+        "chinese": "龍蝦",
+        "question": "How many lobsters do they order?",
+        "answerTemplate": "They order one big ____________.",
+        "questionZh": "他們點幾隻龍蝦？",
+        "answerZh": "他們點一隻大龍蝦。"
+      },
+      {
+        "word": "oyster",
+        "pos": "n.",
+        "definition": "a small sea animal with a hard shell that some people eat raw",
+        "chinese": "牡蠣",
+        "question": "What does Grandpa order at the night market?",
+        "answerTemplate": "He always orders an ____________ omelet.",
+        "questionZh": "爺爺在夜市點什麼？",
+        "answerZh": "他總是點蚵仔煎。"
+      },
+      {
+        "word": "sea urchin",
+        "pos": "n.",
+        "definition": "a small, round sea animal covered in sharp spines",
+        "chinese": "海膽",
+        "question": "How does sea urchin taste?",
+        "answerTemplate": "____________ tastes like the sea.",
+        "questionZh": "海膽吃起來怎麼樣？",
+        "answerZh": "海膽吃起來像大海的味道。"
+      },
+      {
+        "word": "crab",
+        "pos": "n.",
+        "definition": "a sea animal with a hard shell, eight legs, and two claws",
+        "chinese": "螃蟹",
+        "question": "How many crabs does Grandma cook?",
+        "answerTemplate": "She cooks two ____________ once a year.",
+        "questionZh": "奶奶煮幾隻螃蟹？",
+        "answerZh": "她一年煮一次，一次兩隻螃蟹。"
+      },
+      {
+        "word": "squid",
+        "pos": "n.",
+        "definition": "a sea animal with a soft body and ten long arms",
+        "chinese": "魷魚",
+        "question": "How much squid do they buy?",
+        "answerTemplate": "They sometimes buy some fried ____________.",
+        "questionZh": "他們買多少魷魚？",
+        "answerZh": "他們有時候買一些炸魷魚。"
+      },
+      {
+        "word": "clam",
+        "pos": "n.",
+        "definition": "a small sea animal with two shells that people can cook and eat",
+        "chinese": "蛤蜊",
+        "question": "How many clams does Mom put in the soup?",
+        "answerTemplate": "She puts twenty ____________ in the soup.",
+        "questionZh": "媽媽在湯裡放幾顆蛤蜊？",
+        "answerZh": "她在湯裡放二十顆蛤蜊。"
+      }
+    ]
+  },
+  {
+    "id": "category-03",
+    "title": "Vegetables 蔬菜",
+    "items": [
+      {
+        "word": "bean",
+        "pos": "n.",
+        "definition": "a small seed from a plant that people cook and eat",
+        "chinese": "豆子",
+        "question": "How many beans does Lily cook?",
+        "answerTemplate": "She often cooks a bowl of black ____________.",
+        "questionZh": "莉莉煮多少豆子？",
+        "answerZh": "她常常煮一碗黑豆。"
+      },
+      {
+        "word": "cabbage",
+        "pos": "n.",
+        "definition": "a big round vegetable with green or purple leaves",
+        "chinese": "高麗菜",
+        "question": "How much cabbage does Ken need?",
+        "answerTemplate": "He needs a head of ____________.",
+        "questionZh": "肯需要多少高麗菜？",
+        "answerZh": "他需要一顆高麗菜。"
+      },
+      {
+        "word": "carrot",
+        "pos": "n.",
+        "definition": "an orange vegetable that grows under the ground",
+        "chinese": "紅蘿蔔",
+        "question": "How many carrots does the rabbit eat?",
+        "answerTemplate": "It eats two ____________ a day.",
+        "questionZh": "兔子吃幾根紅蘿蔔？",
+        "answerZh": "牠一天吃兩根紅蘿蔔。"
+      },
+      {
+        "word": "celery",
+        "pos": "n.",
+        "definition": "a long green vegetable with a strong smell and crunchy stems",
+        "chinese": "芹菜",
+        "question": "How much celery does Nina eat?",
+        "answerTemplate": "She eats some ____________ every afternoon.",
+        "questionZh": "妮娜吃多少芹菜？",
+        "answerZh": "她每天下午吃一些芹菜。"
+      },
+      {
+        "word": "lettuce",
+        "pos": "n.",
+        "definition": "a vegetable with green leaves that people often eat raw in salad",
+        "chinese": "萵苣",
+        "question": "How many leaves of lettuce does Mom need?",
+        "answerTemplate": "She needs five leaves of ____________.",
+        "questionZh": "媽媽需要幾片萵苣葉？",
+        "answerZh": "她需要五片萵苣葉。"
+      },
+      {
+        "word": "onion",
+        "pos": "n.",
+        "definition": "a round vegetable with a strong smell that makes people cry when cut",
+        "chinese": "洋蔥",
+        "question": "How many onions does Dad cut for curry?",
+        "answerTemplate": "He usually cuts one ____________.",
+        "questionZh": "爸爸切幾顆洋蔥為了咖哩？",
+        "answerZh": "他通常切一顆洋蔥。"
+      },
+      {
+        "word": "pepper",
+        "pos": "n.",
+        "definition": "a vegetable that can be sweet or spicy, often green, red, or yellow",
+        "chinese": "胡椒；甜椒",
+        "question": "How much pepper does Grandma put in the soup?",
+        "answerTemplate": "She always puts a pinch of ____________ in it.",
+        "questionZh": "奶奶在湯裡放多少胡椒？",
+        "answerZh": "她總是在湯裡放一小撮胡椒。"
+      },
+      {
+        "word": "potato",
+        "pos": "n.",
+        "definition": "a round vegetable that grows under the ground and is often fried or boiled",
+        "chinese": "馬鈴薯",
+        "question": "How many potatoes does Dad need?",
+        "answerTemplate": "He needs three ____________.",
+        "questionZh": "爸爸需要幾顆馬鈴薯？",
+        "answerZh": "他需要三顆馬鈴薯。"
+      },
+      {
+        "word": "pumpkin",
+        "pos": "n.",
+        "definition": "a big round orange vegetable often used to make soup or pie",
+        "chinese": "南瓜",
+        "question": "How many pumpkins does Jenny's family buy?",
+        "answerTemplate": "They buy two ____________ for Halloween.",
+        "questionZh": "珍妮家買幾顆南瓜？",
+        "answerZh": "他們買兩顆南瓜過萬聖節。"
+      },
+      {
+        "word": "spinach",
+        "pos": "n.",
+        "definition": "a dark green leafy vegetable that is very good for your health",
+        "chinese": "菠菜",
+        "question": "How much spinach does Popeye eat?",
+        "answerTemplate": "He always eats a can of ____________.",
+        "questionZh": "大力水手吃多少菠菜？",
+        "answerZh": "他總是吃一罐菠菜。"
+      },
+      {
+        "word": "tomato",
+        "pos": "n.",
+        "definition": "a soft round red fruit used as a vegetable in cooking",
+        "chinese": "番茄",
+        "question": "How many tomatoes does Mrs. Lin buy?",
+        "answerTemplate": "She buys four ____________.",
+        "questionZh": "林太太買幾顆番茄？",
+        "answerZh": "她買四顆番茄。"
+      },
+      {
+        "word": "mushroom",
+        "pos": "n.",
+        "definition": "a small soft vegetable-like food that grows in wet, dark places",
+        "chinese": "香菇",
+        "question": "How many mushrooms do the children find?",
+        "answerTemplate": "They find five ____________ under the tree.",
+        "questionZh": "孩子們找到幾朵香菇？",
+        "answerZh": "他們在樹下找到五朵香菇。"
+      },
+      {
+        "word": "corn",
+        "pos": "n.",
+        "definition": "a tall yellow vegetable with many small seeds on a long cob",
+        "chinese": "玉米",
+        "question": "How much corn does Ben buy?",
+        "answerTemplate": "He sometimes buys a bag of ____________.",
+        "questionZh": "班買多少玉米？",
+        "answerZh": "他有時候買一袋玉米。"
+      },
+      {
+        "word": "cucumber",
+        "pos": "n.",
+        "definition": "a long green vegetable that is cool, crunchy, and full of water",
+        "chinese": "小黃瓜",
+        "question": "How many cucumbers does Amy eat?",
+        "answerTemplate": "She eats one cold ____________ in summer.",
+        "questionZh": "艾咪吃幾條小黃瓜？",
+        "answerZh": "她夏天吃一條冰涼的小黃瓜。"
+      }
+    ]
+  },
+  {
+    "id": "category-04",
+    "title": "Fruit 水果",
+    "items": [
+      {
+        "word": "grape",
+        "pos": "n.",
+        "definition": "a small round juicy fruit that grows in bunches on a vine",
+        "chinese": "葡萄",
+        "question": "How many grapes does Mr. Wang buy?",
+        "answerTemplate": "He always buys a bunch of ____________.",
+        "questionZh": "王先生買多少葡萄？",
+        "answerZh": "他總是買一串葡萄。"
+      },
+      {
+        "word": "guava",
+        "pos": "n.",
+        "definition": "a green fruit with white or pink inside and lots of small seeds",
+        "chinese": "芭樂",
+        "question": "How many guavas does Grandpa pick?",
+        "answerTemplate": "He picks five ____________.",
+        "questionZh": "爺爺摘幾顆芭樂？",
+        "answerZh": "他摘五顆芭樂。"
+      },
+      {
+        "word": "lemon",
+        "pos": "n.",
+        "definition": "a small yellow sour fruit often used to make drinks",
+        "chinese": "檸檬",
+        "question": "How many lemons does Mom need for lemonade?",
+        "answerTemplate": "She needs three ____________.",
+        "questionZh": "媽媽做檸檬汁需要幾顆檸檬？",
+        "answerZh": "她需要三顆檸檬。"
+      },
+      {
+        "word": "mango",
+        "pos": "n.",
+        "definition": "a sweet orange-yellow tropical fruit with a big seed inside",
+        "chinese": "芒果",
+        "question": "How much mango does Sue want on her shaved ice?",
+        "answerTemplate": "She always wants a lot of ____________.",
+        "questionZh": "蘇的剉冰上想要多少芒果？",
+        "answerZh": "她總是想要很多芒果。"
+      },
+      {
+        "word": "melon",
+        "pos": "n.",
+        "definition": "a large round fruit with sweet juicy flesh and a hard skin",
+        "chinese": "甜瓜",
+        "question": "How many melons does Dad cut?",
+        "answerTemplate": "He cuts one ____________.",
+        "questionZh": "爸爸切幾顆甜瓜？",
+        "answerZh": "他切一顆甜瓜。"
+      },
+      {
+        "word": "papaya",
+        "pos": "n.",
+        "definition": "a soft orange tropical fruit with many small black seeds inside",
+        "chinese": "木瓜",
+        "question": "How much papaya milk does Wendy drink?",
+        "answerTemplate": "She drinks a cup of ____________ milk every morning.",
+        "questionZh": "溫蒂喝多少木瓜牛奶？",
+        "answerZh": "她每天早上喝一杯木瓜牛奶。"
+      },
+      {
+        "word": "peach",
+        "pos": "n.",
+        "definition": "a soft round fruit with pink or yellow skin and a fuzzy surface",
+        "chinese": "桃子",
+        "question": "How many peaches does Grandpa get?",
+        "answerTemplate": "He gets six pink ____________.",
+        "questionZh": "爺爺收到幾顆桃子？",
+        "answerZh": "他收到六顆粉紅色的桃子。"
+      },
+      {
+        "word": "pear",
+        "pos": "n.",
+        "definition": "a sweet juicy fruit that is round at the bottom and narrow at the top",
+        "chinese": "梨子",
+        "question": "How many pears does Mom boil?",
+        "answerTemplate": "She boils one ____________ with sugar.",
+        "questionZh": "媽媽煮幾顆梨子？",
+        "answerZh": "她用糖煮一顆梨子。"
+      },
+      {
+        "word": "pineapple",
+        "pos": "n.",
+        "definition": "a large tropical fruit with spiky skin and sweet yellow flesh",
+        "chinese": "鳳梨",
+        "question": "How many pineapples do they buy for New Year?",
+        "answerTemplate": "They buy two ____________.",
+        "questionZh": "他們過年買幾顆鳳梨？",
+        "answerZh": "他們買兩顆鳳梨。"
+      },
+      {
+        "word": "strawberry",
+        "pos": "n.",
+        "definition": "a small red fruit with tiny seeds on its skin, popular in desserts",
+        "chinese": "草莓",
+        "question": "How many strawberries does the baker put on the cake?",
+        "answerTemplate": "He puts ten ____________ on it.",
+        "questionZh": "麵包師傅在蛋糕上放幾顆草莓？",
+        "answerZh": "他放十顆草莓在上面。"
+      },
+      {
+        "word": "tangerine",
+        "pos": "n.",
+        "definition": "a small sweet orange-colored citrus fruit that is easy to peel",
+        "chinese": "橘子",
+        "question": "How many tangerines does Grandma put in the bowl?",
+        "answerTemplate": "She puts twelve ____________ in it.",
+        "questionZh": "奶奶在碗裡放幾顆橘子？",
+        "answerZh": "她放十二顆橘子在碗裡。"
+      },
+      {
+        "word": "watermelon",
+        "pos": "n.",
+        "definition": "a very large fruit with green skin, red juicy flesh, and black seeds",
+        "chinese": "西瓜",
+        "question": "How much watermelon do the children eat?",
+        "answerTemplate": "They often eat a big piece of ____________.",
+        "questionZh": "孩子們吃多少西瓜？",
+        "answerZh": "他們常常吃一大片西瓜。"
+      },
+      {
+        "word": "apple",
+        "pos": "n.",
+        "definition": "a round fruit with red, green, or yellow skin and a crisp, juicy inside",
+        "chinese": "蘋果",
+        "question": "How many apples does Emma eat?",
+        "answerTemplate": "She eats an ____________ every day.",
+        "questionZh": "艾瑪吃幾顆蘋果？",
+        "answerZh": "她每天吃一顆蘋果。"
+      },
+      {
+        "word": "banana",
+        "pos": "n.",
+        "definition": "a long curved yellow fruit with soft sweet flesh inside",
+        "chinese": "香蕉",
+        "question": "How many bananas do the players eat?",
+        "answerTemplate": "They usually eat two ____________.",
+        "questionZh": "球員們吃幾根香蕉？",
+        "answerZh": "他們通常吃兩根香蕉。"
+      },
+      {
+        "word": "orange",
+        "pos": "n.",
+        "definition": "a round citrus fruit with orange skin and juicy, sweet-sour flesh",
+        "chinese": "柳橙",
+        "question": "How much orange juice does Dad drink?",
+        "answerTemplate": "He drinks a glass of ____________ juice every morning.",
+        "questionZh": "爸爸喝多少柳橙汁？",
+        "answerZh": "他每天早上喝一杯柳橙汁。"
+      }
+    ]
+  },
+  {
+    "id": "category-05",
+    "title": "Desserts 甜點",
+    "items": [
+      {
+        "word": "cake",
+        "pos": "n.",
+        "definition": "a sweet baked food, often eaten on birthdays",
+        "chinese": "蛋糕",
+        "question": "How many cakes does Mom bake for Lily's birthday?",
+        "answerTemplate": "She bakes one big ____________.",
+        "questionZh": "媽媽為莉莉的生日烤幾個蛋糕？",
+        "answerZh": "她烤一個大蛋糕。"
+      },
+      {
+        "word": "candy",
+        "pos": "n.",
+        "definition": "a small sweet food made mostly of sugar",
+        "chinese": "糖果",
+        "question": "How much candy does the boy get?",
+        "answerTemplate": "He sometimes gets a piece of ____________.",
+        "questionZh": "那個男孩拿到多少糖果？",
+        "answerZh": "他有時候拿到一顆糖果。"
+      },
+      {
+        "word": "chocolate",
+        "pos": "n.",
+        "definition": "a sweet brown food made from cacao beans",
+        "chinese": "巧克力",
+        "question": "How much chocolate does Sam eat?",
+        "answerTemplate": "He seldom eats a bar of ____________.",
+        "questionZh": "山姆吃多少巧克力？",
+        "answerZh": "他很少吃一整條巧克力。"
+      },
+      {
+        "word": "cookie",
+        "pos": "n.",
+        "definition": "a small, flat, sweet baked snack",
+        "chinese": "餅乾",
+        "question": "How many cookies does Mom bake?",
+        "answerTemplate": "She bakes twenty ____________ twice a month.",
+        "questionZh": "媽媽烤幾片餅乾？",
+        "answerZh": "她一個月烤兩次，每次二十片餅乾。"
+      },
+      {
+        "word": "dessert",
+        "pos": "n.",
+        "definition": "a sweet food eaten after the main meal",
+        "chinese": "點心；甜點",
+        "question": "What do you eat after dinner?",
+        "answerTemplate": "I often eat ____________ after dinner.",
+        "questionZh": "你晚餐後吃什麼？",
+        "answerZh": "我晚餐後常常吃甜點。"
+      },
+      {
+        "word": "doughnut",
+        "pos": "n.",
+        "definition": "a round, fried sweet cake with a hole in the middle",
+        "chinese": "甜甜圈",
+        "question": "How many doughnuts does Dad buy?",
+        "answerTemplate": "He buys a box of ____________ once a week.",
+        "questionZh": "爸爸買幾個甜甜圈？",
+        "answerZh": "他一週買一盒甜甜圈。"
+      },
+      {
+        "word": "ice cream",
+        "pos": "n.",
+        "definition": "a frozen sweet food made from milk or cream",
+        "chinese": "冰淇淋",
+        "question": "How much ice cream do they want?",
+        "answerTemplate": "They want two scoops of ____________.",
+        "questionZh": "他們想要多少冰淇淋？",
+        "answerZh": "他們想要兩球冰淇淋。"
+      },
+      {
+        "word": "pie",
+        "pos": "n.",
+        "definition": "a baked food with fruit or meat inside a pastry case",
+        "chinese": "派",
+        "question": "How many apple pies does Aunt Sue bake?",
+        "answerTemplate": "She bakes two apple ____________.",
+        "questionZh": "蘇阿姨烤幾個蘋果派？",
+        "answerZh": "她烤兩個蘋果派。"
+      },
+      {
+        "word": "pudding",
+        "pos": "n.",
+        "definition": "a soft, sweet food usually eaten cold after a meal",
+        "chinese": "布丁",
+        "question": "How many cups of pudding does Kevin eat?",
+        "answerTemplate": "He usually eats a cup of mango ____________.",
+        "questionZh": "凱文吃幾杯布丁？",
+        "answerZh": "他通常吃一杯芒果布丁。"
+      },
+      {
+        "word": "cream",
+        "pos": "n.",
+        "definition": "the thick, fatty part of milk used in desserts",
+        "chinese": "鮮奶油",
+        "question": "How much cream does she put on the hot chocolate?",
+        "answerTemplate": "She always puts some whipped ____________ on it.",
+        "questionZh": "她在熱可可上放多少鮮奶油？",
+        "answerZh": "她總是在上面放一些打發鮮奶油。"
+      },
+      {
+        "word": "tiramisu",
+        "pos": "n.",
+        "definition": "an Italian dessert made with coffee, cheese, and cocoa powder",
+        "chinese": "提拉米蘇",
+        "question": "What does Anna order at the Italian restaurant?",
+        "answerTemplate": "She sometimes orders ____________. It tastes like coffee.",
+        "questionZh": "安娜在義大利餐廳點什麼？",
+        "answerZh": "她有時候點提拉米蘇。它吃起來有咖啡味。"
+      },
+      {
+        "word": "egg tart",
+        "pos": "n.",
+        "definition": "a small pastry filled with a sweet egg custard",
+        "chinese": "蛋塔",
+        "question": "How many egg tarts does your family buy in Macau?",
+        "answerTemplate": "We always buy six ____________.",
+        "questionZh": "你們家在澳門買幾個蛋塔？",
+        "answerZh": "我們總是買六個蛋塔。"
+      },
+      {
+        "word": "crepe",
+        "pos": "n.",
+        "definition": "a very thin, soft pancake often filled with fruit or cream",
+        "chinese": "可麗餅",
+        "question": "How many crepes does the man make?",
+        "answerTemplate": "He makes three banana ____________.",
+        "questionZh": "那個男人做幾份可麗餅？",
+        "answerZh": "他做三份香蕉可麗餅。"
+      },
+      {
+        "word": "mille crepe",
+        "pos": "n.",
+        "definition": "a cake made of many thin layers of crepe and cream",
+        "chinese": "千層可麗餅蛋糕",
+        "question": "What does the couple order for their anniversary?",
+        "answerTemplate": "They order a matcha ____________ cake.",
+        "questionZh": "那對夫妻週年紀念日點什麼？",
+        "answerZh": "他們點一個抹茶千層可麗餅蛋糕。"
+      }
+    ]
+  },
+  {
+    "id": "category-06",
+    "title": "Drinks 飲料",
+    "items": [
+      {
+        "word": "beer",
+        "pos": "n.",
+        "definition": "an alcoholic drink made from grain, often served cold",
+        "chinese": "啤酒",
+        "question": "How many cans of beer does Uncle Tom drink?",
+        "answerTemplate": "He seldom drinks one can of ____________.",
+        "questionZh": "湯姆叔叔喝幾罐啤酒？",
+        "answerZh": "他很少喝一罐啤酒。"
+      },
+      {
+        "word": "lemonade",
+        "pos": "n.",
+        "definition": "a cold, sour-sweet drink made from lemons, water, and sugar",
+        "chinese": "檸檬汁",
+        "question": "How much lemonade does the coach make?",
+        "answerTemplate": "He makes a jug of ____________.",
+        "questionZh": "教練做多少檸檬汁？",
+        "answerZh": "他做一壺檸檬汁。"
+      },
+      {
+        "word": "coffee",
+        "pos": "n.",
+        "definition": "a dark, bitter drink made from roasted beans",
+        "chinese": "咖啡",
+        "question": "How many cups of coffee does your sister drink?",
+        "answerTemplate": "She drinks two cups of ____________ a day.",
+        "questionZh": "你姊姊喝幾杯咖啡？",
+        "answerZh": "她一天喝兩杯咖啡。"
+      },
+      {
+        "word": "tea",
+        "pos": "n.",
+        "definition": "a hot or cold drink made by adding hot water to dried leaves",
+        "chinese": "茶",
+        "question": "How much tea does Grandpa drink?",
+        "answerTemplate": "He always drinks a cup of green ____________.",
+        "questionZh": "爺爺喝多少茶？",
+        "answerZh": "他總是喝一杯綠茶。"
+      },
+      {
+        "word": "milk",
+        "pos": "n.",
+        "definition": "a white drink that comes from cows and is good for bones",
+        "chinese": "牛奶",
+        "question": "How much milk does your brother drink?",
+        "answerTemplate": "He drinks a glass of ____________ every morning.",
+        "questionZh": "你弟弟喝多少牛奶？",
+        "answerZh": "他每天早上喝一杯牛奶。"
+      },
+      {
+        "word": "milk tea",
+        "pos": "n.",
+        "definition": "a sweet drink made by mixing tea with milk",
+        "chinese": "奶茶",
+        "question": "How many cups of milk tea do they buy?",
+        "answerTemplate": "They buy three cups of ____________.",
+        "questionZh": "他們買幾杯奶茶？",
+        "answerZh": "他們買三杯奶茶。"
+      },
+      {
+        "word": "bubble tea",
+        "pos": "n.",
+        "definition": "a sweet milk tea drink with small chewy balls inside",
+        "chinese": "珍珠奶茶",
+        "question": "How many cups of bubble tea does Amy drink?",
+        "answerTemplate": "She drinks two cups of ____________ a week.",
+        "questionZh": "艾咪喝幾杯珍珠奶茶？",
+        "answerZh": "她一週喝兩杯珍珠奶茶。"
+      },
+      {
+        "word": "juice",
+        "pos": "n.",
+        "definition": "a drink made from the liquid part of fruit",
+        "chinese": "果汁",
+        "question": "How much juice does the boy want?",
+        "answerTemplate": "He wants a bottle of apple ____________.",
+        "questionZh": "那個男孩想要多少果汁？",
+        "answerZh": "他想要一瓶蘋果汁。"
+      },
+      {
+        "word": "soda (cola)",
+        "pos": "n.",
+        "definition": "a sweet, bubbly cold drink, sometimes brown in color",
+        "chinese": "汽水／可樂",
+        "question": "How many cans of soda do they need for the party?",
+        "answerTemplate": "They need ten cans of ____________.",
+        "questionZh": "他們派對需要幾罐汽水？",
+        "answerZh": "他們需要十罐汽水。"
+      },
+      {
+        "word": "water",
+        "pos": "n.",
+        "definition": "a clear liquid that people need to drink to stay healthy",
+        "chinese": "水",
+        "question": "How many glasses of water do you drink?",
+        "answerTemplate": "I drink six glasses of ____________ every day.",
+        "questionZh": "你喝幾杯水？",
+        "answerZh": "我每天喝六杯水。"
+      },
+      {
+        "word": "iced",
+        "pos": "adj.",
+        "definition": "cold, with ice added to a drink",
+        "chinese": "冰的",
+        "question": "What kind of tea does Mia order in summer?",
+        "answerTemplate": "She always orders ____________ tea.",
+        "questionZh": "米亞夏天點哪一種茶？",
+        "answerZh": "她總是點冰茶。"
+      },
+      {
+        "word": "hot",
+        "pos": "adj.",
+        "definition": "having a high temperature, not cold",
+        "chinese": "熱的",
+        "question": "What does Jim’s dad drink on cold days?",
+        "answerTemplate": "He usually drinks ____________ tea.",
+        "questionZh": "Jim的爸爸冷天喝什麼？",
+        "answerZh": "他通常喝熱茶。"
+      },
+      {
+        "word": "sugar-free",
+        "pos": "adj.",
+        "definition": "made without any sugar added",
+        "chinese": "無糖的",
+        "question": "What kind of green tea does Mr. Lee drink?",
+        "answerTemplate": "He always drinks ____________ green tea.",
+        "questionZh": "李先生喝哪一種綠茶？",
+        "answerZh": "他總是喝無糖綠茶。"
+      },
+      {
+        "word": "less sugar",
+        "pos": "phr.",
+        "definition": "with a smaller amount of sugar than normal",
+        "chinese": "少糖",
+        "question": "How sweet does Kevin want his bubble tea?",
+        "answerTemplate": "He usually wants ____________.",
+        "questionZh": "凱文的珍珠奶茶要多甜？",
+        "answerZh": "他通常要少糖。"
+      },
+      {
+        "word": "half sugar",
+        "pos": "phr.",
+        "definition": "with only fifty percent of the usual amount of sugar",
+        "chinese": "半糖",
+        "question": "How much sugar does Amy want in her tea?",
+        "answerTemplate": "She often wants ____________.",
+        "questionZh": "艾咪的茶要多少糖？",
+        "answerZh": "她常常要半糖。"
+      }
+    ]
+  },
+  {
+    "id": "category-07",
+    "title": "Condiments & Ingredients 調味料與食材",
+    "items": [
+      {
+        "word": "flour",
+        "pos": "n.",
+        "definition": "a fine powder made from grain, used to make bread or cakes",
+        "chinese": "麵粉",
+        "question": "How much flour does Mom need for the cake?",
+        "answerTemplate": "She needs two cups of ____________.",
+        "questionZh": "媽媽做蛋糕需要多少麵粉？",
+        "answerZh": "她需要兩杯麵粉。"
+      },
+      {
+        "word": "sauce",
+        "pos": "n.",
+        "definition": "a thick liquid served with food to add flavor",
+        "chinese": "醬汁",
+        "question": "How much sauce does Grandma put on the pasta?",
+        "answerTemplate": "She always puts a lot of tomato ____________ on it.",
+        "questionZh": "奶奶在義大利麵上放多少醬？",
+        "answerZh": "她總是放很多番茄醬汁。"
+      },
+      {
+        "word": "ketchup",
+        "pos": "n.",
+        "definition": "a red sauce made from tomatoes, often eaten with fries",
+        "chinese": "番茄醬",
+        "question": "How much ketchup does Ben want?",
+        "answerTemplate": "He wants a bottle of ____________.",
+        "questionZh": "班想要多少番茄醬？",
+        "answerZh": "他想要一瓶番茄醬。"
+      },
+      {
+        "word": "soy",
+        "pos": "n.",
+        "definition": "a small bean used to make sauce, milk, and tofu",
+        "chinese": "大豆",
+        "question": "How much soy milk do you drink?",
+        "answerTemplate": "I usually drink a cup of ____________ milk.",
+        "questionZh": "你喝多少豆漿？",
+        "answerZh": "我通常喝一杯豆漿。"
+      },
+      {
+        "word": "wheat",
+        "pos": "n.",
+        "definition": "a kind of grain used to make flour and bread",
+        "chinese": "小麥",
+        "question": "What do the farmers grow?",
+        "answerTemplate": "They grow ____________ every year.",
+        "questionZh": "農夫們種什麼？",
+        "answerZh": "他們每年種小麥。"
+      },
+      {
+        "word": "honey",
+        "pos": "n.",
+        "definition": "a sweet, sticky food made by bees",
+        "chinese": "蜂蜜",
+        "question": "How much honey does Mom put in her tea?",
+        "answerTemplate": "She often puts a spoon of ____________ in it.",
+        "questionZh": "媽媽在茶裡放多少蜂蜜？",
+        "answerZh": "她常常在茶裡放一匙蜂蜜。"
+      },
+      {
+        "word": "grease",
+        "pos": "n.",
+        "definition": "a thick, oily substance left over from cooking meat or oil",
+        "chinese": "油脂",
+        "question": "What does Dad clean off the pan?",
+        "answerTemplate": "He always cleans the ____________ off the pan.",
+        "questionZh": "爸爸把什麼從平底鍋上清掉？",
+        "answerZh": "他總是把平底鍋上的油垢清掉。"
+      }
+    ]
+  },
+  {
+    "id": "category-08",
+    "title": "Cooking & Kitchen 烹飪與廚房",
+    "items": [
+      {
+        "word": "bake",
+        "pos": "v.",
+        "definition": "to cook food, such as bread or cakes, using dry heat in an oven",
+        "chinese": "烘烤",
+        "question": "How often does Mom bake cookies?",
+        "answerTemplate": "She ____________ cookies once a week.",
+        "questionZh": "媽媽多久烤一次餅乾？",
+        "answerZh": "她一週烤一次餅乾。"
+      },
+      {
+        "word": "barbecue",
+        "pos": "v.",
+        "definition": "to cook food, usually meat, over an open fire outdoors",
+        "chinese": "烤肉",
+        "question": "How often does your family barbecue?",
+        "answerTemplate": "We ____________ twice a month in summer.",
+        "questionZh": "你們家多久烤一次肉？",
+        "answerZh": "我們夏天一個月烤兩次肉。"
+      },
+      {
+        "word": "boil",
+        "pos": "v.",
+        "definition": "to heat a liquid until it bubbles and turns into steam",
+        "chinese": "煮沸",
+        "question": "How often does Grandma boil eggs?",
+        "answerTemplate": "She ____________ eggs every morning.",
+        "questionZh": "奶奶多久煮一次蛋？",
+        "answerZh": "她每天早上煮蛋。"
+      },
+      {
+        "word": "dine",
+        "pos": "v.",
+        "definition": "to eat dinner, usually in a formal or nice place",
+        "chinese": "進餐",
+        "question": "How often do they dine out?",
+        "answerTemplate": "They ____________ out once a month.",
+        "questionZh": "他們多久外出用餐一次？",
+        "answerZh": "他們一個月外出用餐一次。"
+      },
+      {
+        "word": "microwave",
+        "pos": "n.",
+        "definition": "a machine that cooks or heats food quickly using waves",
+        "chinese": "微波爐",
+        "question": "What does Dad use to heat his lunch?",
+        "answerTemplate": "He always uses the ____________.",
+        "questionZh": "爸爸用什麼加熱午餐？",
+        "answerZh": "他總是用微波爐。"
+      },
+      {
+        "word": "oven",
+        "pos": "n.",
+        "definition": "a box-shaped machine used for baking or roasting food",
+        "chinese": "烤箱",
+        "question": "What does Mom use to bake cakes?",
+        "answerTemplate": "She uses the ____________.",
+        "questionZh": "媽媽用什麼烤蛋糕？",
+        "answerZh": "她用烤箱。"
+      },
+      {
+        "word": "pan",
+        "pos": "n.",
+        "definition": "a flat metal container used for frying food on a stove",
+        "chinese": "平底鍋",
+        "question": "What does Dad use to fry eggs?",
+        "answerTemplate": "He always uses a ____________.",
+        "questionZh": "爸爸用什麼煎蛋？",
+        "answerZh": "他總是用平底鍋。"
+      },
+      {
+        "word": "pot",
+        "pos": "n.",
+        "definition": "a deep, round container used for cooking soup or rice",
+        "chinese": "鍋子",
+        "question": "What does Grandma use to cook soup?",
+        "answerTemplate": "She usually uses a big ____________.",
+        "questionZh": "奶奶用什麼煮湯？",
+        "answerZh": "她通常用一個大鍋子。"
+      }
+    ]
+  },
+  {
+    "id": "category-09",
+    "title": "Taste Adjectives 味覺形容詞",
+    "items": [
+      {
+        "word": "delicious",
+        "pos": "adj.",
+        "definition": "having a very good taste; extremely enjoyable to eat",
+        "chinese": "美味的",
+        "question": "How does Mom's beef soup taste?",
+        "answerTemplate": "It always tastes ____________.",
+        "questionZh": "媽媽的牛肉湯吃起來怎麼樣？",
+        "answerZh": "它總是很美味。"
+      },
+      {
+        "word": "yummy",
+        "pos": "adj.",
+        "definition": "tasting very good (used mostly by children)",
+        "chinese": "好吃的",
+        "question": "How do these cookies taste?",
+        "answerTemplate": "They taste ____________!",
+        "questionZh": "這些餅乾吃起來怎麼樣？",
+        "answerZh": "它們很好吃！"
+      },
+      {
+        "word": "tasty",
+        "pos": "adj.",
+        "definition": "having a pleasant, strong flavor",
+        "chinese": "好吃的",
+        "question": "How does the fried rice taste?",
+        "answerTemplate": "It tastes ____________.",
+        "questionZh": "這炒飯吃起來怎麼樣？",
+        "answerZh": "它很好吃。"
+      },
+      {
+        "word": "juicy",
+        "pos": "adj.",
+        "definition": "full of liquid; not dry",
+        "chinese": "多汁的",
+        "question": "How does the watermelon taste?",
+        "answerTemplate": "It tastes sweet and ____________.",
+        "questionZh": "這西瓜吃起來怎麼樣？",
+        "answerZh": "它又甜又多汁。"
+      },
+      {
+        "word": "bitter",
+        "pos": "adj.",
+        "definition": "having a sharp, unpleasant taste, like coffee without sugar",
+        "chinese": "苦的",
+        "question": "How does black coffee taste?",
+        "answerTemplate": "It tastes ____________.",
+        "questionZh": "黑咖啡喝起來怎麼樣？",
+        "answerZh": "它喝起來很苦。"
+      },
+      {
+        "word": "greasy",
+        "pos": "adj.",
+        "definition": "covered with a lot of oil or fat",
+        "chinese": "油膩的",
+        "question": "How do the French fries taste?",
+        "answerTemplate": "They taste ____________.",
+        "questionZh": "這些薯條吃起來怎麼樣？",
+        "answerZh": "它們吃起來很油膩。"
+      },
+      {
+        "word": "fried",
+        "pos": "adj.",
+        "definition": "cooked in hot oil",
+        "chinese": "油炸的",
+        "question": "What kind of chicken does Ben like?",
+        "answerTemplate": "He always likes ____________ chicken.",
+        "questionZh": "班喜歡哪一種雞肉？",
+        "answerZh": "他總是喜歡炸雞。"
+      },
+      {
+        "word": "frozen",
+        "pos": "adj.",
+        "definition": "made very cold and solid, like ice",
+        "chinese": "冷凍的",
+        "question": "What kind of dumplings does Mom buy?",
+        "answerTemplate": "She often buys ____________ dumplings.",
+        "questionZh": "媽媽買哪一種水餃？",
+        "answerZh": "她常常買冷凍水餃。"
+      }
+    ]
+  },
+  {
+    "id": "category-10",
+    "title": "Dining Places & Other 用餐場所與其他",
+    "items": [
+      {
+        "word": "café",
+        "pos": "n.",
+        "definition": "a small, informal place where people can buy coffee and light food",
+        "chinese": "咖啡館",
+        "question": "Where does Mia have coffee?",
+        "answerTemplate": "She often has coffee at a ____________.",
+        "questionZh": "米亞在哪裡喝咖啡？",
+        "answerZh": "她常常在咖啡館喝咖啡。"
+      },
+      {
+        "word": "cafeteria",
+        "pos": "n.",
+        "definition": "a large room in a school or company where people can buy and eat meals",
+        "chinese": "自助餐廳",
+        "question": "Where do the students have lunch?",
+        "answerTemplate": "They usually have lunch in the school ____________.",
+        "questionZh": "學生們在哪裡吃午餐？",
+        "answerZh": "他們通常在學校自助餐廳吃午餐。"
+      },
+      {
+        "word": "bakery",
+        "pos": "n.",
+        "definition": "a shop where bread, cakes, and other baked goods are sold",
+        "chinese": "麵包店",
+        "question": "Where does Mom buy bread?",
+        "answerTemplate": "She always buys bread at the ____________.",
+        "questionZh": "媽媽在哪裡買麵包？",
+        "answerZh": "她總是在麵包店買麵包。"
+      },
+      {
+        "word": "restaurant",
+        "pos": "n.",
+        "definition": "a place where people pay to eat meals that are cooked for them",
+        "chinese": "餐廳",
+        "question": "How often does your family eat at a restaurant?",
+        "answerTemplate": "We eat at a ____________ twice a month.",
+        "questionZh": "你們家多久上一次餐廳？",
+        "answerZh": "我們一個月上兩次餐廳。"
+      },
+      {
+        "word": "supermarket",
+        "pos": "n.",
+        "definition": "a large shop that sells food and other things people need every day",
+        "chinese": "超級市場",
+        "question": "How often does Mom go to the supermarket?",
+        "answerTemplate": "She goes to the ____________ once a week.",
+        "questionZh": "媽媽多久去一次超市？",
+        "answerZh": "她一週去一次超市。"
+      },
+      {
+        "word": "appetite",
+        "pos": "n.",
+        "definition": "the feeling of wanting to eat food",
+        "chinese": "胃口",
+        "question": "Does Tom have a big appetite?",
+        "answerTemplate": "Yes, he does. He always has a big ____________.",
+        "questionZh": "湯姆胃口很大嗎？",
+        "answerZh": "是的，他胃口總是很大。"
+      },
+      {
+        "word": "hunger",
+        "pos": "n.",
+        "definition": "the uncomfortable feeling of needing food",
+        "chinese": "飢餓",
+        "question": "What does Amy feel before lunch?",
+        "answerTemplate": "She often feels ____________.",
+        "questionZh": "艾咪午餐前感覺到什麼？",
+        "answerZh": "她常常感到飢餓。"
+      },
+      {
+        "word": "leftovers",
+        "pos": "n.",
+        "definition": "food that was not eaten and is saved for later",
+        "chinese": "剩菜",
+        "question": "What does Dad eat for lunch?",
+        "answerTemplate": "He sometimes eats the ____________ from dinner.",
+        "questionZh": "爸爸午餐吃什麼？",
+        "answerZh": "他有時候吃晚餐的剩菜。"
+      }
+    ]
+  },
+  {
+    "id": "category-11",
+    "title": "Quantifiers 單位量詞",
+    "items": [
+      {
+        "word": "a cup of",
+        "pos": "phr.",
+        "definition": "the amount of a drink that fits in one cup",
+        "chinese": "一杯的",
+        "question": "How much coffee does Dad drink?",
+        "answerTemplate": "He drinks ____________ coffee every morning.",
+        "questionZh": "爸爸喝多少咖啡？",
+        "answerZh": "他每天早上喝一杯咖啡。"
+      },
+      {
+        "word": "a bottle of",
+        "pos": "phr.",
+        "definition": "the amount of liquid that a bottle holds",
+        "chinese": "一瓶的",
+        "question": "How much water does Tom bring to school?",
+        "answerTemplate": "He always brings ____________ water.",
+        "questionZh": "湯姆帶多少水去學校？",
+        "answerZh": "他總是帶一瓶水。"
+      },
+      {
+        "word": "a can of",
+        "pos": "phr.",
+        "definition": "the amount of food or drink inside a metal can",
+        "chinese": "一罐的",
+        "question": "How much tuna does Mom buy?",
+        "answerTemplate": "She buys ____________ tuna.",
+        "questionZh": "媽媽買多少鮪魚？",
+        "answerZh": "她買一罐鮪魚。"
+      },
+      {
+        "word": "a plate of",
+        "pos": "phr.",
+        "definition": "the amount of food that is served on one plate",
+        "chinese": "一盤的",
+        "question": "How much fried rice does Jack eat?",
+        "answerTemplate": "He usually eats ____________ fried rice.",
+        "questionZh": "傑克吃多少炒飯？",
+        "answerZh": "他通常吃一盤炒飯。"
+      },
+      {
+        "word": "a glass of",
+        "pos": "phr.",
+        "definition": "the amount of a drink that fits in one glass",
+        "chinese": "一杯的",
+        "question": "How much milk does your brother drink?",
+        "answerTemplate": "He drinks ____________ milk every night.",
+        "questionZh": "你弟弟喝多少牛奶？",
+        "answerZh": "他每天晚上喝一杯牛奶。"
+      },
+      {
+        "word": "a carton of",
+        "pos": "phr.",
+        "definition": "a box-shaped container used for eggs, milk, or juice",
+        "chinese": "一盒／一箱的",
+        "question": "How much milk does Mom buy?",
+        "answerTemplate": "She buys ____________ milk twice a week.",
+        "questionZh": "媽媽買多少牛奶？",
+        "answerZh": "她一週買兩次，每次一盒牛奶。"
+      },
+      {
+        "word": "a mug of",
+        "pos": "phr.",
+        "definition": "the amount of a hot drink that fits in one mug",
+        "chinese": "一馬克杯的",
+        "question": "How much hot chocolate does Lily drink?",
+        "answerTemplate": "She often drinks ____________ hot chocolate.",
+        "questionZh": "莉莉喝多少熱可可？",
+        "answerZh": "她常常喝一馬克杯熱可可。"
+      },
+      {
+        "word": "a pair of",
+        "pos": "phr.",
+        "definition": "two matching things that are used together, like chopsticks",
+        "chinese": "一雙／一對的",
+        "question": "How many chopsticks does each person need?",
+        "answerTemplate": "Each person needs ____________ chopsticks.",
+        "questionZh": "每個人需要幾支筷子？",
+        "answerZh": "每個人需要一雙筷子。"
+      },
+      {
+        "word": "a head of",
+        "pos": "phr.",
+        "definition": "one whole round vegetable, such as cabbage or lettuce",
+        "chinese": "一顆的",
+        "question": "How much cabbage does Ken need?",
+        "answerTemplate": "He needs ____________ cabbage.",
+        "questionZh": "肯需要多少高麗菜？",
+        "answerZh": "他需要一顆高麗菜。"
+      },
+      {
+        "word": "a bunch of",
+        "pos": "phr.",
+        "definition": "a group of things, like fruit, that are joined together",
+        "chinese": "一串／一把的",
+        "question": "How many bananas does Mr. Wang buy?",
+        "answerTemplate": "He always buys ____________ bananas.",
+        "questionZh": "王先生買多少香蕉？",
+        "answerZh": "他總是買一串香蕉。"
+      },
+      {
+        "word": "a kilo of",
+        "pos": "phr.",
+        "definition": "a unit for measuring weight, equal to 1,000 grams",
+        "chinese": "一公斤的",
+        "question": "How much beef does Dad buy?",
+        "answerTemplate": "He buys ____________ beef once a week.",
+        "questionZh": "爸爸買多少牛肉？",
+        "answerZh": "他一週買一次，每次一公斤牛肉。"
+      },
+      {
+        "word": "a pound of",
+        "pos": "phr.",
+        "definition": "a unit for measuring weight, often used for food",
+        "chinese": "一磅的",
+        "question": "How much cheese does Mrs. Smith buy?",
+        "answerTemplate": "She buys ____________ cheese.",
+        "questionZh": "史密斯太太買多少乳酪？",
+        "answerZh": "她買一磅乳酪。"
+      },
+      {
+        "word": "a pack of",
+        "pos": "phr.",
+        "definition": "a small group of the same items sold together",
+        "chinese": "一包的",
+        "question": "How many instant noodles does Tom buy?",
+        "answerTemplate": "He sometimes buys ____________ instant noodles.",
+        "questionZh": "湯姆買多少泡麵？",
+        "answerZh": "他有時候買一包泡麵。"
+      },
+      {
+        "word": "a piece of",
+        "pos": "phr.",
+        "definition": "a small part of something bigger, like cake or fruit",
+        "chinese": "一塊／一片的",
+        "question": "How much cake does Lily eat?",
+        "answerTemplate": "She eats ____________ cake.",
+        "questionZh": "莉莉吃多少蛋糕？",
+        "answerZh": "她吃一塊蛋糕。"
+      },
+      {
+        "word": "a slice of",
+        "pos": "phr.",
+        "definition": "a thin flat piece cut from something like bread or pizza",
+        "chinese": "一片的",
+        "question": "How much pizza does Tom eat?",
+        "answerTemplate": "He usually eats ____________ pizza.",
+        "questionZh": "湯姆吃多少披薩？",
+        "answerZh": "他通常吃一片披薩。"
+      },
+      {
+        "word": "a bar of",
+        "pos": "phr.",
+        "definition": "a solid rectangular piece of something, such as chocolate",
+        "chinese": "一條的",
+        "question": "How much chocolate does Sam eat?",
+        "answerTemplate": "He seldom eats ____________ chocolate.",
+        "questionZh": "山姆吃多少巧克力？",
+        "answerZh": "他很少吃一整條巧克力。"
+      },
+      {
+        "word": "a sheet of",
+        "pos": "phr.",
+        "definition": "a thin flat piece of something, like dried seaweed",
+        "chinese": "一張的",
+        "question": "How much paper does Tom need?",
+        "answerTemplate": "He needs ____________ paper.",
+        "questionZh": "湯姆需要多少紙？",
+        "answerZh": "他需要一張紙。"
+      },
+      {
+        "word": "a stick of",
+        "pos": "phr.",
+        "definition": "a long thin piece of something, such as butter or celery",
+        "chinese": "一根的",
+        "question": "How much butter does Mom need?",
+        "answerTemplate": "She needs ____________ butter.",
+        "questionZh": "媽媽需要多少奶油？",
+        "answerZh": "她需要一條奶油。"
+      },
+      {
+        "word": "a loaf of",
+        "pos": "phr.",
+        "definition": "a whole piece of bread before it is cut into slices",
+        "chinese": "一條的",
+        "question": "How much bread does Mom buy?",
+        "answerTemplate": "She buys ____________ bread every Saturday.",
+        "questionZh": "媽媽買多少麵包？",
+        "answerZh": "她每個星期六買一條麵包。"
+      },
+      {
+        "word": "a jar of",
+        "pos": "phr.",
+        "definition": "a glass container with a wide opening, used for honey or jam",
+        "chinese": "一罐的",
+        "question": "How much jam does Mom buy?",
+        "answerTemplate": "She buys ____________ jam once a month.",
+        "questionZh": "媽媽買多少果醬？",
+        "answerZh": "她一個月買一次，每次一罐果醬。"
+      },
+      {
+        "word": "a bowl of",
+        "pos": "phr.",
+        "definition": "the amount of food, especially soup or rice, that fits in one bowl",
+        "chinese": "一碗的",
+        "question": "How much rice do you eat?",
+        "answerTemplate": "I usually eat ____________ rice.",
+        "questionZh": "你吃多少飯？",
+        "answerZh": "我通常吃一碗飯。"
+      },
+      {
+        "word": "a bag of",
+        "pos": "phr.",
+        "definition": "the amount of something, like rice or chips, that fits in a bag",
+        "chinese": "一袋的",
+        "question": "How much candy does Tom buy?",
+        "answerTemplate": "He buys ____________ candy.",
+        "questionZh": "湯姆買多少糖果？",
+        "answerZh": "他買一袋糖果。"
+      },
+      {
+        "word": "a box of",
+        "pos": "phr.",
+        "definition": "a container, usually cardboard, holding food like cereal or cookies",
+        "chinese": "一盒的",
+        "question": "How many cookies does Amy buy?",
+        "answerTemplate": "She buys ____________ cookies.",
+        "questionZh": "艾咪買多少餅乾？",
+        "answerZh": "她買一盒餅乾。"
+      },
+      {
+        "word": "a package of",
+        "pos": "phr.",
+        "definition": "a wrapped set of items sold together, such as noodles",
+        "chinese": "一包的",
+        "question": "How much snack does Mom buy?",
+        "answerTemplate": "She buys ____________ snack.",
+        "questionZh": "媽媽買多少零食？",
+        "answerZh": "她買一包零食。"
+      },
+      {
+        "word": "a bundle of",
+        "pos": "phr.",
+        "definition": "a group of things, like vegetables, tied or held together",
+        "chinese": "一捆的",
+        "question": "How much spinach does Grandma buy?",
+        "answerTemplate": "She buys ____________ spinach.",
+        "questionZh": "奶奶買多少菠菜？",
+        "answerZh": "她買一捆菠菜。"
+      },
+      {
+        "word": "a set of",
+        "pos": "phr.",
+        "definition": "a group of things that belong together and are used as one",
+        "chinese": "一套的",
+        "question": "How many dishes does Mom buy?",
+        "answerTemplate": "She buys ____________ dishes.",
+        "questionZh": "媽媽買多少碗盤？",
+        "answerZh": "她買一套碗盤。"
+      },
+      {
+        "word": "a liter of",
+        "pos": "phr.",
+        "definition": "a unit for measuring liquids, such as milk or water",
+        "chinese": "一公升的",
+        "question": "How much milk does Ben drink a day?",
+        "answerTemplate": "He drinks ____________ milk a day.",
+        "questionZh": "班一天喝多少牛奶？",
+        "answerZh": "他一天喝一公升牛奶。"
+      },
+      {
+        "word": "a gallon of",
+        "pos": "phr.",
+        "definition": "a large unit for measuring liquids, mostly used in the US",
+        "chinese": "一加侖的",
+        "question": "How much milk does the American family buy?",
+        "answerTemplate": "They buy ____________ milk every week.",
+        "questionZh": "那個美國家庭買多少牛奶？",
+        "answerZh": "他們每週買一加侖牛奶。"
+      },
+      {
+        "word": "an ounce of",
+        "pos": "phr.",
+        "definition": "a small unit for measuring weight, often used for food",
+        "chinese": "一盎司的",
+        "question": "How much cheese does the chef use?",
+        "answerTemplate": "He uses ____________ cheese.",
+        "questionZh": "廚師用多少乳酪？",
+        "answerZh": "他用一盎司乳酪。"
+      },
+      {
+        "word": "a ton of",
+        "pos": "phr.",
+        "definition": "a very large and heavy amount of something (informal: a lot)",
+        "chinese": "一噸的",
+        "question": "How much rice does the farmer sell?",
+        "answerTemplate": "He sells ____________ rice every year.",
+        "questionZh": "那位農夫賣多少米？",
+        "answerZh": "他每年賣一噸米。"
+      },
+      {
+        "word": "a pile of",
+        "pos": "phr.",
+        "definition": "an untidy pile of things stacked on top of each other",
+        "chinese": "一堆的",
+        "question": "How many dishes does Dad wash?",
+        "answerTemplate": "He often washes ____________ dishes.",
+        "questionZh": "爸爸洗多少碗盤？",
+        "answerZh": "他常常洗一堆碗盤。"
+      },
+      {
+        "word": "a chain of",
+        "pos": "phr.",
+        "definition": "a group of shops or restaurants owned by the same company",
+        "chinese": "一連鎖的",
+        "question": "How many shops does Mr. Lin have?",
+        "answerTemplate": "He has ____________ coffee shops.",
+        "questionZh": "林先生有幾家店？",
+        "answerZh": "他有一家連鎖咖啡店。"
+      },
+      {
+        "word": "a variety of",
+        "pos": "phr.",
+        "definition": "many different kinds of something",
+        "chinese": "各式各樣的",
+        "question": "What does the buffet have?",
+        "answerTemplate": "It always has ____________ food.",
+        "questionZh": "那家自助餐有什麼？",
+        "answerZh": "它總是有各式各樣的食物。"
+      },
+      {
+        "word": "all kinds of",
+        "pos": "phr.",
+        "definition": "many different types of something",
+        "chinese": "各種的",
+        "question": "What fruit does the market sell?",
+        "answerTemplate": "It sells ____________ fruit.",
+        "questionZh": "市場賣什麼水果？",
+        "answerZh": "它賣各種水果。"
+      },
+      {
+        "word": "different kinds of",
+        "pos": "phr.",
+        "definition": "several separate types of something, not all the same",
+        "chinese": "不同種類的",
+        "question": "How many kinds of tea does the shop have?",
+        "answerTemplate": "It has ten ____________ tea.",
+        "questionZh": "那家店有幾種茶？",
+        "answerZh": "它有十種不同的茶。"
+      },
+      {
+        "word": "a pinch of",
+        "pos": "phr.",
+        "definition": "a very small amount of something, like salt, held between two fingers",
+        "chinese": "一小撮的",
+        "question": "How much salt does Mom put in the eggs?",
+        "answerTemplate": "She always puts ____________ salt in them.",
+        "questionZh": "媽媽在蛋裡放多少鹽？",
+        "answerZh": "她總是放一小撮鹽。"
+      },
+      {
+        "word": "a group of",
+        "pos": "phr.",
+        "definition": "a number of people who are together or do something together",
+        "chinese": "一群的",
+        "question": "Who eats lunch with Tom?",
+        "answerTemplate": "____________ friends eat lunch with him every day.",
+        "questionZh": "誰和湯姆一起吃午餐？",
+        "answerZh": "一群朋友每天和他一起吃午餐。"
+      },
+      {
+        "word": "a herd of elephant",
+        "pos": "",
+        "definition": "a large group of big animals, such as elephants, moving together",
+        "chinese": "一群的四腳獸類",
+        "question": "What do they see at the zoo?",
+        "answerTemplate": "They see ____________ elephants.",
+        "questionZh": "他們在動物園看到什麼？",
+        "answerZh": "他們看到一群大象。"
+      },
+      {
+        "word": "a flock of birds",
+        "pos": "",
+        "definition": "a group of birds flying or moving together",
+        "chinese": "一群的鳥類",
+        "question": "What do the children feed at the park?",
+        "answerTemplate": "They sometimes feed ____________ birds.",
+        "questionZh": "孩子們在公園餵什麼？",
+        "answerZh": "他們有時候餵一群鳥。"
+      },
+      {
+        "word": "a school of fish",
+        "pos": "",
+        "definition": "a large group of fish swimming together in the sea",
+        "chinese": "一群的魚",
+        "question": "What does the diver see?",
+        "answerTemplate": "He often sees ____________ fish.",
+        "questionZh": "潛水員看到什麼？",
+        "answerZh": "他常常看到一群魚。"
+      },
+      {
+        "word": "a dozen eggs",
+        "pos": "",
+        "definition": "a group of twelve of the same thing, often eggs",
+        "chinese": "一打的蛋",
+        "question": "How many eggs does Mom buy?",
+        "answerTemplate": "She buys ____________ eggs.",
+        "questionZh": "媽媽買幾顆蛋？",
+        "answerZh": "她買一打蛋。"
+      },
+      {
+        "word": "dozens of",
+        "pos": "phr.",
+        "definition": "a large but not exact number, more than twenty, of something",
+        "chinese": "數十個的",
+        "question": "How many dumplings does Grandma make?",
+        "answerTemplate": "She makes ____________ dumplings at New Year.",
+        "questionZh": "奶奶包幾顆水餃？",
+        "answerZh": "她過年包好幾十顆水餃。"
+      },
+      {
+        "word": "thousands of",
+        "pos": "phr.",
+        "definition": "a very large number, thousands, of something",
+        "chinese": "數千個的",
+        "question": "How many people visit the night market?",
+        "answerTemplate": "____________ people visit it every night.",
+        "questionZh": "有多少人去夜市？",
+        "answerZh": "每天晚上有好幾千人去夜市。"
+      },
+      {
+        "word": "hundreds of",
+        "pos": "phr.",
+        "definition": "a very large number, hundreds, of something",
+        "chinese": "數百個的",
+        "question": "How many students eat in the cafeteria?",
+        "answerTemplate": "____________ students eat there every day.",
+        "questionZh": "有多少學生在自助餐廳吃飯？",
+        "answerZh": "每天有好幾百個學生在那裡吃飯。"
+      },
+      {
+        "word": "millions of",
+        "pos": "phr.",
+        "definition": "an extremely large number, millions, of something",
+        "chinese": "數百萬個的",
+        "question": "How many people eat rice every day?",
+        "answerTemplate": "____________ people eat rice every day.",
+        "questionZh": "每天有多少人吃米飯？",
+        "answerZh": "每天有好幾百萬人吃米飯。"
+      }
+    ]
+  },
+  {
+    "id": "category-12",
+    "title": "Tableware 餐具類",
+    "items": [
+      {
+        "word": "tableware",
+        "pos": "n.",
+        "definition": "things like plates, spoons, and forks used for eating",
+        "chinese": "餐具",
+        "question": "What does Mom buy for the new house?",
+        "answerTemplate": "She buys new ____________.",
+        "questionZh": "媽媽為新家買什麼？",
+        "answerZh": "她買新的餐具。"
+      },
+      {
+        "word": "spoon",
+        "pos": "n.",
+        "definition": "a tool with a small bowl for eating soup",
+        "chinese": "湯匙",
+        "question": "What do you use to eat soup?",
+        "answerTemplate": "I always use a ____________.",
+        "questionZh": "你用什麼喝湯？",
+        "answerZh": "我總是用湯匙。"
+      },
+      {
+        "word": "knife",
+        "pos": "n.",
+        "definition": "a sharp tool used for cutting food",
+        "chinese": "刀子",
+        "question": "What does Dad use to cut steak?",
+        "answerTemplate": "He always uses a sharp ____________.",
+        "questionZh": "爸爸用什麼切牛排？",
+        "answerZh": "他總是用一把鋒利的刀子。"
+      },
+      {
+        "word": "fork",
+        "pos": "n.",
+        "definition": "a tool with points used for picking up food",
+        "chinese": "叉子",
+        "question": "What does Rachel use to eat spaghetti?",
+        "answerTemplate": "She usually uses a ____________.",
+        "questionZh": "瑞秋用什麼吃義大利麵？",
+        "answerZh": "她通常用叉子。"
+      },
+      {
+        "word": "chopsticks",
+        "pos": "n.",
+        "definition": "two thin sticks used for eating food, especially in Asia",
+        "chinese": "筷子",
+        "question": "What do you use to eat noodles?",
+        "answerTemplate": "I always use ____________.",
+        "questionZh": "你用什麼吃麵？",
+        "answerZh": "我總是用筷子。"
+      },
+      {
+        "word": "plate",
+        "pos": "n.",
+        "definition": "a flat dish used for holding food",
+        "chinese": "盤子",
+        "question": "How many plates does Mom need?",
+        "answerTemplate": "She needs six ____________.",
+        "questionZh": "媽媽需要幾個盤子？",
+        "answerZh": "她需要六個盤子。"
+      },
+      {
+        "word": "bowl",
+        "pos": "n.",
+        "definition": "a round, deep dish used for food or soup",
+        "chinese": "碗",
+        "question": "How many bowls do they need for rice?",
+        "answerTemplate": "They need four ____________.",
+        "questionZh": "他們裝飯需要幾個碗？",
+        "answerZh": "他們需要四個碗。"
+      },
+      {
+        "word": "napkin",
+        "pos": "n.",
+        "definition": "a piece of cloth or paper used to clean your mouth",
+        "chinese": "餐巾",
+        "question": "What does Ben use to clean his mouth?",
+        "answerTemplate": "He always uses a paper ____________.",
+        "questionZh": "班用什麼擦嘴？",
+        "answerZh": "他總是用紙巾。"
+      }
+    ]
+  }
+]

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="國中基本 2000 字：食物、蔬果、烹飪與餐具例句填空練習。">
+  <title>國中 2000 字｜Food, Vegetable, Fruit & Cook</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <a class="brand" href="#home" aria-label="回到主題選單">
+        <span class="brand__mark" aria-hidden="true">🍽️</span>
+        <span>國中基本 2000 字</span>
+      </a>
+      <div class="hero__copy">
+        <p class="eyebrow">VOCABULARY IN CONTEXT</p>
+        <h1>Food, Vegetable, Fruit &amp; Cook</h1>
+        <p>從例句認識單字，聽、讀、填、立即訂正。</p>
+      </div>
+      <div class="hero__stats" aria-label="學習進度">
+        <div><strong id="total-count">195</strong><span>題例句</span></div>
+        <div><strong id="done-count">0</strong><span>已完成</span></div>
+        <div><strong id="accuracy">—</strong><span>正確率</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="screen screen--active" aria-labelledby="home-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CHOOSE A TOPIC</p>
+          <h2 id="home-title">選擇練習主題</h2>
+        </div>
+        <button id="reset-all" class="button button--ghost" type="button">重設全部進度</button>
+      </div>
+      <div id="category-grid" class="category-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="quiz" class="screen" aria-labelledby="quiz-title">
+      <div class="quiz-toolbar">
+        <button id="back-home" class="icon-button" type="button" aria-label="回主題選單">←</button>
+        <div class="quiz-toolbar__title">
+          <span id="quiz-kicker">主題</span>
+          <h2 id="quiz-title">例句填空</h2>
+        </div>
+        <button id="shuffle" class="button button--ghost" type="button">隨機順序</button>
+      </div>
+
+      <div class="progress-row">
+        <span id="question-number">1 / 1</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+        <span id="score-label">答對 0 題</span>
+      </div>
+
+      <article class="quiz-card">
+        <div class="word-row">
+          <div>
+            <p class="eyebrow">TARGET WORD</p>
+            <h3><span id="word">breakfast</span> <small id="pos">n.</small></h3>
+            <p id="meaning" class="meaning">早餐</p>
+          </div>
+          <button id="speak-word" class="sound-button" type="button" aria-label="播放單字發音">🔊 <span>聽單字</span></button>
+        </div>
+
+        <div class="definition-box">
+          <span>英文定義</span>
+          <p id="definition"></p>
+        </div>
+
+        <div class="conversation">
+          <p class="speaker speaker--q"><b>Q</b><span id="question"></span></p>
+          <div class="speaker speaker--a">
+            <b>A</b>
+            <p id="answer-line"></p>
+          </div>
+        </div>
+
+        <form id="answer-form" autocomplete="off">
+          <label for="answer-input">填入正確單字或片語</label>
+          <div class="answer-entry">
+            <input id="answer-input" type="text" spellcheck="false" autocapitalize="none" aria-describedby="feedback" placeholder="Type your answer…">
+            <button class="button button--primary" type="submit">檢查答案</button>
+          </div>
+        </form>
+
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+
+        <details class="hint">
+          <summary>顯示中文提示</summary>
+          <p><b>Q：</b><span id="question-zh"></span></p>
+          <p><b>A：</b><span id="answer-zh"></span></p>
+        </details>
+
+        <div class="quiz-actions">
+          <button id="previous" class="button button--ghost" type="button">上一題</button>
+          <button id="reveal" class="button button--soft" type="button">顯示答案</button>
+          <button id="next" class="button button--primary" type="button">下一題</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>你的作答進度會自動保存在這台裝置上。</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
