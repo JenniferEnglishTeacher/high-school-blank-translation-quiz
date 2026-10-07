@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>英文互動測驗 Dashboard</title>
+  <style>
+    :root{--navy:#172554;--blue:#2563eb;--sky:#eaf2ff;--bg:#f5f7fb;--card:#fff;--line:#dbe3ee;--ink:#172033;--muted:#64748b;--high:#7c3aed;--junior:#0f766e}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.55}
+    .wrap{max-width:1120px;margin:auto;padding:18px}.hero{padding:28px;border-radius:20px;background:linear-gradient(135deg,#172554,#2563eb);color:#fff;box-shadow:0 12px 30px #1e3a8a30}.hero h1{font-size:clamp(28px,5vw,44px);margin:0}.hero p{margin:6px 0 0;color:#dbeafe}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.stat{padding:7px 12px;border:1px solid #ffffff55;border-radius:999px;background:#ffffff18;font-weight:800}
+    .controls{position:sticky;top:0;z-index:5;background:#f5f7fbef;backdrop-filter:blur(8px);padding:12px 0}.search{width:100%;padding:13px 15px;border:2px solid #cbd5e1;border-radius:12px;font:inherit;font-size:17px;background:#fff}.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.jump a{color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;text-decoration:none;font-weight:800}
+    .zone{margin:25px 0}.zone-title{display:flex;align-items:center;gap:10px;font-size:27px;margin:0 0 13px}.zone-title::before{content:"";width:8px;height:31px;border-radius:6px;background:var(--high)}#junior .zone-title::before{background:var(--junior)}
+    details.publisher{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;box-shadow:0 5px 15px #0f172a0a;overflow:hidden}details.publisher>summary{cursor:pointer;list-style:none;padding:17px 19px;font-size:20px;font-weight:900;display:flex;justify-content:space-between;gap:10px}details.publisher>summary::-webkit-details-marker{display:none}details.publisher>summary::after{content:"＋";color:var(--blue)}details[open].publisher>summary::after{content:"－"}.content{padding:0 18px 18px}.unit{border-top:1px solid var(--line);padding-top:15px;margin-top:4px}.unit h3{margin:0 0 10px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.quiz{display:flex;flex-direction:column;min-height:118px;padding:15px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;text-decoration:none;color:var(--ink);transition:.15s}.quiz:hover{transform:translateY(-2px);border-color:#60a5fa;box-shadow:0 7px 15px #2563eb18}.quiz b{font-size:17px}.quiz span{color:var(--muted);font-size:14px;margin-top:5px}.quiz em{margin-top:auto;color:var(--blue);font-style:normal;font-weight:900}.empty{padding:13px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:var(--muted)}.hidden-by-search{display:none!important}.footer{text-align:center;color:var(--muted);padding:22px 0}@media(max-width:600px){.wrap{padding:10px}.hero{padding:21px}.zone-title{font-size:23px}details.publisher>summary{font-size:18px;padding:15px}.content{padding:0 13px 15px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body><main class="wrap">
+  <header class="hero">
+    <h1>英文互動測驗 Dashboard</h1>
+    <p>高中與國中英文測驗統一入口｜依出版社、冊別、單元與題型整理</p>
+    <div class="stats"><span class="stat">54 個已發布測驗</span><span class="stat">高中英文</span><span class="stat">國中英文</span></div>
+  </header>
+  <div class="controls">
+    <input id="search" class="search" type="search" placeholder="搜尋出版社、冊別、單元或題型，例如：龍騰、B1U1、翻譯">
+    <nav class="jump"><a href="#senior">高中英文區</a><a href="#junior">國中英文區</a><a href="#other">其他專題</a></nav>
+  </div>
+
+  <section id="senior" class="zone"><h2 class="zone-title">高中英文區</h2>
+    <details class="publisher" open data-search="龍騰 普高 book 1 b1"><summary><span>龍騰普高 Book 1</span><small>25 份測驗</small></summary><div class="content">
+      <div class="unit" data-search="b1u1 龍騰"><h3>B1U1</h3><div class="grid">
+        <a class="quiz" href="longteng-b1u1-vocabulary-mcq.html"><b>單字選擇</b><span>30 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u1-context-vocabulary.html"><b>文意字彙</b><span>127 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u1-word-forms.html"><b>詞類變化</b><span>15 題｜字形變化</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u1-grammar-textbook.html"><b>文法選擇（課本句型）</b><span>16 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u1-grammar-other.html"><b>文法選擇（其他考點）</b><span>23 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u1-guided-translation.html"><b>引導式翻譯</b><span>41 題｜分格填空</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="b1u2 龍騰"><h3>B1U2</h3><div class="grid">
+        <a class="quiz" href="longteng-b1u2-vocabulary-mcq.html"><b>單字選擇</b><span>30 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u2-context-vocabulary.html"><b>文意字彙</b><span>118 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u2-word-forms.html"><b>詞類變化</b><span>15 題｜字形變化</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u2-grammar-textbook.html"><b>文法選擇（課本句型）</b><span>17 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u2-grammar-other.html"><b>文法選擇（其他考點）</b><span>23 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u2-guided-translation.html"><b>引導式翻譯</b><span>44 題｜分格填空</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="b1u3 龍騰"><h3>B1U3</h3><div class="grid">
+        <a class="quiz" href="longteng-b1u3-vocabulary-mcq.html"><b>單字選擇</b><span>30 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u3-context-vocabulary.html"><b>文意字彙</b><span>117 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u3-word-forms.html"><b>詞類變化</b><span>15 題｜字形變化</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u3-grammar-textbook.html"><b>文法選擇（課本句型）</b><span>14 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u3-grammar-other.html"><b>文法選擇（其他考點）</b><span>25 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1u3-guided-translation.html"><b>引導式翻譯</b><span>39 題｜分格填空</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="b1r1 review 龍騰"><h3>B1R1</h3><div class="grid">
+        <a class="quiz" href="longteng-b1r1-vocabulary-mcq.html"><b>單字選擇</b><span>15 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1r1-context-vocabulary.html"><b>文意字彙</b><span>104 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1r1-word-forms.html"><b>詞類變化</b><span>15 題｜字形變化</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1r1-grammar-textbook.html"><b>文法選擇（課本句型）</b><span>10 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1r1-grammar-other.html"><b>文法選擇（其他考點）</b><span>18 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="longteng-b1r1-guided-translation.html"><b>引導式翻譯</b><span>38 題｜分格填空</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="b1 u1 u2 u3 r1 review 龍騰 單字 搭配詞 片語 collocation 總複習"><h3>B1 U1–U3 + R1 總複習</h3><div class="grid">
+        <a class="quiz" href="longteng-b1-u1-u3-r1-vocab-collocations.html"><b>單字・搭配詞・例句填空</b><span>255 題｜片語＋例句拼字｜整句朗讀</span><em>開始測驗 →</em></a>
+      </div></div>
+    </div></details>
+
+    <details class="publisher" open data-search="龍騰 普高 book 3 b3"><summary><span>龍騰普高 Book 3</span><small>1 組測驗</small></summary><div class="content"><div class="unit" data-search="b3u2 龍騰 全題型"><h3>B3U2</h3><div class="grid"><a class="quiz" href="longteng-b3u2-quiz/"><b>全題型互動測驗</b><span>單字、文法與翻譯整合</span><em>開啟題庫 →</em></a></div></div></div></details>
+
+    <details class="publisher" data-search="三民 普高 book 3"><summary><span>三民普高 Book 3</span><small>尚未建立</small></summary><div class="content"><div class="empty">目前 GitHub 中尚未找到三民普高 Book 3 專屬測驗。</div></div></details>
+  </section>
+
+  <section id="junior" class="zone"><h2 class="zone-title">國中英文區</h2>
+    <details class="publisher" data-search="翰林 book 1 b1"><summary><span>翰林 Book 1</span><small>尚未建立</small></summary><div class="content"><div class="empty">目前尚未建立翰林 Book 1 測驗。</div></div></details>
+    <details class="publisher" open data-search="翰林 book 4 b4"><summary><span>翰林 Book 4（既有測驗）</span><small>11 份測驗</small></summary><div class="content">
+      <div class="unit" data-search="翰林 b4u1 dialogue reading grammar translation fill blanks"><h3>B4U1</h3><div class="grid">
+        <a class="quiz" href="index.html"><b>Dialogue 課文填空</b><span>課文填空與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-grammar-mcq.html"><b>文法選擇</b><span>單元文法</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-reading.html"><b>Reading</b><span>閱讀課文練習</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="翰林 b4u2 dialogue reading grammar translation spelling fill blanks"><h3>B4U2</h3><div class="grid">
+        <a class="quiz" href="B4U2-dialogue.html"><b>Dialogue 課文填空</b><span>對話課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-reading.html"><b>Reading 課文填空</b><span>閱讀課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-spelling.html"><b>單字拼字</b><span>第六大題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-grammar-mcq.html"><b>文法選擇</b><span>第二大題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
+      </div></div>
+    </div></details>
+    <details class="publisher" open data-search="康軒 國中 book 1 b1"><summary><span>康軒國中 Book 1</span><small>8 份測驗</small></summary><div class="content">
+      <div class="unit" data-search="康軒 國中 b1u1 book 1"><h3>B1U1</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u1-context-vocabulary.html"><b>文意字彙</b><span>38 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-vocabulary-mcq.html"><b>字彙測驗</b><span>48 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-grammar-mcq.html"><b>文法測驗</b><span>70 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-guided-answers.html"><b>依提示回答問題</b><span>22 題｜整句作答</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="康軒 國中 b1u2 book 1"><h3>B1U2</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u2-context-vocabulary.html"><b>文意字彙</b><span>30 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-vocabulary-mcq.html"><b>字彙測驗</b><span>47 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-grammar-mcq.html"><b>文法測驗</b><span>78 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-guided-answers.html"><b>依提示回答問題</b><span>28 題｜整句作答</span><em>開始測驗 →</em></a>
+      </div></div>
+    </div></details>
+    <details class="publisher" open data-search="國中 2000 單字 food sports leisure grammar comparative superlative"><summary><span>國中補充題庫</span><small>3 份測驗</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="junior-2000-food-vocabulary/"><b>國中 2000 字：Food</b><span>食物、蔬果、烹飪與餐具</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="junior-2000-sports-leisure-activities.html"><b>國中 2000 字：Sports & Leisure</b><span>文法、拼字與完整句朗讀</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="adjective-comparative-superlative.html"><b>形容詞比較級與最高級</b><span>文法補充練習</span><em>開始測驗 →</em></a>
+    </div></div></details>
+  </section>
+
+  <section id="other" class="zone"><h2 class="zone-title">其他高中英文專題</h2>
+    <details class="publisher" open data-search="其他 高中 專題 unit 11 13 writing school ai"><summary><span>完整測驗與主題寫作</span><small>6 份測驗</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="Unit11-A-Healthy-Future-full-test.html"><b>Unit 11：A Healthy Future</b><span>完整測驗</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="Unit13-Mixed-Feelings-full-test.html"><b>Unit 13：Mixed Feelings</b><span>完整測驗</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="AI-generated-actors-and-dramas.html"><b>AI-generated Actors and Dramas</b><span>主題英文</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="Boarding-school-or-day-school.html"><b>Boarding School or Day School</b><span>比較與寫作</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="Compare-2-schools.html"><b>Compare Two Schools</b><span>比較與寫作</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="Dormitory-or-off-campus-apartment.html"><b>Dormitory or Off-campus Apartment</b><span>比較與寫作</span><em>開始測驗 →</em></a>
+    </div></div></details>
+  </section>
+  <footer class="footer">Jennifer English Teacher｜English Quiz Dashboard</footer>
+</main>
+<script>
+const search=document.querySelector('#search');
+search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('.quiz,.unit,.publisher').forEach(el=>el.classList.remove('hidden-by-search'));if(!q)return;document.querySelectorAll('.quiz').forEach(el=>{if(!el.textContent.toLowerCase().includes(q)&&!el.getAttribute('href').toLowerCase().includes(q))el.classList.add('hidden-by-search')});document.querySelectorAll('.unit').forEach(el=>{const own=(el.dataset.search||'').toLowerCase().includes(q),visible=el.querySelector('.quiz:not(.hidden-by-search)');if(!own&&!visible)el.classList.add('hidden-by-search')});document.querySelectorAll('.publisher').forEach(el=>{const own=(el.dataset.search||'').toLowerCase().includes(q),visible=el.querySelector('.unit:not(.hidden-by-search),.quiz:not(.hidden-by-search)');if(!own&&!visible)el.classList.add('hidden-by-search');else el.open=true})});
+</script></body></html>

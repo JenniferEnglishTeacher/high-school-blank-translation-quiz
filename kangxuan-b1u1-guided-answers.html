@@ -1,0 +1,113 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>康軒B1U1 依提示回答問題</title><style>:root{--blue:#2563eb;--navy:#1e3a8a;--bg:#f4f7fb;--card:#fff;--line:#dbe3ee;--ink:#172033;--muted:#64748b;--ok:#15803d;--okbg:#ecfdf3;--bad:#b91c1c;--badbg:#fff1f2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.6}.wrap{max-width:900px;margin:auto;padding:16px}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:15px 0;box-shadow:0 5px 18px #0f172a0d}.hero{background:linear-gradient(135deg,#e8f1ff,#fff)}h1{margin:0 0 6px;font-size:clamp(25px,4vw,38px)}h2{margin-top:0}.note{color:var(--muted)}.hidden{display:none!important}.toolbar,.actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.btn{border:0;border-radius:10px;padding:11px 17px;font-size:16px;font-weight:800;cursor:pointer;background:#e5e7eb;font-family:inherit}.primary{background:var(--blue);color:#fff}.danger{background:#991b1b;color:#fff}.pick{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:9px;margin:7px 0;background:#fafcff}.pick input{margin-right:8px}.progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--blue)}.meta{display:flex;justify-content:space-between;color:var(--muted);font-weight:800;margin:8px 0 14px}.zh{padding:10px 13px;background:#fff7ed;border-radius:9px;color:#9a3412;font-weight:800;margin-bottom:10px}.question{font-size:21px;font-weight:750;padding:16px;background:#f8fafc;border-radius:11px;white-space:pre-wrap}.question u{text-decoration-thickness:3px;text-underline-offset:4px;text-decoration-color:var(--blue)}.question img{display:block;max-width:240px;width:100%;height:auto;margin:10px 0 0;border:1px solid var(--line);border-radius:10px;background:#fff}.options{display:grid;gap:9px;margin:14px 0}.option{display:flex;align-items:center;gap:11px;padding:12px 14px;border:2px solid #cbd5e1;border-radius:10px;background:#fff;font-size:18px;font-weight:750;cursor:pointer}.option:hover{border-color:#60a5fa;background:#eff6ff}.option:has(input:checked){border-color:var(--blue);background:#dbeafe;color:var(--navy)}.option input{width:20px;height:20px;accent-color:var(--blue)}.inputs{display:grid;gap:10px;margin:15px 0}.answer-row{display:grid;grid-template-columns:55px 1fr;gap:10px;align-items:center}.answer-row label{font-weight:900;color:var(--navy);text-align:center}.spell{width:100%;font:inherit;font-size:18px;padding:11px;border:2px solid #94a3b8;border-radius:9px}.feedback{padding:13px;border-radius:10px;font-weight:800;margin:13px 0}.feedback.ok{background:var(--okbg);color:var(--ok)}.feedback.bad{background:var(--badbg);color:var(--bad)}.explain{padding:12px 14px;border-radius:10px;background:#eff6ff;border:1px solid #bfdbfe;color:var(--navy);margin:13px 0}.explain b{margin-right:4px}.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.stat,.wrong{padding:14px;border:1px solid var(--line);border-radius:11px;background:#fafafa}.stat b{display:block;font-size:28px}.wrong{background:#fff7f7;border-color:#fecaca;margin:10px 0}.wrong p{margin:6px 0;white-space:pre-wrap}@media(max-width:600px){.wrap{padding:9px}.hero,.card{padding:15px}.question{font-size:18px;padding:13px}.option{font-size:17px}.answer-row{grid-template-columns:42px 1fr}}</style></head>
+<body><main class="wrap"><section class="hero"><h1>康軒B1U1 依提示回答問題</h1><p>共 22 題。可自行選題；答錯會顯示正確答案並要求重新作答。</p><p class="note">請輸入完整句子。縮寫（isn’t／is not）都算對；大小寫或標點不同會提醒你。完成後可下載 DOCX 錯題紀錄。</p></section><section id="select" class="card"><h2>選擇題目</h2><div class="toolbar"><button id="all" class="btn">全部選取</button><button id="none" class="btn">全部取消</button><button id="start" class="btn primary">開始作答</button></div><div id="list"></div></section><section id="quiz" class="card hidden"><div class="progress"><div id="bar" class="bar"></div></div><div class="meta"><span id="meta"></span><span id="wrongCount"></span></div><div id="zh" class="zh hidden"></div><div id="question" class="question"></div><div id="answerArea"></div><div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div><div id="explain" class="explain hidden"></div><div class="actions"><button id="check" class="btn primary">檢查答案</button><button id="next" class="btn primary hidden">下一題</button><button id="finish" class="btn danger">結束作答</button></div></section><section id="result" class="card hidden"><h2>作答結果</h2><div id="summary" class="summary"></div><div id="wrongList"></div><div class="actions"><button id="download" class="btn primary">下載錯題 DOCX</button><button id="restart" class="btn">重新選題</button></div></section></main>
+<script>
+// MODE: "input" = spell one word, "mcq" = four options, "sentence" = type a whole sentence (several accepted answers)
+const TITLE = "康軒B1U1 依提示回答問題", MODE = "sentence", IMG = {}, Q = [{"id": 1, "question": "she / be / beautiful / woman（完成句子）", "exp": "she 為單數主詞，且 beautiful 為子音開頭的字，故前面用不定冠詞 a。", "show": "She is a beautiful woman.", "answers": ["She is a beautiful woman."]}, {"id": 2, "question": "My school is beautiful.\nMy school is big.（合併句子）", "exp": "連結兩個同性質的形容詞，用連接詞 and。", "show": "My school is beautiful and big.", "answers": ["My school is beautiful and big."]}, {"id": 3, "question": "Is this your pet pig, Lucy?（肯定簡答）", "exp": "this 肯定簡答時，只能用 it is 表示，且不能縮寫成 it’s。", "show": "Yes, it is.", "answers": ["Yes, it is."]}, {"id": 4, "question": "be / it / good / watch?（完成句子）", "exp": "it 為第三人稱單數主詞，be 動詞用 is 且須大寫；watch 為單數，須用不定冠詞 a 修飾，不定冠詞要放在 good watch 前面。", "show": "Is it a good watch?", "answers": ["Is it a good watch?"]}, {"id": 5, "question": "No, he is not a farmer.（造原問句）", "exp": "Yes / No 問句中，用 he 回答，表示用 he 問。", "show": "Is / Isn’t he a farmer?", "answers": ["Is he a farmer?", "Isn’t he a farmer?"]}, {"id": 6, "question": "Is Cindy an English teacher?（先否定簡答，再詳答）", "exp": "Yes / No 問句中，簡答主詞要用代名詞 she。", "show": "No, she’s not. She’s not an English teacher. / No, she isn’t. She isn’t an English teacher.", "answers": ["No, she’s not. She’s not an English teacher.", "No, she isn’t. She isn’t an English teacher."]}, {"id": 7, "question": "Is that man a doctor?（以「護理師」詳答）", "exp": "不是醫生而是護理師，為否定，應回答 No。", "show": "No, he is a nurse.", "answers": ["No, he is a nurse."]}, {"id": 8, "question": "It is a box.（加入 old，並改寫句子）", "exp": "形容詞放在名詞前修飾名詞；old 為母音開頭，不定冠詞用 an，並放在形容詞前面。", "show": "It is an old box.", "answers": ["It is an old box."]}, {"id": 9, "question": "Are you a junior high school teacher?（否定簡答）", "exp": "Yes / No 問句中，用 you 問，用 I / we 答。此題主詞為單數名詞，故用 I。", "show": "No, I’m not.", "answers": ["No, I’m not."]}, {"id": 10, "question": "Is Jason a thin boy?（否定詳答）", "exp": "此為 Yes / No 問句，回答時要先回答 Yes 或 No，且 Jason 的代名詞須用 he。", "show": "No, he is not a thin boy. / No, he isn’t a thin boy.", "answers": ["No, he is not a thin boy.", "No, he isn’t a thin boy."]}, {"id": 11, "question": "Is your sister beautiful and tall?（肯定詳答）", "exp": "此為 Yes / No 問句，回答時須先回答 Yes 或 No；your sister 的代名詞須用 she。", "show": "Yes, she is beautiful and tall.", "answers": ["Yes, she is beautiful and tall."]}, {"id": 12, "question": "Tina is a PE teacher.（以「Juliet 也是」回答）", "exp": "too 表示「也」。", "show": "Juliet is a PE teacher, too.", "answers": ["Juliet is a PE teacher, too."]}, {"id": 13, "question": "That tall man is <u>David<\/u>.（依畫線部分造原問句）", "exp": "畫線的部分是名字，表示問「是誰」，疑問詞用 Who。", "show": "Who is that tall man?", "answers": ["Who is that tall man?"]}, {"id": 14, "question": "John is a cute boy.（改為否定句）", "exp": "否定詞 not 要放在 be 動詞的後面。", "show": "John is not a cute boy. / John isn’t a cute boy.", "answers": ["John is not a cute boy.", "John isn’t a cute boy."]}, {"id": 15, "question": "who / be / Kelly / son?（完成句子）", "exp": "son 為第三人稱單數，be 動詞用 is，Kelly 要改成所有格 Kelly’s。", "show": "Who is Kelly’s son?", "answers": ["Who is Kelly’s son?"]}, {"id": 16, "question": "Hank / be / short / man（完成句子）", "exp": "Hank 為第三人稱單數主詞，be 動詞用 is；形容詞放在名詞前面，修飾名詞，且在形容詞前加冠詞 a 或 the。", "show": "Hank is a / the short man.", "answers": ["Hank is a short man.", "Hank is the short man."]}, {"id": 17, "question": "Is Iris a senior high school teacher?（加入 great 改寫句子）", "exp": "形容詞須放在名詞前修飾名詞。", "show": "Is Iris a great senior high school teacher?", "answers": ["Is Iris a great senior high school teacher?"]}, {"id": 18, "question": "A：Is Daniel a doctor?\nB：no / he / not / doctor（完成句子）", "exp": "he 為第三人稱單數，be 動詞用 is。", "show": "No, he is not a doctor. / No, he isn’t a doctor.", "answers": ["No, he is not a doctor.", "No, he isn’t a doctor."]}, {"id": 19, "question": "Jack is young.（加入 cook，並改寫句子）", "exp": "形容詞須放在名詞前修飾名詞；不定冠詞 a 要放在形容詞前面。", "show": "Jack is a young cook.", "answers": ["Jack is a young cook."]}, {"id": 20, "question": "Is it a green car?（先肯定簡答，再詳答）", "exp": "Yes / No 問句中，用 it 問，表示用 it 回答。", "show": "Yes, it is. It is a green car.", "answers": ["Yes, it is. It is a green car."]}, {"id": 21, "question": "Yes, her friend is beautiful.（造原問句）", "exp": "句首有 Yes，可知原問句為 Yes / No 問句，故刪掉 Yes,，將 be 動詞 Is 或 Isn’t 移至句首即可。", "show": "Is / Isn’t her friend beautiful?", "answers": ["Is her friend beautiful?", "Isn’t her friend beautiful?"]}, {"id": 22, "question": "A：Is Brian Lily’s friend?\nB：no / he / Lily’s / husband（完成句子）", "exp": "he 為第三人稱單數，be 動詞用 is。", "show": "No, he is Lily’s husband.", "answers": ["No, he is Lily’s husband."]}];
+
+const $ = s => document.querySelector(s), list = $('#list'), select = $('#select'), quiz = $('#quiz'), result = $('#result'),
+  question = $('#question'), answerArea = $('#answerArea'), feedback = $('#feedback'), explain = $('#explain'), next = $('#next');
+let chosen = [], idx = 0;
+const wrong = new Map(), correct = new Set();
+const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const norm = s => String(s).trim().toLowerCase().replace(/[’‘`]/g, "'").replace(/\s+/g, ' ');
+const plain = s => String(s).replace(/<\/?u>/g, '');
+
+/* sentence answers: contractions count as the full form; case and punctuation are checked separately */
+const CONTRACTIONS = [[/\b(is|are|was|were|do|does|did|has|have|had)n't\b/gi, '$1 not'], [/\bcan't\b/gi, 'cannot'],
+  [/\b(he|she|it|that|what|who|where|how|there|here)'s\b/gi, '$1 is'], [/\bi'm\b/gi, 'I am'], [/\b(you|we|they)'re\b/gi, '$1 are']];
+function expand(s) { s = String(s).replace(/[’‘`]/g, "'").replace(/\s+/g, ' ').replace(/\s+([.,?!])/g, '$1').trim(); CONTRACTIONS.forEach(([r, t]) => s = s.replace(r, t)); return s; }
+const loose = s => expand(s).toLowerCase().replace(/[.,?!;:]/g, '').replace(/\s+/g, ' ').trim();
+function judgeSentence(q, value) {
+  const strict = expand(value);
+  if (q.answers.some(a => expand(a) === strict)) return 'ok';
+  if (q.answers.some(a => loose(a) === loose(value))) return 'form';
+  return 'bad';
+}
+
+function renderList() { list.innerHTML = Q.map(q => '<label class="pick"><input class="pickbox" type="checkbox" value="' + q.id + '" checked><b>第 ' + q.id + ' 題</b></label>').join(''); }
+$('#all').onclick = () => document.querySelectorAll('.pickbox').forEach(x => x.checked = true);
+$('#none').onclick = () => document.querySelectorAll('.pickbox').forEach(x => x.checked = false);
+$('#start').onclick = () => {
+  const ids = [...document.querySelectorAll('.pickbox:checked')].map(x => +x.value);
+  if (!ids.length) return alert('請至少選一題。');
+  chosen = Q.filter(q => ids.includes(q.id)); idx = 0; wrong.clear(); correct.clear();
+  select.classList.add('hidden'); result.classList.add('hidden'); quiz.classList.remove('hidden'); show();
+};
+function show() {
+  const q = chosen[idx];
+  $('#meta').textContent = '第 ' + (idx + 1) + ' / ' + chosen.length + ' 題';
+  $('#wrongCount').textContent = '曾答錯 ' + wrong.size + ' 題';
+  $('#bar').style.width = (idx + 1) / chosen.length * 100 + '%';
+  // question text is escaped; only <u> (underlined part of the prompt) is let through
+  question.innerHTML = esc(q.question).replace(/&lt;u&gt;/g, '<u>').replace(/&lt;\/u&gt;/g, '</u>') + (q.img ? '<img alt="題目圖片" src="' + IMG[q.img] + '">' : '');
+  const zh = $('#zh'); if (q.zh) { zh.textContent = q.zh; zh.classList.remove('hidden'); } else zh.classList.add('hidden');
+  feedback.className = 'feedback hidden'; explain.classList.add('hidden');
+  $('#check').classList.remove('hidden'); next.classList.add('hidden');
+  if (MODE === 'mcq') answerArea.innerHTML = '<div class="options">' + q.options.map((o, i) => '<label class="option"><input type="radio" name="answer" value="' + i + '"><b>' + String.fromCharCode(65 + i) + '.</b> ' + esc(o) + '</label>').join('') + '</div>';
+  else answerArea.innerHTML = '<div class="inputs"><div class="answer-row"><label>答案</label><input class="spell" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="' + (MODE === 'sentence' ? '請輸入完整句子（注意大小寫與標點）' : '請輸入完整單字') + '"></div></div>';
+  setTimeout(() => answerArea.querySelector('input')?.focus(), 0);
+}
+function correctText(q) { return MODE === 'mcq' ? String.fromCharCode(65 + q.answer) + '. ' + q.options[q.answer] : MODE === 'sentence' ? q.show : q.answers.join(' / '); }
+function showExplain(q) { if (!q.exp) return; explain.innerHTML = '<b>詳解</b>' + esc(q.exp); explain.classList.remove('hidden'); }
+function check() {
+  const q = chosen[idx];
+  let given, ok, formNote = false;
+  if (MODE === 'mcq') {
+    const x = answerArea.querySelector('input:checked'); if (!x) return alert('請完成所有答案。');
+    given = String.fromCharCode(65 + (+x.value)); ok = +x.value === q.answer;
+  } else {
+    given = answerArea.querySelector('.spell').value; if (!given.trim()) return alert('請完成所有答案。');
+    if (MODE === 'sentence') { const j = judgeSentence(q, given); ok = j !== 'bad'; formNote = j === 'form'; }
+    else ok = q.answers.some(a => norm(a) === norm(given));
+  }
+  if (ok) {
+    correct.add(q.id); feedback.className = 'feedback ok';
+    if (formNote) feedback.innerHTML = '✅ 句子正確！但請注意<strong>大小寫與標點</strong>，標準寫法：<strong>' + esc(q.show) + '</strong>';
+    else feedback.textContent = '✅ 全部正確！';
+    showExplain(q);
+    $('#check').classList.add('hidden'); next.classList.remove('hidden'); next.focus();
+  } else {
+    if (!wrong.has(q.id)) wrong.set(q.id, { q, attempts: [] });
+    wrong.get(q.id).attempts.push(given);
+    $('#wrongCount').textContent = '曾答錯 ' + wrong.size + ' 題';
+    feedback.className = 'feedback bad';
+    feedback.innerHTML = '❌ 答案不正確。正確答案：<strong>' + esc(correctText(q)) + '</strong><br>請重新作答。';
+    showExplain(q);
+    if (MODE === 'mcq') answerArea.querySelectorAll('input').forEach(x => x.checked = false); else answerArea.querySelector('.spell').value = '';
+    answerArea.querySelector('input')?.focus();
+  }
+}
+$('#check').onclick = check;
+answerArea.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.classList.contains('spell')) { e.preventDefault(); check(); } });
+next.onclick = () => { idx++; idx >= chosen.length ? finish() : show(); };
+$('#finish').onclick = finish;
+function finish() {
+  quiz.classList.add('hidden'); result.classList.remove('hidden');
+  $('#summary').innerHTML = '<div class="stat">選擇題數<b>' + chosen.length + '</b></div><div class="stat">完成答對<b>' + correct.size + '</b></div><div class="stat">曾答錯<b>' + wrong.size + '</b></div>';
+  $('#wrongList').innerHTML = wrong.size ? [...wrong.values()].map((r, i) => '<div class="wrong"><b>' + (i + 1) + '. 第 ' + r.q.id + ' 題</b><p>' + esc(plain(r.q.question)) + '</p><p><strong>錯誤答案：</strong>' + r.attempts.map(esc).join('；') + '</p><p><strong>正確答案：</strong>' + esc(correctText(r.q)) + '</p>' + (r.q.exp ? '<p><strong>詳解：</strong>' + esc(r.q.exp) + '</p>' : '') + '</div>').join('') : '<div class="feedback ok">🎉 目前沒有錯題紀錄。</div>';
+  $('#download').classList.toggle('hidden', !wrong.size);
+}
+$('#restart').onclick = () => { result.classList.add('hidden'); select.classList.remove('hidden'); };
+$('#download').onclick = async () => {
+  if (!wrong.size) return;
+  const rows = [...wrong.values()], name = TITLE + '_錯題_' + new Date().toISOString().slice(0, 10);
+  const save = (blob, ext) => { const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = name + ext; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
+  try {
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('https://esm.sh/docx@9.5.1');
+    const line = (label, text) => new Paragraph({ children: [new TextRun({ text: label, bold: true }), new TextRun({ text })] });
+    const children = [new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun({ text: TITLE + ' 錯題紀錄', bold: true })] })];
+    rows.forEach((r, i) => {
+      children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: (i + 1) + '. 第 ' + r.q.id + ' 題', bold: true })] }));
+      plain(r.q.question).split('\n').forEach(t => children.push(new Paragraph({ children: [new TextRun({ text: t })] })));
+      if (MODE === 'mcq') children.push(new Paragraph({ children: [new TextRun({ text: r.q.options.map((o, k) => '(' + String.fromCharCode(65 + k) + ') ' + o).join('　') })] }));
+      children.push(line('錯誤答案：', r.attempts.join('；')), line('正確答案：', correctText(r.q)));
+      if (r.q.exp) children.push(line('詳解：', r.q.exp));
+    });
+    save(await Packer.toBlob(new Document({ sections: [{ children }] })), '.docx');
+  } catch (e) {   // offline or CDN blocked
+    const txt = rows.map((r, i) => (i + 1) + '. 第 ' + r.q.id + ' 題\n' + plain(r.q.question) + '\n錯誤答案：' + r.attempts.join('；') + '\n正確答案：' + correctText(r.q) + (r.q.exp ? '\n詳解：' + r.q.exp : '') + '\n').join('\n');
+    save(new Blob([TITLE + ' 錯題紀錄\n\n' + txt], { type: 'text/plain;charset=utf-8' }), '.txt');
+  }
+};
+renderList();
+</script></body></html>
