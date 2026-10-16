@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conjunction Comma Check</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: classroom grammar board — rule panels, two reference grids, then a numbered 100-item practice list */
+:root{
+  --bg:#f4f7fb; --panel:#ffffff; --ink:#18212f; --muted:#5a6578; --line:#d9e0ea;
+  --accent:#2a55b8; --accent-soft:#e6edfb;
+  --mark:#ffe37a; --mark-ink:#18212f;
+  --comma:#d1235f; --ok:#1d8a54; --bad:#c43b2b;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161f; --panel:#18202c; --ink:#e7ecf4; --muted:#9aa6b8; --line:#2b3545;
+  --accent:#86a8f0; --accent-soft:#1f2a40; --mark:#f2cf55; --mark-ink:#11161f;
+  --comma:#ff6b9a; --ok:#4cc68a; --bad:#ff7b6b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161f; --panel:#18202c; --ink:#e7ecf4; --muted:#9aa6b8; --line:#2b3545;
+  --accent:#86a8f0; --accent-soft:#1f2a40; --mark:#f2cf55; --mark-ink:#11161f;
+  --comma:#ff6b9a; --ok:#4cc68a; --bad:#ff7b6b; color-scheme:dark}
+body{margin:0;font-size:16px;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 60px;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800;line-height:1.1}
+h2{font-size:1.6rem;font-weight:800}
+h3{font-size:1.1rem;font-weight:600}
+.lede{color:var(--muted);max-width:62ch;margin:.5rem 0 0}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.c{background:var(--mark);color:var(--mark-ink);padding:0 .2em;border-radius:3px;font-weight:700}
+.cm{color:var(--comma);font-weight:700;font-size:1.25em;line-height:0}
+.nc{color:var(--muted);font-size:.8em;border:1px dashed var(--muted);border-radius:3px;padding:0 .25em;margin:0 .1em}
+section{display:grid;gap:16px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.rule{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.rule .tag{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--accent)}
+.rule .formula{font-weight:700}
+.rule p{margin:0;font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.card .w{font-family:var(--display);font-size:1.5rem;font-weight:800;line-height:1}
+.card .w b{color:var(--accent)}
+.card .use{font-size:.85rem;color:var(--muted)}
+.card .ex{margin:0}
+.card .ex.no{color:var(--muted);font-size:.92rem}
+.group{display:grid;gap:10px}
+.group > h3{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.group > h3 span{font-family:var(--body);font-weight:400;font-size:.9rem;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td.cat{font-weight:700;white-space:nowrap}
+td.cat small{display:block;font-weight:400;color:var(--muted)}
+td.words{font-family:var(--display);font-weight:600;color:var(--accent)}
+.flip{background:var(--accent-soft);border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.flip p{margin:0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.score{font-family:var(--display);font-weight:800;font-size:1.2rem;font-variant-numeric:tabular-nums}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:6px 12px}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700}
+ol.qs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:2.6em 1fr auto;gap:10px;align-items:center}
+.q .n{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700}
+.q .s{min-width:0}
+.slot{display:inline-block;min-width:1.1em;text-align:center;border-bottom:2px solid var(--accent);margin:0 .1em;color:var(--accent);font-weight:700}
+.q .choice{display:flex;gap:6px}
+.q .choice button{padding:4px 10px;font-size:.9rem}
+.q .fb{grid-column:2/4;font-size:.88rem;color:var(--muted)}
+.q.right{border-color:var(--ok)}
+.q.wrong{border-color:var(--bad)}
+.q.right .fb b{color:var(--ok)} .q.wrong .fb b{color:var(--bad)}
+@media (max-width:560px){.q{grid-template-columns:2.2em 1fr}.q .choice{grid-column:2}.q .fb{grid-column:2}}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.9rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p style="margin:0"><a href="dashboard.html" style="color:var(--accent)">← 回到測驗 Dashboard</a></p>
+<header>
+  <div class="eyebrow">Punctuation focus · Coordinating & subordinating conjunctions</div>
+  <h1>Comma or no comma?</h1>
+  <p class="lede">Every conjunction is <span class="c">highlighted</span>. A needed comma is shown in <span class="cm">,</span> red. A spot where a comma is wrong is marked <span class="nc">no ,</span>.</p>
+</header>
+
+<section>
+  <div><div class="eyebrow">From Ethan's email</div><h2>Fix it</h2></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Student wrote</th><th>Corrected</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>…could you please buy the ticket for me in advanced, Because I don't have any time to buy it…</td><td>…could you please buy the ticket for me in advance <span class="nc">no ,</span><span class="c">because</span> I don't have time to buy it.</td><td><b>D</b> · clause last, no comma, lowercase <i>because</i></td></tr>
+      <tr><td>…to buy it and I will give you the money when we meet at the station.</td><td>…to buy it<span class="cm">,</span> <span class="c">and</span> I will give you the money <span class="nc">no ,</span><span class="c">when</span> we meet at the station.</td><td><b>A</b> + <b>D</b> · two complete sentences need a comma before <i>and</i></td></tr>
+      <tr><td>…the team I support is Brothers, because I like their attitude…</td><td>…the team I support is the Brothers <span class="nc">no ,</span><span class="c">because</span> I like their attitude…</td><td><b>D</b> · clause last, no comma</td></tr>
+      <tr><td>…there is a shop! But I don't have any money to buy a jersey or cap.</td><td>…there is a shop<span class="cm">,</span> <span class="c">but</span> I don't have any money to buy a jersey or a cap.</td><td><b>A</b> · join with a comma instead of starting a new sentence with <i>But</i></td></tr>
+      <tr><td>…the Taipei Main Station because it would be easier and we can take the MRT together.</td><td>…Taipei Main Station <span class="nc">no ,</span><span class="c">because</span> it would be easier<span class="cm">,</span> <span class="c">and</span> we could take the MRT together.</td><td><b>D</b> + <b>A</b></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>The four rules</h2>
+  <div class="rules">
+    <div class="rule"><div class="tag">A</div><div class="formula">Sentence <span class="cm">,</span> FANBOYS sentence.</div><p>Two complete sentences (each has its own subject + verb) → comma <b>before</b> the FANBOYS word.</p><p>I was tired<span class="cm">,</span> <span class="c">but</span> I finished my homework.</p></div>
+    <div class="rule"><div class="tag">B</div><div class="formula">Sentence FANBOYS verb / word.</div><p>The second part has <b>no new subject</b> → no comma.</p><p>I was tired <span class="nc">no ,</span><span class="c">but</span> happy.</p></div>
+    <div class="rule"><div class="tag">C</div><div class="formula">Subordinate clause <span class="cm">,</span> main clause.</div><p>The subordinate clause comes <b>first</b> → comma after it.</p><p><span class="c">Because</span> it rained<span class="cm">,</span> we stayed home.</p></div>
+    <div class="rule"><div class="tag">D</div><div class="formula">Main clause subordinate clause.</div><p>The subordinate clause comes <b>last</b> → usually no comma.</p><p>We stayed home <span class="nc">no ,</span><span class="c">because</span> it rained.</p></div>
+  </div>
+</section>
+
+<section>
+  <div><div class="eyebrow">Coordinating conjunctions</div><h2>FANBOYS</h2></div>
+  <div class="grid">
+    <div class="card"><div class="w"><b>F</b>or</div><div class="use">reason (= because) · 因為</div><p class="ex">Please be quiet<span class="cm">,</span> <span class="c">for</span> the baby is sleeping.</p><p class="ex no">Note: "for" as a conjunction always joins two sentences.</p></div>
+    <div class="card"><div class="w"><b>A</b>nd</div><div class="use">adds information · 和、而且</div><p class="ex">Dad cooked dinner<span class="cm">,</span> <span class="c">and</span> Mom washed the dishes.</p><p class="ex no">Dad cooked dinner <span class="nc">no ,</span><span class="c">and</span> washed the dishes.</p></div>
+    <div class="card"><div class="w"><b>N</b>or</div><div class="use">adds a second negative · 也不</div><p class="ex">Leo did not call me<span class="cm">,</span> <span class="c">nor</span> did he send a message.</p><p class="ex no">After "nor," the verb comes before the subject (did he).</p></div>
+    <div class="card"><div class="w"><b>B</b>ut</div><div class="use">contrast · 但是</div><p class="ex">The night market was crowded<span class="cm">,</span> <span class="c">but</span> the food was delicious.</p><p class="ex no">My cat is small <span class="nc">no ,</span><span class="c">but</span> very brave.</p></div>
+    <div class="card"><div class="w"><b>O</b>r</div><div class="use">choice · 或者</div><p class="ex">We can take the MRT<span class="cm">,</span> <span class="c">or</span> we can ride our bikes.</p><p class="ex no">We can take the MRT <span class="nc">no ,</span><span class="c">or</span> ride our bikes.</p></div>
+    <div class="card"><div class="w"><b>Y</b>et</div><div class="use">surprising contrast · 然而</div><p class="ex">She studied hard<span class="cm">,</span> <span class="c">yet</span> she failed the test.</p><p class="ex no">He is quiet <span class="nc">no ,</span><span class="c">yet</span> friendly.</p></div>
+    <div class="card"><div class="w"><b>S</b>o</div><div class="use">result · 所以</div><p class="ex">It started to rain<span class="cm">,</span> <span class="c">so</span> we went inside.</p><p class="ex no">Don't mix up "so" (result) with "so that" (purpose, Rule D).</p></div>
+  </div>
+</section>
+
+<section>
+  <div><div class="eyebrow">Subordinating conjunctions</div><h2>Subordinators by use</h2></div>
+  <div class="flip">
+    <p><b>Flip test:</b> <span class="c">When</span> I got home<span class="cm">,</span> my dog ran to the door.</p>
+    <p>My dog ran to the door <span class="nc">no ,</span><span class="c">when</span> I got home.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Use</th><th>Conjunction</th><th>Conjunction in front → comma</th><th>Conjunction in the middle → no comma</th></tr></thead>
+    <tbody>
+      <tr><td class="cat" rowspan="9">Time<small>時間</small></td><td class="words">when</td><td><span class="c">When</span> the typhoon came<span class="cm">,</span> all the schools were closed.</td><td>All the schools were closed <span class="nc">no ,</span><span class="c">when</span> the typhoon came.</td></tr>
+      <tr><td class="words">while</td><td><span class="c">While</span> Dad was cooking<span class="cm">,</span> I set the table.</td><td>I set the table <span class="nc">no ,</span><span class="c">while</span> Dad was cooking.</td></tr>
+      <tr><td class="words">before</td><td><span class="c">Before</span> you leave<span class="cm">,</span> please turn off the lights.</td><td>Please turn off the lights <span class="nc">no ,</span><span class="c">before</span> you leave.</td></tr>
+      <tr><td class="words">after</td><td><span class="c">After</span> we ate dinner<span class="cm">,</span> we watched a movie.</td><td>We watched a movie <span class="nc">no ,</span><span class="c">after</span> we ate dinner.</td></tr>
+      <tr><td class="words">until</td><td><span class="c">Until</span> the rain stops<span class="cm">,</span> we will wait here.</td><td>We will wait here <span class="nc">no ,</span><span class="c">until</span> the rain stops.</td></tr>
+      <tr><td class="words">since</td><td><span class="c">Since</span> he moved to Taipei<span class="cm">,</span> he has taken the MRT every day.</td><td>He has taken the MRT every day <span class="nc">no ,</span><span class="c">since</span> he moved to Taipei.</td></tr>
+      <tr><td class="words">as soon as</td><td><span class="c">As soon as</span> the bell rang<span class="cm">,</span> the students ran outside.</td><td>The students ran outside <span class="nc">no ,</span><span class="c">as soon as</span> the bell rang.</td></tr>
+      <tr><td class="words">once</td><td><span class="c">Once</span> you try stinky tofu<span class="cm">,</span> you will love it.</td><td>You will love stinky tofu <span class="nc">no ,</span><span class="c">once</span> you try it.</td></tr>
+      <tr><td class="words">whenever</td><td><span class="c">Whenever</span> I feel sad<span class="cm">,</span> I listen to music.</td><td>I listen to music <span class="nc">no ,</span><span class="c">whenever</span> I feel sad.</td></tr>
+      <tr><td class="cat" rowspan="3">Reason<small>原因</small></td><td class="words">because</td><td><span class="c">Because</span> it was raining<span class="cm">,</span> we stayed inside.</td><td>We stayed inside <span class="nc">no ,</span><span class="c">because</span> it was raining.</td></tr>
+      <tr><td class="words">since</td><td><span class="c">Since</span> it was Sunday<span class="cm">,</span> the bank was closed.</td><td>The bank was closed <span class="nc">no ,</span><span class="c">since</span> it was Sunday.</td></tr>
+      <tr><td class="words">as</td><td><span class="c">As</span> it was getting late<span class="cm">,</span> we went home.</td><td>We went home <span class="nc">no ,</span><span class="c">as</span> it was getting late.</td></tr>
+      <tr><td class="cat" rowspan="4">Contrast<small>讓步、對比</small></td><td class="words">although</td><td><span class="c">Although</span> she was sick<span class="cm">,</span> she went to school.</td><td>She went to school <span class="nc">no ,</span><span class="c">although</span> she was sick.</td></tr>
+      <tr><td class="words">though</td><td><span class="c">Though</span> the box was heavy<span class="cm">,</span> she carried it alone.</td><td>She carried the box alone <span class="nc">no ,</span><span class="c">though</span> it was heavy.</td></tr>
+      <tr><td class="words">even though</td><td><span class="c">Even though</span> he was tired<span class="cm">,</span> he kept running.</td><td>He kept running <span class="nc">no ,</span><span class="c">even though</span> he was tired.</td></tr>
+      <tr><td class="words">whereas</td><td><span class="c">Whereas</span> my brother loves math<span class="cm">,</span> I love English.</td><td>I love English<span class="cm">,</span> <span class="c">whereas</span> my brother loves math.</td></tr>
+      <tr><td class="cat" rowspan="4">Condition<small>條件</small></td><td class="words">if</td><td><span class="c">If</span> you finish your homework<span class="cm">,</span> you can play games.</td><td>You can play games <span class="nc">no ,</span><span class="c">if</span> you finish your homework.</td></tr>
+      <tr><td class="words">unless</td><td><span class="c">Unless</span> you hurry<span class="cm">,</span> you will miss the bus.</td><td>You will miss the bus <span class="nc">no ,</span><span class="c">unless</span> you hurry.</td></tr>
+      <tr><td class="words">as long as</td><td><span class="c">As long as</span> you study every day<span class="cm">,</span> you will pass the test.</td><td>You will pass the test <span class="nc">no ,</span><span class="c">as long as</span> you study every day.</td></tr>
+      <tr><td class="words">in case</td><td><span class="c">In case</span> it rains<span class="cm">,</span> bring a raincoat.</td><td>Bring a raincoat <span class="nc">no ,</span><span class="c">in case</span> it rains.</td></tr>
+      <tr><td class="cat" rowspan="2">Purpose<small>目的</small></td><td class="words">so that</td><td><span class="c">So that</span> everyone could hear<span class="cm">,</span> the teacher used a microphone.</td><td>The teacher used a microphone <span class="nc">no ,</span><span class="c">so that</span> everyone could hear.</td></tr>
+      <tr><td class="words">in order that</td><td><span class="c">In order that</span> we arrive on time<span class="cm">,</span> we should leave now.</td><td>We should leave now <span class="nc">no ,</span><span class="c">in order that</span> we arrive on time.</td></tr>
+      <tr><td class="cat" rowspan="2">Place<small>地點</small></td><td class="words">where</td><td><span class="c">Where</span> the road ends<span class="cm">,</span> you will see a temple.</td><td>You will see a temple <span class="nc">no ,</span><span class="c">where</span> the road ends.</td></tr>
+      <tr><td class="words">wherever</td><td><span class="c">Wherever</span> you go<span class="cm">,</span> I will follow you.</td><td>I will follow you <span class="nc">no ,</span><span class="c">wherever</span> you go.</td></tr>
+      <tr><td class="cat" rowspan="2">Manner<small>方式</small></td><td class="words">as if</td><td><span class="c">As if</span> he knew all the answers<span class="cm">,</span> Ken raised his hand again and again.</td><td>Ken raised his hand again and again <span class="nc">no ,</span><span class="c">as if</span> he knew all the answers.</td></tr>
+      <tr><td class="words">as though</td><td><span class="c">As though</span> she had seen a ghost<span class="cm">,</span> Amy ran out of the room.</td><td>Amy ran out of the room <span class="nc">no ,</span><span class="c">as though</span> she had seen a ghost.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lede" style="margin:0"><b>Exception:</b> <span class="c">whereas</span> shows a strong contrast, so it keeps a comma even in the middle.</p>
+</section>
+
+<section id="practice">
+  <div><div class="eyebrow">Practice · 100 questions</div><h2>Does the blank need a comma?</h2>
+  <p class="lede">Look at the <span class="slot">?</span> in each sentence. Choose <b>Comma</b> or <b>No comma</b>. The rule letter (A–D) appears after you answer.</p></div>
+  <div class="bar">
+    <div class="score" id="score">0 / 0 answered · 0 correct</div>
+    <div class="btns">
+      <button id="showAll" class="primary">Show answer key</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+  <ol class="qs" id="qs"></ol>
+</section>
+</div>
+
+<script>
+// [sentence with | at blank, conjunction, comma needed 1/0, rule]
+const Q=[
+["I was very tired| but I finished my homework.","but",1,"A"],
+["Tom likes basketball| and his sister likes baseball.","and",1,"A"],
+["We can take the MRT| or we can ride our bikes.","or",1,"A"],
+["It started to rain| so we went inside.","so",1,"A"],
+["She studied hard| yet she failed the test.","yet",1,"A"],
+["Mia doesn't like tea| nor does she drink coffee.","nor",1,"A"],
+["He went to bed early| for he had a test the next day.","for",1,"A"],
+["My dog is old| but he still loves to run.","but",1,"A"],
+["The movie was long| and the seats were uncomfortable.","and",1,"A"],
+["You can finish your work now| or you can do it after dinner.","or",1,"A"],
+["The bus was late| so I missed my first class.","so",1,"A"],
+["Ken is short| yet he is the best player on the team.","yet",1,"A"],
+["I opened the window| and a bird flew into the room.","and",1,"A"],
+["She wanted to buy the shoes| but they were too expensive.","but",1,"A"],
+["We were hungry| so my mom made some noodles.","so",1,"A"],
+["Leo did not call me| nor did he send a message.","nor",1,"A"],
+["The night market was crowded| but the food was delicious.","but",1,"A"],
+["You should bring an umbrella| for the sky looks dark.","for",1,"A"],
+["My brother plays the guitar| and I play the piano.","and",1,"A"],
+["The test was easy| yet many students made careless mistakes.","yet",1,"A"],
+["We can eat pizza| or we can order dumplings.","or",1,"A"],
+["It was a holiday| so the school was closed.","so",1,"A"],
+["Amy loves cats| but her mother is afraid of them.","but",1,"A"],
+["The typhoon was strong| and many trees fell down.","and",1,"A"],
+["I forgot my password| so I could not log in.","so",1,"A"],
+["He practiced every day| yet he still felt nervous.","yet",1,"A"],
+["Jenny was not at home| nor was she at school.","nor",1,"A"],
+["We waited for an hour| but nobody came.","but",1,"A"],
+["The water was cold| but the kids jumped in anyway.","but",1,"A"],
+["Dad cooked dinner| and Mom washed the dishes.","and",1,"A"],
+["Please be quiet| for the baby is sleeping.","for",1,"A"],
+["You can call me| or you can send me a text.","or",1,"A"],
+["The shop was closed| so we went home.","so",1,"A"],
+["I like summer| but my best friend likes winter.","but",1,"A"],
+["The game was exciting| and our team won in the last minute.","and",1,"A"],
+["I was tired| but happy after the race.","but",0,"B"],
+["Tom washed the dishes| and cleaned the kitchen.","and",0,"B"],
+["We can take the MRT| or ride our bikes.","or",0,"B"],
+["She bought a pen| and a notebook.","and",0,"B"],
+["He opened the door| and walked into the classroom.","and",0,"B"],
+["My cat is small| but very brave.","but",0,"B"],
+["Do you want tea| or coffee?","or",0,"B"],
+["Amy sings well| and dances beautifully.","and",0,"B"],
+["Leo studied hard| but still failed the test.","but",0,"B"],
+["The soup was hot| and spicy.","and",0,"B"],
+["I will clean my room| and then do my homework.","and",0,"B"],
+["She smiled| but said nothing.","but",0,"B"],
+["We can meet on Saturday| or on Sunday.","or",0,"B"],
+["The kids ran to the park| and played soccer.","and",0,"B"],
+["He is quiet| yet friendly.","yet",0,"B"],
+["When I got home| my dog ran to the door.","When",1,"C"],
+["Because it was raining| we stayed inside.","Because",1,"C"],
+["If you finish your homework| you can play games.","If",1,"C"],
+["Although she was sick| she went to school.","Although",1,"C"],
+["After we ate dinner| we watched a movie.","After",1,"C"],
+["Before you leave| please turn off the lights.","Before",1,"C"],
+["While I was walking to school| I saw an accident.","While",1,"C"],
+["Since it was Sunday| the bank was closed.","Since",1,"C"],
+["Unless you hurry| you will miss the bus.","Unless",1,"C"],
+["As soon as the bell rang| the students ran outside.","As soon as",1,"C"],
+["Even though he was tired| he kept running.","Even though",1,"C"],
+["Until the rain stops| we will wait here.","Until",1,"C"],
+["Whenever I feel sad| I listen to music.","Whenever",1,"C"],
+["Once you try stinky tofu| you will love it.","Once",1,"C"],
+["As long as you study every day| you will pass the test.","As long as",1,"C"],
+["Though the box was heavy| she carried it alone.","Though",1,"C"],
+["Wherever you go| I will follow you.","Wherever",1,"C"],
+["In case it rains| bring a raincoat.","In case",1,"C"],
+["When the typhoon came| all the schools were closed.","When",1,"C"],
+["If it is sunny tomorrow| we will go to the beach.","If",1,"C"],
+["Because Ken forgot his lunch| his mom brought it to school.","Because",1,"C"],
+["After the movie ended| everyone clapped.","After",1,"C"],
+["While Dad was cooking| I set the table.","While",1,"C"],
+["Although the test was hard| most students passed.","Although",1,"C"],
+["Before the teacher came in| the class was very noisy.","Before",1,"C"],
+["My dog ran to the door| when I got home.","when",0,"D"],
+["We stayed inside| because it was raining.","because",0,"D"],
+["You can play games| if you finish your homework.","if",0,"D"],
+["We watched a movie| after we ate dinner.","after",0,"D"],
+["Please turn off the lights| before you leave.","before",0,"D"],
+["I saw an accident| while I was walking to school.","while",0,"D"],
+["You will miss the bus| unless you hurry.","unless",0,"D"],
+["We will wait here| until the rain stops.","until",0,"D"],
+["I listen to music| whenever I feel sad.","whenever",0,"D"],
+["She left early| so that she could catch the train.","so that",0,"D"],
+["He has lived in Taipei| since he was five.","since",0,"D"],
+["The students ran outside| as soon as the bell rang.","as soon as",0,"D"],
+["You will pass the test| as long as you study every day.","as long as",0,"D"],
+["Bring a raincoat| in case it rains.","in case",0,"D"],
+["He talks| as if he knows everything.","as if",0,"D"],
+["Put the keys| where you can find them.","where",0,"D"],
+["I was late| because the bus broke down.","because",0,"D"],
+["Call me| when you arrive at the station.","when",0,"D"],
+["We can go to the beach| if it is sunny tomorrow.","if",0,"D"],
+["The class was very noisy| before the teacher came in.","before",0,"D"],
+["Mom was angry| because I broke the vase.","because",0,"D"],
+["I will stay home| unless my friends invite me out.","unless",0,"D"],
+["He kept running| until he reached the finish line.","until",0,"D"],
+["Speak slowly| so that everyone can understand you.","so that",0,"D"],
+["My sister always sings| while she takes a shower.","while",0,"D"]
+];
+const WHY={A:"Two complete sentences joined by FANBOYS → comma before it.",
+B:"No new subject after the FANBOYS word → no comma.",
+C:"Subordinate clause comes first → comma after it.",
+D:"Subordinate clause comes last → no comma."};
+// fixed mixed order (seeded shuffle) so every printout/projector matches
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const order=Q.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function hl(t,c){const re=new RegExp("\\b"+c.replace(/ /g,"\\s")+"\\b");return esc(t).replace(re,m=>'<span class="c">'+m+'</span>')}
+const list=document.getElementById("qs");let state={};
+function render(){
+  list.innerHTML="";
+  order.forEach((qi,k)=>{
+    const [t,c,a,r]=Q[qi];const [L,R]=t.split("|");
+    const li=document.createElement("li");li.className="q";li.id="q"+(k+1);
+    li.innerHTML=`<span class="n">${k+1}</span><span class="s">${hl(L,c)}<span class="slot">?</span>${hl(R,c)}</span>
+    <span class="choice"><button id="y${k}">Comma</button><button id="x${k}">No comma</button></span><span class="fb" hidden></span>`;
+    list.appendChild(li);
+    li.querySelector("#y"+k).onclick=()=>answer(k,1);
+    li.querySelector("#x"+k).onclick=()=>answer(k,0);
+  });
+}
+function reveal(k,picked){
+  const qi=order[k],[t,c,a,r]=Q[qi],li=document.getElementById("q"+(k+1));
+  li.querySelector(".slot").outerHTML=a?'<span class="cm">,</span>':'<span class="nc">no ,</span>';
+  const fb=li.querySelector(".fb");fb.hidden=false;
+  li.querySelector(".choice").hidden=true;
+  if(picked===undefined){fb.innerHTML=`<b>Rule ${r}</b> · ${WHY[r]}`;return}
+  const ok=picked===a;li.classList.add(ok?"right":"wrong");
+  fb.innerHTML=`<b>${ok?"Correct":"Not quite"} · Rule ${r}</b> · ${WHY[r]}`;
+}
+function answer(k,p){if(k in state)return;state[k]=p;reveal(k,p);score()}
+function score(){const n=Object.keys(state).length;let c=0;for(const k in state)if(state[k]===Q[order[k]][2])c++;
+  document.getElementById("score").textContent=`${n} / 100 answered · ${c} correct`}
+document.getElementById("showAll").onclick=()=>{order.forEach((_,k)=>{if(!(k in state)){state[k]=null;reveal(k)}});score()};
+document.getElementById("reset").onclick=()=>{state={};render();score()};
+render();
+</script>
+</body>
+</html>
