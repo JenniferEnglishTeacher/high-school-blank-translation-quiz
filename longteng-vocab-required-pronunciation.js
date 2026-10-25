@@ -2,6 +2,7 @@
   'use strict';
   const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
   const PASS_SCORE=80;
+  const LEGACY_VOICE_BOX=!!document.getElementById('voiceBox');
   let recognition=null,activeKey='',lastSpokenKey='',passed=false,required=false;
   const byId=id=>document.getElementById(id);
   const normalize=text=>String(text||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9']+/g,' ').trim().split(/\s+/).filter(Boolean);
@@ -52,7 +53,7 @@
     activeKey=key;lockNext();
     const box=buildBox();box.hidden=false;byId('ltTarget').textContent=sentence;
     byId('ltStatus').textContent=Recognition?'請聽完句子後，按下麥克風朗讀。':'本練習需要語音辨識，請改用最新版 Chrome 或 Edge。';
-    if(key!==lastSpokenKey){lastSpokenKey=key;speak(sentence)}
+    if(key!==lastSpokenKey){lastSpokenKey=key;if(!LEGACY_VOICE_BOX)speak(sentence)}
   }
   function startRecognition(){
     if(!Recognition||!activeKey)return;
@@ -73,7 +74,7 @@
     try{recognition.start()}catch(_){button.disabled=false;button.textContent='🎤 開始朗讀評分';status.textContent='麥克風尚未準備好，請再試一次。'}
   }
   function init(){
-    buildBox();
+    document.body.classList.add('lt-required-pronunciation');buildBox();
     const feedback=byId('feedback'),question=byId('question'),next=byId('next');
     if(feedback)new MutationObserver(reveal).observe(feedback,{attributes:true,childList:true,subtree:true});
     if(question)new MutationObserver(reset).observe(question,{childList:true,subtree:true,characterData:true});
