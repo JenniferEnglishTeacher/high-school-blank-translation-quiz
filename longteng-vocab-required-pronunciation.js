@@ -11,7 +11,7 @@
   function completedSentence(){
     let prompt=byId('question')?.textContent?.trim()||'';
     if(!prompt)return '';
-    const blank=/[A-Za-z]?_{3,}[A-Za-z]?/;
+    const blank=/[A-Za-z]*_{3,}[A-Za-z]*/;
     const checked=document.querySelector('#answerArea input[type="radio"]:checked');
     if(checked){
       const answer=(checked.closest('label')?.textContent||'').trim().replace(/^[A-D]\s*[.．、:]\s*/i,'').trim();
@@ -21,7 +21,7 @@
     }
     const entries=[...document.querySelectorAll('#answerArea .spell')].map(input=>input.value.trim());
     entries.forEach(answer=>{prompt=prompt.replace(new RegExp('(?:[①-⑩]\\s*)?'+blank.source),answer)});
-    return prompt.replace(/[①-⑩]/g,'').replace(/\s*\([A-Za-z][^)]*\)/g,'').replace(/\s+([,.!?;:])/g,'$1');
+    return prompt.replace(/[①-⑩]/g,'').replace(/\s*\([A-Za-z][^)]*\)\s*/g,' ').replace(/\s+([,.!?;:])/g,'$1').replace(/\s{2,}/g,' ').trim();
   }
   function speak(text){
     if(!('speechSynthesis'in window)||!text)return;
