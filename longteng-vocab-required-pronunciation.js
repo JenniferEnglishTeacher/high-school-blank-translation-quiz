@@ -11,14 +11,17 @@
   function completedSentence(){
     let prompt=byId('question')?.textContent?.trim()||'';
     if(!prompt)return '';
+    const blank=/[A-Za-z]?_{3,}[A-Za-z]?/;
     const checked=document.querySelector('#answerArea input[type="radio"]:checked');
     if(checked){
       const answer=(checked.closest('label')?.textContent||'').trim().replace(/^[A-D]\s*[.．、:]\s*/i,'').trim();
-      return prompt.replace(/_{3,}/,answer).replace(/\s+([,.!?;:])/g,'$1');
+      const values=(prompt.match(/_{3,}/g)||[]).length>1&&answer.includes(';')?answer.split(';').map(value=>value.trim()):[answer];
+      values.forEach(value=>{prompt=prompt.replace(blank,value)});
+      return prompt.replace(/\s+([,.!?;:])/g,'$1');
     }
     const entries=[...document.querySelectorAll('#answerArea .spell')].map(input=>input.value.trim());
-    entries.forEach(answer=>{prompt=prompt.replace(/_{3,}/,answer)});
-    return prompt.replace(/\s*\([A-Za-z][^)]*\)/g,'').replace(/\s+([,.!?;:])/g,'$1');
+    entries.forEach(answer=>{prompt=prompt.replace(new RegExp('(?:[①-⑩]\\s*)?'+blank.source),answer)});
+    return prompt.replace(/[①-⑩]/g,'').replace(/\s*\([A-Za-z][^)]*\)/g,'').replace(/\s+([,.!?;:])/g,'$1');
   }
   function speak(text){
     if(!('speechSynthesis'in window)||!text)return;
