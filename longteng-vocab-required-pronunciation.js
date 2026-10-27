@@ -21,7 +21,7 @@
     }
     const entries=[...document.querySelectorAll('#answerArea .spell')].map(input=>input.value.trim());
     entries.forEach(answer=>{prompt=prompt.replace(new RegExp('(?:[①-⑩]\\s*)?'+blank.source),answer)});
-    return prompt.replace(/[①-⑩]/g,'').replace(/\s*\([A-Za-z][^)]*\)\s*/g,' ').replace(/\s+([,.!?;:])/g,'$1').replace(/\s{2,}/g,' ').trim();
+    return prompt.replace(/[①-⑩]/g,'').replace(/\s*\([A-Za-z][^)]*\)\s*/g,' ').replace(/\s*\([^)]*[\u3400-\u9fff][^)]*\)\s*/g,' ').replace(/\s+([,.!?;:])/g,'$1').replace(/\s{2,}/g,' ').trim();
   }
   function speak(text){
     if(!('speechSynthesis'in window)||!text)return;
