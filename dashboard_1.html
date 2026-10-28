@@ -123,4 +123,4 @@
 <script>
 const search=document.querySelector('#search');
 search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('.quiz,.unit,.publisher').forEach(el=>el.classList.remove('hidden-by-search'));if(!q)return;document.querySelectorAll('.quiz').forEach(el=>{if(!el.textContent.toLowerCase().includes(q)&&!el.getAttribute('href').toLowerCase().includes(q))el.classList.add('hidden-by-search')});document.querySelectorAll('.unit').forEach(el=>{const own=(el.dataset.search||'').toLowerCase().includes(q),visible=el.querySelector('.quiz:not(.hidden-by-search)');if(!own&&!visible)el.classList.add('hidden-by-search')});document.querySelectorAll('.publisher').forEach(el=>{const own=(el.dataset.search||'').toLowerCase().includes(q),visible=el.querySelector('.unit:not(.hidden-by-search),.quiz:not(.hidden-by-search)');if(!own&&!visible)el.classList.add('hidden-by-search');else el.open=true})});
-</script></body></html>
+</script><script src="/high-school-blank-translation-quiz/quiz-result-recorder.js?v=20261027-1" defer></script></body></html>
