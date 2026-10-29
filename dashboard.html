@@ -10,7 +10,7 @@
     .wrap{max-width:1120px;margin:auto;padding:18px}.hero{padding:28px;border-radius:20px;background:linear-gradient(135deg,#172554,#2563eb);color:#fff;box-shadow:0 12px 30px #1e3a8a30}.hero h1{font-size:clamp(28px,5vw,44px);margin:0}.hero p{margin:6px 0 0;color:#dbeafe}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.stat{padding:7px 12px;border:1px solid #ffffff55;border-radius:999px;background:#ffffff18;font-weight:800}
     .controls{position:sticky;top:0;z-index:5;background:#f5f7fbef;backdrop-filter:blur(8px);padding:12px 0}.search{width:100%;padding:13px 15px;border:2px solid #cbd5e1;border-radius:12px;font:inherit;font-size:17px;background:#fff}.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.jump a{color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;text-decoration:none;font-weight:800}
     .profile-card{margin:16px 0;padding:18px;border:1px solid #bfdbfe;border-radius:16px;background:#eff6ff;box-shadow:0 5px 15px #1e40af0b}.profile-card h2{margin:0 0 5px;font-size:21px}.profile-card p{margin:5px 0;color:#475569}.profile-fields{display:grid;grid-template-columns:minmax(200px,1fr) auto;gap:10px;margin-top:12px}.profile-fields input{min-width:0;padding:11px 12px;border:2px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}.profile-fields button{border:0;border-radius:10px;padding:11px 16px;background:var(--blue);color:#fff;font:inherit;font-weight:900;cursor:pointer}.profile-status{display:inline-block;margin-top:9px;color:#92400e;font-weight:800}.profile-status.saved{color:#166534}.profile-status.error{color:#b91c1c}
-    .zone{margin:25px 0}.zone-title{display:flex;align-items:center;gap:10px;font-size:27px;margin:0 0 13px}.zone-title::before{content:"";width:8px;height:31px;border-radius:6px;background:var(--high)}#junior .zone-title::before{background:var(--junior)}#jiren-g3-fall .zone-title::before{background:#14b8a6}
+    .zone{margin:25px 0}.zone-title{display:flex;align-items:center;gap:10px;font-size:27px;margin:0 0 13px}.zone-title::before{content:"";width:8px;height:31px;border-radius:6px;background:var(--high)}#travel-daily .zone-title::before{background:#0891b2}#junior .zone-title::before{background:var(--junior)}#jiren-g3-fall .zone-title::before{background:#14b8a6}
     details.publisher{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;box-shadow:0 5px 15px #0f172a0a;overflow:hidden}details.publisher>summary{cursor:pointer;list-style:none;padding:17px 19px;font-size:20px;font-weight:900;display:flex;justify-content:space-between;gap:10px}details.publisher>summary::-webkit-details-marker{display:none}details.publisher>summary::after{content:"＋";color:var(--blue)}details[open].publisher>summary::after{content:"－"}.content{padding:0 18px 18px}.unit{border-top:1px solid var(--line);padding-top:15px;margin-top:4px}.unit h3{margin:0 0 10px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.quiz{display:flex;flex-direction:column;min-height:118px;padding:15px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;text-decoration:none;color:var(--ink);transition:.15s}.quiz:hover{transform:translateY(-2px);border-color:#60a5fa;box-shadow:0 7px 15px #2563eb18}.quiz b{font-size:17px}.quiz span{color:var(--muted);font-size:14px;margin-top:5px}.quiz em{margin-top:auto;color:var(--blue);font-style:normal;font-weight:900}.empty{padding:13px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:var(--muted)}.hidden-by-search{display:none!important}.footer{text-align:center;color:var(--muted);padding:22px 0}@media(max-width:600px){.wrap{padding:10px}.hero{padding:21px}.profile-fields{grid-template-columns:1fr}.zone-title{font-size:23px}details.publisher>summary{font-size:18px;padding:15px}.content{padding:0 13px 15px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -31,7 +31,7 @@
   </form>
   <div class="controls">
     <input id="search" class="search" type="search" placeholder="搜尋出版社、冊別、單元或題型，例如：龍騰、B1U1、翻譯">
-    <nav class="jump"><a href="#senior">高中英文區</a><a href="#exam-topics">學測／TOEFL／IELTS／FCE 主題單字</a><a href="#junior">國中英文區</a><a href="#jiren">及人國小</a><a href="#other">其他專題</a></nav>
+    <nav class="jump"><a href="#senior">高中英文區</a><a href="#exam-topics">學測／TOEFL／IELTS／FCE 主題單字</a><a href="#travel-daily">Travel Daily Conversation English</a><a href="#junior">國中英文區</a><a href="#jiren">及人國小</a><a href="#other">其他專題</a></nav>
   </div>
 
   <section id="senior" class="zone"><h2 class="zone-title">高中英文區</h2>
@@ -147,6 +147,14 @@
     <details class="publisher" open data-search="學測 TOEFL IELTS FCE 主題單字 culture history civilization 文化 歷史 文明 古文明 考古 帝國 宗教 戰爭 殖民 藝術 建築 貿易 觀光 移民 片語"><summary><span>Culture, History &amp; Civilization</span><small>752 組單字與例句</small></summary><div class="content"><div class="grid">
       <a class="quiz" href="exam-topic-culture-history-civilization-vocab.html?v=20261028-3"><b>Culture, History &amp; Civilization｜文化、歷史與文明</b><span>14 個主題｜每題先聽單字發音｜答對後播放整句｜錄音朗讀選做</span><em>開始練習 →</em></a>
     </div></div></details>
+  </section>
+
+  <section id="travel-daily" class="zone"><h2 class="zone-title">Travel Daily Conversation English</h2>
+    <details class="publisher" open data-search="travel daily conversation english TOEIC listening cell phone mobile phone USA buying repairing phones 美國 買手機 修手機 生活會話 聽力 填空 閱讀 選擇">
+      <summary><span>Buying &amp; Repairing Phones in the U.S.</span><small>4 篇對話｜110 格填空＋20 題閱讀</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="toeic-phone-usa.html?v=20261029-1"><b>在美國買手機與修手機</b><span>4 個情境｜原始 MP3｜聽力填空｜閱讀選擇｜即時訂正與成績紀錄</span><em>開始練習 →</em></a>
+      </div></div>
+    </details>
   </section>
 
   <section id="junior" class="zone"><h2 class="zone-title">國中英文區</h2>
