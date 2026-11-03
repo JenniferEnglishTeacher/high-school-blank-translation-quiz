@@ -1,0 +1,4362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWL Sublist 3 – AWL Vocabulary Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ══════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════ */
+:root {
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Segoe UI', sans-serif;
+  --font-zh: 'Noto Serif TC', serif;
+  --color-primary:       #1a3a5c;
+  --color-primary-light: #2a5080;
+  --color-accent:        #c8962e;
+  --color-accent-light:  #f0c060;
+  --color-correct:       #2d7a4f;
+  --color-correct-bg:    #e8f5ee;
+  --color-incorrect:     #b53a2f;
+  --color-incorrect-bg:  #fdecea;
+  --color-clue:          #fff3a3;
+  --color-surface:       #f5f3ef;
+  --color-card:          #ffffff;
+  --color-text:          #1c1c1c;
+  --color-muted:         #6b7280;
+  --color-border:        #ddd8d0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-surface);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════
+   SPLASH / NAME SCREEN
+══════════════════════════════════ */
+#splashScreen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background: linear-gradient(160deg, #1a3a5c 0%, #0f2540 55%, #1a3a5c 100%);
+}
+.splash-logo {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-accent-light);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.splash-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #fff;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.splash-title em { color: var(--color-accent-light); font-style: italic; }
+.splash-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 2.4rem;
+}
+.splash-card {
+  background: var(--color-card);
+  border-radius: 16px;
+  padding: 2.4rem 2.6rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: var(--shadow-lg);
+}
+.field-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.55rem;
+}
+.name-input {
+  width: 100%;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  outline: none;
+  margin-bottom: 1.6rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.name-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(26,58,92,0.12);
+}
+.name-input::placeholder { color: #bbb; }
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+.slider-row .field-label { margin-bottom: 0; white-space: nowrap; }
+.q-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 5px;
+  background: var(--color-border);
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+}
+.q-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px rgba(26,58,92,0.4);
+  cursor: pointer;
+}
+.slider-val {
+  min-width: 2.5rem;
+  text-align: right;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+.start-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.start-btn:hover { background: var(--color-primary-light); transform: translateY(-1px); }
+
+/* ══════════════════════════════════
+   STICKY HEADER
+══════════════════════════════════ */
+.site-header {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.header-logo {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-logo i { color: var(--color-accent-light); font-size: 1.1rem; }
+.score-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.score-badge span { color: var(--color-accent-light); font-weight: 700; font-size: 1rem; }
+
+/* ══════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════ */
+.app-container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+/* ══════════════════════════════════
+   PROGRESS
+══════════════════════════════════ */
+.progress-section { margin-bottom: 24px; }
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.progress-bar-track {
+  background: var(--color-border);
+  border-radius: 99px;
+  height: 6px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ══════════════════════════════════
+   QUESTION CARD
+══════════════════════════════════ */
+.question-card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  margin-bottom: 16px;
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.question-number {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+.tts-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.tts-btn:hover { background: rgba(255,255,255,0.28); }
+.tts-btn.speaking { background: rgba(200,150,46,0.55); }
+
+.card-body { padding: 24px 24px 20px; }
+
+/* ══════════════════════════════════
+   WORD HELPER (DICTIONARY)
+══════════════════════════════════ */
+.word-helper {
+  background: #fffbf0;
+  border: 1px solid var(--color-accent-light);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+.word-helper.active { display: block; }
+.helper-word {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+.helper-word-text { flex: 1; }
+.helper-tts-btn {
+  background: var(--color-accent);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: background 0.18s, transform 0.12s;
+}
+.helper-tts-btn:hover { background: #a87825; transform: scale(1.1); }
+.helper-tts-btn.speaking { background: var(--color-primary); }
+.helper-pos { color: var(--color-muted); font-style: italic; font-size: 0.82rem; margin-bottom: 2px; }
+.helper-def { color: var(--color-text); }
+.helper-loader { color: var(--color-muted); font-style: italic; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ══════════════════════════════════
+   PASSAGE
+══════════════════════════════════ */
+.passage {
+  font-size: 1.04rem;
+  line-height: 1.85;
+  color: var(--color-text);
+  margin-bottom: 22px;
+  font-weight: 300;
+}
+.passage .word {
+  cursor: pointer;
+  border-bottom: 1px dashed rgba(26,58,92,0.25);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.passage .word:hover {
+  color: var(--color-primary);
+  background: rgba(26,58,92,0.06);
+  border-bottom-color: var(--color-primary);
+}
+.passage .blank-word {
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  border-bottom: 2.5px solid var(--color-accent);
+  cursor: default;
+  padding: 0 4px;
+}
+.passage .clue-highlight {
+  background: var(--color-clue);
+  border-radius: 3px;
+  padding: 1px 3px;
+  border-bottom: none !important;
+  transition: background 0.4s;
+}
+
+/* ══════════════════════════════════
+   POS BADGE
+══════════════════════════════════ */
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 99px;
+  padding: 4px 12px;
+  margin-bottom: 14px;
+}
+.pos-badge .pos-val { color: var(--color-primary); }
+
+/* ══════════════════════════════════
+   CHINESE HINT
+══════════════════════════════════ */
+.zh-hint {
+  font-family: var(--font-zh);
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  padding: 8px 12px;
+  background: rgba(106,76,147,0.06);
+  border-left: 3px solid rgba(106,76,147,0.3);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 20px;
+}
+
+/* ══════════════════════════════════
+   OPTIONS
+══════════════════════════════════ */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 500px) { .options-grid { grid-template-columns: 1fr; } }
+
+.option-btn {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.93rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+}
+.option-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: rgba(26,58,92,0.05);
+  transform: translateY(-1px);
+}
+.option-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.option-btn.correct {
+  border-color: var(--color-correct);
+  background: var(--color-correct-bg);
+  color: var(--color-correct);
+}
+.option-btn.correct .option-label { background: var(--color-correct); }
+.option-btn.incorrect {
+  border-color: var(--color-incorrect);
+  background: var(--color-incorrect-bg);
+  color: var(--color-incorrect);
+}
+.option-btn.incorrect .option-label { background: var(--color-incorrect); }
+.option-btn:disabled { cursor: default; transform: none; }
+
+/* ══════════════════════════════════
+   FEEDBACK BOX
+══════════════════════════════════ */
+.feedback-box {
+  display: none;
+  border-top: 1px solid var(--color-border);
+  margin-top: 6px;
+  padding-top: 18px;
+  animation: fadeIn 0.3s ease;
+}
+.feedback-box.active { display: block; }
+.feedback-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 500px) { .feedback-grid { grid-template-columns: 1fr; } }
+
+.feedback-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.84rem;
+}
+.feedback-item.is-answer {
+  border-color: var(--color-correct);
+  background: var(--color-correct-bg);
+}
+.feedback-word {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.word-tts {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.word-tts:hover { color: var(--color-primary); }
+.feedback-en { color: var(--color-text); margin-bottom: 3px; font-weight: 400; }
+.feedback-cn { color: #6a4c93; font-family: var(--font-zh); font-size: 0.84rem; margin-bottom: 6px; }
+.feedback-example {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  font-style: italic;
+  border-top: 1px solid var(--color-border);
+  padding-top: 6px;
+  margin-top: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.ex-tts {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+.ex-tts:hover { color: var(--color-accent); }
+
+/* ══════════════════════════════════
+   NEXT BUTTON
+══════════════════════════════════ */
+.next-btn {
+  margin-top: 18px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px 28px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+.next-btn:hover { background: var(--color-primary-light); transform: translateY(-1px); }
+.next-btn.visible { display: flex; }
+
+/* ══════════════════════════════════
+   HINT TEXT
+══════════════════════════════════ */
+.hint-text {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-align: center;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* ══════════════════════════════════
+   END / RESULTS SCREEN
+══════════════════════════════════ */
+.end-screen {
+  display: none;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  padding: 48px 32px 40px;
+  text-align: center;
+  animation: slideUp 0.4s ease;
+}
+.end-screen.active { display: block; }
+.end-icon { font-size: 3rem; margin-bottom: 16px; }
+.end-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+.end-name { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 4px; }
+.end-score-big {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+  margin: 18px 0 6px;
+}
+.end-score-label { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 20px; }
+.end-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 24px;
+}
+.end-stat { text-align: center; }
+.end-stat-num { font-size: 1.6rem; font-weight: 700; font-family: var(--font-heading); }
+.end-stat-num.green { color: var(--color-correct); }
+.end-stat-num.red   { color: var(--color-incorrect); }
+.end-stat-num.blue  { color: var(--color-primary); }
+.end-stat-lbl { font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+.end-review-section { text-align: left; margin-bottom: 20px; }
+.end-review-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+.word-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.82rem;
+}
+.chip-wrong  { background: #fdecea; color: var(--color-incorrect); border: 1px solid #f5c6c2; }
+.chip-lookup { background: #fffbf0; color: #7a5c00; border: 1px solid var(--color-accent-light); }
+
+.end-message    { font-size: 1rem; color: var(--color-text); margin-bottom: 6px; line-height: 1.6; }
+.end-message-cn { font-family: var(--font-zh); font-size: 0.95rem; color: #6a4c93; margin-bottom: 28px; }
+
+.submit-status {
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  margin-bottom: 20px;
+  display: none;
+}
+.submit-status.show { display: block; }
+.status-sending { background: #e8f0fe; color: #1a56a8; }
+.status-ok      { background: var(--color-correct-bg); color: var(--color-correct); }
+.status-err     { background: var(--color-incorrect-bg); color: var(--color-incorrect); }
+
+.restart-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.restart-btn:hover { background: var(--color-primary-light); }
+.result-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:16px}
+.result-link{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:var(--radius-sm);font-weight:600;text-decoration:none;font-size:.95rem}
+.result-link.sheet{background:var(--color-correct);color:#fff}.result-link.learn{background:var(--color-accent);color:#fff}.result-link.home{background:var(--color-surface);color:var(--color-primary);border:1px solid var(--color-border)}
+.splash-links{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:.85rem}.splash-links a{color:var(--color-primary);font-weight:600;text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SPLASH SCREEN
+══════════════════════════════════ -->
+<div id="splashScreen">
+  <div class="splash-logo">
+    <i class="fas fa-book-open-reader"></i>
+    AWL Academic Word List · AWL Sublist 3
+  </div>
+  <h1 class="splash-title">AWL<br><em>Quiz</em></h1>
+  <p class="splash-sub">Fill-in-the-Blank &nbsp;·&nbsp; TTS &nbsp;·&nbsp; Online Dictionary</p>
+
+  <div class="splash-card">
+    <label class="field-label" for="nameInput">
+      <i class="fas fa-user" style="margin-right:4px"></i> Student Name 姓名
+    </label>
+    <input class="name-input" type="text" id="nameInput"
+           placeholder="Type your name / 請輸入姓名…" autocomplete="off">
+
+    <div id="totalCountDisplay" style="
+      text-align:center;
+      padding: 0.75rem 0;
+      margin-bottom: 1.4rem;
+      background: var(--color-surface);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--color-muted);
+      border: 1px solid var(--color-border);
+    ">
+      <i class="fas fa-list-ol" style="color:var(--color-accent);margin-right:6px"></i>
+      All <strong id="poolCount" style="color:var(--color-primary)">0</strong> vocabulary entries will be tested
+      <br><span style="font-size:0.78rem;margin-top:3px;display:block">全部單字皆會出題，隨機排列</span>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">
+      <i class="fas fa-play"></i> Start Quiz &nbsp;開始測驗
+    </button>
+    <div class="splash-links"><a href="awl-learn.html?sublist=3"><i class="fas fa-book-open"></i> 先去學習區</a><a href="https://docs.google.com/spreadsheets/d/1zAOZnP69d4VUrBXwgdP20hkSAWjUujFDgra56OqzkxY/edit?gid=0#gid=0" target="_blank" rel="noopener"><i class="fas fa-table"></i> 查看成績表</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     QUIZ SCREEN
+══════════════════════════════════ -->
+<div id="quizScreen" style="display:none">
+
+  <header class="site-header">
+    <div class="header-logo">
+      <i class="fas fa-book-open-reader"></i>
+      AWL Sublist 3 · AWL Vocabulary Quiz
+    </div>
+    <div class="score-badge">
+      <i class="fas fa-star" style="color:var(--color-accent-light)"></i>
+      Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">-</span>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <div class="progress-section">
+      <div class="progress-label">
+        <span id="progressLabel">Question 1</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Question area -->
+    <div id="quizArea">
+      <div class="question-card" id="questionCard">
+        <div class="card-header">
+          <div class="question-number" id="qNumber">Question 1</div>
+          <button class="tts-btn" id="ttsBtn" onclick="speakPassage()">
+            <i class="fas fa-volume-high"></i> Listen
+          </button>
+        </div>
+        <div class="card-body">
+
+          <!-- Word Helper -->
+          <div class="word-helper" id="wordHelper">
+            <div class="helper-word" id="helperWord">
+              <span class="helper-word-text" id="helperWordText"></span>
+              <button class="helper-tts-btn" id="helperTtsBtn" title="Listen to pronunciation">
+                <i class="fas fa-volume-high"></i>
+              </button>
+            </div>
+            <div class="helper-pos"  id="helperPos"></div>
+            <div class="helper-def"  id="helperDef"></div>
+          </div>
+
+          <!-- POS badge + Passage -->
+          <div class="pos-badge" id="posBadge">
+            POS: <span class="pos-val" id="posVal"></span>
+          </div>
+          <div class="passage" id="passageText"></div>
+          <div class="zh-hint" id="zhHint"></div>
+
+          <!-- Options -->
+          <div class="options-grid" id="optionsGrid"></div>
+
+          <!-- Feedback -->
+          <div class="feedback-box" id="feedbackBox">
+            <div class="feedback-title">
+              <i class="fas fa-lightbulb"></i>&nbsp; Vocabulary Feedback — All Options
+            </div>
+            <div class="feedback-grid" id="feedbackGrid"></div>
+          </div>
+
+          <!-- Next button -->
+          <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+            Next Question <i class="fas fa-arrow-right"></i>
+          </button>
+
+        </div>
+      </div>
+      <div class="hint-text">
+        <i class="fas fa-hand-pointer"></i>
+        Click any word in the passage to look up its definition
+      </div>
+    </div>
+
+    <!-- End screen -->
+    <div class="end-screen" id="endScreen">
+      <div class="end-icon" id="endIcon">🎓</div>
+      <div class="end-title">Quiz Complete!</div>
+      <div class="end-name" id="endName"></div>
+      <div class="end-score-big" id="endScoreBig">--</div>
+      <div class="end-score-label" id="endScoreLabel"></div>
+
+      <div class="end-stats">
+        <div class="end-stat">
+          <div class="end-stat-num green" id="statCorrect">0</div>
+          <div class="end-stat-lbl">Correct</div>
+        </div>
+        <div class="end-stat">
+          <div class="end-stat-num red" id="statWrong">0</div>
+          <div class="end-stat-lbl">Wrong</div>
+        </div>
+        <div class="end-stat">
+          <div class="end-stat-num blue" id="statLooked">0</div>
+          <div class="end-stat-lbl">Looked Up</div>
+        </div>
+      </div>
+
+      <div class="end-review-section" id="wrongSection">
+        <div class="end-review-title"><i class="fas fa-rotate-left"></i> &nbsp;Words to Review 需要複習</div>
+        <div class="word-chips" id="wrongChips"></div>
+      </div>
+
+      <div class="end-review-section" id="lookupSection">
+        <div class="end-review-title"><i class="fas fa-magnifying-glass"></i> &nbsp;Words You Looked Up 查詢的單字</div>
+        <div class="word-chips" id="lookupChips"></div>
+      </div>
+
+      <div class="end-message"    id="endMessage"></div>
+      <div class="end-message-cn" id="endMessageCn"></div>
+
+      <div class="submit-status" id="submitStatus"></div>
+
+      <div class="result-links">
+        <a class="result-link sheet" href="https://docs.google.com/spreadsheets/d/1zAOZnP69d4VUrBXwgdP20hkSAWjUujFDgra56OqzkxY/edit?gid=0#gid=0" target="_blank" rel="noopener"><i class="fas fa-table"></i> View Results 查看成績表</a>
+        <a class="result-link learn" href="awl-learn.html?sublist=3"><i class="fas fa-book-open"></i> Learning 回學習區</a>
+        <a class="result-link home" href="../dashboard.html#awl"><i class="fas fa-house"></i> Dashboard</a>
+      </div>
+      <button class="restart-btn" onclick="restartQuiz()">
+        <i class="fas fa-rotate-right"></i> Try Again &nbsp;再試一次
+      </button>
+    </div>
+
+  </div><!-- /app-container -->
+</div><!-- /quizScreen -->
+
+<script>
+// ══════════════════════════════════════════════════════
+//  CONFIG
+// ══════════════════════════════════════════════════════
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiWtLGgnt5VYftXgQRwWY0wZrT9CcFYJcFJaGNbMttBbUydyeHonbJCYkN3Y1UOU-4/exec";
+const UNIT_NAME = "AWL Sublist 3";
+
+// ══════════════════════════════════════════════════════
+//  VOCABULARY DEFINITIONS
+//  { en, cn, example, pos_category }
+//  pos_category: "adj" | "adv" | "n" | "v" | "phr"
+// ══════════════════════════════════════════════════════
+const DEFS = {
+  "alternative (n)": {
+    "word": "alternative (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "替代方案",
+    "ex": "Given the situation, the team explored another alternative."
+  },
+  "alternative (adj)": {
+    "word": "alternative (adj)",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "替代的",
+    "ex": "We are looking for an alternative solution to this problem."
+  },
+  "circumstances": {
+    "word": "circumstances",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "情況",
+    "ex": "Due to unforeseen circumstances, the event has been postponed."
+  },
+  "under the circumstance": {
+    "word": "under the circumstance",
+    "pos": "phrase",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phrase.",
+    "cn": "在這種情況下",
+    "ex": "under , I believe we made the right decision."
+  },
+  "comment on (v)": {
+    "word": "comment on (v)",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "評論",
+    "ex": "The professor will comment your paper once it's submitted."
+  },
+  "make a comment(n) on": {
+    "word": "make a comment(n) on",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "對...做出評論",
+    "ex": "She didn't make the artist's new exhibition."
+  },
+  "compensate": {
+    "word": "compensate",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "賠償",
+    "ex": "Due to the delay, the airline decided to compensate its passengers."
+  },
+  "compensation": {
+    "word": "compensation",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "賠償金",
+    "ex": "He received a substantial amount in compensation for the accident."
+  },
+  "compensation__2": {
+    "word": "compensation",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "薪資",
+    "ex": "The average compensation, or salary for start-ups are ten times higher than that of employees in traditional manufacturing industries."
+  },
+  "component": {
+    "word": "component",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "組件",
+    "ex": "That small component is essential for the machine to work properly."
+  },
+  "consent (n)": {
+    "word": "consent (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "同意",
+    "ex": "They proceeded with the project after getting the consent of the local community."
+  },
+  "consent (adj)": {
+    "word": "consent (adj)",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "同意的",
+    "ex": "It's a consent decision between both parties."
+  },
+  "consider": {
+    "word": "consider",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "考慮",
+    "ex": "Did you consider the implications of your decision?"
+  },
+  "consideration": {
+    "word": "consideration",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "考慮",
+    "ex": "The main consideration for our choice was the quality of the product."
+  },
+  "take...into consideration": {
+    "word": "take...into consideration",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "考慮到...",
+    "ex": "You should take...into his feelings when making such a decision."
+  },
+  "considerate": {
+    "word": "considerate",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "體貼的",
+    "ex": "He is always considerate and thinks of others before himself."
+  },
+  "considerable": {
+    "word": "considerable",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "相當大的",
+    "ex": "The damage caused a considerable amount of financial loss."
+  },
+  "considerably": {
+    "word": "considerably",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "相當地",
+    "ex": "The costs have risen considerably since last year."
+  },
+  "constant": {
+    "word": "constant",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "持續的",
+    "ex": "The constant noise from the construction site is annoying."
+  },
+  "constantly": {
+    "word": "constantly",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "不斷地",
+    "ex": "He's constantly checking his phone for updates."
+  },
+  "constrain": {
+    "word": "constrain",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "限制",
+    "ex": "Limited resources might constrain our ability to complete the project on time."
+  },
+  "constraint": {
+    "word": "constraint",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "限制",
+    "ex": "The budgetary constraint affected the scope of the project."
+  },
+  "contribute to": {
+    "word": "contribute to",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "有助於",
+    "ex": "Healthy eating can contribute overall well-being."
+  },
+  "make a contribution to": {
+    "word": "make a contribution to",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "對...作出貢獻",
+    "ex": "Volunteering can allow you to make the community."
+  },
+  "convention (n)": {
+    "word": "convention (n) 會議",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "會議",
+    "ex": "The annual tech convention attracted innovators from around the world."
+  },
+  "convention tradition": {
+    "word": "convention =tradition",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "傳統",
+    "ex": "The village has a convention of celebrating the harvest with a big feast."
+  },
+  "conventional": {
+    "word": "conventional",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "傳統的",
+    "ex": "They opted for a more conventional approach to the problem."
+  },
+  "coordinate": {
+    "word": "coordinate",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "協調",
+    "ex": "We need to coordinate our efforts to be more efficient."
+  },
+  "coordination": {
+    "word": "coordination",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "協調",
+    "ex": "The event required the coordination of multiple teams."
+  },
+  "core (n)": {
+    "word": "core (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "核心",
+    "ex": "Trust is the core of any strong relationship."
+  },
+  "core value": {
+    "word": "core value",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "核心價值",
+    "ex": "Integrity is one of the company's core."
+  },
+  "corporate": {
+    "word": "corporate",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "企業的",
+    "ex": "He attended a corporate training seminar last week."
+  },
+  "corporation": {
+    "word": "corporation",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "公司",
+    "ex": "The corporation announced a new CEO today."
+  },
+  "correspond with": {
+    "word": "correspond with",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "與...相對應",
+    "ex": "The symptoms correspond those described in the medical textbook."
+  },
+  "correspondent": {
+    "word": "correspondent",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "通訊記者",
+    "ex": "The news correspondent provided updates from the front lines."
+  },
+  "corresponding": {
+    "word": "corresponding",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "相對應的",
+    "ex": "The corresponding numbers were found on the next page."
+  },
+  "criterion": {
+    "word": "criterion",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "標準",
+    "ex": "The main criterion for the job is experience in the field."
+  },
+  "criteria": {
+    "word": "criteria",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "標準",
+    "ex": "There are several criteria for selecting the right candidate."
+  },
+  "deduct": {
+    "word": "deduct",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "扣除",
+    "ex": "They will deduct taxes from your monthly salary."
+  },
+  "deduction": {
+    "word": "deduction",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "扣除",
+    "ex": "The deduction was clearly indicated in the invoice."
+  },
+  "demonstrate display, explain": {
+    "word": "demonstrate =display, explain",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "展示，解釋",
+    "ex": "She used a chart to demonstrate the sales growth."
+  },
+  "demonstrate protest": {
+    "word": "demonstrate =protest",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "抗議",
+    "ex": "The citizens will demonstrate against the new law."
+  },
+  "demonstration protest": {
+    "word": "demonstration =protest",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "抗議活動",
+    "ex": "The demonstration was peaceful, with thousands marching in the streets."
+  },
+  "demonstration illustration": {
+    "word": "demonstration =illustration",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "展示",
+    "ex": "His demonstration of the software's capabilities was very informative."
+  },
+  "document (n)": {
+    "word": "document (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "文件",
+    "ex": "All the relevant document should be submitted by Friday."
+  },
+  "document (v)": {
+    "word": "document (v)",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "紀錄",
+    "ex": "It's essential to document any changes made to the project."
+  },
+  "dominate": {
+    "word": "dominate",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "主宰，佔優勢",
+    "ex": "The company continues to dominate in the tech industry."
+  },
+  "dominant": {
+    "word": "dominant",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "佔優勢的",
+    "ex": "The dominant theme of the conference was sustainability."
+  },
+  "dominating": {
+    "word": "dominating",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "主導的",
+    "ex": "The dominating force in the market right now is consumer demand."
+  },
+  "male-dominating": {
+    "word": "male-dominating",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "男性主宰的",
+    "ex": "The engineering field has long been considered a male-dominating profession."
+  },
+  "domination": {
+    "word": "domination",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "主宰",
+    "ex": "The team's domination of the league lasted for several years."
+  },
+  "emphasize on": {
+    "word": "emphasize on",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "強調",
+    "ex": "The teacher will emphasize the importance of regular practice."
+  },
+  "layput emphasis on": {
+    "word": "lay/put emphasis on",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "強調",
+    "ex": "The teacher always puts lay understanding the basics before moving on."
+  },
+  "ensure that": {
+    "word": "ensure that",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "確保",
+    "ex": "Please ensure all the devices are turned off after use."
+  },
+  "ensure n": {
+    "word": "ensure +N",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "確保",
+    "ex": "This method will ensure accuracy in our results."
+  },
+  "assure": {
+    "word": "assure",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "保證",
+    "ex": "I can assure you that everything will be ready on time."
+  },
+  "reassure": {
+    "word": "reassure",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "再保證",
+    "ex": "The captain tried to reassure passengers that the turbulence was normal."
+  },
+  "exclude": {
+    "word": "exclude",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "排除",
+    "ex": "Please exclude any non-relevant information from the report."
+  },
+  "excluded": {
+    "word": "excluded",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "被排除的",
+    "ex": "The excluded participants were given feedback on their performance."
+  },
+  "exclusive": {
+    "word": "exclusive",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "獨家的",
+    "ex": "This offer is exclusive to our premium members."
+  },
+  "exclusion": {
+    "word": "exclusion",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "排除",
+    "ex": "The exclusion of certain groups from the survey skewed the results."
+  },
+  "include": {
+    "word": "include",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "包括",
+    "ex": "The package include accommodation and meals."
+  },
+  "inclusive": {
+    "word": "inclusive",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "包含的",
+    "ex": "The price is inclusive of all taxes and fees."
+  },
+  "including": {
+    "word": "including",
+    "pos": "prep.",
+    "cat": "prep",
+    "en": "Academic word/phrase. Part of speech: prep..",
+    "cn": "包括",
+    "ex": "All students, including those who are international, are eligible."
+  },
+  "included": {
+    "word": "included",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "被包括在內的",
+    "ex": "All included items are listed in the appendix."
+  },
+  "inclusive of": {
+    "word": "inclusive of",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "包含",
+    "ex": "The tour price is inclusive all meals and transportation."
+  },
+  "framework": {
+    "word": "framework",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "框架",
+    "ex": "The new policy provides a framework for further reforms."
+  },
+  "fund (v)": {
+    "word": "fund (v)",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "資助",
+    "ex": "The government will fund the research project."
+  },
+  "fund (n)": {
+    "word": "fund (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "基金",
+    "ex": "The fund for the school trip is running low."
+  },
+  "fundamental": {
+    "word": "fundamental",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "基本的",
+    "ex": "Understanding the fundamental concepts is crucial for advanced study."
+  },
+  "illustrate (v)": {
+    "word": "illustrate (v)",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "插畫",
+    "ex": "The book is illustrate by a famous artist."
+  },
+  "illustrate  explain": {
+    "word": "illustrate = explain",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "解釋",
+    "ex": "Use examples to illustrate your point."
+  },
+  "illustrated": {
+    "word": "illustrated",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "插圖的",
+    "ex": "I prefer illustrated children's books for their visual appeal."
+  },
+  "immigrate": {
+    "word": "immigrate",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "移民",
+    "ex": "Many people immigrate to the country for better job opportunities."
+  },
+  "immigrant": {
+    "word": "immigrant",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "移民",
+    "ex": "The city is home to a large population of immigrant."
+  },
+  "immigration": {
+    "word": "immigration",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "移民",
+    "ex": "The immigration office is extremely busy this time of year."
+  },
+  "imply": {
+    "word": "imply",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "暗示",
+    "ex": "Her silence seemed to imply that she disagreed."
+  },
+  "implication": {
+    "word": "implication",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "暗示",
+    "ex": "The implication of the statement was clear to everyone in the room."
+  },
+  "initial (adj)": {
+    "word": "initial (adj)",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "初始的",
+    "ex": "The initial findings are promising, but more research is needed."
+  },
+  "initiate": {
+    "word": "initiate",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "開始",
+    "ex": "They plan to initiate a new marketing strategy next quarter."
+  },
+  "initiative": {
+    "word": "initiative",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "主動權",
+    "ex": "Taking the initiative to start the project earned her a lot of respect."
+  },
+  "for instance": {
+    "word": "for instance",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "舉例",
+    "ex": "There are many ways to approach the problem, for , we could try brainstorming first."
+  },
+  "interact with": {
+    "word": "interact with",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "與...互動",
+    "ex": "Children learn when they interact their peers."
+  },
+  "interaction with": {
+    "word": "interaction with",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "與...的互動",
+    "ex": "The interaction customers is essential for our business."
+  },
+  "justify": {
+    "word": "justify",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "證明...是正當的",
+    "ex": "How do you justify spending so much on a single meal?"
+  },
+  "justified": {
+    "word": "justified",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "有正當理由的",
+    "ex": "The manager felt that the expenses were completely justified."
+  },
+  "justification": {
+    "word": "justification",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "理由",
+    "ex": "He provided justification for each of his decisions during the meeting."
+  },
+  "lay-laid-laid": {
+    "word": "lay-laid-laid",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "放下",
+    "ex": "She lay-laid-laid the book on the table and walked away."
+  },
+  "layer (n)": {
+    "word": "layer (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "層",
+    "ex": "The cake had multiple layer of chocolate and cream."
+  },
+  "link (v) towith": {
+    "word": "link (v) to/with",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "連接",
+    "ex": "Can you link this computer to the main server?"
+  },
+  "link (n)": {
+    "word": "link (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "連結",
+    "ex": "Click on this link to access the website."
+  },
+  "location": {
+    "word": "location",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "位置",
+    "ex": "The location of the conference will be announced later."
+  },
+  "be located in": {
+    "word": "be located in",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "位於",
+    "ex": "The museum is be the heart of the city."
+  },
+  "maximum": {
+    "word": "maximum",
+    "pos": "adj./n.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj./n..",
+    "cn": "最大值",
+    "ex": "You are allowed a maximum of three bags on the flight."
+  },
+  "minimum": {
+    "word": "minimum",
+    "pos": "adj./n.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj./n..",
+    "cn": "最小值",
+    "ex": "The minimum order quantity is 50 units."
+  },
+  "major (adj)": {
+    "word": "major (adj)",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "主要的",
+    "ex": "The major reason for the delay was bad weather."
+  },
+  "minor (adj)": {
+    "word": "minor (adj)",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "次要的",
+    "ex": "There were a few minor errors in the report."
+  },
+  "minor in (v)": {
+    "word": "minor in (v)",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "輔修",
+    "ex": "She decided to major in psychology and minor sociology."
+  },
+  "the minorities": {
+    "word": "the minorities",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "少數民族",
+    "ex": "the often have their own unique cultures and traditions."
+  },
+  "the minority group": {
+    "word": "the minority group",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "少數族群",
+    "ex": "The government is taking measures to support the in the country."
+  },
+  "negative": {
+    "word": "negative",
+    "pos": "adj./n.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj./n..",
+    "cn": "負面的/負值",
+    "ex": "There was a negative reaction to the new policy."
+  },
+  "outcome": {
+    "word": "outcome",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "結果",
+    "ex": "The outcome of the experiment was unexpected."
+  },
+  "partnership": {
+    "word": "partnership",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "合夥關係",
+    "ex": "They formed a partnership to start a new business venture."
+  },
+  "philosophy": {
+    "word": "philosophy",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "哲學",
+    "ex": "His philosophy on life is quite optimistic."
+  },
+  "physical": {
+    "word": "physical",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "身體的",
+    "ex": "This body builder works out in the gym to enhance his physical strength for the upcoming tournament."
+  },
+  "physical__2": {
+    "word": "physical",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "物理的",
+    "ex": "Regular physical activity is beneficial for health."
+  },
+  "physics": {
+    "word": "physics",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "物理學",
+    "ex": "He's studying physics at the university."
+  },
+  "physically": {
+    "word": "physically",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "在物理上",
+    "ex": "The journey was physically demanding."
+  },
+  "proportion": {
+    "word": "proportion",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "比例",
+    "ex": "The proportion of men to women in the company is 2:1."
+  },
+  "proportional": {
+    "word": "proportional",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "成比例的",
+    "ex": "The size of the room is proportional to its height."
+  },
+  "portion": {
+    "word": "portion",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "一部分",
+    "ex": "Only a small portion of the cake was left."
+  },
+  "publish": {
+    "word": "publish",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "出版",
+    "ex": "They plan to publish the book next month."
+  },
+  "published": {
+    "word": "published",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "已出版的",
+    "ex": "Her published works have received critical acclaim."
+  },
+  "publishment": {
+    "word": "publishment",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "出版物",
+    "ex": "The publishment of his new book has been postponed."
+  },
+  "publisher": {
+    "word": "publisher",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "出版商",
+    "ex": "The publisher has rights to print the novel overseas."
+  },
+  "react with": {
+    "word": "react with",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "與...產生反應",
+    "ex": "The chemical will react oxygen when heated."
+  },
+  "react to": {
+    "word": "react to",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "對...的反應",
+    "ex": "The suspect reacted swiftly to all the allegations and charges with confidence, trying to convince the jury of his innocence."
+  },
+  "reaction to": {
+    "word": "reaction to",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "對...的反應",
+    "ex": "The public had a mixed reaction the new policy."
+  },
+  "register": {
+    "word": "register",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "註冊",
+    "ex": "You need to register before attending the event."
+  },
+  "registered": {
+    "word": "registered",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "已註冊的",
+    "ex": "Only registered users can access this part of the website."
+  },
+  "registration": {
+    "word": "registration",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "註冊",
+    "ex": "The deadline for registration is next Friday."
+  },
+  "rely on": {
+    "word": "rely on",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "依賴",
+    "ex": "We can't always rely the weather forecast."
+  },
+  "reliance on": {
+    "word": "reliance on",
+    "pos": "n.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "依賴",
+    "ex": "The country's reliance imported oil is a concern."
+  },
+  "reliable": {
+    "word": "reliable",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "可靠的",
+    "ex": "We need a more reliable method to collect data."
+  },
+  "reliant": {
+    "word": "reliant",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "依賴的",
+    "ex": "The region is heavily reliant tourism for income."
+  },
+  "remove from": {
+    "word": "remove from",
+    "pos": "v.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "從...中移除",
+    "ex": "Please remove the sticker from the glass."
+  },
+  "removed": {
+    "word": "removed",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "被移除的",
+    "ex": "The outdated information was removed the website."
+  },
+  "removal": {
+    "word": "removal",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "移除",
+    "ex": "The kidney plays a vital role in the removal of waste products from the blood."
+  },
+  "scheme": {
+    "word": "scheme",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "計劃",
+    "ex": "She devised a clever scheme to increase sales."
+  },
+  "sequence": {
+    "word": "sequence",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "連續",
+    "ex": "The events occurred in a strange sequence."
+  },
+  "in sequence": {
+    "word": "in sequence",
+    "pos": "phr.",
+    "cat": "phr",
+    "en": "Academic word/phrase. Part of speech: phr..",
+    "cn": "按順序",
+    "ex": "Please arrange these documents in according to date."
+  },
+  "sequent": {
+    "word": "sequent",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "連續的",
+    "ex": "The movie's events were not in sequent order, making it confusing."
+  },
+  "subsequently": {
+    "word": "subsequently",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "隨後",
+    "ex": "He missed the train and subsequently arrived late to the meeting."
+  },
+  "sex": {
+    "word": "sex",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "性別",
+    "ex": "The survey collected data on age, sex, and occupation of participants."
+  },
+  "sexual": {
+    "word": "sexual",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "性的",
+    "ex": "The course will also discuss sexual reproduction in plants."
+  },
+  "sexuality": {
+    "word": "sexuality",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "性取向",
+    "ex": "It's important to promote understanding and acceptance of diverse sexuality."
+  },
+  "shift (n)": {
+    "word": "shift (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "輪班",
+    "ex": "She has the night shift at the hospital."
+  },
+  "shift (v)": {
+    "word": "shift (v)",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "轉移",
+    "ex": "We need to shift our focus towards more sustainable practices."
+  },
+  "specify": {
+    "word": "specify",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "指定",
+    "ex": "Please specify which items you would like to order."
+  },
+  "specified": {
+    "word": "specified",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "指定的",
+    "ex": "All specified candidates should attend the meeting."
+  },
+  "specific": {
+    "word": "specific",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "具體的",
+    "ex": "Do you have any specific requirements for this project?"
+  },
+  "sufficient": {
+    "word": "sufficient",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "足夠的",
+    "ex": "Do we have sufficient resources to complete the project?"
+  },
+  "sufficiently": {
+    "word": "sufficiently",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "足夠地",
+    "ex": "The room wasn't sufficiently heated, so we felt cold."
+  },
+  "task (v)": {
+    "word": "task (v)",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "任務",
+    "ex": "She was task with organizing the event."
+  },
+  "task (n)": {
+    "word": "task (n)",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "任務",
+    "ex": "Next task is to analyze the data."
+  },
+  "technical": {
+    "word": "technical",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "技術的",
+    "ex": "We encountered some technical difficulties during the setup."
+  },
+  "technically": {
+    "word": "technically",
+    "pos": "adv.",
+    "cat": "adv",
+    "en": "Academic word/phrase. Part of speech: adv..",
+    "cn": "從技術上講",
+    "ex": "technically speaking, the code is correct, but it could be optimized."
+  },
+  "technological": {
+    "word": "technological",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "科技的",
+    "ex": "The technological advancements in the last decade have been remarkable."
+  },
+  "technique": {
+    "word": "technique",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "技巧",
+    "ex": "She has mastered the technique of playing the violin."
+  },
+  "technology": {
+    "word": "technology",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "技術",
+    "ex": "The impact of technology on society is undeniable."
+  },
+  "valid": {
+    "word": "valid",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "有效的",
+    "ex": "The offer is no longer valid as it expired last month."
+  },
+  "validity": {
+    "word": "validity",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "有效性",
+    "ex": "We are checking the validity of your claims."
+  },
+  "expire": {
+    "word": "expire",
+    "pos": "v.",
+    "cat": "v",
+    "en": "Academic word/phrase. Part of speech: v..",
+    "cn": "到期",
+    "ex": "Your membership will expire at the end of this month."
+  },
+  "expired": {
+    "word": "expired",
+    "pos": "adj.",
+    "cat": "adj",
+    "en": "Academic word/phrase. Part of speech: adj..",
+    "cn": "已過期的",
+    "ex": "We cannot use this medicine because it's already expired."
+  },
+  "expiration": {
+    "word": "expiration",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "期滿",
+    "ex": "The expiration date of the contract is December 31st."
+  },
+  "volume": {
+    "word": "volume",
+    "pos": "n.",
+    "cat": "n",
+    "en": "Academic word/phrase. Part of speech: n..",
+    "cn": "體積",
+    "ex": "The volume of water in the tank is 100 liters."
+  }
+};
+
+const QUESTION_POOL = [
+  [
+    "alternative (n)",
+    "Given the situation, the team explored another __________.",
+    "考慮到情況，團隊探索了另一個替代方案。",
+    [
+      "given",
+      "situation",
+      "explored"
+    ]
+  ],
+  [
+    "alternative (adj)",
+    "We are looking for an __________ solution to this problem.",
+    "我們正在尋找此問題的替代解決方案。",
+    [
+      "looking",
+      "solution",
+      "problem"
+    ]
+  ],
+  [
+    "circumstances",
+    "Due to unforeseen __________, the event has been postponed.",
+    "由於無法預見的情況，活動已被延期。",
+    [
+      "unforeseen",
+      "event",
+      "postponed"
+    ]
+  ],
+  [
+    "under the circumstance",
+    "__________ , I believe we made the right decision.",
+    "在這種情況下，我相信我們做出了正確的決定。",
+    [
+      "believe",
+      "right",
+      "decision"
+    ]
+  ],
+  [
+    "comment on (v)",
+    "The professor will __________ your paper once it's submitted.",
+    "一旦提交，教授將評論您的論文。",
+    [
+      "professor",
+      "paper",
+      "submitted"
+    ]
+  ],
+  [
+    "make a comment(n) on",
+    "She didn't __________ the artist's new exhibition.",
+    "她沒有對藝術家的新展覽做出評論。",
+    [
+      "didn't",
+      "artist's",
+      "exhibition"
+    ]
+  ],
+  [
+    "compensate",
+    "Due to the delay, the airline decided to __________ its passengers.",
+    "由於延遲，航空公司決定賠償其乘客。",
+    [
+      "delay",
+      "airline",
+      "decided"
+    ]
+  ],
+  [
+    "compensation",
+    "He received a substantial amount in __________ for the accident.",
+    "他因事故收到了大筆賠償金。",
+    [
+      "received",
+      "substantial",
+      "amount"
+    ]
+  ],
+  [
+    "compensation__2",
+    "The average __________, or salary for start-ups are ten times higher than that of employees in traditional manufacturing industries.",
+    "新創企業的平均薪資是傳統製造業員工的十倍。",
+    [
+      "average",
+      "salary",
+      "start-ups"
+    ]
+  ],
+  [
+    "component",
+    "That small __________ is essential for the machine to work properly.",
+    "那小組件對機器的正常工作至關重要。",
+    [
+      "small",
+      "essential",
+      "machine"
+    ]
+  ],
+  [
+    "consent (n)",
+    "They proceeded with the project after getting the __________ of the local community.",
+    "在得到當地社區的同意後，他們繼續進行該項目。",
+    [
+      "proceeded",
+      "project",
+      "getting"
+    ]
+  ],
+  [
+    "consent (adj)",
+    "It's a __________ decision between both parties.",
+    "這是雙方的共同決定。",
+    [
+      "decision",
+      "between",
+      "parties"
+    ]
+  ],
+  [
+    "consider",
+    "Did you __________ the implications of your decision?",
+    "你考慮過你的決定的含義嗎？",
+    [
+      "implications",
+      "decision"
+    ]
+  ],
+  [
+    "consideration",
+    "The main __________ for our choice was the quality of the product.",
+    "我們選擇的主要考慮是產品的質量。",
+    [
+      "choice",
+      "quality",
+      "product"
+    ]
+  ],
+  [
+    "take...into consideration",
+    "You should __________ his feelings when making such a decision.",
+    "做出這樣的決定時，你應該考慮到他的感受。",
+    [
+      "feelings",
+      "making",
+      "decision"
+    ]
+  ],
+  [
+    "considerate",
+    "He is always __________ and thinks of others before himself.",
+    "他總是體貼並在自己之前考慮別人。",
+    [
+      "always",
+      "thinks",
+      "others"
+    ]
+  ],
+  [
+    "considerable",
+    "The damage caused a __________ amount of financial loss.",
+    "損害造成了相當大的財務損失。",
+    [
+      "damage",
+      "caused",
+      "amount"
+    ]
+  ],
+  [
+    "considerably",
+    "The costs have risen __________ since last year.",
+    "費用自去年以來已經大幅上升。",
+    [
+      "costs",
+      "risen",
+      "since"
+    ]
+  ],
+  [
+    "constant",
+    "The __________ noise from the construction site is annoying.",
+    "來自工地的持續噪音很煩人。",
+    [
+      "noise",
+      "construction",
+      "annoying"
+    ]
+  ],
+  [
+    "constantly",
+    "He's __________ checking his phone for updates.",
+    "他不斷地查看手機以獲取更新。",
+    [
+      "checking",
+      "phone",
+      "updates"
+    ]
+  ],
+  [
+    "constrain",
+    "Limited resources might __________ our ability to complete the project on time.",
+    "有限的資源可能會限制我們及時完成項目的能力。",
+    [
+      "limited",
+      "resources",
+      "ability"
+    ]
+  ],
+  [
+    "constraint",
+    "The budgetary __________ affected the scope of the project.",
+    "預算限制影響了項目的範圍。",
+    [
+      "budgetary",
+      "affected",
+      "scope"
+    ]
+  ],
+  [
+    "contribute to",
+    "Healthy eating can __________ overall well-being.",
+    "健康飲食可以有助於整體健康。",
+    [
+      "healthy",
+      "eating",
+      "overall"
+    ]
+  ],
+  [
+    "make a contribution to",
+    "Volunteering can allow you to __________ the community.",
+    "志願工作可以讓您對社區作出貢獻。",
+    [
+      "volunteering",
+      "allow",
+      "community"
+    ]
+  ],
+  [
+    "convention (n)",
+    "The annual tech __________ attracted innovators from around the world.",
+    "年度技術會議吸引了來自世界各地的創新者。",
+    [
+      "annual",
+      "attracted",
+      "innovators"
+    ]
+  ],
+  [
+    "convention tradition",
+    "The village has a __________ of celebrating the harvest with a big feast.",
+    "這個村莊有一個慶祝豐收的大餐的傳統。",
+    [
+      "village",
+      "celebrating",
+      "harvest"
+    ]
+  ],
+  [
+    "conventional",
+    "They opted for a more __________ approach to the problem.",
+    "他們選擇了一種更傳統的方法來解決問題。",
+    [
+      "opted",
+      "approach",
+      "problem"
+    ]
+  ],
+  [
+    "coordinate",
+    "We need to __________ our efforts to be more efficient.",
+    "我們需要協調我們的努力以更加高效。",
+    [
+      "efforts",
+      "efficient"
+    ]
+  ],
+  [
+    "coordination",
+    "The event required the __________ of multiple teams.",
+    "這個活動需要多個團隊的協調。",
+    [
+      "event",
+      "required",
+      "multiple"
+    ]
+  ],
+  [
+    "core (n)",
+    "Trust is the __________ of any strong relationship.",
+    "信任是任何堅強關係的核心。",
+    [
+      "trust",
+      "strong",
+      "relationship"
+    ]
+  ],
+  [
+    "core value",
+    "Integrity is one of the company's __________.",
+    "誠信是該公司的核心價值之一。",
+    [
+      "integrity",
+      "company's"
+    ]
+  ],
+  [
+    "corporate",
+    "He attended a __________ training seminar last week.",
+    "他上週參加了一場企業培訓研討會。",
+    [
+      "attended",
+      "training",
+      "seminar"
+    ]
+  ],
+  [
+    "corporation",
+    "The __________ announced a new CEO today.",
+    "該公司今天宣布了一位新CEO。",
+    [
+      "announced",
+      "today"
+    ]
+  ],
+  [
+    "correspond with",
+    "The symptoms __________ those described in the medical textbook.",
+    "症狀與醫學教材中描述的相對應。",
+    [
+      "symptoms",
+      "described",
+      "medical"
+    ]
+  ],
+  [
+    "correspondent",
+    "The news __________ provided updates from the front lines.",
+    "新聞通訊記者從前線提供了更新。",
+    [
+      "provided",
+      "updates",
+      "front"
+    ]
+  ],
+  [
+    "corresponding",
+    "The __________ numbers were found on the next page.",
+    "相對應的數字在下一頁上找到。",
+    [
+      "numbers",
+      "found"
+    ]
+  ],
+  [
+    "criterion",
+    "The main __________ for the job is experience in the field.",
+    "該工作的主要標準是該領域的經驗。",
+    [
+      "experience",
+      "field"
+    ]
+  ],
+  [
+    "criteria",
+    "There are several __________ for selecting the right candidate.",
+    "選擇合適候選人有幾個標準。",
+    [
+      "there",
+      "several",
+      "selecting"
+    ]
+  ],
+  [
+    "deduct",
+    "They will __________ taxes from your monthly salary.",
+    "他們將從您的月薪中扣除稅款。",
+    [
+      "taxes",
+      "monthly",
+      "salary"
+    ]
+  ],
+  [
+    "deduction",
+    "The __________ was clearly indicated in the invoice.",
+    "發票中明確指出了扣除項。",
+    [
+      "clearly",
+      "indicated",
+      "invoice"
+    ]
+  ],
+  [
+    "demonstrate display, explain",
+    "She used a chart to __________ the sales growth.",
+    "她使用圖表來展示銷售增長。",
+    [
+      "chart",
+      "sales",
+      "growth"
+    ]
+  ],
+  [
+    "demonstrate protest",
+    "The citizens will __________ against the new law.",
+    "公民將抗議新法律。",
+    [
+      "citizens",
+      "against"
+    ]
+  ],
+  [
+    "demonstration protest",
+    "The __________ was peaceful, with thousands marching in the streets.",
+    "抗議活動是和平的，數千人在街上遊行。",
+    [
+      "peaceful",
+      "thousands",
+      "marching"
+    ]
+  ],
+  [
+    "demonstration illustration",
+    "His __________ of the software's capabilities was very informative.",
+    "他對軟件功能的展示非常有用。",
+    [
+      "software's",
+      "capabilities",
+      "informative"
+    ]
+  ],
+  [
+    "document (n)",
+    "All the relevant __________ should be submitted by Friday.",
+    "所有相關文件應在星期五之前提交。",
+    [
+      "relevant",
+      "submitted",
+      "friday"
+    ]
+  ],
+  [
+    "document (v)",
+    "It's essential to __________ any changes made to the project.",
+    "對項目進行的任何更改進行記錄至關重要。",
+    [
+      "essential",
+      "changes",
+      "project"
+    ]
+  ],
+  [
+    "dominate",
+    "The company continues to __________ in the tech industry.",
+    "該公司繼續在科技行業佔據主導地位。",
+    [
+      "company",
+      "continues",
+      "industry"
+    ]
+  ],
+  [
+    "dominant",
+    "The __________ theme of the conference was sustainability.",
+    "會議的主要主題是可持續性。",
+    [
+      "theme",
+      "conference",
+      "sustainability"
+    ]
+  ],
+  [
+    "dominating",
+    "The __________ force in the market right now is consumer demand.",
+    "市場上現在的主要力量是消費者需求。",
+    [
+      "force",
+      "market",
+      "right"
+    ]
+  ],
+  [
+    "male-dominating",
+    "The engineering field has long been considered a __________ profession.",
+    "長期以來，工程領域一直被認為是男性主宰的職業。",
+    [
+      "engineering",
+      "field",
+      "considered"
+    ]
+  ],
+  [
+    "domination",
+    "The team's __________ of the league lasted for several years.",
+    "該隊在聯盟的主宰地位持續了好幾年。",
+    [
+      "team's",
+      "league",
+      "lasted"
+    ]
+  ],
+  [
+    "emphasize on",
+    "The teacher will __________ the importance of regular practice.",
+    "老師會強調定期練習的重要性。",
+    [
+      "teacher",
+      "importance",
+      "regular"
+    ]
+  ],
+  [
+    "layput emphasis on",
+    "The teacher always puts __________ understanding the basics before moving on.",
+    "老師總是強調在繼續之前要先理解基礎知識。",
+    [
+      "teacher",
+      "always",
+      "understanding"
+    ]
+  ],
+  [
+    "ensure that",
+    "Please __________ all the devices are turned off after use.",
+    "請確保使用後所有設備都已關閉。",
+    [
+      "please",
+      "devices",
+      "turned"
+    ]
+  ],
+  [
+    "ensure n",
+    "This method will __________ accuracy in our results.",
+    "這種方法將確保我們結果的準確性。",
+    [
+      "method",
+      "accuracy",
+      "results"
+    ]
+  ],
+  [
+    "assure",
+    "I can __________ you that everything will be ready on time.",
+    "",
+    [
+      "everything",
+      "ready"
+    ]
+  ],
+  [
+    "reassure",
+    "The captain tried to __________ passengers that the turbulence was normal.",
+    "機長試圖再次保證乘客這是正常的亂流。",
+    [
+      "captain",
+      "tried",
+      "passengers"
+    ]
+  ],
+  [
+    "exclude",
+    "Please __________ any non-relevant information from the report.",
+    "請從報告中排除任何不相關的信息。",
+    [
+      "please",
+      "non-relevant",
+      "information"
+    ]
+  ],
+  [
+    "excluded",
+    "The __________ participants were given feedback on their performance.",
+    "被排除的參與者收到了關於他們表現的反饋。",
+    [
+      "participants",
+      "given",
+      "feedback"
+    ]
+  ],
+  [
+    "exclusive",
+    "This offer is __________ to our premium members.",
+    "此優惠僅限於我們的高級會員。",
+    [
+      "offer",
+      "premium",
+      "members"
+    ]
+  ],
+  [
+    "exclusion",
+    "The __________ of certain groups from the survey skewed the results.",
+    "從調查中排除某些群體使結果產生偏見。",
+    [
+      "certain",
+      "groups",
+      "survey"
+    ]
+  ],
+  [
+    "include",
+    "The package __________ accommodation and meals.",
+    "套餐包括住宿和膳食。",
+    [
+      "package",
+      "accommodation",
+      "meals"
+    ]
+  ],
+  [
+    "inclusive",
+    "The price is __________ of all taxes and fees.",
+    "價格包含所有稅費。",
+    [
+      "price",
+      "taxes"
+    ]
+  ],
+  [
+    "including",
+    "All students, __________ those who are international, are eligible.",
+    "所有學生，包括國際學生，都有資格。",
+    [
+      "students",
+      "international",
+      "eligible"
+    ]
+  ],
+  [
+    "included",
+    "All __________ items are listed in the appendix.",
+    "所有包含的項目都列在附錄中。",
+    [
+      "items",
+      "listed",
+      "appendix"
+    ]
+  ],
+  [
+    "inclusive of",
+    "The tour price is __________ all meals and transportation.",
+    "旅遊價格包含所有餐飲和交通。",
+    [
+      "price",
+      "meals",
+      "transportation"
+    ]
+  ],
+  [
+    "framework",
+    "The new policy provides a __________ for further reforms.",
+    "新政策為進一步的改革提供了框架。",
+    [
+      "policy",
+      "provides",
+      "further"
+    ]
+  ],
+  [
+    "fund (v)",
+    "The government will __________ the research project.",
+    "政府將資助這個研究項目。",
+    [
+      "government",
+      "research",
+      "project"
+    ]
+  ],
+  [
+    "fund (n)",
+    "The __________ for the school trip is running low.",
+    "學校旅行的基金正逐漸減少。",
+    [
+      "school",
+      "running"
+    ]
+  ],
+  [
+    "fundamental",
+    "Understanding the __________ concepts is crucial for advanced study.",
+    "了解基本概念對於高級學習至關重要。",
+    [
+      "understanding",
+      "concepts",
+      "crucial"
+    ]
+  ],
+  [
+    "illustrate (v)",
+    "The book is __________ by a famous artist.",
+    "這本書是由一位著名藝術家插畫的。",
+    [
+      "famous",
+      "artist"
+    ]
+  ],
+  [
+    "illustrate  explain",
+    "Use examples to __________ your point.",
+    "使用例子來解釋你的觀點。",
+    [
+      "examples",
+      "point"
+    ]
+  ],
+  [
+    "illustrated",
+    "I prefer __________ children's books for their visual appeal.",
+    "我更喜歡有插圖的兒童書，因為它們具有視覺吸引力。",
+    [
+      "prefer",
+      "children's",
+      "books"
+    ]
+  ],
+  [
+    "immigrate",
+    "Many people __________ to the country for better job opportunities.",
+    "許多人為了更好的工作機會移民到這個國家。",
+    [
+      "people",
+      "country",
+      "better"
+    ]
+  ],
+  [
+    "immigrant",
+    "The city is home to a large population of __________.",
+    "這座城市擁有大量的移民。",
+    [
+      "large",
+      "population"
+    ]
+  ],
+  [
+    "immigration",
+    "The __________ office is extremely busy this time of year.",
+    "移民辦公室在這個時候非常繁忙。",
+    [
+      "office",
+      "extremely"
+    ]
+  ],
+  [
+    "imply",
+    "Her silence seemed to __________ that she disagreed.",
+    "她的沉默似乎暗示她不同意。",
+    [
+      "silence",
+      "seemed",
+      "disagreed"
+    ]
+  ],
+  [
+    "implication",
+    "The __________ of the statement was clear to everyone in the room.",
+    "該聲明的含義對房間裡的每個人都很明確。",
+    [
+      "statement",
+      "clear",
+      "everyone"
+    ]
+  ],
+  [
+    "initial (adj)",
+    "The __________ findings are promising, but more research is needed.",
+    "初始的研究結果很有希望，但需要進一步的研究。",
+    [
+      "findings",
+      "promising",
+      "research"
+    ]
+  ],
+  [
+    "initiate",
+    "They plan to __________ a new marketing strategy next quarter.",
+    "他們計劃下一季度啟動新的營銷策略。",
+    [
+      "marketing",
+      "strategy",
+      "quarter"
+    ]
+  ],
+  [
+    "initiative",
+    "Taking the __________ to start the project earned her a lot of respect.",
+    "採取主動開始該項目為她贏得了很多尊重。",
+    [
+      "taking",
+      "start",
+      "project"
+    ]
+  ],
+  [
+    "for instance",
+    "There are many ways to approach the problem, __________ , we could try brainstorming first.",
+    "有很多方法可以解決這個問題，舉例來說，我們可以先嘗試腦力激盪。",
+    [
+      "there",
+      "approach",
+      "problem"
+    ]
+  ],
+  [
+    "interact with",
+    "Children learn when they __________ their peers.",
+    "當兒童與他們的同齡人互動時，他們會學到東西。",
+    [
+      "children",
+      "learn",
+      "peers"
+    ]
+  ],
+  [
+    "interaction with",
+    "The __________ customers is essential for our business.",
+    "與客戶的互動對我們的業務至關重要。",
+    [
+      "customers",
+      "essential",
+      "business"
+    ]
+  ],
+  [
+    "justify",
+    "How do you __________ spending so much on a single meal?",
+    "你如何證明在一餐上花那麼多錢是正當的？",
+    [
+      "spending",
+      "single"
+    ]
+  ],
+  [
+    "justified",
+    "The manager felt that the expenses were completely __________.",
+    "經理覺得這些開銷完全是有正當理由的。",
+    [
+      "manager",
+      "expenses"
+    ]
+  ],
+  [
+    "justification",
+    "He provided __________ for each of his decisions during the meeting.",
+    "他在會議期間為他的每一個決定提供了理由。",
+    [
+      "provided",
+      "decisions",
+      "meeting"
+    ]
+  ],
+  [
+    "lay-laid-laid",
+    "She __________ the book on the table and walked away.",
+    "她把書放在桌子上然後走開了。",
+    [
+      "table",
+      "walked"
+    ]
+  ],
+  [
+    "layer (n)",
+    "The cake had multiple __________ of chocolate and cream.",
+    "蛋糕有多層巧克力和奶油。",
+    [
+      "multiple",
+      "chocolate",
+      "cream"
+    ]
+  ],
+  [
+    "link (v) towith",
+    "Can you __________ this computer to the main server?",
+    "你可以將這台電腦連接到主服務器嗎？",
+    [
+      "computer",
+      "server"
+    ]
+  ],
+  [
+    "link (n)",
+    "Click on this __________ to access the website.",
+    "點擊此連結以訪問該網站。",
+    [
+      "click",
+      "access",
+      "website"
+    ]
+  ],
+  [
+    "location",
+    "The __________ of the conference will be announced later.",
+    "會議的地點將在稍後宣布。",
+    [
+      "conference",
+      "announced",
+      "later"
+    ]
+  ],
+  [
+    "be located in",
+    "The museum is __________ the heart of the city.",
+    "博物館位於城市的中心。",
+    [
+      "museum",
+      "heart"
+    ]
+  ],
+  [
+    "maximum",
+    "You are allowed a __________ of three bags on the flight.",
+    "您在航班上允許攜帶最多三個袋子。",
+    [
+      "allowed",
+      "three",
+      "flight"
+    ]
+  ],
+  [
+    "minimum",
+    "The __________ order quantity is 50 units.",
+    "最小訂購數量是50個單位。",
+    [
+      "order",
+      "quantity",
+      "units"
+    ]
+  ],
+  [
+    "major (adj)",
+    "The __________ reason for the delay was bad weather.",
+    "主要的延遲原因是惡劣的天氣。",
+    [
+      "reason",
+      "delay",
+      "weather"
+    ]
+  ],
+  [
+    "minor (adj)",
+    "There were a few __________ errors in the report.",
+    "報告中有一些次要錯誤。",
+    [
+      "there",
+      "errors",
+      "report"
+    ]
+  ],
+  [
+    "minor in (v)",
+    "She decided to major in psychology and __________ sociology.",
+    "她決定主修心理學並輔修社會學。",
+    [
+      "decided",
+      "major",
+      "psychology"
+    ]
+  ],
+  [
+    "the minorities",
+    "__________ often have their own unique cultures and traditions.",
+    "少數民族通常有自己獨特的文化和傳統。",
+    [
+      "often",
+      "unique",
+      "cultures"
+    ]
+  ],
+  [
+    "the minority group",
+    "The government is taking measures to support __________ in the country.",
+    "政府正在採取措施支持國家的少數族群。",
+    [
+      "government",
+      "taking",
+      "measures"
+    ]
+  ],
+  [
+    "negative",
+    "There was a __________ reaction to the new policy.",
+    "對新政策有負面反應。",
+    [
+      "there",
+      "reaction",
+      "policy"
+    ]
+  ],
+  [
+    "outcome",
+    "The __________ of the experiment was unexpected.",
+    "實驗的結果是意想不到的。",
+    [
+      "experiment",
+      "unexpected"
+    ]
+  ],
+  [
+    "partnership",
+    "They formed a __________ to start a new business venture.",
+    "他們組成了一個合夥關係來開始一個新的商業冒險。",
+    [
+      "formed",
+      "start",
+      "business"
+    ]
+  ],
+  [
+    "philosophy",
+    "His __________ on life is quite optimistic.",
+    "他對生活的哲學非常樂觀。",
+    [
+      "quite",
+      "optimistic"
+    ]
+  ],
+  [
+    "physical",
+    "This body builder works out in the gym to enhance his physical strength for the upcoming tournament.",
+    "這位健美運動員在健身房鍛煉增強體力，為即將到來的比賽。",
+    [
+      "builder",
+      "works",
+      "enhance"
+    ]
+  ],
+  [
+    "physical__2",
+    "Regular __________ activity is beneficial for health.",
+    "定期的物理活動對健康有益。",
+    [
+      "regular",
+      "activity",
+      "beneficial"
+    ]
+  ],
+  [
+    "physics",
+    "He's studying __________ at the university.",
+    "他在大學學習物理學。",
+    [
+      "studying",
+      "university"
+    ]
+  ],
+  [
+    "physically",
+    "The journey was __________ demanding.",
+    "這次旅行在身體上要求很高。",
+    [
+      "journey",
+      "demanding"
+    ]
+  ],
+  [
+    "proportion",
+    "The __________ of men to women in the company is 2:1.",
+    "該公司男女的比例是2:1。",
+    [
+      "women",
+      "company"
+    ]
+  ],
+  [
+    "proportional",
+    "The size of the room is __________ to its height.",
+    "房間的大小與其高度成比例。",
+    [
+      "height"
+    ]
+  ],
+  [
+    "portion",
+    "Only a small __________ of the cake was left.",
+    "蛋糕只剩下一小部分。",
+    [
+      "small"
+    ]
+  ],
+  [
+    "publish",
+    "They plan to __________ the book next month.",
+    "他們計劃下個月出版這本書。",
+    [
+      "month"
+    ]
+  ],
+  [
+    "published",
+    "Her __________ works have received critical acclaim.",
+    "她的已出版作品受到了評論家的讚譽。",
+    [
+      "works",
+      "received",
+      "critical"
+    ]
+  ],
+  [
+    "publishment",
+    "The __________ of his new book has been postponed.",
+    "他的新書的出版已被推遲。",
+    [
+      "postponed"
+    ]
+  ],
+  [
+    "publisher",
+    "The __________ has rights to print the novel overseas.",
+    "出版商有權在海外印刷這部小說。",
+    [
+      "rights",
+      "print",
+      "novel"
+    ]
+  ],
+  [
+    "react with",
+    "The chemical will __________ oxygen when heated.",
+    "加熱時，該化學物質將與氧氣產生反應。",
+    [
+      "chemical",
+      "oxygen",
+      "heated"
+    ]
+  ],
+  [
+    "react to",
+    "The suspect reacted swiftly to all the allegations and charges with confidence, trying to convince the jury of his innocence.",
+    "嫌疑人對所有指控和指控迅速作出反應，充滿信心，試圖讓陪審團相信他是無辜的。",
+    [
+      "suspect",
+      "reacted",
+      "swiftly"
+    ]
+  ],
+  [
+    "reaction to",
+    "The public had a mixed __________ the new policy.",
+    "公眾對新政策有褒貶不一的反應。",
+    [
+      "public",
+      "mixed",
+      "policy"
+    ]
+  ],
+  [
+    "register",
+    "You need to __________ before attending the event.",
+    "您需要在參加活動之前註冊。",
+    [
+      "attending",
+      "event"
+    ]
+  ],
+  [
+    "registered",
+    "Only __________ users can access this part of the website.",
+    "只有已註冊的用戶可以訪問網站的這一部分。",
+    [
+      "users",
+      "access",
+      "website"
+    ]
+  ],
+  [
+    "registration",
+    "The deadline for __________ is next Friday.",
+    "註冊的截止日期是下周五。",
+    [
+      "deadline",
+      "friday"
+    ]
+  ],
+  [
+    "rely on",
+    "We can't always __________ the weather forecast.",
+    "我們不能總是依賴天氣預報。",
+    [
+      "can't",
+      "always",
+      "weather"
+    ]
+  ],
+  [
+    "reliance on",
+    "The country's __________ imported oil is a concern.",
+    "該國對進口石油的依賴引起了擔憂。",
+    [
+      "country's",
+      "imported",
+      "concern"
+    ]
+  ],
+  [
+    "reliable",
+    "We need a more __________ method to collect data.",
+    "我們需要一種更可靠的方法來收集數據。",
+    [
+      "method",
+      "collect"
+    ]
+  ],
+  [
+    "reliant",
+    "The region is heavily __________ tourism for income.",
+    "該地區嚴重依賴旅遊業的收入。",
+    [
+      "region",
+      "heavily",
+      "tourism"
+    ]
+  ],
+  [
+    "remove from",
+    "Please __________ the sticker from the glass.",
+    "請從玻璃上移除貼紙。",
+    [
+      "please",
+      "sticker",
+      "glass"
+    ]
+  ],
+  [
+    "removed",
+    "The outdated information was __________ the website.",
+    "過時的信息已從網站中刪除。",
+    [
+      "outdated",
+      "information",
+      "website"
+    ]
+  ],
+  [
+    "removal",
+    "The kidney plays a vital role in the __________ of waste products from the blood.",
+    "腎臟在清除血液中的廢物方面起著至關重要的作用。",
+    [
+      "kidney",
+      "plays",
+      "vital"
+    ]
+  ],
+  [
+    "scheme",
+    "She devised a clever __________ to increase sales.",
+    "她設計了一個巧妙的計劃來增加銷售。",
+    [
+      "devised",
+      "clever",
+      "increase"
+    ]
+  ],
+  [
+    "sequence",
+    "The events occurred in a strange __________.",
+    "這些事件以奇怪的順序發生。",
+    [
+      "events",
+      "occurred",
+      "strange"
+    ]
+  ],
+  [
+    "in sequence",
+    "Please arrange these documents __________ according to date.",
+    "請按日期將這些文件按順序排列。",
+    [
+      "please",
+      "arrange",
+      "documents"
+    ]
+  ],
+  [
+    "sequent",
+    "The movie's events were not in __________ order, making it confusing.",
+    "電影的事件不是按連續順序進行的，使其令人困惑。",
+    [
+      "movie's",
+      "events",
+      "order"
+    ]
+  ],
+  [
+    "subsequently",
+    "He missed the train and __________ arrived late to the meeting.",
+    "他錯過了火車，隨後開會遲到了。",
+    [
+      "missed",
+      "train",
+      "arrived"
+    ]
+  ],
+  [
+    "sex",
+    "The survey collected data on age, __________, and occupation of participants.",
+    "調查收集了參與者的年齡、性別和職業數據。",
+    [
+      "survey",
+      "collected",
+      "occupation"
+    ]
+  ],
+  [
+    "sexual",
+    "The course will also discuss __________ reproduction in plants.",
+    "課程還將討論植物的性生殖。",
+    [
+      "course",
+      "discuss",
+      "reproduction"
+    ]
+  ],
+  [
+    "sexuality",
+    "It's important to promote understanding and acceptance of diverse __________.",
+    "促進對多樣性取向的理解和接受非常重要。",
+    [
+      "important",
+      "promote",
+      "understanding"
+    ]
+  ],
+  [
+    "shift (n)",
+    "She has the night __________ at the hospital.",
+    "她在醫院有夜班。",
+    [
+      "night",
+      "hospital"
+    ]
+  ],
+  [
+    "shift (v)",
+    "We need to __________ our focus towards more sustainable practices.",
+    "我們需要將我們的焦點轉向更具可持續性的做法。",
+    [
+      "focus",
+      "towards",
+      "sustainable"
+    ]
+  ],
+  [
+    "specify",
+    "Please __________ which items you would like to order.",
+    "請指定您想要訂購的物品。",
+    [
+      "please",
+      "which",
+      "items"
+    ]
+  ],
+  [
+    "specified",
+    "All __________ candidates should attend the meeting.",
+    "所有指定的候選人應出席會議。",
+    [
+      "candidates",
+      "attend",
+      "meeting"
+    ]
+  ],
+  [
+    "specific",
+    "Do you have any __________ requirements for this project?",
+    "您對這個項目有沒有具體的要求？",
+    [
+      "requirements",
+      "project"
+    ]
+  ],
+  [
+    "sufficient",
+    "Do we have __________ resources to complete the project?",
+    "我們有足夠的資源完成該項目嗎？",
+    [
+      "resources",
+      "complete",
+      "project"
+    ]
+  ],
+  [
+    "sufficiently",
+    "The room wasn't __________ heated, so we felt cold.",
+    "房間沒有足夠的加熱，所以我們覺得冷。",
+    [
+      "wasn't",
+      "heated"
+    ]
+  ],
+  [
+    "task (v)",
+    "She was __________ with organizing the event.",
+    "她負責組織這次活動。",
+    [
+      "organizing",
+      "event"
+    ]
+  ],
+  [
+    "task (n)",
+    "Next __________ is to analyze the data.",
+    "您的下一個任務是分析數據",
+    [
+      "analyze"
+    ]
+  ],
+  [
+    "technical",
+    "We encountered some __________ difficulties during the setup.",
+    "在設置過程中，我們遇到了一些技術上的困難。",
+    [
+      "encountered",
+      "difficulties",
+      "setup"
+    ]
+  ],
+  [
+    "technically",
+    "__________ speaking, the code is correct, but it could be optimized.",
+    "從技術上講，代碼是正確的，但它可以被優化。",
+    [
+      "speaking",
+      "correct",
+      "optimized"
+    ]
+  ],
+  [
+    "technological",
+    "The __________ advancements in the last decade have been remarkable.",
+    "過去十年的科技進步非常引人注目。",
+    [
+      "advancements",
+      "decade",
+      "remarkable"
+    ]
+  ],
+  [
+    "technique",
+    "She has mastered the __________ of playing the violin.",
+    "她掌握了拉小提琴的技巧。",
+    [
+      "mastered",
+      "playing",
+      "violin"
+    ]
+  ],
+  [
+    "technology",
+    "The impact of __________ on society is undeniable.",
+    "技術對社會的影響是不可否認的。",
+    [
+      "impact",
+      "society",
+      "undeniable"
+    ]
+  ],
+  [
+    "valid",
+    "The offer is no longer __________ as it expired last month.",
+    "由於上個月已過期，該優惠不再有效。",
+    [
+      "offer",
+      "longer",
+      "expired"
+    ]
+  ],
+  [
+    "validity",
+    "We are checking the __________ of your claims.",
+    "我們正在檢查您的索賠的有效性。",
+    [
+      "checking",
+      "claims"
+    ]
+  ],
+  [
+    "expire",
+    "Your membership will __________ at the end of this month.",
+    "您的會員資格將在本月底到期。",
+    [
+      "membership",
+      "month"
+    ]
+  ],
+  [
+    "expired",
+    "We cannot use this medicine because it's already __________.",
+    "我們不能使用這種藥物，因為它已經過期了。",
+    [
+      "cannot",
+      "medicine",
+      "already"
+    ]
+  ],
+  [
+    "expiration",
+    "The __________ date of the contract is December 31st.",
+    "合同的到期日期是12月31日。",
+    [
+      "contract",
+      "december"
+    ]
+  ],
+  [
+    "volume",
+    "The __________ of water in the tank is 100 liters.",
+    "槽中的水體積為100升。",
+    [
+      "water",
+      "liters"
+    ]
+  ]
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ══════════════════════════════════════════════════════
+//  SYNONYM CONFLICT MAP  — AWL Sublist 3
+// ══════════════════════════════════════════════════════
+const SYNONYMS = {
+  "alternative (n)": new Set(["alternative (adj)"]),
+  "alternative (adj)": new Set(["alternative (n)"]),
+  "circumstances": new Set([]),
+  "under the circumstance": new Set([]),
+  "comment on (v)": new Set([]),
+  "make a comment(n) on": new Set(["make a contribution to"]),
+  "compensate": new Set([]),
+  "compensation": new Set(["compensation__2"]),
+  "compensation__2": new Set(["compensation"]),
+  "component": new Set([]),
+  "consent (n)": new Set(["consent (adj)"]),
+  "consent (adj)": new Set(["consent (n)"]),
+  "consider": new Set(["considerable", "consideration"]),
+  "consideration": new Set(["consider", "considerable"]),
+  "take...into consideration": new Set([]),
+  "considerate": new Set([]),
+  "considerable": new Set(["consider", "consideration"]),
+  "considerably": new Set([]),
+  "constant": new Set(["constantly"]),
+  "constantly": new Set(["constant"]),
+  "constrain": new Set([]),
+  "constraint": new Set([]),
+  "contribute to": new Set([]),
+  "make a contribution to": new Set(["make a comment(n) on"]),
+  "convention (n)": new Set(["convention tradition", "conventional"]),
+  "convention tradition": new Set(["convention (n)", "conventional"]),
+  "conventional": new Set(["convention (n)", "convention tradition"]),
+  "coordinate": new Set([]),
+  "coordination": new Set([]),
+  "core (n)": new Set(["core value"]),
+  "core value": new Set(["core (n)"]),
+  "corporate": new Set([]),
+  "corporation": new Set([]),
+  "correspond with": new Set(["corresponding"]),
+  "correspondent": new Set([]),
+  "corresponding": new Set(["correspond with"]),
+  "criterion": new Set([]),
+  "criteria": new Set([]),
+  "deduct": new Set([]),
+  "deduction": new Set([]),
+  "demonstrate display, explain": new Set(["demonstrate protest"]),
+  "demonstrate protest": new Set(["demonstrate display, explain"]),
+  "demonstration protest": new Set(["demonstration illustration"]),
+  "demonstration illustration": new Set(["demonstration protest"]),
+  "document (n)": new Set(["document (v)"]),
+  "document (v)": new Set(["document (n)"]),
+  "dominate": new Set([]),
+  "dominant": new Set([]),
+  "dominating": new Set([]),
+  "male-dominating": new Set([]),
+  "domination": new Set([]),
+  "emphasize on": new Set([]),
+  "layput emphasis on": new Set(["lay-laid-laid"]),
+  "ensure that": new Set(["ensure n"]),
+  "ensure n": new Set(["ensure that"]),
+  "assure": new Set([]),
+  "reassure": new Set([]),
+  "exclude": new Set([]),
+  "excluded": new Set([]),
+  "exclusive": new Set([]),
+  "exclusion": new Set([]),
+  "include": new Set([]),
+  "inclusive": new Set(["inclusive of"]),
+  "including": new Set(["included"]),
+  "included": new Set(["including"]),
+  "inclusive of": new Set(["inclusive"]),
+  "framework": new Set([]),
+  "fund (v)": new Set(["fund (n)"]),
+  "fund (n)": new Set(["fund (v)"]),
+  "fundamental": new Set([]),
+  "illustrate (v)": new Set(["illustrate  explain"]),
+  "illustrate  explain": new Set(["illustrate (v)"]),
+  "illustrated": new Set([]),
+  "immigrate": new Set([]),
+  "immigrant": new Set([]),
+  "immigration": new Set([]),
+  "imply": new Set([]),
+  "implication": new Set([]),
+  "initial (adj)": new Set([]),
+  "initiate": new Set([]),
+  "initiative": new Set([]),
+  "for instance": new Set([]),
+  "interact with": new Set([]),
+  "interaction with": new Set([]),
+  "justify": new Set([]),
+  "justified": new Set([]),
+  "justification": new Set([]),
+  "lay-laid-laid": new Set(["layput emphasis on"]),
+  "layer (n)": new Set([]),
+  "link (v) towith": new Set(["link (n)"]),
+  "link (n)": new Set(["link (v) towith"]),
+  "location": new Set([]),
+  "be located in": new Set([]),
+  "maximum": new Set([]),
+  "minimum": new Set([]),
+  "major (adj)": new Set([]),
+  "minor (adj)": new Set(["minor in (v)"]),
+  "minor in (v)": new Set(["minor (adj)"]),
+  "the minorities": new Set(["the minority group"]),
+  "the minority group": new Set(["the minorities"]),
+  "negative": new Set([]),
+  "outcome": new Set([]),
+  "partnership": new Set([]),
+  "philosophy": new Set([]),
+  "physical": new Set(["physical__2", "physics"]),
+  "physical__2": new Set(["physical", "physics"]),
+  "physics": new Set(["physical", "physical__2"]),
+  "physically": new Set([]),
+  "proportion": new Set(["proportional"]),
+  "proportional": new Set(["proportion"]),
+  "portion": new Set([]),
+  "publish": new Set(["published", "publishment"]),
+  "published": new Set(["publish", "publishment"]),
+  "publishment": new Set(["publish", "published"]),
+  "publisher": new Set([]),
+  "react with": new Set(["react to"]),
+  "react to": new Set(["react with"]),
+  "reaction to": new Set([]),
+  "register": new Set(["registered"]),
+  "registered": new Set(["register"]),
+  "registration": new Set([]),
+  "rely on": new Set([]),
+  "reliance on": new Set([]),
+  "reliable": new Set([]),
+  "reliant": new Set([]),
+  "remove from": new Set([]),
+  "removed": new Set(["removal"]),
+  "removal": new Set(["removed"]),
+  "scheme": new Set([]),
+  "sequence": new Set([]),
+  "in sequence": new Set([]),
+  "sequent": new Set([]),
+  "subsequently": new Set([]),
+  "sex": new Set([]),
+  "sexual": new Set([]),
+  "sexuality": new Set([]),
+  "shift (n)": new Set(["shift (v)"]),
+  "shift (v)": new Set(["shift (n)"]),
+  "specify": new Set([]),
+  "specified": new Set([]),
+  "specific": new Set([]),
+  "sufficient": new Set(["sufficiently"]),
+  "sufficiently": new Set(["sufficient"]),
+  "task (v)": new Set(["task (n)"]),
+  "task (n)": new Set(["task (v)"]),
+  "technical": new Set([]),
+  "technically": new Set([]),
+  "technological": new Set([]),
+  "technique": new Set([]),
+  "technology": new Set([]),
+  "valid": new Set([]),
+  "validity": new Set([]),
+  "expire": new Set([]),
+  "expired": new Set(["expiration"]),
+  "expiration": new Set(["expired"]),
+  "volume": new Set([]),
+};
+
+function getDistractors(correctKey, count) {
+  const cat  = DEFS[correctKey]?.cat;
+  const syns = SYNONYMS[correctKey] || new Set();
+
+  const pool = QUESTION_POOL.filter(q => {
+    const k = q[0];
+    if (k === correctKey) return false;
+    if ((DEFS[k]?.word || k) === (DEFS[correctKey]?.word || correctKey)) return false;
+    if (DEFS[k]?.cat !== cat) return false;
+    if (syns.has(k)) return false;
+    if ((SYNONYMS[k] || new Set()).has(correctKey)) return false;
+    return true;
+  });
+
+  const picked = shuffle(pool).slice(0, count).map(q => q[0]);
+
+  if (picked.length < count) {
+    const fallback = shuffle(QUESTION_POOL.filter(q => {
+      const k = q[0];
+      return k !== correctKey && !picked.includes(k) &&
+             !syns.has(k) && !(SYNONYMS[k] || new Set()).has(correctKey);
+    }));
+    while (picked.length < count && fallback.length)
+      picked.push(fallback.pop()[0]);
+  }
+  return picked;
+}// Stop words skipped for lookup
+const STOP_WORDS = new Set([
+  "a","an","the","this","that","these","those","it","its","i","we","you","he","she","they",
+  "is","are","was","were","be","been","being","have","has","had","do","does","did",
+  "will","would","could","should","may","might","must","can","shall",
+  "and","but","or","nor","so","yet","for","at","by","in","on","to","of","up","as","into",
+  "if","all","not","no","any","my","our","your","his","her","their","its",
+  "from","with","about","than","then","also","very","just","more","most","such","too","even",
+  "what","which","who","whom","how","when","where","why","after","before","because","during",
+  "over","under","still","only","each","both","few","many","same","other","new","first","last","s"
+]);
+
+function renderPassage(text) {
+  return text.split(/(\s+)/).map(part => {
+    if (/^\s+$/.test(part)) return part;
+    if (/_/.test(part)) return part.replace(/_+/g, `<span class="word blank-word">__________</span>`);
+    const clean  = part.replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, "");
+    const prefix = part.match(/^[^a-zA-Z]*/)[0];
+    const suffix = part.match(/[^a-zA-Z]*$/)[0];
+    if (!clean || clean.length < 2) return part;
+    if (STOP_WORDS.has(clean.toLowerCase())) return part;
+    return `${prefix}<span class="word" data-word="${clean.toLowerCase()}" onclick="lookupWord(this)">${clean}</span>${suffix}`;
+  }).join("");
+}
+
+// Show pool count on splash load
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("poolCount").textContent = QUESTION_POOL.length;
+});
+
+// ══════════════════════════════════════════════════════
+//  START QUIZ  — uses ALL entries, shuffled
+// ══════════════════════════════════════════════════════
+function startQuiz() {
+  studentName = document.getElementById("nameInput").value.trim();
+  if (!studentName) { alert("Please enter your name first! 請先輸入姓名！"); return; }
+
+  questions = shuffle(QUESTION_POOL);   // ALL entries in random order
+  totalQ    = questions.length;
+  currentQ  = 0; score = 0; answered = false; wrongWords = []; lookedUp = new Set();
+
+  document.getElementById("splashScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display   = "block";
+  document.getElementById("totalDisplay").textContent    = totalQ;
+  window.speechSynthesis.getVoices();
+  renderQuestion();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER QUESTION
+// ══════════════════════════════════════════════════════
+function renderQuestion() {
+  answered = false;
+  const q   = questions[currentQ];
+  const key = q[0];
+  const def = DEFS[key] || {};
+  const pct = Math.round((currentQ / totalQ) * 100);
+
+  // Progress
+  document.getElementById("progressBar").style.width   = pct + "%";
+  document.getElementById("progressLabel").textContent  = `Question ${currentQ + 1} of ${totalQ}`;
+  document.getElementById("progressPercent").textContent = pct + "%";
+  document.getElementById("qNumber").textContent        = `Question ${currentQ + 1}`;
+  document.getElementById("scoreDisplay").textContent   = score;
+
+  // Reset word helper
+  document.getElementById("wordHelper").classList.remove("active");
+
+  // POS badge
+  document.getElementById("posVal").textContent = def.pos || "";
+
+  // Passage
+  document.getElementById("passageText").innerHTML = renderPassage(q[1]);
+
+  // Chinese hint
+  document.getElementById("zhHint").textContent = q[2];
+
+  // Options: 1 correct + 3 distractors (same POS), shuffled
+  const distractors = getDistractors(key, 3);
+  const opts = shuffle([key, ...distractors]);
+
+  const grid   = document.getElementById("optionsGrid");
+  const labels = ["A","B","C","D"];
+  grid.innerHTML = "";
+  opts.forEach((optKey, i) => {
+    const btn       = document.createElement("button");
+    btn.className   = "option-btn";
+    btn.dataset.key = optKey;
+    const optLabel = (DEFS[optKey] && DEFS[optKey].word) || optKey;
+    btn.innerHTML   = `<span class="option-label">${labels[i]}</span>${optLabel}`;
+    btn.onclick     = () => handleAnswer(optKey, btn, q);
+    grid.appendChild(btn);
+  });
+
+  // Reset feedback & next
+  document.getElementById("feedbackBox").classList.remove("active");
+  const nb = document.getElementById("nextBtn");
+  nb.classList.remove("visible");
+  nb.style.display = "none";
+
+  // TTS button reset
+  document.getElementById("ttsBtn").classList.remove("speaking");
+
+  // Card animation
+  const card = document.getElementById("questionCard");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "slideUp 0.35s ease";
+}
+
+// ══════════════════════════════════════════════════════
+//  BUILT-IN MINI DICTIONARY (common English words + CN)
+//  Used as fallback when a word is not in DEFS
+// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  DICTIONARY LOOKUP — DEFS first, then Free Dict API + MyMemory CN translation
+// ══════════════════════════════════════════════════════
+//  WORD HELPER / DICTIONARY LOOKUP
+//  Layer 1: DEFS (this unit's vocab, instant)
+//  Layer 2: Free Dictionary API → English definition
+//  Layer 3: MyMemory API → 繁體中文 translation
+// ══════════════════════════════════════════════════════
+//  WORD HELPER / DICTIONARY LOOKUP
+//  Layer 1 : DEFS (this unit's vocab — instant)
+//  Layer 2 : Google Translate API → 繁中 + EN definitions
+//  Layer 3 : Free Dictionary API → EN definition (fallback)
+// ══════════════════════════════════════════════════════
+//  WORD HELPER / DICTIONARY LOOKUP
+//  Layer 1: DEFS (this unit's vocab — instant, always works)
+//  Layer 2: Google Translate API (CN + EN definition attempt)
+//  Layer 3: Cambridge Dictionary button (guaranteed fallback)
+// ══════════════════════════════════════════════════════
+async function lookupWord(el) {
+  var raw = el.dataset.word;
+  lookedUp.add(raw);
+
+  var helper = document.getElementById("wordHelper");
+  helper.classList.add("active");
+  document.getElementById("helperWordText").textContent = raw;
+  document.getElementById("helperPos").textContent = "";
+  document.getElementById("helperDef").innerHTML =
+    '<span class="helper-loader"><i class="fas fa-spinner fa-spin"></i> Looking up\u2026</span>';
+
+  // Rewire TTS button
+  var oldBtn = document.getElementById("helperTtsBtn");
+  var newBtn = oldBtn.cloneNode(true);
+  oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+  newBtn.addEventListener("click", function() {
+    newBtn.classList.add("speaking");
+    speakWordOnly(raw, function() { newBtn.classList.remove("speaking"); });
+  });
+
+  function showResult(posText, enText, cnText) {
+    document.getElementById("helperPos").textContent = posText;
+    document.getElementById("helperDef").innerHTML =
+      '<span style="color:#1c1c1c;display:block;margin-bottom:3px">' + enText + '</span>' +
+      '<span style="color:#6a4c93;font-family:\'Noto Serif TC\',serif;font-size:0.9rem">' + cnText + '</span>';
+  }
+
+  // Cambridge Dictionary link — guaranteed to work everywhere
+  var cambridgeUrl = "https://dictionary.cambridge.org/dictionary/english/" + encodeURIComponent(raw);
+  var cambridgeBtn =
+    '<a href="' + cambridgeUrl + '" target="_blank" rel="noopener" ' +
+    'style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;' +
+    'padding:5px 12px;background:#1a3a5c;color:#fff;border-radius:6px;' +
+    'font-size:0.8rem;text-decoration:none;font-weight:600;">' +
+    '<i class="fas fa-book-open"></i> Open in Cambridge Dictionary</a>';
+
+  function showWithLink(posText, enText, cnText) {
+    document.getElementById("helperPos").textContent = posText;
+    document.getElementById("helperDef").innerHTML =
+      '<span style="color:#1c1c1c;display:block;margin-bottom:3px">' + enText + '</span>' +
+      '<span style="color:#6a4c93;font-family:\'Noto Serif TC\',serif;font-size:0.9rem;display:block">' + cnText + '</span>' +
+      cambridgeBtn;
+  }
+
+  function showLinkOnly() {
+    document.getElementById("helperPos").textContent = "";
+    document.getElementById("helperDef").innerHTML =
+      '<span style="color:var(--color-muted);font-size:0.85rem;display:block;margin-bottom:4px">' +
+      '\u81ea\u52d5\u67e5\u8a62\u5931\u6557\uff0c\u8acb\u9ede\u64ca\u4e0b\u65b9\u6309\u9215\u67e5\u8a62\u5b8c\u6574\u5b57\u5178\uff1a</span>' +
+      cambridgeBtn;
+  }
+
+  // Strip suffix to get base form
+  function baseForm(w) {
+    if (/ied$/i.test(w))           return w.replace(/ied$/i, "y");
+    if (/ies$/i.test(w))           return w.replace(/ies$/i, "y");
+    if (/ves$/i.test(w))           return w.replace(/ves$/i, "f");
+    if (/(\w{4,})ness$/i.test(w))  return w.replace(/ness$/i, "");
+    if (/(\w{4,})tion$/i.test(w))  return w.replace(/tion$/i, "");
+    if (/(\w{4,})edly$/i.test(w))  return w.replace(/edly$/i, "e");
+    if (/(\w{4,})ing$/i.test(w))   return w.replace(/ing$/i, "");
+    if (/(\w{4,})ings$/i.test(w))  return w.replace(/ings$/i, "");
+    if (/(\w{4,})ed$/i.test(w))    return w.replace(/ed$/i, "");
+    if (/(\w{3,})ers?$/i.test(w))  return w.replace(/ers?$/i, "");
+    if (/(\w{4,})ment$/i.test(w))  return w.replace(/ment$/i, "");
+    if (/(\w{4,})ally$/i.test(w))  return w.replace(/ally$/i, "al");
+    if (/(\w{4,})ly$/i.test(w))    return w.replace(/ly$/i, "");
+    if (/(\w{3,})es$/i.test(w))    return w.replace(/es$/i, "");
+    if (/(\w{3,})s$/i.test(w))     return w.replace(/s$/i, "");
+    return w;
+  }
+
+  // ── Layer 1: DEFS (this unit's vocab words) ──────────────────────────────
+  var defsKey = Object.keys(DEFS).find(function(k) {
+    var dw = ((DEFS[k] && DEFS[k].word) || k).toLowerCase();
+    return dw === raw || dw.startsWith(raw + " ");
+  });
+  if (defsKey) {
+    showResult(DEFS[defsKey].pos, DEFS[defsKey].en, DEFS[defsKey].cn);
+    return;
+  }
+
+  // ── Layer 2: Google Translate API ────────────────────────────────────────
+  // Uses the lightweight client=gtx endpoint — no API key, CORS-enabled,
+  // works from browsers worldwide. dt=t gives translation, dt=md gives definitions.
+  var lookupWord = (baseForm(raw) !== raw) ? baseForm(raw) : raw;
+  var gtUrl = "https://translate.googleapis.com/translate_a/single" +
+              "?client=gtx&sl=en&tl=zh-TW&dt=t&dt=md&q=" + encodeURIComponent(lookupWord);
+  try {
+    var res = await fetch(gtUrl);
+    if (res && res.ok) {
+      var data = await res.json();
+      // data[0][0][0] = Chinese translation
+      var cn = "";
+      try { cn = (data[0] && data[0][0] && data[0][0][0]) ? data[0][0][0] : ""; } catch(e2) {}
+      if (cn && (cn.toLowerCase() === lookupWord || /^[\x00-\x7F\s]+$/.test(cn))) cn = "";
+
+      // data[12] = definitions: [[POS, [[def,...],...]],...]
+      var pos = "", en = "";
+      try {
+        if (data[12] && data[12][0]) {
+          pos = data[12][0][0] ? "(" + data[12][0][0] + ")" : "";
+          if (data[12][0][1] && data[12][0][1][0]) en = data[12][0][1][0][0] || "";
+        }
+      } catch(e3) {}
+
+      if (cn || en) {
+        var enShow  = en  || '<em style="font-size:0.82rem">\uff08\u82f1\u6587\u5b9a\u7fa9\u8acb\u5c55\u958b\u5b57\u5178\uff09</em>';
+        var cnShow  = cn  || '<em style="font-size:0.82rem">\uff08\u4e2d\u6587\u7ffb\u8b6f\u8acb\u5c55\u958b\u5b57\u5178\uff09</em>';
+        showWithLink(pos, enShow, cnShow);
+        return;
+      }
+    }
+  } catch(e) { /* fall through to Layer 3 */ }
+
+  // ── Layer 3: Free Dictionary API (second attempt) ────────────────────────
+  try {
+    var fdUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(lookupWord);
+    var fdRes = await fetch(fdUrl);
+    if (fdRes && fdRes.ok) {
+      var fdData = await fdRes.json();
+      if (fdData && fdData[0] && fdData[0].meanings && fdData[0].meanings[0]) {
+        var m   = fdData[0].meanings[0];
+        var def = (m.definitions && m.definitions[0] && m.definitions[0].definition) || "";
+        if (def) {
+          var fdPos = m.partOfSpeech ? "(" + m.partOfSpeech + ")" : "";
+          showWithLink(fdPos, def, '<em style="font-size:0.82rem">\uff08\u4e2d\u6587\u7ffb\u8b6f\u8acb\u5c55\u958b\u5b57\u5178\uff09</em>');
+          return;
+        }
+      }
+    }
+  } catch(e) { /* fall through */ }
+
+  // ── Final fallback: Cambridge Dictionary link ────────────────────────────
+  showLinkOnly();
+}
+
+
+// Speaks a single word at slow rate, fires callback on end/error
+function speakWordOnly(word, onDone) {
+  window.speechSynthesis.cancel();
+  const utt  = new SpeechSynthesisUtterance(word);
+  utt.lang   = "en-US";
+  utt.rate   = 0.78;   // slower so pronunciation is clear
+  const voices = window.speechSynthesis.getVoices();
+  const female = voices.find(v => v.lang === "en-US" && /female|woman|samantha|karen|victoria|zira/i.test(v.name));
+  if (female) utt.voice = female;
+  utt.onend   = onDone || (() => {});
+  utt.onerror = onDone || (() => {});
+  window.speechSynthesis.speak(utt);
+}
+
+// ══════════════════════════════════════════════════════
+//  HANDLE ANSWER
+// ══════════════════════════════════════════════════════
+function handleAnswer(chosenKey, btn, q) {
+  if (answered) return;
+  answered = true;
+  const isCorrect = chosenKey === q[0];
+  if (isCorrect) score++;
+  else wrongWords.push((DEFS[q[0]] && DEFS[q[0]].word) || q[0]);
+
+  // Style buttons
+  document.querySelectorAll(".option-btn").forEach(b => {
+    b.disabled = true;
+    if (b.dataset.key === q[0]) b.classList.add("correct");
+    else if (b === btn && !isCorrect) b.classList.add("incorrect");
+  });
+
+  document.getElementById("scoreDisplay").textContent = score;
+
+  // Highlight clue words in passage
+  const clues = q[3] || [];
+  document.getElementById("passageText").querySelectorAll(".word[data-word]").forEach(span => {
+    if (clues.some(c => c.toLowerCase() === span.dataset.word)) span.classList.add("clue-highlight");
+  });
+
+  // Feedback
+  buildFeedback(q);
+  document.getElementById("feedbackBox").classList.add("active");
+
+  // Next button
+  const nb = document.getElementById("nextBtn");
+  nb.style.display = "flex";
+  nb.classList.add("visible");
+  nb.innerHTML = currentQ < totalQ - 1
+    ? `Next Question <i class="fas fa-arrow-right"></i>`
+    : `See Results <i class="fas fa-flag-checkered"></i>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  BUILD FEEDBACK BOX  (uses data-* attrs to avoid escaping issues)
+// ══════════════════════════════════════════════════════
+function buildFeedback(q) {
+  const grid = document.getElementById("feedbackGrid");
+  grid.innerHTML = "";
+  // Collect option keys from rendered buttons
+  const optKeys = [...document.querySelectorAll(".option-btn")].map(b => b.dataset.key);
+  optKeys.forEach(wk => {
+    const def   = DEFS[wk] || { pos:"", en:"—", cn:"—", ex:"—" };
+    const isAns = wk === q[0];
+    const item  = document.createElement("div");
+    item.className = "feedback-item" + (isAns ? " is-answer" : "");
+
+    // Word row + TTS
+    const wordRow = document.createElement("div");
+    wordRow.className = "feedback-word";
+
+    const displayWord = (DEFS[wk] && DEFS[wk].word) || wk;
+    const wordSpan = document.createElement("span");
+    wordSpan.textContent = displayWord + (isAns ? " ?" : "");
+    wordRow.appendChild(wordSpan);
+
+    const wordTts = document.createElement("button");
+    wordTts.className = "word-tts";
+    wordTts.title = "Listen to word";
+    wordTts.innerHTML = `<i class="fas fa-volume-low"></i>`;
+    wordTts.dataset.speak = displayWord;
+    wordTts.addEventListener("click", () => speakText(displayWord));
+    wordRow.appendChild(wordTts);
+    item.appendChild(wordRow);
+
+    // EN definition
+    const enDiv = document.createElement("div");
+    enDiv.className = "feedback-en";
+    enDiv.textContent = def.en;
+    item.appendChild(enDiv);
+
+    // CN definition
+    const cnDiv = document.createElement("div");
+    cnDiv.className = "feedback-cn";
+    cnDiv.textContent = def.cn;
+    item.appendChild(cnDiv);
+
+    // Example sentence row with TTS
+    const exRow = document.createElement("div");
+    exRow.className = "feedback-example";
+
+    const exTts = document.createElement("button");
+    exTts.className = "ex-tts";
+    exTts.title = "Listen to example sentence";
+    exTts.innerHTML = `<i class="fas fa-play-circle"></i>`;
+    const exText = def.ex || "";
+    exTts.addEventListener("click", () => speakText(exText));
+    exRow.appendChild(exTts);
+
+    const exSpan = document.createElement("span");
+    exSpan.textContent = exText;
+    exRow.appendChild(exSpan);
+    item.appendChild(exRow);
+
+    grid.appendChild(item);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+//  TTS
+// ══════════════════════════════════════════════════════
+function speakText(text) {
+  window.speechSynthesis.cancel();
+  const utt  = new SpeechSynthesisUtterance(text);
+  utt.lang   = "en-US";
+  utt.rate   = 0.92;
+  const voices = window.speechSynthesis.getVoices();
+  const female = voices.find(v => v.lang === "en-US" && /female|woman|samantha|karen|victoria|zira/i.test(v.name));
+  if (female) utt.voice = female;
+  window.speechSynthesis.speak(utt);
+}
+
+function speakPassage() {
+  const q   = questions[currentQ];
+  const btn = document.getElementById("ttsBtn");
+  const txt = q[1].replace(/_+/g, "blank");
+  window.speechSynthesis.cancel();
+  const utt  = new SpeechSynthesisUtterance(txt);
+  utt.lang   = "en-US";
+  utt.rate   = 0.88;
+  const voices = window.speechSynthesis.getVoices();
+  const female = voices.find(v => v.lang === "en-US" && /female|woman|samantha|karen|victoria|zira/i.test(v.name));
+  if (female) utt.voice = female;
+  btn.classList.add("speaking");
+  utt.onend  = () => btn.classList.remove("speaking");
+  utt.onerror= () => btn.classList.remove("speaking");
+  window.speechSynthesis.speak(utt);
+}
+
+// ══════════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════════
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= totalQ) showEndScreen();
+  else renderQuestion();
+}
+
+// ══════════════════════════════════════════════════════
+//  END SCREEN
+// ══════════════════════════════════════════════════════
+function showEndScreen() {
+  document.getElementById("quizArea").style.display = "none";
+  document.getElementById("endScreen").classList.add("active");
+  document.getElementById("progressBar").style.width      = "100%";
+  document.getElementById("progressLabel").textContent     = "Quiz Complete!";
+  document.getElementById("progressPercent").textContent   = "100%";
+
+  const pct = Math.round((score / totalQ) * 100);
+  document.getElementById("endName").textContent           = studentName;
+  document.getElementById("endScoreBig").textContent       = `${score}/${totalQ}`;
+  document.getElementById("endScoreLabel").textContent     = `${pct}% Correct`;
+  document.getElementById("statCorrect").textContent       = score;
+  document.getElementById("statWrong").textContent         = totalQ - score;
+  document.getElementById("statLooked").textContent        = lookedUp.size;
+
+  // Wrong word chips
+  const wc = document.getElementById("wrongChips");
+  wc.innerHTML = wrongWords.length
+    ? [...new Set(wrongWords)].map(w => `<span class="chip chip-wrong">${w}</span>`).join("")
+    : `<span style="color:var(--color-muted);font-size:0.88rem">None! 🎉</span>`;
+
+  // Looked-up chips
+  const lc = document.getElementById("lookupChips");
+  lc.innerHTML = lookedUp.size
+    ? [...lookedUp].map(w => `<span class="chip chip-lookup">${w}</span>`).join("")
+    : `<span style="color:var(--color-muted);font-size:0.88rem">No words were looked up.</span>`;
+
+  // Message
+  let icon, msg, msgCn;
+  if (pct === 100) { icon="🏆"; msg="Perfect score! Your vocabulary mastery is exceptional."; msgCn="滿分！你的詞彙能力非常出色！"; }
+  else if (pct >= 80) { icon="🌟"; msg="Excellent work! You have a strong command of these words."; msgCn="表現優異！你對這些單字掌握得很好。"; }
+  else if (pct >= 60) { icon="📚"; msg="Good effort! Review the words you missed and try again."; msgCn="表現不錯！複習答錯的單字，再試一次吧。"; }
+  else { icon="💪"; msg="Keep practicing! Each attempt builds stronger vocabulary skills."; msgCn="繼續努力！每次練習都能讓你的詞彙更進步。"; }
+  document.getElementById("endIcon").textContent        = icon;
+  document.getElementById("endMessage").textContent     = msg;
+  document.getElementById("endMessageCn").textContent   = msgCn;
+
+  submitResults(pct);
+}
+
+// ══════════════════════════════════════════════════════
+//  SUBMIT TO GOOGLE SHEETS
+// ══════════════════════════════════════════════════════
+async function submitResults(pct) {
+  const st = document.getElementById("submitStatus");
+  st.className = "submit-status status-sending show";
+  st.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Submitting results… 成績送出中…`;
+
+  const payload = {
+    timestamp:    new Date().toISOString(),
+    studentName:  studentName,
+    subunitName:  UNIT_NAME,
+    scorePercent: pct,
+    wrongWords:   [...new Set(wrongWords)],
+    lookedUpWords:[...lookedUp]
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode:   "no-cors",
+      headers:{ "Content-Type": "application/json" },
+      body:   JSON.stringify(payload)
+    });
+    st.className = "submit-status status-ok show";
+    st.innerHTML = `<i class="fas fa-circle-check"></i> Results submitted! 成績已成功送出！`;
+  } catch(e) {
+    st.className = "submit-status status-err show";
+    st.innerHTML = `<i class="fas fa-circle-exclamation"></i> Could not submit. Please check your internet connection.`;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RESTART
+// ══════════════════════════════════════════════════════
+function restartQuiz() {
+  document.getElementById("endScreen").classList.remove("active");
+  document.getElementById("quizArea").style.display = "block";
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("splashScreen").style.display = "flex";
+  document.getElementById("nameInput").value = "";
+}
+
+// Prefill name from dashboard profile
+try{const p=JSON.parse(localStorage.getItem('jenniferQuizStudentProfileV1')||'{}');if(p.studentName)document.getElementById('nameInput').value=p.studentName;}catch(e){}
+// Init
+window.speechSynthesis.getVoices();
+// Set pool count on splash (fallback if DOMContentLoaded already fired)
+if (document.getElementById("poolCount")) {
+  document.getElementById("poolCount").textContent = QUESTION_POOL.length;
+}
+</script>
+</body>
+</html>
