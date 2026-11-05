@@ -12,7 +12,7 @@
     .profile-card{margin:16px 0;padding:18px;border:1px solid #bfdbfe;border-radius:16px;background:#eff6ff;box-shadow:0 5px 15px #1e40af0b}.profile-card h2{margin:0 0 5px;font-size:21px}.profile-card p{margin:5px 0;color:#475569}.profile-fields{display:grid;grid-template-columns:minmax(200px,1fr) auto;gap:10px;margin-top:12px}.profile-fields input{min-width:0;padding:11px 12px;border:2px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}.profile-fields button{border:0;border-radius:10px;padding:11px 16px;background:var(--blue);color:#fff;font:inherit;font-weight:900;cursor:pointer}.profile-status{display:inline-block;margin-top:9px;color:#92400e;font-weight:800}.profile-status.saved{color:#166534}.profile-status.error{color:#b91c1c}
     .zone{margin:25px 0}.zone-title{display:flex;align-items:center;gap:10px;font-size:27px;margin:0 0 13px}.zone-title::before{content:"";width:8px;height:31px;border-radius:6px;background:var(--high)}#travel-daily .zone-title::before{background:#0891b2}#junior .zone-title::before{background:var(--junior)}#jiren-g3-fall .zone-title::before{background:#14b8a6}
     details.publisher{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;box-shadow:0 5px 15px #0f172a0a;overflow:hidden}details.publisher>summary{cursor:pointer;list-style:none;padding:17px 19px;font-size:20px;font-weight:900;display:flex;justify-content:space-between;gap:10px}details.publisher>summary::-webkit-details-marker{display:none}details.publisher>summary::after{content:"＋";color:var(--blue)}details[open].publisher>summary::after{content:"－"}.content{padding:0 18px 18px}.unit{border-top:1px solid var(--line);padding-top:15px;margin-top:4px}.unit h3{margin:0 0 10px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.grammar-subgroup{grid-column:1/-1;border:1px solid #c7d2fe;border-radius:14px;background:#f5f3ff;overflow:hidden}.grammar-subgroup>summary{cursor:pointer;list-style:none;padding:15px 17px;font-size:19px;font-weight:900;display:flex;justify-content:space-between;gap:10px}.grammar-subgroup>summary::-webkit-details-marker{display:none}.grammar-subgroup>summary::after{content:"＋";color:#6d28d9}.grammar-subgroup[open]>summary::after{content:"－"}.grammar-subgroup .subgroup-content{padding:0 13px 13px}.quiz{display:flex;flex-direction:column;min-height:118px;padding:15px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;text-decoration:none;color:var(--ink);transition:.15s}.quiz:hover{transform:translateY(-2px);border-color:#60a5fa;box-shadow:0 7px 15px #2563eb18}.quiz b{font-size:17px}.quiz span{color:var(--muted);font-size:14px;margin-top:5px}.quiz em{margin-top:auto;color:var(--blue);font-style:normal;font-weight:900}.empty{padding:13px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:var(--muted)}.hidden-by-search{display:none!important}.footer{text-align:center;color:var(--muted);padding:22px 0}@media(max-width:600px){.wrap{padding:10px}.hero{padding:21px}.profile-fields{grid-template-columns:1fr}.zone-title{font-size:23px}details.publisher>summary{font-size:18px;padding:15px}.content{padding:0 13px 15px}.grid{grid-template-columns:1fr}.grammar-subgroup>summary{font-size:17px}}
-    #awl .zone-title::before{background:#c8962e}.awl-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;margin-bottom:6px;border:1px solid #f0c060;border-radius:12px;background:#fffbf0;color:#7a5c00;font-weight:700}.awl-sheet{flex-shrink:0;padding:10px 16px;border-radius:10px;background:#2d7a4f;color:#fff;text-decoration:none;font-weight:900}.awl-count{margin-left:8px;color:var(--muted);font-size:14px;font-weight:600}
+    #awl .zone-title::before{background:#c8962e}#toefl-ew .zone-title::before{background:#1f5c99}.awl-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;margin-bottom:6px;border:1px solid #f0c060;border-radius:12px;background:#fffbf0;color:#7a5c00;font-weight:700}.awl-sheet{flex-shrink:0;padding:10px 16px;border-radius:10px;background:#2d7a4f;color:#fff;text-decoration:none;font-weight:900}.awl-count{margin-left:8px;color:var(--muted);font-size:14px;font-weight:600}
   </style>
 </head>
 <body><main class="wrap">
@@ -32,7 +32,7 @@
   </form>
   <div class="controls">
     <input id="search" class="search" type="search" placeholder="搜尋出版社、冊別、單元或題型，例如：龍騰、B1U1、翻譯">
-    <nav class="jump"><a href="#senior">高中英文區</a><a href="#exam-topics">學測／TOEFL／IELTS／FCE 主題單字</a><a href="#awl">AWL 學術單字</a><a href="#travel-daily">Travel Daily Conversation English</a><a href="#junior">國中英文區</a><a href="#jiren">及人國小</a><a href="#other">其他專題</a></nav>
+    <nav class="jump"><a href="#senior">高中英文區</a><a href="#exam-topics">學測／TOEFL／IELTS／FCE 主題單字</a><a href="#awl">AWL 學術單字</a><a href="#toefl-ew">TOEFL Essential Words</a><a href="#travel-daily">Travel Daily Conversation English</a><a href="#junior">國中英文區</a><a href="#jiren">及人國小</a><a href="#other">其他專題</a></nav>
   </div>
 
   <section id="senior" class="zone"><h2 class="zone-title">高中英文區</h2>
@@ -246,6 +246,45 @@
         <a class="quiz" href="awl/awl-learn.html?sublist=10&v=20261103-1"><b>📖 Sublist 10｜學習區 Learning</b><span>91 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
         <a class="quiz" href="awl/awl-sublist-10-quiz.html?v=20261103-1"><b>📝 Sublist 10｜測驗 Quiz</b><span>91 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
       </div></div>
+    </div></details>
+  </section>
+
+  <section id="toefl-ew" class="zone"><h2 class="zone-title">Essential Words for TOEFL（7th Ed.）</h2>
+    <details class="publisher" open data-search="toefl essential words 7th edition complete the words 托福 單字 填空 unit 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"><summary><span>Essential Words for TOEFL｜2026 Complete the Words</span><small>30 單元｜500 字｜60 篇文章</small></summary><div class="content">
+      <div class="awl-bar"><span>每單元：單字庫（中英釋義＋例句＋美式發音）→ 2 篇補完單字填空。完成後成績自動寫入試算表。</span><a class="awl-sheet" href="https://docs.google.com/spreadsheets/d/1y8aIYpMF2gLxjtJD-fSHpqznhhCwLojIfCMVspjW-Js/edit" target="_blank" rel="noopener">📊 查看 TOEFL 成績表 View Results</a></div>
+      <div class="grid">
+        <a class="quiz" href="toefl-essential-words/index.html?v=20261106-1"><b>📚 總覽 Motherboard</b><span>30 單元總覽｜顯示各單元最佳成績</span><em>進入 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-01.html?v=20261106-1"><b>Unit 1</b><span>17 字｜abroad → withdraw｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-02.html?v=20261106-1"><b>Unit 2</b><span>17 字｜advantage → worthwhile｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-03.html?v=20261106-1"><b>Unit 3</b><span>17 字｜alter → vital｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-04.html?v=20261106-1"><b>Unit 4</b><span>17 字｜ambiguous → stagnant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-05.html?v=20261106-1"><b>Unit 5</b><span>17 字｜baffle → work out｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-06.html?v=20261106-1"><b>Unit 6</b><span>17 字｜chiefly → visibly｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-07.html?v=20261106-1"><b>Unit 7</b><span>17 字｜brash → theoretically｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-08.html?v=20261106-1"><b>Unit 8</b><span>17 字｜accelerate → transport｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-09.html?v=20261106-1"><b>Unit 9</b><span>17 字｜account for → vibrant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-10.html?v=20261106-1"><b>Unit 10</b><span>17 字｜distinct → vigorous｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-11.html?v=20261106-1"><b>Unit 11</b><span>17 字｜amenity → release｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-12.html?v=20261106-1"><b>Unit 12</b><span>17 字｜benefit → susceptible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-13.html?v=20261106-1"><b>Unit 13</b><span>17 字｜accolade → uphold｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-14.html?v=20261106-1"><b>Unit 14</b><span>17 字｜ample → withstand｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-15.html?v=20261106-1"><b>Unit 15</b><span>16 字｜adept → underscore｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-16.html?v=20261106-1"><b>Unit 16</b><span>17 字｜conscientious → zenith｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-17.html?v=20261106-1"><b>Unit 17</b><span>17 字｜abysmal → nominal｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-18.html?v=20261106-1"><b>Unit 18</b><span>17 字｜absurd → swift｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-19.html?v=20261106-1"><b>Unit 19</b><span>17 字｜coherent → varied｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-20.html?v=20261106-1"><b>Unit 20</b><span>17 字｜accentuate → streamline｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-21.html?v=20261106-1"><b>Unit 21</b><span>17 字｜affluent → vanishing｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-22.html?v=20261106-1"><b>Unit 22</b><span>16 字｜account → provoke｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-23.html?v=20261106-1"><b>Unit 23</b><span>16 字｜allusion → teeming｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-24.html?v=20261106-1"><b>Unit 24</b><span>16 字｜affordable → tedious｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-25.html?v=20261106-1"><b>Unit 25</b><span>16 字｜briefly → upstanding｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-26.html?v=20261106-1"><b>Unit 26</b><span>16 字｜abolish → striking｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-27.html?v=20261106-1"><b>Unit 27</b><span>16 字｜aptly → tangible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-28.html?v=20261106-1"><b>Unit 28</b><span>16 字｜aggravating → underestimated｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-29.html?v=20261106-1"><b>Unit 29</b><span>16 字｜acknowledge → vast｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-30.html?v=20261106-1"><b>Unit 30</b><span>16 字｜charisma → woo｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+      </div>
     </div></details>
   </section>
 

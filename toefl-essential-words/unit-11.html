@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="2026 TOEFL Complete the Words practice for Essential Words for the TOEFL, Unit 11.">
+  <title>Unit 11 | Essential Words for TOEFL 7th Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-unit="11">
+  <header class="hero compact">
+    <div class="hero-inner">
+      <p class="eyebrow">2026 TOEFL iBT Reading • Complete the Words</p>
+      <h1>Unit 11: Word Bank &amp; Passage Practice</h1>
+      <p>17 essential words, studied first and then tested through context.</p>
+    </div>
+  </header>
+  <main class="page-shell">
+    <a class="back-link" href="index.html">← Back to all units</a>
+    <section class="identity-card" aria-labelledby="student-heading">
+      <h2 id="student-heading" class="sr-only">Student information</h2>
+      <label for="student-name">Your name</label>
+      <input id="student-name" autocomplete="name" placeholder="Type your name here" maxlength="80">
+    </section>
+    <section aria-labelledby="word-bank-heading">
+      <div class="section-heading">
+        <p class="section-kicker">Study first</p>
+        <h2 id="word-bank-heading">Part 1: Word Bank</h2>
+        <p>Review each word, part of speech, English and Traditional Chinese meanings, and a context-rich B1 example. Select Listen for a US English voice.</p>
+      </div>
+      <div id="word-bank" class="word-bank" aria-live="polite"></div>
+    </section>
+    <section aria-labelledby="practice-heading">
+      <div class="section-heading">
+        <p class="section-kicker">2026 format</p>
+        <h2 id="practice-heading">Part 2: Complete the Words</h2>
+        <p>Each blank keeps the first half of a word. Type only the missing letters. Every unit word is tested at least once. On a second incorrect attempt, the answer is revealed for review.</p>
+      </div>
+      <div id="passages" class="passage-list" aria-live="polite"></div>
+    </section>
+    <section id="final-panel" class="final-panel" hidden>
+      <div>
+        <p class="section-kicker">Unit complete</p>
+        <h2 id="final-score">Your result</h2>
+        <p id="final-message"></p>
+        <p id="submit-status" class="submit-status" role="status"></p>
+      </div>
+      <button class="button secondary" id="retry-button" type="button">Try the unit again</button>
+    </section>
+  </main>
+  <footer><p>Independent classroom practice based on <em>Essential Words for the TOEFL, 7th Edition</em>. TOEFL is a registered trademark of ETS; this site is not endorsed by ETS.</p></footer>
+  <script src="assets/config.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
