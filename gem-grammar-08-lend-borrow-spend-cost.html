@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文：花費與授與動詞全攻略 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fffbeb; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .pattern-box { border: 2px dashed #fcd34d; border-radius: 12px; padding: 16px; background: #ffffff; }
+        .success-bg { background-color: #fef3c7 !important; border-color: #d97706 !important; color: #92400e !important; }
+        .error-bg { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-border { border-color: #d97706 !important; border-width: 3px !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Progress Info -->
+        <div class="mb-6">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">特殊動詞用法 <span class="text-amber-600">全攻略</span></h1>
+                    <p class="text-slate-500 font-medium italic">Spend, Take, Cost, Pay &amp; Dative Verbs</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-black shadow-sm tracking-widest">LOADING...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
+                <div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-12 mb-10 min-h-[580px]">
+            <div id="question-area">
+                <div class="flex items-center gap-3 mb-6">
+                    <span id="q-number" class="w-10 h-10 bg-amber-500 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">1</span>
+                    <span id="q-cat" class="text-xs font-black px-3 py-1 bg-amber-50 text-amber-600 border border-amber-100 rounded-full uppercase tracking-wider">題庫載入中</span>
+                </div>
+                
+                <p id="question-text" class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-10 font-bold border-l-4 border-amber-500 pl-4"></p>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area -->
+            <div id="explanation-area" class="mt-12 pt-10 border-t-2 border-slate-50 hidden animate-fade-in">
+                <div class="flex items-center mb-8">
+                    <div id="result-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-xl"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-xs font-black text-amber-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-sitemap mr-2"></i> 視覺化文法結構
+                        </h3>
+                        <div id="visual-pattern" class="pattern-box flex flex-wrap items-center gap-2 shadow-inner">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-orange-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-key mr-2"></i> 核心破解解析
+                        </h3>
+                        <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+                            <p id="grammar-explanation" class="text-orange-900 leading-relaxed font-medium"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="text-xs font-black text-amber-600 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fas fa-headphones mr-2"></i> 同步句型練習 (TTS)
+                    </h3>
+                    <div id="examples-list" class="space-y-3">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+                <button onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-800 transition shadow-xl flex items-center justify-center group">
+                    <span>NEXT 下一題</span>
+                    <i class="fas fa-chevron-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // ================= 歷屆試題 =================
+            { cat: "會考歷屆試題", q: "Studying in a foreign country _____ me a lot of money. That's why I had to sell my apartment.", opts: ["cost", "lost", "made", "spent"], ans: 0, pattern: ["Studying (V-ing作主詞)", "→", "cost (花費金錢)", "→", "me"], exp: "主詞是「在國外讀書」這件事 (Studying)，花費「金錢 (a lot of money)」，動詞必須用 cost。cost 三態同型。", exs: ["Buying a car costs a lot of money.", "It cost me 100 dollars."] },
+            { cat: "會考歷屆試題", q: "There are online videos that teach you exercises you can do at home. They’ll _____ you a trip to the gym, and some money too.", opts: ["cost", "give", "keep", "save"], ans: 3, pattern: ["They (videos)", "→", "save (省下)", "→", "you a trip (人+事)"], exp: "語意題。表示線上影片能幫你「省去」去健身房的這趟路程與金錢。save sb. sth. 表示「為某人省下某物」。", exs: ["It saves me a lot of time.", "This coupon saves you 50 dollars."] },
+            { cat: "會考歷屆試題", q: "My dog hates to take a bath. It usually _____ me one hour to make him clean.", opts: ["needs", "spends", "takes", "uses"], ans: 2, pattern: ["It (虛主詞)", "→", "takes (花費時間)", "→", "one hour"], exp: "It 開頭的虛主詞，搭配「花費時間 (one hour)」，動詞固定用 take。", exs: ["It takes me two hours to get there.", "It took her three days to finish it."] },
+
+            // ================= 第一部分：授與動詞 =================
+            { cat: "第一部分：授與動詞", q: "A: What did you do for your mother's birthday yesterday?\nB: I _____ a beautiful cake _____ her.", opts: ["make ; to", "made ; for", "make ; for", "made ; to"], ans: 1, pattern: ["made (yesterday)", "→", "cake (物)", "→", "for (介係詞)"], exp: "由 yesterday 可知用過去式 made。make (製作) 為授與動詞，給某人要搭配介係詞 for (make 物 for 人)。", exs: ["I made a card for my teacher.", "She bought a gift for me."] },
+            { cat: "第一部分：授與動詞", q: "Since he moved to London last year, Peter _____ several postcards _____ his best friend in Taiwan.", opts: ["sent ; to", "sends ; for", "has sent ; to", "has sent ; for"], ans: 2, pattern: ["has sent (Since+過去)", "→", "postcards (物)", "→", "to (介係詞)"], exp: "Since 引導的子句搭配現在完成式 (has sent)。send (寄送) 搭配的介係詞是 to (send 物 to 人)。", exs: ["I have sent an email to him.", "She sent a package to me."] },
+            { cat: "第一部分：授與動詞", q: "My dad promised that he _____ a new smartphone _____ me if I get good grades next week.", opts: ["buys ; for", "will buy ; for", "bought ; to", "will buy ; to"], ans: 1, pattern: ["will buy (未來式)", "→", "smartphone", "→", "for (介係詞)"], exp: "由 next week 可知用未來式 (will buy)。buy (買) 搭配的介係詞是 for (buy 物 for 人)。", exs: ["Dad will buy a bike for me.", "He bought a drink for her."] },
+            { cat: "第一部分：授與動詞", q: "When I walked into the living room, my brother _____ an interesting storybook _____ his little daughter.", opts: ["is reading ; to", "was reading ; to", "read ; for", "has read ; for"], ans: 1, pattern: ["was reading (過去進行)", "→", "book", "→", "to (介係詞)"], exp: "When + 過去式，主要子句常用過去進行式表示「當時正在...」。read (讀) 搭配介係詞 to (read 物 to 人)。", exs: ["I was reading a letter to him.", "She read a poem to us."] },
+            { cat: "第一部分：授與動詞", q: "Please _____ this important document _____ the manager as soon as he arrives at the office tomorrow morning.", opts: ["give ; for", "giving ; to", "give ; to", "gave ; for"], ans: 2, pattern: ["give (祈使句VR)", "→", "document", "→", "to (介係詞)"], exp: "祈使句用原形動詞 give。give (給) 搭配介係詞 to (give 物 to 人)。", exs: ["Please give this book to Mary.", "Give the keys to him."] },
+            { cat: "第一部分：授與動詞", q: "Over the past few weeks, the famous chef _____ many delicious dishes _____ the poor children in the hospital.", opts: ["has cooked ; for", "cooked ; to", "cooks ; for", "has cooked ; to"], ans: 0, pattern: ["has cooked (這幾週以來)", "→", "dishes", "→", "for (介係詞)"], exp: "Over the past few weeks 搭配現在完成式。cook (烹煮) 搭配介係詞 for (cook 物 for 人)。", exs: ["Mom has cooked dinner for us.", "I cooked soup for him."] },
+            { cat: "第一部分：授與動詞", q: "I _____ a cup of hot coffee _____ you this morning, but you weren't at your desk.", opts: ["got ; to", "get ; for", "got ; for", "have got ; to"], ans: 2, pattern: ["got (this morning)", "→", "coffee", "→", "for (介係詞)"], exp: "this morning 這裡指過去發生的動作，用過去式 got。get (準備/取得/買) 搭配介係詞 for (get 物 for 人)。", exs: ["I got a drink for you.", "She got a ticket for me."] },
+            { cat: "第一部分：授與動詞", q: "A: Are you going to the post office?\nB: Yes, I need to _____ a package _____ my aunt in America.", opts: ["send ; for", "send ; to", "sent ; to", "sending ; for"], ans: 1, pattern: ["to send (不定詞)", "→", "package", "→", "to (介係詞)"], exp: "need to + 原形動詞 (send)。send 搭配介係詞 to (send 物 to 人)。", exs: ["I need to send a letter to him.", "Send this box to them."] },
+            { cat: "第一部分：授與動詞", q: "Mr. Lin is a very nice teacher. He always spends a lot of extra time helping us with our homework, and he often _____ small gifts _____ us.", opts: ["gives ; to", "buys ; to", "gives ; for", "makes ; to"], ans: 0, pattern: ["gives", "→", "gifts (物)", "→", "to (介係詞)"], exp: "give (給) 搭配介係詞 to (give 物 to 人)。buy 或 make 則需要搭配 for。", exs: ["He gives gifts to students.", "She gives her time to help others."] },
+            { cat: "第一部分：授與動詞", q: "The little boy _____ a colorful picture _____ his teacher right now. He wants to surprise her.", opts: ["draws ; to", "drew ; for", "is drawing ; for", "is drawing ; to"], ans: 2, pattern: ["is drawing (right now)", "→", "picture", "→", "for (介係詞)"], exp: "right now 搭配現在進行式。draw (畫) 搭配介係詞 for (draw 物 for 人)。", exs: ["He is drawing a map for me.", "I drew a heart for you."] },
+
+            // ================= 第二部分：spend / take / cost 形式 =================
+            { cat: "第二部分：花費動詞形式", q: "Jenny spent the whole afternoon _____ her room because her friends are coming over tonight.", opts: ["clean", "to clean", "cleaning", "cleaned"], ans: 2, pattern: ["spent (花時間)", "→", "afternoon", "→", "V-ing (動名詞)"], exp: "人 + spend + 時間/金錢 + V-ing。花時間做某事，後面動詞必須加 ing。", exs: ["I spent two hours reading.", "She spent a lot of money shopping."] },
+            { cat: "第二部分：花費動詞形式", q: "It usually takes my father about an hour _____ to work every morning because the traffic is heavy.", opts: ["drive", "to drive", "driving", "drove"], ans: 1, pattern: ["It takes (花時間)", "→", "an hour", "→", "to V (不定詞)"], exp: "It takes + 人 + 時間 + to V。以 It 虛主詞開頭表示花費時間，後接不定詞。", exs: ["It takes me 10 minutes to walk there.", "It takes time to learn."] },
+            { cat: "第二部分：花費動詞形式", q: "Getting a driver's license in this country costs a lot of money, and it also takes lots of time _____ the tests.", opts: ["pass", "to pass", "passing", "passed"], ans: 1, pattern: ["it takes (花時間)", "→", "lots of time", "→", "to V (不定詞)"], exp: "It takes + 時間 + to V。這裡的 it 為虛主詞，代替後面的 to pass the tests。", exs: ["It takes effort to succeed.", "It takes hours to clean the house."] },
+            { cat: "第二部分：花費動詞形式", q: "Frank spent over NT$5,000 _____ that pair of limited-edition sneakers.", opts: ["buy", "to buy", "buying", "bought"], ans: 2, pattern: ["spent (花金錢)", "→", "NT$5,000", "→", "V-ing (動名詞)"], exp: "人 + spend + 金錢 + V-ing。買鞋子花錢，動詞要加上 ing。", exs: ["He spent $100 buying games.", "I spent all my money traveling."] },
+            { cat: "第二部分：花費動詞形式", q: "It cost the city government millions of dollars _____ the old bridge last year.", opts: ["fix", "fixing", "to fix", "fixed"], ans: 2, pattern: ["It cost (花金錢)", "→", "millions of dollars", "→", "to V (不定詞)"], exp: "It costs + 人 + 金錢 + to V。以 It 虛主詞開頭表示花費金錢，後接不定詞。", exs: ["It costs $50 to buy the ticket.", "It will cost a lot to fix the car."] },
+            { cat: "第二部分：花費動詞形式", q: "_____ English well takes a lot of time and practice. You can't just learn it in one day.", opts: ["Learn", "To learning", "Learning", "Learned"], ans: 2, pattern: ["Learning (V-ing當主詞)", "→", "takes (花時間)"], exp: "放句首作主詞，要用動名詞 (V-ing)。「學英文」這件事花時間。", exs: ["Learning math takes practice.", "Playing piano takes time."] },
+            { cat: "第二部分：花費動詞形式", q: "How much time did you spend _____ for the math test last night?", opts: ["prepare", "to prepare", "preparing", "prepared"], ans: 2, pattern: ["spend (花時間)", "→", "time", "→", "V-ing (動名詞)"], exp: "人 + spend + 時間 + V-ing。句型雖是問句倒裝，但依然是 spend 後接 V-ing。", exs: ["How much time did you spend studying?", "I spent hours preparing."] },
+            { cat: "第二部分：花費動詞形式", q: "I think it will take us at least three days _____ painting the house.", opts: ["finish", "to finish", "finishing", "finished"], ans: 1, pattern: ["it will take (花時間)", "→", "three days", "→", "to V (不定詞)"], exp: "It takes + 人 + 時間 + to V。it 為虛主詞，後接不定詞 to finish。", exs: ["It will take me an hour to finish.", "It takes a week to build it."] },
+            { cat: "第二部分：花費動詞形式", q: "Although the tickets were expensive, I didn't mind. I spent $3,000 _____ my favorite singer perform live.", opts: ["watch", "to watch", "watching", "watched"], ans: 2, pattern: ["spent (花金錢)", "→", "$3,000", "→", "V-ing (動名詞)"], exp: "人 + spend + 金錢 + V-ing。花錢做某事，後方動詞加 ing。", exs: ["I spent $500 watching the movie.", "She spent a lot eating out."] },
+            { cat: "第二部分：花費動詞形式", q: "Don't worry about the bill. It won't cost you a cent _____ this free app from the store.", opts: ["download", "downloading", "to download", "downloaded"], ans: 2, pattern: ["won't cost (花金錢)", "→", "a cent", "→", "to V (不定詞)"], exp: "It costs + 人 + 金錢 + to V。虛主詞 It 開頭，後接不定詞 to download。", exs: ["It costs nothing to try.", "It won't cost much to repair it."] },
+
+            // ================= 第三部分：何時用 spend / take / cost / pay =================
+            { cat: "第三部分：花費動詞判斷", q: "I really love this jacket, but I don't want to _____ too much money on it.", opts: ["spend", "take", "cost", "pay"], ans: 0, pattern: ["I (人)", "→", "spend (花費)", "→", "money + on"], exp: "主詞是「人」，花費「金錢」，且搭配介係詞 on，必須用 spend。", exs: ["I spent $100 on books.", "Don't spend too much on clothes."] },
+            { cat: "第三部分：花費動詞判斷", q: "A: How long does it _____ to fly from Taiwan to Japan?\nB: About three hours.", opts: ["spend", "take", "cost", "make"], ans: 1, pattern: ["it (虛主詞)", "→", "take (花時間)", "→", "to V"], exp: "主詞是 It，詢問花費多少「時間 (How long)」，動詞必須用 take。", exs: ["How long does it take to get there?", "It takes 10 minutes."] },
+            { cat: "第三部分：花費動詞判斷", q: "The delicious meal at the new restaurant _____ us two thousand dollars last night.", opts: ["spent", "paid", "took", "cost"], ans: 3, pattern: ["The meal (事物作主詞)", "→", "cost (花金錢)", "→", "us"], exp: "主詞是事物 (meal)，花費「金錢 (dollars)」，動詞必須用 cost。cost 三態同型。", exs: ["The book cost me $20.", "The trip cost a lot of money."] },
+            { cat: "第三部分：花費動詞判斷", q: "A: Did you _____ with a credit card or in cash?\nB: I used my credit card.", opts: ["spend", "cost", "pay", "take"], ans: 2, pattern: ["you (人)", "→", "pay (付款)", "→", "with a credit card"], exp: "主詞是「人」，搭配 with a credit card (用信用卡) 或 in cash (付現)，表示「付款」，用 pay。", exs: ["I will pay in cash.", "Can I pay with a credit card?"] },
+            { cat: "第三部分：花費動詞判斷", q: "Reading comic books _____ my brother a lot of his free time on weekends.", opts: ["spends", "takes", "costs", "pays"], ans: 1, pattern: ["Reading (動作作主詞)", "→", "takes (花時間)", "→", "time"], exp: "主詞是一件事 (Reading comic books)，花費「時間 (free time)」，動詞必須用 take。", exs: ["Doing homework takes a lot of time.", "Playing games takes my free time."] },
+            { cat: "第三部分：花費動詞判斷", q: "I forgot to bring my wallet today. Can you lend me $100 to _____ for my lunch?", opts: ["spend", "take", "cost", "pay"], ans: 3, pattern: ["to (不定詞)", "→", "pay (付款)", "→", "for (為...付錢)"], exp: "搭配介係詞 for，表示「為...付錢 (pay for sth)」。", exs: ["Let me pay for the meal.", "I paid for the tickets."] },
+            { cat: "第三部分：花費動詞判斷", q: "My uncle _____ more than ten years writing his first novel. Finally, it became a best-seller.", opts: ["spent", "took", "cost", "paid"], ans: 0, pattern: ["My uncle (人)", "→", "spent (花時間)", "→", "V-ing"], exp: "主詞是「人」，花費「時間 (ten years)」，且後接 V-ing (writing)，動詞必須用 spend。", exs: ["He spent a year writing a book.", "She spent an hour cleaning."] },
+            { cat: "第三部分：花費動詞判斷", q: "Studying in a foreign country _____ me a lot of money. That's why I had to sell my car.", opts: ["spent", "paid", "took", "cost"], ans: 3, pattern: ["Studying (動作作主詞)", "→", "cost (花金錢)", "→", "money"], exp: "主詞是一件事 (Studying)，花費「金錢 (a lot of money)」，動詞必須用 cost。", exs: ["Going abroad costs money.", "Fixing the car cost me $500."] },
+            { cat: "第三部分：花費動詞判斷", q: "It's great that we can buy train tickets over the phone without going out. It _____ us a lot of time.", opts: ["spends", "takes", "costs", "saves"], ans: 3, pattern: ["It (網路買票)", "→", "saves (省下)", "→", "time"], exp: "語意題。免出門買票能幫我們「省下 (save)」很多時間。save 搭配「人 + 時間/金錢」。", exs: ["Online shopping saves time.", "Taking the bus saves money."] },
+            { cat: "第三部分：花費動詞判斷", q: "Making a delicious chocolate cake usually _____ her two hours, but she enjoys it very much.", opts: ["spends", "takes", "costs", "pays"], ans: 1, pattern: ["Making a cake (事)", "→", "takes (花時間)", "→", "two hours"], exp: "主詞是一件事 (Making a cake)，花費「時間 (two hours)」，動詞必須用 take。", exs: ["Baking a cake takes an hour.", "Doing the laundry takes time."] }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function render() {
+            const quiz = rawData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('q-cat').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${rawData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / rawData.length) * 100}%`;
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-6 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-amber-500 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-xl">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selected) {
+            const quiz = rawData[currentIdx];
+            const isCorrect = selected === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) btn.classList.add('success-bg', 'correct-border');
+                else if (idx === selected && !isCorrect) btn.classList.add('error-bg');
+                else btn.classList.add('opacity-40');
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            expArea.classList.remove('hidden');
+            
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            if (isCorrect) {
+                status.innerText = "答對了！結構判斷正確";
+                status.className = "font-black text-2xl text-amber-600";
+                icon.innerHTML = '<i class="fas fa-check-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-amber-500";
+                score++;
+            } else {
+                status.innerText = "可惜！注意文法結構與語意";
+                status.className = "font-black text-2xl text-rose-600";
+                icon.innerHTML = '<i class="fas fa-exclamation-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-rose-500";
+            }
+            document.getElementById('correct-ans-display').innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans].replace(/ ; /g, ' , ')}`;
+
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+", ",", "and"].includes(part)) {
+                    span.className = "text-slate-300 font-black text-xl mx-1";
+                } else if (part.includes("V-ing") || part.includes("to V") || part.includes("VR")) {
+                    span.className = "bg-orange-500 text-white px-3 py-1 rounded-lg font-black text-xs";
+                } else {
+                    span.className = "bg-slate-100 text-slate-700 px-3 py-1 rounded-lg font-bold text-sm border border-slate-200 shadow-sm";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            const list = document.getElementById('examples-list');
+            list.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-4 bg-white rounded-2xl border-2 border-slate-50 hover:border-amber-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex-shrink-0 mr-4 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-all">
+                        <i class="fas fa-play text-xs"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold group-hover:text-amber-700 transition-colors">${ex}</span>
+                `;
+                list.appendChild(item);
+            });
+
+            setTimeout(() => { expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < rawData.length) {
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / rawData.length) * 100);
+            container.innerHTML = `
+                <div class="text-center py-20 animate-fade-in">
+                    <div class="relative inline-block mb-10">
+                        <div class="w-48 h-48 rounded-full border-[12px] border-amber-50 flex items-center justify-center bg-white shadow-2xl">
+                            <span class="text-6xl font-black text-amber-600">${percent}%</span>
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">
+                        ${percent >= 90 ? '神級學霸！花費動詞大師' : 
+                          percent >= 70 ? '非常厲害！觀念很清晰' : 
+                          '不錯喔！可以再複習一下錯題'}
+                    </h2>
+                    <p class="text-slate-500 text-xl mb-12 font-bold">總計答對：${score} / ${rawData.length}</p>
+                    <button onclick="location.reload()" class="bg-amber-500 text-white px-12 py-5 rounded-3xl font-black text-xl hover:bg-amber-600 transition shadow-2xl transform active:scale-95">
+                        <i class="fas fa-redo mr-3"></i> 重新挑戰全 ${rawData.length} 題
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(t) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(t);
+                u.lang = 'en-US'; u.rate = 0.85;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        window.onload = render;
+    </script>
+
+</body></html>

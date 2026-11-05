@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文時態陷阱篇 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .option-btn:hover { transform: translateY(-3px); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .pattern-box { border: 2px dashed #94a3b8; border-radius: 12px; padding: 16px; margin-top: 10px; background: #f8fafc; }
+        .arrow { color: #64748b; font-weight: bold; margin: 0 8px; }
+        .success-bg { background-color: #f0fdf4 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .error-bg { background-color: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-opt { border-color: #22c55e !important; border-width: 3px !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+        .trap-tag { background: #ef4444; color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 8px; display: inline-block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Header & Progress -->
+        <div class="mb-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-red-500 text-white text-xs font-black px-2 py-1 rounded">TRAPS</span>
+                        <h1 class="text-3xl font-black text-slate-800 tracking-tight">會考英文時態 <span class="text-red-600">進階陷阱篇</span></h1>
+                    </div>
+                    <p class="text-slate-500">破解 29 個常見時態陷阱題型</p>
+                </div>
+                <div class="text-right mt-4 md:mt-0">
+                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold shadow-sm" id="progress-text">載入中...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 shadow-inner overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-red-500 to-orange-500 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl shadow-2xl p-6 md:p-10 mb-8 min-h-[550px] relative">
+            <div id="question-area">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <span id="q-number" class="w-10 h-10 bg-red-600 text-white rounded-lg flex items-center justify-center font-black mr-4 shadow-md">1</span>
+                        <span id="trap-category" class="text-xs font-black text-red-500 uppercase tracking-widest bg-red-50 px-2 py-1 rounded border border-red-100"></span>
+                    </div>
+                </div>
+                <p id="question-text" class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-10 font-bold"></p>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Options populated by JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area (Initially Hidden) -->
+            <div id="explanation-area" class="mt-12 pt-10 border-t-2 border-slate-100 hidden animate-fade-in">
+                <div class="flex items-center mb-6">
+                    <div id="result-icon" class="w-12 h-12 rounded-full flex items-center justify-center mr-4 text-white shadow-lg"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-xl"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-sm font-black text-blue-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-project-diagram mr-2"></i> 視覺化結構 (Visual Pattern)
+                        </h3>
+                        <div id="visual-pattern" class="pattern-box flex flex-wrap items-center justify-start gap-2">
+                            <!-- Structure populated by JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-orange-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i> 陷阱破解 (Analysis)
+                        </h3>
+                        <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+                            <p id="grammar-explanation" class="text-orange-900 leading-relaxed font-medium"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="text-sm font-black text-emerald-600 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fas fa-headphones mr-2"></i> 同步延伸練習 (TTS Support)
+                    </h3>
+                    <div id="examples-list" class="space-y-4">
+                        <!-- Examples populated by JS -->
+                    </div>
+                </div>
+
+                <button id="next-btn" onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-800 transition-all shadow-xl flex items-center justify-center transform active:scale-95">
+                    <span>下一題 Next Challenge</span>
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const trapData = [
+            // 陷阱一：看到 for 不一定用現在完成式
+            {
+                cat: "陷阱一：FOR ≠ 完成式",
+                q: "Kevin has found a new job in Taipei. He _____ there for two years before he comes back to Tainan.",
+                opts: ["lived", "has lived", "will live", "lives"],
+                ans: 2,
+                pattern: ["Next Job", "→", "will live (未來)", "→", "for two years"],
+                exp: "這是在描述「未來」將要在台北住兩年的計畫。雖然有 for，但因為動作尚未發生且是計畫，故用未來式。",
+                exs: ["I will stay in Japan for five days next week.", "She will work in London for a year.", "They will be in the library for two hours."]
+            },
+            {
+                cat: "陷阱一：FOR ≠ 完成式",
+                q: "My grandfather _____ in a shoe factory for thirty years, but he retired last year and now enjoys growing vegetables.",
+                opts: ["works", "has worked", "worked", "will work"],
+                ans: 2,
+                pattern: ["retired (已退休)", "←", "worked for 30 years (過去事實)"],
+                exp: "雖然有 for 30 years，但爺爺「已經退休了」，這份工作已成過去，不再持續到現在，所以用過去簡單式。",
+                exs: ["I lived in Taipei for ten years before moving here.", "He taught English for five years when he was young.", "They stayed in that hotel for three days."]
+            },
+            {
+                cat: "陷阱一：FOR ≠ 完成式",
+                q: "A: Can I borrow your camera? \nB: Sorry, my brother _____ it to Japan for a week. He will bring it back next Friday.",
+                opts: ["takes", "has taken", "will take", "took"],
+                ans: 1,
+                pattern: ["He has taken (拿走了)", "→", "Result: Camera is NOT here"],
+                exp: "哥哥「已經」把相機拿去日本了，且狀態持續中（還沒回來），造成「現在不能借你」的結果，用現在完成式。",
+                exs: ["He has gone to the USA.", "I have lost my keys.", "She has finished her report."]
+            },
+            {
+                cat: "陷阱一：FOR ≠ 完成式",
+                q: "A: How long will you be in Kaohsiung? \nB: I _____ there for a week. I already booked the hotel.",
+                opts: ["stay", "stayed", "have stayed", "am going to stay"],
+                ans: 3,
+                pattern: ["already booked (已預訂)", "→", "am going to stay (計畫未來)"],
+                exp: "回答的是未來的計畫（我打算在那待一週），且已經訂好飯店。使用 be going to + V 表示計畫好的未來。",
+                exs: ["I am going to watch a movie tonight.", "We are going to visit our aunt tomorrow.", "He is going to study in the UK."]
+            },
+            // 陷阱二：看到 every day 不一定用現在簡單式
+            {
+                cat: "陷阱二：EVERY DAY ≠ 現在式",
+                q: "When Fiona was a high school student, she _____ up at 5 a.m. to catch the first train every day.",
+                opts: ["wakes", "woke", "has woken", "will wake"],
+                ans: 1,
+                pattern: ["When was a student (過去背景)", "→", "woke up (過去習慣)"],
+                exp: "雖然有 every day，但整句是在描述 Fiona 「以前是學生時」的過去習慣，必須用過去簡單式。",
+                exs: ["I jogged every day when I was young.", "He played tennis every weekend last year.", "She studied late every night in college."]
+            },
+            {
+                cat: "陷阱二：EVERY DAY ≠ 現在式",
+                q: "A: Why are your shoes so dirty? \nB: I _____ soccer with my friends in the park every day last week.",
+                opts: ["play", "am playing", "played", "have played"],
+                ans: 2,
+                pattern: ["every day (頻率)", "+", "last week (過去)", "→", "played"],
+                exp: "時間點明確標示為 last week (上週)，這段期間的每日行為屬於過去事實，用過去簡單式。",
+                exs: ["We visited him every day last month.", "It rained every day last week.", "I worked out every day during the vacation."]
+            },
+            {
+                cat: "陷阱二：EVERY DAY ≠ 現在式",
+                q: "When I lived in London, I _____ an umbrella with me every day because the weather changed so quickly.",
+                opts: ["carry", "carried", "have carried", "will carry"],
+                ans: 1,
+                pattern: ["When I lived (過去)", "→", "carried every day"],
+                exp: "描述過去住在倫敦時的一段長時間習慣。'When I lived' 引導過去情境，動詞用過去式。",
+                exs: ["I walked to school every day in junior high.", "She drank milk every morning when she was small.", "He read newspapers every day before he lost his sight."]
+            },
+            // 陷阱三：副詞子句 vs. 名詞子句
+            {
+                cat: "陷阱三：條件/時間副詞子句",
+                q: "If the weather _____ good this weekend, my family will go on a picnic in the mountains.",
+                opts: ["is", "was", "will be", "has been"],
+                ans: 0,
+                pattern: ["If (如果)", "→", "Weather is (現簡代未)", "→", "will go (結果未來)"],
+                exp: "在 if 引導的「條件副詞子句」中，若描述未來，要用「現在簡單式」代替「未來式」。",
+                exs: ["If it rains tomorrow, I will stay home.", "I will call you if I have time.", "If he comes, we will start the meeting."]
+            },
+            {
+                cat: "陷阱三：IF = WHETHER 名詞子句",
+                q: "A: Do you know if your brother _____ home for dinner tonight? \nB: I'm not sure. Let me call him.",
+                opts: ["comes", "came", "will come", "has come"],
+                ans: 2,
+                pattern: ["know (V)", "→", "if = whether (是否)", "→", "will come (未來時態不變)"],
+                exp: "這裡的 if 解釋為「是否」，引導的是名詞子句（受詞），不是條件，故未來動作保留未來式 will come。",
+                exs: ["I don't know if it will rain.", "Tell me if he will join us.", "She wonders if they will like the gift."]
+            },
+            {
+                cat: "陷阱三：條件/時間副詞子句",
+                q: "Please turn off all the lights when you _____ the office tonight.",
+                opts: ["leave", "left", "will leave", "are leaving"],
+                ans: 0,
+                pattern: ["when (當...之時)", "→", "you leave (現簡代未)"],
+                exp: "在 when 引導的時間副詞子句中，同樣遵循「現在式代替未來式」的規則。雖然是 tonight，但不選 will leave。",
+                exs: ["Call me when you arrive.", "I will wait until you finish.", "Check the door before you go."]
+            },
+            {
+                cat: "陷阱三：WHEN = WHAT TIME 名詞子句",
+                q: "Nobody knows when the famous singer _____ to Taiwan again. Maybe next year, or maybe never.",
+                opts: ["comes", "came", "has come", "will come"],
+                ans: 3,
+                pattern: ["knows (V)", "→", "when (何時)", "→", "will come (保留未來式)"],
+                exp: "這裡的 when 解釋為「什麼時候」，是名詞子句，描述尚未發生的未來動作需保留未來式 will come。",
+                exs: ["I don't know when he will arrive.", "Did she tell you when she will leave?", "They wonder when the game will start."]
+            },
+            {
+                cat: "陷阱三：條件/時間副詞子句",
+                q: "Before Sarah _____ to the USA next month, she will throw a goodbye party for all her friends.",
+                opts: ["flies", "flew", "will fly", "is flying"],
+                ans: 0,
+                pattern: ["Before (在...之前)", "→", "Sarah flies (現簡代未)"],
+                exp: "Before 是時間連接詞。雖然是明年 (next month)，但在子句中要用現在式 flies 代替未來式。",
+                exs: ["Clean your room before Mom comes back.", "I will finish this before I go to bed.", "Check everything before you leave."]
+            },
+            {
+                cat: "陷阱三：條件/時間副詞子句",
+                q: "Don't open the oven until the cake _____ completely cool.",
+                opts: ["will get", "got", "is getting", "gets"],
+                ans: 3,
+                pattern: ["Until (直到...才)", "→", "cake gets cool (現簡代未)"],
+                exp: "Until 引導時間副詞子句。描述未來的狀態「變涼」時，動詞使用現在式 gets 代替未來式。",
+                exs: ["Stay here until I come back.", "Don't leave until it stops raining.", "Wait until the light turns green."]
+            },
+            {
+                cat: "陷阱三：WHEN = WHAT TIME 名詞子句",
+                q: "A: Did the teacher tell us when we _____ the classroom tomorrow? \nB: Yes, at 8:00 a.m.",
+                opts: ["clean", "cleaned", "will clean", "have cleaned"],
+                ans: 2,
+                pattern: ["tell us (V)", "→", "when (何時)", "→", "will clean (保留未來)"],
+                exp: "這裡問的是「明天幾點要打掃」，when 是疑問詞引導名詞子句，時態不需用現在代未來，保留未來式。",
+                exs: ["He asked me when I would come.", "Tell me when you will be free.", "Do you know when the bus will arrive?"]
+            },
+            // 陷阱四：this morning / this afternoon 要看上下文
+            {
+                cat: "陷阱四：THIS MORNING 情境題",
+                q: "A: Why didn't you answer my call this morning? \nB: Sorry, I _____ a shower and didn't hear the phone ring.",
+                opts: ["took", "take", "was taking", "am taking"],
+                ans: 2,
+                pattern: ["When you called (過去點)", "→", "I was taking (當時正在)"],
+                exp: "說明在「早上你打來的那一刻」正在進行的背景動作，使用過去進行式 was taking。",
+                exs: ["I was sleeping when you called.", "We were eating when she arrived.", "What were you doing at ten this morning?"]
+            },
+            {
+                cat: "陷阱四：THIS AFTERNOON 計畫題",
+                q: "A: What _____ this afternoon? \nB: I plan to visit the new museum with my classmates. Have you planned yet?",
+                opts: ["did you do", "were you doing", "are you going to do", "have you done"],
+                ans: 2,
+                pattern: ["plan to visit (計畫未來)", "→", "are you going to do?"],
+                exp: "對話中提到計畫 (plan) 且問對方計畫好了沒，顯示下午尚未到來，問的是「打算做什麼」，用 be going to。",
+                exs: ["What are you going to do tonight?", "Are you going to travel this summer?", "Is he going to join the party?"]
+            },
+            {
+                cat: "陷阱四：THIS EVENING 過去題",
+                q: "A: What did you have for dinner this evening? \nB: I _____ a big steak at the new restaurant near my house.",
+                opts: ["have", "have had", "had", "will have"],
+                ans: 2,
+                pattern: ["What did you have? (問過去)", "→", "I had (回過去)"],
+                exp: "問句用 Did 問，代表晚餐時間已過。回答今晚發生的過去動作，使用過去簡單式 had。",
+                exs: ["I saw a movie this evening.", "She called me this afternoon.", "We bought this car this morning."]
+            },
+            {
+                cat: "陷阱四：THIS MORNING 現在結果",
+                q: "I _____ my keys this morning, so I can't open the door now. I need to call a locksmith.",
+                opts: ["lost", "lose", "will lose", "was losing"],
+                ans: 0,
+                pattern: ["lost (過去掉的)", "→", "Result: can't open NOW"],
+                exp: "早上掉鑰匙是過去的單一動作，雖然影響到現在，但在會考選擇題中描述過去發生的事實（丟了）用過去式 lost。",
+                exs: ["I lost my phone yesterday.", "He found a dog this morning.", "She left her umbrella on the bus."]
+            },
+            {
+                cat: "陷阱四：THIS MORNING 進行中",
+                q: "It's only 10 a.m., and the busy coffee shop _____ over 100 cups of coffee this morning!",
+                opts: ["sold", "sells", "has sold", "will sell"],
+                ans: 2,
+                pattern: ["It's 10 a.m. (早上尚未結束)", "→", "has sold (到目前為止)"],
+                exp: "現在是早上 10 點，早上還沒過完。描述從早上開始到「目前為止」的累積成果，用現在完成式。",
+                exs: ["I have drunk three cups of water this morning.", "She has called me twice today.", "We have seen three movies this week."]
+            },
+            // 陷阱五：感官動詞與整句結構
+            {
+                cat: "陷阱五：感官動詞對等結構",
+                q: "I was standing by the window and saw a little boy fall down and _____ loudly.",
+                opts: ["cry", "cried", "crying", "to cry"],
+                ans: 0,
+                pattern: ["saw (感官)", "→", "boy (O)", "→", "fall (V1)", "and", "cry (V2)"],
+                exp: "感官動詞 saw + 受詞後，接兩個對等動作。因為前面用原形動詞 fall，and 後面也要對等用原形 cry。",
+                exs: ["I saw him dance and sing.", "We heard her shout and cry.", "Did you feel the house shake and move?"]
+            },
+            {
+                cat: "陷阱五：整句對等結構",
+                q: "I saw the little girl crying on the street, and I _____ her to the police station.",
+                opts: ["take", "took", "taking", "taken"],
+                ans: 1,
+                pattern: ["saw (過去V1)", "and", "took (過去V2)"],
+                exp: "這句不是感官動詞的受詞補語。它是兩個完整的動作：1.我看見女孩 2.我帶她去。前後時態需一致，用過去式 took。",
+                exs: ["I found a wallet and took it to the office.", "She stood up and left.", "He opened the box and smiled."]
+            },
+            {
+                cat: "陷阱五：整句對等結構",
+                q: "The strong earthquake shook the house badly, and many books _____ off the shelves.",
+                opts: ["fall", "fell", "falling", "to fall"],
+                ans: 1,
+                pattern: ["shook (過去V1)", "and", "fell (過去V2)"],
+                exp: "描述地震發生時的一連串動作。地震搖晃 (shook) 是過去式，書掉下來 (fell) 也是過去式。",
+                exs: ["The wind blew and the tree fell.", "He ran and jumped.", "I cooked and she ate."]
+            },
+            {
+                cat: "陷阱五：動名詞對等結構",
+                q: "My grandfather enjoys listening to classical music and _____ tea in his free time.",
+                opts: ["makes", "made", "making", "make"],
+                ans: 2,
+                pattern: ["enjoys (V)", "→", "listening (Ving-1)", "and", "making (Ving-2)"],
+                exp: "Enjoy 後面接 Ving 做為受詞。若有兩個受詞動作，需用 and 對等，皆使用 Ving 形式。",
+                exs: ["I like swimming and jogging.", "She hates cooking and cleaning.", "He keeps practicing and learning."]
+            },
+            {
+                cat: "陷阱五：整句對等結構",
+                q: "Yesterday, my dog jumped onto the table and _____ all the meat I prepared for dinner.",
+                opts: ["eat", "ate", "eating", "has eaten"],
+                ans: 1,
+                pattern: ["jumped (過去V1)", "and", "ate (過去V2)"],
+                exp: "昨日發生的連續動作。跳上去 (jumped) 與吃掉 (ate) 都是過去簡單式。",
+                exs: ["He entered the room and sat down.", "I bought a cake and ate it.", "She lost her keys and cried."]
+            },
+            {
+                cat: "陷阱五：感官動詞對等結構",
+                q: "The fans got very excited when they watched the singer _____ the stage and sing their favorite song.",
+                opts: ["enter", "entered", "to enter", "enters"],
+                ans: 0,
+                pattern: ["watched (感官)", "→", "singer (O)", "→", "enter (V1)", "and", "sing (V2)"],
+                exp: "Watch + 受詞 + V1 and V2。後面的 sing 是原形，前面的 enter 也要用原形動詞對等。",
+                exs: ["I watched the rain fall and hit the window.", "We heard them talk and laugh.", "She saw the plane take off and disappear."]
+            },
+            {
+                cat: "陷阱五：感官動詞對等結構",
+                q: "I heard someone _____ my name and turn around, but there was no one there.",
+                opts: ["call", "called", "calling", "to call"],
+                ans: 0,
+                pattern: ["heard (感官)", "→", "call (V1)", "and", "turn (V2)"],
+                exp: "感官動詞對等結構。後方的 turn 是原形，代表前方聽到的動作也要用原形動詞 call。",
+                exs: ["Did you hear the bell ring and see the light flash?", "I felt the insect crawl and bite me.", "We saw him arrive and leave."]
+            },
+            // 陷阱六：關代子句與主要子句獨立
+            {
+                cat: "陷阱六：關代子句與主句獨立",
+                q: "The heavy coat that Mom _____ for me two years ago is too small for me now.",
+                opts: ["buys", "will buy", "bought", "has bought"],
+                ans: 2,
+                pattern: ["two years ago (過去時間)", "→", "bought (修飾外套)"],
+                exp: "形容詞子句（關代）是用來描述外套。外套是「兩年前買的」，描述過去事實，用過去式 bought。",
+                exs: ["The book I read yesterday was good.", "The person you met is my uncle.", "The cake she made tasted sweet."]
+            },
+            {
+                cat: "陷阱六：關代子句與主句獨立",
+                q: "The smartwatch that I _____ online last night will arrive tomorrow.",
+                opts: ["buy", "bought", "have bought", "will buy"],
+                ans: 1,
+                pattern: ["last night (過去時間)", "→", "bought (關代子句)"],
+                exp: "手錶雖然「明天才要到」(主句未來式)，但「上網買」這個動作是發生在「昨晚」，故子句用過去式 bought。",
+                exs: ["The gift I bought last week will be sent soon.", "The man I saw yesterday will visit us.", "The letter she wrote will arrive next week."]
+            },
+            {
+                cat: "陷阱六：關代子句與主句獨立",
+                q: "The restaurant which _____ famous for its beef noodles closed down yesterday.",
+                opts: ["is", "was", "will be", "has been"],
+                ans: 1,
+                pattern: ["closed yesterday (過去事實)", "→", "was famous (過去狀態)"],
+                exp: "這家餐廳「昨天倒閉了」，所以它「以前」很有名的狀態也是過去的事實，使用過去式 be 動詞 was。",
+                exs: ["The house which was big is now small.", "The singer who was popular is now forgotten.", "The dog that was barking is now sleeping."]
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function renderQuestion() {
+            const quiz = trapData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('trap-category').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `Question ${currentIdx + 1} / ${trapData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / trapData.length) * 100}%`;
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-6 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center transition-all duration-200 group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-red-600 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-lg">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selectedIdx) {
+            const quiz = trapData[currentIdx];
+            const isCorrect = selectedIdx === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) {
+                    btn.classList.add('success-bg', 'correct-opt');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.add('error-bg');
+                } else {
+                    btn.classList.add('opacity-40');
+                }
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            const ansDisplay = document.getElementById('correct-ans-display');
+            
+            expArea.classList.remove('hidden');
+            if (isCorrect) {
+                status.innerText = "破解陷阱！答對了";
+                status.className = "font-black text-xl text-green-600";
+                icon.innerHTML = '<i class="fas fa-shield-alt text-2xl"></i>';
+                icon.className = "w-12 h-12 rounded-full flex items-center justify-center mr-4 text-white shadow-lg bg-green-500";
+                score++;
+            } else {
+                status.innerText = "踩到陷阱了！再細心一點";
+                status.className = "font-black text-xl text-red-600";
+                icon.innerHTML = '<i class="fas fa-bomb text-2xl"></i>';
+                icon.className = "w-12 h-12 rounded-full flex items-center justify-center mr-4 text-white shadow-lg bg-red-500";
+            }
+            
+            ansDisplay.innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans]}`;
+
+            // Visual Pattern
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+"].includes(part)) {
+                    span.className = "arrow mx-1 text-slate-400";
+                } else if (part === "and") {
+                    span.className = "px-3 py-1 bg-amber-100 text-amber-700 rounded-lg font-bold text-sm border border-amber-200";
+                } else {
+                    span.className = "px-4 py-2 bg-blue-50 text-blue-800 rounded-xl font-black text-sm shadow-sm border border-blue-100";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            // Examples with TTS
+            const examplesList = document.getElementById('examples-list');
+            examplesList.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-4 bg-white rounded-2xl border-2 border-slate-50 hover:border-emerald-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex-shrink-0 mr-4 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                        <i class="fas fa-play text-xs"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold group-hover:text-emerald-700 transition-colors">${ex}</span>
+                `;
+                examplesList.appendChild(item);
+            });
+
+            setTimeout(() => {
+                expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < trapData.length) {
+                renderQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / trapData.length) * 100);
+            let message = percent >= 90 ? "神人等級！陷阱完全難不倒你！" : (percent >= 70 ? "很強喔！大部分陷阱都破解了。" : "有進步空間，再把解析讀一遍吧！");
+            
+            container.innerHTML = `
+                <div class="text-center py-16 animate-fade-in">
+                    <div class="relative inline-block mb-10">
+                        <div class="w-48 h-48 rounded-full border-[12px] border-red-50 flex items-center justify-center">
+                            <span class="text-6xl font-black text-red-600">${percent}%</span>
+                        </div>
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-8 py-2 rounded-full font-black shadow-xl">
+                            TRAP MASTER
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">${message}</h2>
+                    <p class="text-slate-500 text-lg mb-12">陷阱破解成功數：${score} / ${trapData.length}</p>
+                    <button onclick="location.reload()" class="bg-red-600 text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition shadow-2xl transform active:scale-95">
+                        再次挑戰陷阱 <i class="fas fa-redo ml-2"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+            window.onload = renderQuestion;
+    </script>
+
+</body></html>

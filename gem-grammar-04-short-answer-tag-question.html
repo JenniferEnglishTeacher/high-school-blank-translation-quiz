@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文：省略句與附加問句 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:hover { transform: translateX(8px); }
+        .pattern-box { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 16px; background: #ffffff; }
+        .arrow { color: #64748b; font-weight: bold; margin: 0 8px; }
+        .success-bg { background-color: #f0fdf4 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .error-bg { background-color: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-border { border-color: #22c55e !important; border-width: 3px !important; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 900; color: white; margin-bottom: 8px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Progress Info -->
+        <div class="mb-6">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">省略句、附和與附加問句</h1>
+                    <p class="text-slate-500 font-medium italic">Mirroring Verbs &amp; Pronoun Traps</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-black shadow-sm">LOADING...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
+                <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-12 mb-10 min-h-[550px]">
+            <div id="question-area">
+                <div class="flex items-center gap-3 mb-6">
+                    <span id="q-number" class="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">1</span>
+                    <span id="q-cat" class="text-xs font-black px-2 py-1 bg-indigo-50 text-indigo-500 border border-indigo-100 rounded uppercase">Exam Question</span>
+                </div>
+                
+                <p id="question-text" class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-10 font-bold"></p>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area -->
+            <div id="explanation-area" class="mt-12 pt-10 border-t-2 border-slate-50 hidden animate-fade-in">
+                <div class="flex items-center mb-8">
+                    <div id="result-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-xl"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-xs font-black text-indigo-500 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-magic mr-2"></i> 視覺化文法結構
+                        </h3>
+                        <div id="visual-pattern" class="pattern-box flex flex-wrap items-center gap-2 shadow-inner">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-purple-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-brain mr-2"></i> 破解關鍵
+                        </h3>
+                        <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
+                            <p id="grammar-explanation" class="text-purple-900 leading-relaxed font-medium"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xs font-black text-emerald-600 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fas fa-play-circle mr-2"></i> 延伸例句播放 (TTS)
+                    </h3>
+                    <div id="examples-list" class="space-y-3">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+                <button onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-800 transition shadow-xl flex items-center justify-center group">
+                    <span>NEXT QUESTION 下一題</span>
+                    <i class="fas fa-arrow-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // --- 歷屆試題 ---
+            {
+                cat: "歷屆試題",
+                q: "Jane’s parents are always happy to see their grandchildren, but mine _____ less so when I visit them with my kids.",
+                opts: ["is", "are", "do", "does"],
+                ans: 1,
+                pattern: ["Jane's parents", "→", "are", "↔", "mine (=my parents)", "→", "are"],
+                exp: "mine 在此代表 my parents (複數)。前面的動詞是 be 動詞 are，後面的省略句也要對應使用 be 動詞 are。",
+                exs: ["His shoes are new, but mine are old.", "Your ideas are great, and so are mine.", "My parents are tall, but hers are short."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Our teacher Ms. Wu seldom laughs, but when she _____, everyone in the same building can hear her.",
+                opts: ["can", "does", "has", "will"],
+                ans: 1,
+                pattern: ["laughs (一般V)", "→", "when she", "→", "does"],
+                exp: "前面是一般動詞 laughs (現在簡單式)，後面的省略句要對應使用助動詞 does (配合第三人稱單數 she)。",
+                exs: ["He rarely sleeps late, but when he does, he misses the bus.", "She doesn't often sing, but when she does, it's beautiful.", "The dog seldom barks, but when it does, it's very loud."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Lora likes to eat bananas that are already a little brown on the outside, and so _____ I.",
+                opts: ["am", "do", "have", "will"],
+                ans: 1,
+                pattern: ["likes (一般V)", "→", "and so", "→", "do", "→", "I"],
+                exp: "附和句「我也是」。前面是一般動詞 likes，後面使用 do 配合主詞 I。So 放在句首需倒裝（So + 助/be + 主）。",
+                exs: ["He loves pizza, and so do I.", "They work hard, and so do we.", "She plays piano well, and so does her sister."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Dad: Have you brushed your teeth yet? \nAnn: No, but I _____ before I go to bed.",
+                opts: ["haven't", "have", "won't", "will"],
+                ans: 3,
+                pattern: ["but I", "→", "will (將會)", "→", "before bed (未來)"],
+                exp: "這題是語意與時態的結合。Ann 說還沒刷，但『睡覺前將會去刷』，表示未來的打算，用 will。",
+                exs: ["I haven't eaten yet, but I will soon.", "He isn't here, but he will be later.", "They didn't call, but they will tonight."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "David: Have you seen John’s sister? \nKevin: Yes, I _____. She’s the most beautiful girl I’ve ever seen.",
+                opts: ["have", "had", "did", "saw"],
+                ans: 0,
+                pattern: ["Have you seen (現在完成式)?", "→", "Yes, I have."],
+                exp: "現在完成式疑問句的簡答，直接沿用助動詞 have。",
+                exs: ["Have you finished? Yes, I have.", "Has she left? Yes, she has.", "Have they met you? No, they haven't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Linda: Do you have to get up early in the morning? \nPeter: Yes, I _____. I can’t be late for school.",
+                opts: ["do", "can", "have", "am"],
+                ans: 0,
+                pattern: ["Do you (助動詞)...?", "→", "Yes, I do."],
+                exp: "Do 引導的疑問句，簡答用 do。注意：have to 是「必須」，視為一般動詞，助動詞用 do/does。",
+                exs: ["Do you like tea? Yes, I do.", "Does he have to go? Yes, he does.", "Do we need help? No, we don't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Robert: Charles wanted to borrow $1,000 yesterday. \nMandy: You didn't lend him the money, _____?",
+                opts: ["would you", "wouldn't you", "did you", "didn't you"],
+                ans: 2,
+                pattern: ["didn't lend (否定)", "→", "did you? (肯定附加)"],
+                exp: "附加問句規則：前否後肯。前面是 didn't，後面用肯定式助動詞 did。",
+                exs: ["You didn't see him, did you?", "He wasn't angry, was he?", "They haven't left, have they?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Jane: Did you get up early this morning? \nTina: No, I didn't, but my brother _____. He gets up early every day.",
+                opts: ["does", "is", "did", "was"],
+                ans: 2,
+                pattern: ["Did you (過去)?", "→", "but brother", "→", "did (對應過去)"],
+                exp: "這是在對比『今天早上』的動作。雖然哥哥每天早起，但這題問的是『今天早上（過去點）』的情況，故用 did 代表 got up early。",
+                exs: ["I didn't eat breakfast, but he did.", "We didn't go, but they did.", "She didn't call, but her mom did."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Betty goes jogging every day in the park, and Allen _____, too.",
+                opts: ["is", "does", "has", "was"],
+                ans: 1,
+                pattern: ["goes (一般V)", "→", "Allen", "→", "does", "→", "too"],
+                exp: "肯定附和句「也是」。前面是一般動詞 goes，後方使用助動詞 does 配合單數主詞 Allen。",
+                exs: ["I like music, and he does, too.", "They study hard, and we do, too.", "The cat sleeps a lot, and the dog does, too."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Frank read a comic book yesterday, but his brother _____. ",
+                opts: ["does", "doesn't", "did", "didn't"],
+                ans: 3,
+                pattern: ["read (過去式)", "↔", "but brother", "→", "didn't"],
+                exp: "對比過去發生的動作。read 在此是過去式 (唸作 /red/)，對比否定要用 didn't。",
+                exs: ["I saw him, but she didn't.", "They finished, but we didn't.", "He called, but I didn't answer."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "No one thought James would appear at Katie’s party. So when he _____, everyone was surprised.",
+                opts: ["would", "was", "had", "did"],
+                ans: 3,
+                pattern: ["appear (動作)", "→", "when he", "→", "did"],
+                exp: "這題 did 代替的是 appeared (出現)。描述過去發生的事實，用助動詞 did。",
+                exs: ["Everyone said he wouldn't win, but he did.", "I thought it would rain, and it did.", "They hoped he would come, and he did."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Tommy uses chopsticks well, but his younger brothers _____, so they usually eat with spoons.",
+                opts: ["don’t", "doesn’t", "aren’t", "isn’t"],
+                ans: 0,
+                pattern: ["uses (一般V)", "↔", "brothers (複數)", "→", "don't"],
+                exp: "對比現在的習慣。前面是一般動詞 uses，後方主詞是複數 brothers，否定助動詞用 don't。",
+                exs: ["I like tea, but they don't.", "She speaks English, but her sisters don't.", "He runs fast, but his friends don't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Jane always does well on English tests, but her sisters _____. ",
+                opts: ["doesn't", "aren't", "don't", "didn't"],
+                ans: 2,
+                pattern: ["does well (一般V)", "↔", "sisters (複數)", "→", "don't"],
+                exp: "同上題。前面是一般動詞 does，後方主詞複數，對應助動詞 don't。",
+                exs: ["He works here, but they don't.", "The bird sings, but the cats don't.", "I know him, but they don't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Mom: Peter, be sure to finish your school report before you go to bed. \nPeter: OK, Mom, I _____. ",
+                opts: ["am", "do", "have", "will"],
+                ans: 3,
+                pattern: ["OK, Mom", "→", "I", "→", "will (承諾將會)"],
+                exp: "承諾將會去做某事，使用未來式 will。此處 will 代替 will finish my report。",
+                exs: ["Don't forget to call. I won't.", "Please be careful. I will.", "Wait for me. I will."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Melody has a great interest in planting flowers, but her sister _____. ",
+                opts: ["can’t", "doesn’t", "isn’t", "won’t"],
+                ans: 1,
+                pattern: ["has (一般V)", "↔", "sister", "→", "doesn't"],
+                exp: "對比現在狀態。has 此處為一般動詞「有」，後方對比否定用助動詞 doesn't。",
+                exs: ["I have a bike, but she doesn't.", "He has a dog, but they don't.", "She has many books, but her brother doesn't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Ken’s brothers like to watch tennis, but Ken _____. He is crazy about baseball.",
+                opts: ["is", "isn’t", "does", "doesn’t"],
+                ans: 3,
+                pattern: ["like (一般V)", "↔", "Ken (單數)", "→", "doesn't"],
+                exp: "對比喜好。前面是一般動詞 like，後方主詞 Ken 為單數，對應助動詞 doesn't。",
+                exs: ["They play soccer, but he doesn't.", "We watch TV, but she doesn't.", "I like apples, but he doesn't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "My sister does not like the jacket, and I don't, _____. ",
+                opts: ["either", "so", "too", "yet"],
+                ans: 0,
+                pattern: ["not like (否定)", "→", "don't", "→", "either"],
+                exp: "否定附和句「也不...」。否定句尾使用 either；肯定句尾才用 too。",
+                exs: ["I'm not hungry, and he isn't either.", "She doesn't like milk, and I don't either.", "They won't come, and we won't either."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Many of my classmates have had the experience of taking an airplane, but I _____. ",
+                opts: ["don't", "wasn't", "won't", "haven't"],
+                ans: 3,
+                pattern: ["have had (現在完成式)", "↔", "I", "→", "haven't"],
+                exp: "對比經驗。前面是現在完成式 (Have + p.p.)，後方對應助動詞 haven't。",
+                exs: ["He has been to Japan, but I haven't.", "They have finished, but she hasn't.", "We have seen the movie, but he hasn't."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Alice: Have you ever been to a baseball game? \nJamie: No, never. _____ \nAlice: Sure. Baseball is my favorite sport.",
+                opts: ["Do you?", "Have you?", "Don't you?", "Haven't you?"],
+                ans: 1,
+                pattern: ["Have you ever...?", "→", "Have you? (反問對方)"],
+                exp: "Jamie 回答自己沒去過，接著反問 Alice 的經驗。根據 Alice 回答 'Sure'，可知 Jamie 是問 'Have you?' (你有去過嗎？)。",
+                exs: ["I haven't eaten. Have you?", "She doesn't know. Do you?", "We didn't go. Did you?"]
+            },
+
+            // --- 附加問句 ---
+            {
+                cat: "附加問句",
+                q: "Getting up early on a cold morning is not easy, _____?",
+                opts: ["are you", "do you", "does it", "is it"],
+                ans: 3,
+                pattern: ["Getting up (Ving主詞)", "→", "is not (否定)", "→", "is it?"],
+                exp: "主詞是 V-ing (動名詞) 視為單數 it。前面是 be 動詞否定 is not，後面用肯定 is it。",
+                exs: ["Playing basketball is fun, isn't it?", "Reading books is good, isn't it?", "Swimming in the sea is dangerous, isn't it?"]
+            },
+            {
+                cat: "附加問句",
+                q: "Alice really likes having noodles for breakfast, _____?",
+                opts: ["doesn't she", "is she", "hasn't she", "did she"],
+                ans: 0,
+                pattern: ["likes (肯定/一般V)", "→", "doesn't she?"],
+                exp: "前肯後否。前面是一般動詞 likes，後方使用助動詞否定 doesn't，代名詞用 she。",
+                exs: ["He speaks English, doesn't he?", "They live in Taipei, don't they?", "She works hard, doesn't she?"]
+            },
+            {
+                cat: "附加問句",
+                q: "The tall man over there is our new English teacher, _____?",
+                opts: ["is he", "is there", "isn't he", "isn't there"],
+                ans: 2,
+                pattern: ["is (肯定be動詞)", "→", "isn't he?"],
+                exp: "前肯後否。前面是 is，後面用 isn't，代名詞用 he。",
+                exs: ["She is a doctor, isn't she?", "It is cold, isn't it?", "The dog is big, isn't it?"]
+            },
+            {
+                cat: "附加問句",
+                q: "Rose: Why not? They love each other, _____?",
+                opts: ["will they", "won't they", "do they", "don't they"],
+                ans: 3,
+                pattern: ["love (肯定/一般V)", "→", "don't they?"],
+                exp: "前肯後否。love 是一般動詞現在式，複數主詞對應助動詞否定 don't they。",
+                exs: ["You know him, don't you?", "They have a car, don't they?", "Birds fly, don't they?"]
+            },
+            {
+                cat: "附加問句",
+                q: "Bus Number 286 goes there, _____?",
+                opts: ["does it", "doesn't it", "is it", "isn't it"],
+                ans: 1,
+                pattern: ["goes (肯定/一般V)", "→", "doesn't it?"],
+                exp: "前肯後否。goes 是一般動詞三單形式，後方用 doesn't it。",
+                exs: ["The bus leaves at ten, doesn't it?", "It rains a lot here, doesn't it?", "The shop opens late, doesn't it?"]
+            },
+            {
+                cat: "附加問句",
+                q: "She's going to Europe, _____ she?",
+                opts: ["doesn't", "hasn't", "isn't", "won't"],
+                ans: 2,
+                pattern: ["She's (=is) going", "→", "isn't she?"],
+                exp: "這題的 She's 是 She is。進行式句型使用 be 動詞 is 對應，後方用 isn't。",
+                exs: ["He's eating, isn't he?", "They're playing, aren't they?", "I'm late, aren't I?"]
+            },
+            {
+                cat: "附加問句",
+                q: "You've studied English for a long time, _____?",
+                opts: ["did you", "didn't you", "have you", "haven't you"],
+                ans: 3,
+                pattern: ["You've (=have) studied", "→", "haven't you?"],
+                exp: "這題的 You've 是 You have。現在完成式句型，後方對應助動詞 haven't。",
+                exs: ["She's finished, hasn't she?", "They've gone, haven't they?", "We've met, haven't we?"]
+            },
+
+            // --- 頂尖特訓 (20題) ---
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Tom's brothers are very good at playing basketball, but _____ not. They are terrible at sports.",
+                opts: ["my is", "mine is", "my are", "mine are"],
+                ans: 3,
+                pattern: ["Tom's brothers (複數)", "→", "are", "↔", "mine (=my brothers)", "→", "are"],
+                exp: "mine 在此指 my brothers (複數)。根據後面補述 They are terrible... 確定為複數，對應 be 動詞 are。",
+                exs: ["Your keys are on the table, but mine are lost.", "Her eyes are blue, and mine are, too.", "Their bikes are new, but mine are old."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Mary's friends enjoy reading comic books in their free time, and _____ , too.",
+                opts: ["mine do", "mine does", "mine are", "my does"],
+                ans: 0,
+                pattern: ["friends (複數)", "→", "enjoy (一般V)", "→", "mine (=my friends)", "→", "do"],
+                exp: "mine = my friends (複數)。對應一般動詞現在式，助動詞用 do。",
+                exs: ["His parents like tea, and mine do, too.", "Your dogs run fast, and mine do, too.", "Their kids study hard, and mine do, too."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Her dog barked loudly last night, but _____ . It slept very well.",
+                opts: ["mine didn't", "mine wasn't", "hers didn't", "hers wasn't"],
+                ans: 0,
+                pattern: ["barked (過去V)", "↔", "mine (=my dog)", "→", "didn't"],
+                exp: "mine = my dog (單數)。對應一般動詞過去式，否定助動詞用 didn't。",
+                exs: ["My car started, but hers didn't.", "Your cat meowed, but mine didn't.", "His phone rang, but hers didn't."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Your computer has been broken for days, and _____ , too. Let's go buy new ones together.",
+                opts: ["her has", "hers has", "hers have", "her have"],
+                ans: 1,
+                pattern: ["computer (單數)", "→", "has been", "→", "hers (=her computer)", "→", "has"],
+                exp: "hers = her computer (單數)。對應現在完成式助動詞 has。注意 hers 是所有格代名詞，不可拆為 her has。",
+                exs: ["My bag has arrived, and hers has, too.", "Your test has finished, and mine has, too.", "His money has gone, and hers has, too."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "My test results were terrible yesterday, but _____. He studied really hard and got 100.",
+                opts: ["his was", "his were", "he was", "he were"],
+                ans: 1,
+                pattern: ["results (複數)", "→", "were", "↔", "his (=his results)", "→", "were"],
+                exp: "his 在此指 his results (複數)。對應 be 動詞過去式 were。",
+                exs: ["My grades were bad, but his were good.", "Your hands were cold, but his were warm.", "Her eyes were red, but his were clear."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Our coach will come to the baseball game tomorrow, but _____ because he is sick in the hospital.",
+                opts: ["their won't", "theirs isn't", "theirs won't", "theirs doesn't"],
+                ans: 2,
+                pattern: ["coach (單數)", "→", "will come", "↔", "theirs (=their coach)", "→", "won't"],
+                exp: "theirs = their coach (單數)。對應未來式助動詞 will，否定為 won't。",
+                exs: ["My mom will go, but theirs won't.", "Your dad will help, but theirs won't.", "His teacher will call, but theirs won't."]
+            },
+            {
+                cat: "頂尖特訓：超強陷阱",
+                q: "His sisters like watching scary movies, but _____ . She is easily scared and always closes her eyes.",
+                opts: ["mine don't", "mine doesn't", "mine aren't", "mine isn't"],
+                ans: 1,
+                pattern: ["like (一般V)", "↔", "mine (=my sister/單數)", "→", "doesn't"],
+                exp: "關鍵在後句 'She is...'。這代表 mine 指的是 my sister (單數)。對應一般動詞 like，助動詞用 doesn't。",
+                exs: ["Their brothers play soccer, but mine doesn't (he likes tennis).", "His friends go out, but mine doesn't (she stays home).", "Your cousins like milk, but mine doesn't (he hates it)."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Their house is very big and beautiful, but _____ quite small. However, we love it.",
+                opts: ["our is", "ours is", "ours are", "our are"],
+                ans: 1,
+                pattern: ["house (單數)", "→", "is", "↔", "ours (=our house)", "→", "is"],
+                exp: "ours = our house (單數)。對應 be 動詞 is。注意一定要用 ours 才是代名詞形式。",
+                exs: ["Their garden is messy, but ours is clean.", "Your room is dark, but ours is bright.", "His car is old, but ours is new."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "My younger sister has to wear a uniform to school every day, and _____ , too.",
+                opts: ["yours is", "yours has", "yours does", "your does"],
+                ans: 2,
+                pattern: ["has to (一般V/必須)", "→", "yours (=your sister)", "→", "does"],
+                exp: "yours = your sister (單數)。'have to' 視為一般動詞，對應助動詞 does。",
+                exs: ["I have to go, and he does, too.", "She has to study, and you do, too.", "They have to work, and we do, too."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Her parents used to live in Japan for many years, and _____ , too. ",
+                opts: ["mine used", "mine did", "mine were", "mine had"],
+                ans: 1,
+                pattern: ["used to (過去一般V)", "→", "mine (=my parents)", "→", "did"],
+                exp: "mine = my parents (複數)。'used to' 指過去習慣，視為一般動詞過去式，簡答對應助動詞 did。",
+                exs: ["He used to smoke, and his friends did, too.", "I used to swim, and she did, too.", "They used to live here, and we did, too."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Your kids are playing outside right now, but _____ doing homework in their rooms.",
+                opts: ["hers is", "hers are", "hers do", "hers did"],
+                ans: 1,
+                pattern: ["kids (複數)", "→", "are playing", "↔", "hers (=her kids)", "→", "are"],
+                exp: "hers = her kids (複數)。進行式結構，對應 be 動詞 are。",
+                exs: ["My friends are coming, but hers are leaving.", "Your dogs are barking, but hers are sleeping.", "Our students are singing, but hers are dancing."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "My new jacket didn't cost much money, and neither _____. We both got really good deals.",
+                opts: ["yours did", "did yours", "was yours", "yours was"],
+                ans: 1,
+                pattern: ["neither (倒裝)", "→", "did", "→", "yours (=your jacket)"],
+                exp: "否定附和「也不」。Neither 放在句首需倒裝（Neither + 助/be + 主）。前面是 didn't，後面用 did yours。",
+                exs: ["I didn't see it, and neither did he.", "She couldn't go, and neither could I.", "They won't stay, and neither will we."]
+            },
+            {
+                cat: "頂尖特訓：超強陷阱",
+                q: "My teammates have finished the science project, but _____ yet. He is still working on it.",
+                opts: ["mine haven't", "mine hasn't", "mine didn't", "mine wasn't"],
+                ans: 1,
+                pattern: ["have finished (完成式)", "↔", "mine (=my teammate/單數)", "→", "hasn't"],
+                exp: "關鍵在後句 'He is...'。這代表 mine 指的是 my teammate (單數)。現在完成式對比否定用 hasn't。",
+                exs: ["Their teachers have left, but mine hasn't (she is in the office).", "Our dogs have eaten, but mine hasn't (he is sick).", "Your friends have seen it, but mine hasn't (she was busy)."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "His car can hold seven people, but _____ only hold five.",
+                opts: ["ours can", "our can", "ours does", "ours is"],
+                ans: 0,
+                pattern: ["can (助動詞)", "↔", "ours (=our car)", "→", "can"],
+                exp: "ours = our car (單數)。助動詞 can 直接沿用。",
+                exs: ["My phone can take photos, and yours can, too.", "He can swim, and she can, too.", "We can help, and they can, too."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Your phone was ringing loudly during the movie, but _____ . I always turn it off.",
+                opts: ["mine wasn't", "mine didn't", "mine doesn't", "mine isn't"],
+                ans: 0,
+                pattern: ["was ringing (進行式)", "↔", "mine (=my phone)", "→", "wasn't"],
+                exp: "mine = my phone (單數)。過去進行式結構，對應 be 動詞過去式否定 wasn't。",
+                exs: ["I was sleeping, but he wasn't.", "They were playing, but we weren't.", "She was crying, but her sister wasn't."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Their garden looks amazing in spring, and so _____ . We plant lots of roses.",
+                opts: ["is ours", "does ours", "ours is", "ours does"],
+                ans: 1,
+                pattern: ["looks (一般V)", "→", "and so", "→", "does", "→", "ours (=garden)"],
+                exp: "ours = our garden (單數)。附和句 So 放在句首需倒裝。對應一般動詞現在式，助動詞用 does。",
+                exs: ["He likes coffee, and so do I.", "She runs fast, and so does her brother.", "It sounds good, and so does that."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "My parents are going to travel to Europe next month, but _____ . They are too busy.",
+                opts: ["hers don't", "hers won't", "hers aren't", "her aren't"],
+                ans: 2,
+                pattern: ["are going to (be動詞)", "↔", "hers (=her parents)", "→", "aren't"],
+                exp: "hers = her parents (複數)。be going to 結構，對應 be 動詞複數否定 aren't。",
+                exs: ["We are going to stay, but they aren't.", "I am going to buy it, but she isn't.", "They are going to help, but we aren't."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "Jane's scores on the science test were excellent, and so _____. You must be proud.",
+                opts: ["was yours", "were yours", "did yours", "are yours"],
+                ans: 1,
+                pattern: ["scores (複數)", "→", "were", "→", "and so", "→", "were", "→", "yours"],
+                exp: "yours = your scores (複數)。附和句倒裝，對應 be 動詞過去式 were。",
+                exs: ["My answers were wrong, and so were yours.", "His hands were dirty, and so were mine.", "Her eyes were wet, and so were theirs."]
+            },
+            {
+                cat: "頂尖特訓：超強陷阱",
+                q: "His brothers enjoy playing video games on weekends, but _____ . He prefers reading books.",
+                opts: ["mine don't", "mine doesn't", "mine isn't", "mine aren't"],
+                ans: 1,
+                pattern: ["enjoy (一般V)", "↔", "mine (=my brother/單數)", "→", "doesn't"],
+                exp: "關鍵在後句 'He prefers...'。這代表 mine 指的是 my brother (單數)。對應一般動詞 enjoy，助動詞用 doesn't。",
+                exs: ["Their kids like candy, but mine doesn't (he likes fruit).", "Our neighbors have a dog, but mine doesn't (she has a cat).", "His teammates play well, but mine doesn't (he is new)."]
+            },
+            {
+                cat: "頂尖特訓：代名詞陷阱",
+                q: "My cousins would love to go to the beach this afternoon, but _____ . They hate the sun.",
+                opts: ["hers wouldn't", "hers don't", "hers didn't", "hers aren't"],
+                ans: 0,
+                pattern: ["would love to (助動詞)", "↔", "hers (=her cousins)", "→", "wouldn't"],
+                exp: "hers = her cousins (複數)。助動詞 would 直接對應否定 wouldn't。",
+                exs: ["I would like to stay, but he wouldn't.", "She would help us, but they wouldn't.", "We would go, but she wouldn't."]
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function init() {
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const quiz = rawData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('q-cat').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${rawData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / rawData.length) * 100}%`;
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-indigo-600 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-lg">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selectedIdx) {
+            const quiz = rawData[currentIdx];
+            const isCorrect = selectedIdx === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) {
+                    btn.classList.add('success-bg', 'correct-border');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.add('error-bg');
+                } else {
+                    btn.classList.add('opacity-40');
+                }
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            const ansDisplay = document.getElementById('correct-ans-display');
+            
+            expArea.classList.remove('hidden');
+            if (isCorrect) {
+                status.innerText = "完全正確！Great Job!";
+                status.className = "font-black text-2xl text-green-600";
+                icon.innerHTML = '<i class="fas fa-check-double text-2xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-green-500";
+                score++;
+            } else {
+                status.innerText = "可惜了！再看一次解析";
+                status.className = "font-black text-2xl text-red-600";
+                icon.innerHTML = '<i class="fas fa-lightbulb text-2xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-red-500";
+            }
+            
+            ansDisplay.innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans]}`;
+
+            // Visual Pattern
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+"].includes(part)) {
+                    span.className = "arrow mx-1 text-slate-300 text-xl";
+                } else if (part === "and so" || part === "but" || part === "and neither") {
+                    span.className = "px-3 py-1 bg-amber-100 text-amber-700 rounded-lg font-black text-xs border border-amber-200 uppercase";
+                } else {
+                    span.className = "px-4 py-2 bg-indigo-50 text-indigo-800 rounded-xl font-black text-sm shadow-sm border border-indigo-100";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            const examplesList = document.getElementById('examples-list');
+            examplesList.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-4 bg-white rounded-2xl border-2 border-slate-50 hover:border-emerald-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex-shrink-0 mr-4 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                        <i class="fas fa-play text-xs"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold group-hover:text-emerald-700 transition-colors">${ex}</span>
+                `;
+                examplesList.appendChild(item);
+            });
+
+            setTimeout(() => {
+                expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < rawData.length) {
+                renderQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / rawData.length) * 100);
+            let msg = percent >= 90 ? "神等級！你完全掌握了省略句！" : (percent >= 70 ? "表現優異！已經破解大部分陷阱了。" : "加油！再練習幾次，關鍵是找對應動詞。");
+            
+            container.innerHTML = `
+                <div class="text-center py-16 animate-fade-in">
+                    <div class="relative inline-block mb-10">
+                        <div class="w-48 h-48 rounded-full border-[12px] border-indigo-50 flex items-center justify-center bg-white shadow-2xl">
+                            <span class="text-6xl font-black text-indigo-600">${percent}%</span>
+                        </div>
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-8 py-2 rounded-2xl font-black text-lg shadow-xl">
+                            SCORE
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">${msg}</h2>
+                    <p class="text-slate-500 text-xl mb-12 font-bold">答對題數：${score} / ${rawData.length}</p>
+                    <button onclick="location.reload()" class="bg-indigo-600 text-white px-12 py-5 rounded-3xl font-black text-xl hover:bg-indigo-700 transition shadow-2xl transform active:scale-95">
+                        <i class="fas fa-redo mr-3"></i> 重新特訓
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'en-US';
+                u.rate = 0.85;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        window.onload = init;
+    </script>
+
+</body></html>
