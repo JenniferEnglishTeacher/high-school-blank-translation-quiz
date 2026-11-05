@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文：動名詞與不定詞全攻略 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #eef2ff; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .pattern-box { border: 2px dashed #a5b4fc; border-radius: 12px; padding: 16px; background: #ffffff; }
+        .success-bg { background-color: #e0e7ff !important; border-color: #4f46e5 !important; color: #312e81 !important; }
+        .error-bg { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-border { border-color: #4f46e5 !important; border-width: 3px !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Progress Info -->
+        <div class="mb-6">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">to V 與 V-ing <span class="text-indigo-600">全攻略</span></h1>
+                    <p class="text-slate-500 font-medium italic">Infinitive &amp; Gerund Master</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-black shadow-sm tracking-widest">LOADING...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
+                <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-blue-600 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-12 mb-10 min-h-[580px]">
+            <div id="question-area">
+                <div class="flex items-center gap-3 mb-6">
+                    <span id="q-number" class="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">1</span>
+                    <span id="q-cat" class="text-xs font-black px-3 py-1 bg-indigo-50 text-indigo-600 border border-indigo-100 rounded-full uppercase tracking-wider">題庫載入中</span>
+                </div>
+                
+                <p id="question-text" class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-10 font-bold border-l-4 border-indigo-500 pl-4"></p>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area -->
+            <div id="explanation-area" class="mt-12 pt-10 border-t-2 border-slate-50 hidden animate-fade-in">
+                <div class="flex items-center mb-8">
+                    <div id="result-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-xl"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-xs font-black text-indigo-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-sitemap mr-2"></i> 視覺化文法結構
+                        </h3>
+                        <div id="visual-pattern" class="pattern-box flex flex-wrap items-center gap-2 shadow-inner">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-blue-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-key mr-2"></i> 核心破解解析
+                        </h3>
+                        <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                            <p id="grammar-explanation" class="text-blue-900 leading-relaxed font-medium"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="text-xs font-black text-indigo-600 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fas fa-headphones mr-2"></i> 同步句型練習 (TTS)
+                    </h3>
+                    <div id="examples-list" class="space-y-3">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+                <button onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-800 transition shadow-xl flex items-center justify-center group">
+                    <span>NEXT 下一題</span>
+                    <i class="fas fa-chevron-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // ================= 歷屆會考題大統整 =================
+            // 【焦點一：接 to V 或 V-ing 的動詞搭配】 (5題)
+            { cat: "會考焦點一", q: "Cindy enjoys _____ her dad read stories to her before bed.", opts: ["to listen to", "listening to", "listen to", "listens to"], ans: 1, pattern: ["enjoy", "+", "V-ing"], exp: "enjoy (享受) 後面固定接動名詞 (V-ing)。", exs: ["She enjoys reading books."] },
+            { cat: "會考焦點一", q: "Wendy: Do you know where the library is? Simon: Just _____ going for two more blocks and you'll see it.", opts: ["keep", "to keep", "keeping", "keeps"], ans: 0, pattern: ["祈使句", "→", "VR (原形)"], exp: "這是一句祈使句(給予指示)，必須用原形動詞開頭。", exs: ["Keep walking straight."] },
+            { cat: "會考焦點一", q: "Josh has planned to make a trip to New York and _____ some of his friends there.", opts: ["visit", "visits", "visiting", "visited"], ans: 0, pattern: ["to make", "and", "(to) visit"], exp: "and 連接兩個對等的動作：to make a trip 和 (to) visit，後面的 to 可以省略。", exs: ["I want to eat and sleep."] },
+            { cat: "會考焦點一", q: "Alison doesn’t like _____ what to do. She only does things she wants to do.", opts: ["told", "to tell", "be told", "to be told"], ans: 3, pattern: ["like", "+", "to be p.p. (被動)"], exp: "like 後面可接 to V。這裡語意是「不喜歡『被』告訴」，所以用被動不定詞 to be told。", exs: ["I don't like to be treated like a child."] },
+            { cat: "會考焦點一", q: "Dad always tells me not _____ only for tests. If that’s all I’m doing, he says, I will soon lose interest in learning.", opts: ["study", "studying", "studied", "to study"], ans: 3, pattern: ["tell sb", "+", "not to V"], exp: "tell 某人不要做某事，句型為 tell + O + not to V。", exs: ["He told me not to worry."] },
+            
+            // 【焦點二：動名詞 (V-ing) 當主詞與單數動詞】 (13題)
+            { cat: "會考焦點二", q: "Watching American movies _____ one of the activities we enjoy most in our English class.", opts: ["is", "are", "to be", "being"], ans: 0, pattern: ["Watching (V-ing 當主詞)", "→", "is (單數動詞)"], exp: "動名詞當主詞視為單數的一件事，動詞要用 is。", exs: ["Swimming is good for you."] },
+            { cat: "會考焦點二", q: "Playing games on the cellphone _____ popular with high school students.", opts: ["is", "are", "being", "to be"], ans: 0, pattern: ["Playing (V-ing 當主詞)", "→", "is (單數動詞)"], exp: "動名詞 Playing 當主詞，動詞用單數 is。", exs: ["Playing chess is fun."] },
+            { cat: "會考焦點二", q: "Playing sports at least three times a week _____ good for your health.", opts: ["is", "are", "has", "have"], ans: 0, pattern: ["Playing (V-ing 當主詞)", "→", "is (單數動詞)"], exp: "整件事「做運動」當主詞，搭配單數 be 動詞 is。", exs: ["Eating well is important."] },
+            { cat: "會考焦點二", q: "Learning foreign languages _____ me to know more about other countries.", opts: ["helps", "helping", "help", "to help"], ans: 0, pattern: ["Learning (V-ing 當主詞)", "→", "helps (三單動詞)"], exp: "動名詞 Learning 當主詞視為第三人稱單數，一般動詞要加 s。", exs: ["Reading helps you learn."] },
+            { cat: "會考焦點二", q: "Asking questions _____ Henna learn more and better.", opts: ["help", "helps", "helping", "to help"], ans: 1, pattern: ["Asking (V-ing 當主詞)", "→", "helps (三單動詞)"], exp: "動名詞 Asking 當主詞，動詞必須加 s。", exs: ["Asking for help is okay."] },
+            { cat: "會考焦點二", q: "I usually carry a camera on my trips; taking pictures _____ a good way for me to remember the experience.", opts: ["to be", "is", "being", "are"], ans: 1, pattern: ["taking pictures (主詞)", "→", "is (單數動詞)"], exp: "拍照 (taking pictures) 是一件事，動詞用單數 is。", exs: ["Taking photos is my hobby."] },
+            { cat: "會考焦點二", q: "Reading comic books _____ fun.", opts: ["is", "are", "has", "have"], ans: 0, pattern: ["Reading (V-ing 當主詞)", "→", "is"], exp: "看漫畫 (Reading) 是一件事，搭配單數 be 動詞 is。", exs: ["Reading is fun."] },
+            { cat: "會考焦點二", q: "Playing in the water _____ lots of fun on a hot summer day.", opts: ["is", "are", "has", "have"], ans: 0, pattern: ["Playing (V-ing 當主詞)", "→", "is"], exp: "玩水 (Playing) 是一件事，搭配單數動詞 is。", exs: ["Playing games is exciting."] },
+            { cat: "會考焦點二", q: "_____ in the daytime is not good for you. You may not sleep well at night and feel tired the next day.", opts: ["Slept", "Sleeps", "Have slept", "Sleeping"], ans: 3, pattern: ["Sleeping (V-ing 當主詞)", "→", "is"], exp: "放在句首作主詞，必須把動詞轉為動名詞 (V-ing)。", exs: ["Sleeping late is bad."] },
+            { cat: "會考焦點二", q: "_____ exercise after work is a good way for me to forget the troubles in the office.", opts: ["Playing", "Making", "Going", "Doing"], ans: 3, pattern: ["Doing exercise", "(固定搭配)"], exp: "「做運動」的固定搭配動詞是 do exercise，放句首當主詞改為 Doing。", exs: ["Doing yoga is relaxing."] },
+            { cat: "會考焦點二", q: "_____ the lesson before class gives me a better idea about what the teacher is going to teach.", opts: ["Preview", "Previews", "Previewed", "Previewing"], ans: 3, pattern: ["Previewing (V-ing 當主詞)", "→", "gives (動詞)"], exp: "課前預習是一件事，當主詞要用動名詞 Previewing。", exs: ["Reviewing notes is helpful."] },
+            { cat: "會考焦點二", q: "John always goes to bed late at night, so _____ early is difficult for him.", opts: ["get up", "got up", "gets up", "getting up"], ans: 3, pattern: ["getting up (V-ing 當主詞)", "→", "is"], exp: "早起這件事當作主詞，必須加上 ing。", exs: ["Getting up early is hard."] },
+            { cat: "會考焦點二", q: "There are more and more cars in our city, so _____ has become a serious problem.", opts: ["jumping", "learning", "parking", "smoking"], ans: 2, pattern: ["parking (停車)", "→", "has become"], exp: "根據前句「車子越來越多」，可知「停車 (parking)」成了問題。", exs: ["Parking here is difficult."] },
+
+            // 【焦點三：祈使句 (原形動詞開頭)】 (6題)
+            { cat: "會考焦點三", q: "Jo won’t be happy if you’re late for his party tonight, so _____ sure that you arrive on time.", opts: ["make", "makes", "to make", "is making"], ans: 0, pattern: ["so (連接詞)", "+", "make sure (祈使句)"], exp: "逗號後接的是給對方的建議/命令，形成祈使句，須以原形動詞開頭。", exs: ["Make sure you lock the door."] },
+            { cat: "會考焦點三", q: "If you’re interested in our business plan, _____ this number and ask for Ms. Lee. She’ll answer your questions.", opts: ["calling", "call", "and call", "to call"], ans: 1, pattern: ["If 子句", ",", "VR... (祈使句)"], exp: "If 引導條件子句，主要子句若是命令或建議，用祈使句 (原形動詞)。", exs: ["If you need help, call me."] },
+            { cat: "會考焦點三", q: "Judy: The ball game will be on TV tomorrow at six in the morning. Lucy: _____ up early and you won't miss it.", opts: ["Get", "To get", "Getting", "Gets"], ans: 0, pattern: ["Get (祈使句)", "+", "and", "+", "未來結果"], exp: "「原形動詞 + and + 結果」表示「去做某事，這樣就會...」。", exs: ["Study hard, and you will pass."] },
+            { cat: "會考焦點三", q: "A-ming: Dad, can I go dancing tomorrow? Mr. Wu: _____ your homework and we'll talk about it.", opts: ["Finishes", "Finishing", "To finish", "Finish"], ans: 3, pattern: ["Finish (祈使句)", "+", "and..."], exp: "爸爸給出條件命令「先完成作業」，用原形動詞開頭的祈使句。", exs: ["Eat your vegetables, and you can have dessert."] },
+            { cat: "會考焦點三", q: "It’s cold outside; _____ sure to put on your coat before you leave the house.", opts: ["be", "it is", "being", "it will be"], ans: 0, pattern: ["be sure (祈使句)", "→", "to V"], exp: "給予建議的祈使句，以原形動詞 be 開頭 (be sure to... = 務必要...)。", exs: ["Be sure to call me."] },
+            { cat: "會考焦點三", q: "_____ a map with you when you go to a place for the first time.", opts: ["Have taken", "Take", "Taking", "To take"], ans: 1, pattern: ["Take (祈使句)", "→", "when 子句"], exp: "主要子句給予忠告，使用祈使句 (原形動詞開頭)。", exs: ["Take an umbrella with you."] },
+
+            // 【焦點四：虛主詞 It is + adj + for 人 + to V 與其他結構】 (5題)
+            { cat: "會考焦點四", q: "It was important for Kevin _____ his homework quickly because he had to help his parents sell fruit in the night market.", opts: ["finish", "to finish", "finishes", "finished"], ans: 1, pattern: ["It is adj", "+", "for sb", "+", "to V"], exp: "It 為虛主詞，代替後面真正的主詞 (to V 不定詞片語)。", exs: ["It is hard for me to sing."] },
+            { cat: "會考焦點四", q: "I think _____ is more fun to go to the movies with my friends than with my family.", opts: ["that", "there", "one", "it"], ans: 3, pattern: ["think (that)", "it (虛主詞)", "is fun..."], exp: "這裡用 it 作為子句中的虛主詞，代替後方的 to go to the movies。", exs: ["I think it is easy to learn."] },
+            { cat: "會考焦點四", q: "The most convenient way to get around this small town is _____ a bike.", opts: ["to ride", "to have ridden", "rides", "rode"], ans: 0, pattern: ["The way... is", "+", "to V (作主詞補語)"], exp: "be 動詞後接不定詞 (to ride) 說明主詞「最方便的方法是什麼」。", exs: ["My goal is to win."] },
+            { cat: "會考焦點四", q: "It is _____ to sell fake CDs and watches. You will be caught by the police.", opts: ["illegal", "important", "convenient", "comfortable"], ans: 0, pattern: ["It is illegal", "+", "to sell..."], exp: "語意題。賣假貨會被警察抓，所以是「違法的 (illegal)」。", exs: ["It is illegal to steal."] },
+            { cat: "會考焦點四", q: "It is _____ for me to go to work by bus. My office is very near the bus stop.", opts: ["convenient", "dangerous", "difficult", "special"], ans: 0, pattern: ["It is convenient", "+", "to go..."], exp: "語意題。公司離公車站很近，所以搭公車很「方便 (convenient)」。", exs: ["It is convenient to shop online."] },
+
+            // ================= 90 題進階練習題 =================
+            // 🏆 第一部分：特定動詞後面的型態 (30題)
+            { cat: "第一部分：特定動詞", q: "My little brother enjoys _____ to music while he is doing his homework.", opts: ["listen", "to listen", "listening", "listened"], ans: 2, pattern: ["enjoy", "+", "V-ing"], exp: "enjoy (享受) 後方必須接動名詞。", exs: ["He enjoys reading."] },
+            { cat: "第一部分：特定動詞", q: "It's getting late. We need _____ home right now before it gets completely dark.", opts: ["go", "to go", "going", "went"], ans: 1, pattern: ["need", "+", "to V"], exp: "need (需要) 表達目的或必要性，後接不定詞 to V。", exs: ["I need to sleep."] },
+            { cat: "第一部分：特定動詞", q: "Kelly has decided _____ an English teacher when she grows up.", opts: ["be", "to be", "being", "been"], ans: 1, pattern: ["decide", "+", "to V"], exp: "decide (決定) 表達未來的動作，後接不定詞 to V。", exs: ["She decided to leave."] },
+            { cat: "第一部分：特定動詞", q: "Do you mind _____ the window? It’s a little cold in here.", opts: ["close", "to close", "closed", "closing"], ans: 3, pattern: ["mind", "+", "V-ing"], exp: "mind (介意) 後面固定接動名詞 V-ing。", exs: ["Do you mind waiting?"] },
+            { cat: "第一部分：特定動詞", q: "If you want to play the piano well, you must practice _____ it for at least one hour every day.", opts: ["play", "to play", "playing", "played"], ans: 2, pattern: ["practice", "+", "V-ing"], exp: "practice (練習) 後面固定接動名詞 V-ing。", exs: ["Practice speaking English."] },
+            { cat: "第一部分：特定動詞", q: "Are you interested in _____ my club? We have a lot of fun activities.", opts: ["join", "to join", "joining", "joined"], ans: 2, pattern: ["in (介係詞)", "+", "V-ing"], exp: "介係詞 (in, about, of, for 等) 後面如果接動詞，必須改為 V-ing。", exs: ["I am good at drawing."] },
+            { cat: "第一部分：特定動詞", q: "The students haven't finished _____ their classroom yet, so they can't go home.", opts: ["clean", "to clean", "cleaning", "cleaned"], ans: 2, pattern: ["finish", "+", "V-ing"], exp: "finish (完成) 表示結束一個動作，後接 V-ing。", exs: ["I finished reading the book."] },
+            { cat: "第一部分：特定動詞", q: "I plan _____ a trip to Japan next spring. I’m saving money for it now.", opts: ["make", "to make", "making", "made"], ans: 1, pattern: ["plan", "+", "to V"], exp: "plan (計畫) 表達未來意圖，後接不定詞。", exs: ["We plan to move next year."] },
+            { cat: "第一部分：特定動詞", q: "Don't give up _____ your dream. You will be successful one day.", opts: ["follow", "to follow", "following", "followed"], ans: 2, pattern: ["give up (介係詞結尾)", "+", "V-ing"], exp: "片語 give up 的 up 是介係詞，後方動詞須加 ing。", exs: ["He gave up smoking."] },
+            { cat: "第一部分：特定動詞", q: "The famous singer expects _____ a new album next month. His fans are excited.", opts: ["release", "to release", "releasing", "released"], ans: 1, pattern: ["expect", "+", "to V"], exp: "expect (預期) 表達未來發生的事，接不定詞 to V。", exs: ["I expect to see you there."] },
+            { cat: "第一部分：特定動詞", q: "You should avoid _____ too much fast food because it's bad for your health.", opts: ["eat", "to eat", "eating", "ate"], ans: 2, pattern: ["avoid", "+", "V-ing"], exp: "avoid (避免) 固定接動名詞。", exs: ["Avoid making mistakes."] },
+            { cat: "第一部分：特定動詞", q: "Dad has to go to work now. He will keep _____ until late at night.", opts: ["work", "to work", "working", "worked"], ans: 2, pattern: ["keep", "+", "V-ing"], exp: "keep 表示「持續做某事」，後接 V-ing。", exs: ["Keep walking straight."] },
+            { cat: "第一部分：特定動詞", q: "I would like _____ a cup of hot tea. What about you?", opts: ["have", "to have", "having", "had"], ans: 1, pattern: ["would like", "+", "to V"], exp: "would like 等同於 want，固定接不定詞 to V。", exs: ["I would like to order now."] },
+            { cat: "第一部分：特定動詞", q: "Mary is worried about _____ the math test tomorrow.", opts: ["fail", "to fail", "failing", "failed"], ans: 2, pattern: ["about (介係詞)", "+", "V-ing"], exp: "介係詞 about 後方接動名詞。", exs: ["Don't worry about failing."] },
+            { cat: "第一部分：特定動詞", q: "It started _____ when we were having a picnic in the park.", opts: ["rain", "to rain", "rained", "to raining"], ans: 1, pattern: ["start", "+", "to V / V-ing"], exp: "start 後面接 to V 或 V-ing 皆可。選項中只有 to rain 文法正確。", exs: ["It started to snow."] },
+            { cat: "第一部分：特定動詞", q: "Tom loves _____ basketball with his friends on weekends. He thinks it's exciting.", opts: ["played", "to playing", "plays", "playing"], ans: 3, pattern: ["love", "+", "to V / V-ing"], exp: "love 可接 to V 或 V-ing。選項中只有 playing 正確。", exs: ["She loves singing."] },
+            { cat: "第一部分：特定動詞", q: "I want _____ an engineer in the future. I love fixing things.", opts: ["be", "to be", "being", "am"], ans: 1, pattern: ["want", "+", "to V"], exp: "want 固定接不定詞 to V。", exs: ["I want to go home."] },
+            { cat: "第一部分：特定動詞", q: "It suddenly began _____ hard, so we ran into a coffee shop.", opts: ["to raining", "rained", "raining", "rains"], ans: 2, pattern: ["begin", "+", "to V / V-ing"], exp: "begin 可接 to V 或 V-ing。選項中只有 raining 正確。", exs: ["He began crying."] },
+            { cat: "第一部分：特定動詞", q: "Have you ever thought about _____ abroad for college?", opts: ["study", "to study", "studying", "studied"], ans: 2, pattern: ["about (介係詞)", "+", "V-ing"], exp: "介係詞後方一律接動名詞 V-ing。", exs: ["Think about joining us."] },
+            { cat: "第一部分：特定動詞", q: "Please continue _____ the book. I really want to know what happens next.", opts: ["read", "to reading", "reading", "reads"], ans: 2, pattern: ["continue", "+", "to V / V-ing"], exp: "continue 可接 to V 或 V-ing。選項中只有 reading 正確。", exs: ["Continue working hard."] },
+            { cat: "第一部分：特定動詞", q: "The doctor asked him to quit _____ because his lungs were very weak.", opts: ["smoke", "to smoke", "smoking", "smoked"], ans: 2, pattern: ["quit", "+", "V-ing"], exp: "quit (戒除/停止) 固定接動名詞 V-ing。", exs: ["He quit drinking."] },
+            { cat: "第一部分：特定動詞", q: "John hates _____ up early on cold winter mornings.", opts: ["wakes", "woke", "to waking", "to wake"], ans: 3, pattern: ["hate", "+", "to V / V-ing"], exp: "hate 可接 to V 或 V-ing。選項中只有 to wake 正確。", exs: ["I hate to complain."] },
+            { cat: "第一部分：特定動詞", q: "I am looking forward to _____ you at the party tonight.", opts: ["see", "seeing", "saw", "to seeing"], ans: 1, pattern: ["look forward to (介係詞)", "+", "V-ing"], exp: "【重點】look forward to 的 to 是介係詞，必須接 V-ing。", exs: ["I look forward to hearing from you."] },
+            { cat: "第一部分：特定動詞", q: "Good luck _____ your job interview! I'm sure you'll do great.", opts: ["on", "to", "with", "in"], ans: 2, pattern: ["Good luck", "+", "with + 事物"], exp: "祝福某事順利的固定用法：Good luck with + N。", exs: ["Good luck with your test!"] },
+            { cat: "第一部分：特定動詞", q: "My mom thanked me for _____ her clean the kitchen.", opts: ["help", "to help", "helping", "helped"], ans: 2, pattern: ["for (介係詞)", "+", "V-ing"], exp: "thank sb for + V-ing，介係詞 for 後面接動名詞。", exs: ["Thank you for coming."] },
+            { cat: "第一部分：特定動詞", q: "They plan _____ a new house near the park next year.", opts: ["buy", "to buy", "buying", "bought"], ans: 1, pattern: ["plan", "+", "to V"], exp: "plan (計畫) 後面接 to V。", exs: ["I plan to rest today."] },
+            { cat: "第一部分：特定動詞", q: "She likes _____ pictures when she travels to different countries.", opts: ["take", "took", "to take", "takes"], ans: 2, pattern: ["like", "+", "to V / V-ing"], exp: "like 可接 to V 或 V-ing。選項只有 to take 符合。", exs: ["I like to take photos."] },
+            { cat: "第一部分：特定動詞", q: "My sister needs _____ her homework before she can watch TV.", opts: ["finish", "to finish", "finishing", "finishes"], ans: 1, pattern: ["need", "+", "to V"], exp: "need (需要) 後面接 to V。", exs: ["You need to study."] },
+            { cat: "第一部分：特定動詞", q: "He is very good at _____ stories. Everyone likes listening to him.", opts: ["tell", "to tell", "telling", "told"], ans: 2, pattern: ["at (介係詞)", "+", "V-ing"], exp: "be good at 後面的 at 是介係詞，接 V-ing。", exs: ["She is good at singing."] },
+            { cat: "第一部分：特定動詞", q: "We expect _____ at the train station by 10:00 a.m.", opts: ["arrive", "to arrive", "arriving", "arrived"], ans: 1, pattern: ["expect", "+", "to V"], exp: "expect (預期) 後接不定詞 to V。", exs: ["I expect to win."] },
+
+            // 🏆 第二部分：特殊用法 (感官動詞) (15題)
+            { cat: "第二部分：感官動詞", q: "I was standing by the window and saw a dog _____ across the street.", opts: ["runs", "to run", "running", "ran"], ans: 2, pattern: ["saw (感官V)", "+", "O", "+", "VR / V-ing"], exp: "感官動詞看/聽/感覺，後接 VR 或 V-ing，選項只有 running 正確。", exs: ["I saw him running."] },
+            { cat: "第二部分：感官動詞", q: "Did you hear the baby _____ in the bedroom? You should go check on him.", opts: ["cry", "cries", "to cry", "cried"], ans: 0, pattern: ["hear (感官V)", "+", "O", "+", "VR / V-ing"], exp: "感官動詞 hear 後接原形動詞 (VR) 或 V-ing。", exs: ["I heard her cry."] },
+            { cat: "第二部分：感官動詞", q: "Many people watched the popular singer _____ on the stage. They were so excited.", opts: ["to sing", "sang", "sing", "sings"], ans: 2, pattern: ["watched (感官V)", "+", "O", "+", "VR / V-ing"], exp: "感官動詞 watch 後接原形動詞 (sing)。", exs: ["We watched them play."] },
+            { cat: "第二部分：感官動詞", q: "Look at the little boys _____ basketball in the park. They look so happy.", opts: ["play", "played", "to play", "plays"], ans: 0, pattern: ["Look at (感官V)", "+", "O", "+", "VR / V-ing"], exp: "Look at 作感官動詞，後接原形動詞或 V-ing。此處選 play。", exs: ["Look at him run."] },
+            { cat: "第二部分：感官動詞", q: "I enjoy sitting on the balcony and listening to the birds _____ in the trees.", opts: ["to sing", "sing", "sang", "sings"], ans: 1, pattern: ["listening to (感官V)", "+", "O", "+", "VR"], exp: "listen to 作感官動詞，後接原形動詞 sing。", exs: ["Listen to the rain fall."] },
+            { cat: "第二部分：感官動詞", q: "When I walked past the kitchen, I smelled something _____ .", opts: ["burn", "burned", "burning", "to burn"], ans: 2, pattern: ["smelled (感官V)", "+", "O", "+", "V-ing"], exp: "smell 作感官動詞，常接 V-ing 強調散發著某種狀態。", exs: ["I smell something burning."] },
+            { cat: "第二部分：文法陷阱", q: "Yesterday, I saw an old man fall down and _____ him to the hospital.", opts: ["take", "took", "taking", "taken"], ans: 1, pattern: ["I saw (過去式)", "and", "took (過去式)"], exp: "【陷阱題】and 連接主詞 I 的兩個動作：「看到」和「帶去」，兩者時態要一致 (過去式)。", exs: ["I ran and jumped."] },
+            { cat: "第二部分：對等連接", q: "I saw him open the door and _____ out of the room quickly.", opts: ["walk", "to walk", "walked", "walking"], ans: 0, pattern: ["saw him", "+", "open", "and", "walk"], exp: "and 連接感官動詞受詞的兩個動作：open 和 walk，皆用原形動詞。", exs: ["I saw her stop and look."] },
+            { cat: "第二部分：感官動詞", q: "Do you hear someone _____ on the door? Let me go see who it is.", opts: ["knocking", "knocked", "to knock", "knocks"], ans: 0, pattern: ["hear (感官V)", "+", "O", "+", "V-ing"], exp: "感官動詞 hear 後接 V-ing 強調正在發生的動作。", exs: ["I hear someone singing."] },
+            { cat: "第二部分：感官動詞", q: "We watched the sun _____ slowly behind the mountains. It was beautiful.", opts: ["to go down", "going down", "went down", "goes down"], ans: 1, pattern: ["watched (感官V)", "+", "O", "+", "V-ing"], exp: "感官動詞 watch 後接 V-ing，強調動作進行的過程。", exs: ["Watch the snow falling."] },
+            { cat: "第二部分：感官動詞", q: "Mom smiled when she looked at her kids _____ happily with their toys.", opts: ["played", "to play", "playing", "plays"], ans: 2, pattern: ["looked at (感官V)", "+", "O", "+", "V-ing"], exp: "look at 作感官動詞，後接 V-ing 強調當下正在玩。", exs: ["Look at them playing."] },
+            { cat: "第二部分：感官動詞", q: "I felt the ground _____ terribly during the earthquake last night.", opts: ["shook", "shakes", "shake", "to shake"], ans: 2, pattern: ["felt (感官V)", "+", "O", "+", "VR"], exp: "feel 作感官動詞，後接原形動詞 (shake) 描述感受到的事實。", exs: ["I felt the wind blow."] },
+            { cat: "第二部分：感官動詞", q: "I often listen to my grandmother _____ stories about her childhood.", opts: ["tell", "told", "to tell", "tells"], ans: 0, pattern: ["listen to (感官V)", "+", "O", "+", "VR"], exp: "listen to 後接原形動詞 tell。", exs: ["Listen to him play."] },
+            { cat: "第二部分：特殊搭配", q: "The teacher caught John _____ on the math test yesterday.", opts: ["cheat", "to cheat", "cheating", "cheated"], ans: 2, pattern: ["catch (抓到)", "+", "O", "+", "V-ing"], exp: "catch (抓到某人正在做壞事) 後方固定接 V-ing。", exs: ["I caught him stealing."] },
+            { cat: "第二部分：對等連接", q: "Did you see the cat jump onto the table and _____ the fish?", opts: ["eat", "to eat", "ate", "eating"], ans: 0, pattern: ["see the cat", "+", "jump", "and", "eat"], exp: "and 連接受詞 cat 的兩個動作：jump 和 eat，皆為原形動詞。", exs: ["I saw it run and hide."] },
+
+            // 🏆 第三部分：使役動詞與要求/幫忙 (15題)
+            { cat: "第三部分：使役動詞", q: "My mother always makes me _____ my room on weekends.", opts: ["clean", "to clean", "cleaning", "cleaned"], ans: 0, pattern: ["make (使役V)", "+", "O", "+", "VR"], exp: "使役動詞 make (要求/強迫) 主動語態時，後接原形動詞。", exs: ["He makes me laugh."] },
+            { cat: "第三部分：要求/命令", q: "The teacher asked the students _____ quiet in the library.", opts: ["keep", "to keep", "keeping", "kept"], ans: 1, pattern: ["ask (要求)", "+", "O", "+", "to V"], exp: "ask 某人做某事，句型為 ask + O + to V。", exs: ["I asked him to leave."] },
+            { cat: "第三部分：幫忙 Help", q: "Can you help me _____ this heavy box to the living room?", opts: ["carrying", "carried", "carry", "carries"], ans: 2, pattern: ["help", "+", "O", "+", "VR / to V"], exp: "help 後面可接原形動詞或 to V。此處選 carry。", exs: ["Help me do the dishes."] },
+            { cat: "第三部分：使役動詞", q: "I will have the mechanic _____ my car tomorrow morning.", opts: ["check", "to check", "checking", "checked"], ans: 0, pattern: ["have (使役V)", "+", "O", "+", "VR"], exp: "have 作使役動詞 (叫某人做某事)，主動語態後接原形動詞。", exs: ["Have him fix it."] },
+            { cat: "第三部分：說服 Get", q: "Dad got my older brother _____ the car because it was very dirty.", opts: ["wash", "to wash", "washing", "washed"], ans: 1, pattern: ["get (說服/要求)", "+", "O", "+", "to V"], exp: "get 也是叫某人做某事，但文法規定要接 to V，不接原形。", exs: ["Get him to do it."] },
+            { cat: "第三部分：使役動詞", q: "Please let me _____ to the movie with my friends tonight, Mom!", opts: ["to go", "going", "go", "went"], ans: 2, pattern: ["let (使役V)", "+", "O", "+", "VR"], exp: "let 作使役動詞 (允許)，後接原形動詞。", exs: ["Let it go."] },
+            { cat: "第三部分：要求/命令", q: "Ms. Lin told her son not _____ too close to the TV.", opts: ["sit", "to sit", "sitting", "sat"], ans: 1, pattern: ["tell", "+", "O", "+", "not to V"], exp: "tell 某人不要做某事：tell + O + not to V。", exs: ["Tell him not to run."] },
+            { cat: "第三部分：幫忙 Help", q: "Playing sports every day helps him _____ healthy.", opts: ["to staying", "stayed", "stay", "stays"], ans: 2, pattern: ["help", "+", "O", "+", "VR / to V"], exp: "help 後接原形動詞 stay。", exs: ["This helps me relax."] },
+            { cat: "第三部分：使役動詞", q: "I was so busy that I had my secretary _____ the emails for me.", opts: ["send", "to send", "sending", "sent"], ans: 0, pattern: ["had (使役V)", "+", "O", "+", "VR"], exp: "have 作使役動詞，後接原形動詞 send。", exs: ["I had her call you."] },
+            { cat: "第三部分：幫忙 Help", q: "Thank you so much for helping me _____ my English homework.", opts: ["by", "on", "to", "with"], ans: 3, pattern: ["help sb", "+", "with", "+", "事物"], exp: "幫忙某人某個「事物」，用介係詞 with。", exs: ["Help me with my bags."] },
+            { cat: "第三部分：使役動詞", q: "The sad movie made everyone in the theater _____ .", opts: ["cried", "crying", "to cry", "cry"], ans: 3, pattern: ["made (使役V)", "+", "O", "+", "VR"], exp: "make 使役動詞，後接原形動詞 cry。", exs: ["You make me smile."] },
+            { cat: "第三部分：說服 Get", q: "Don't forget to get someone _____ the broken window.", opts: ["fix", "to fix", "fixing", "fixed"], ans: 1, pattern: ["get", "+", "O", "+", "to V"], exp: "get 要求某人做某事，後方固定接 to V。", exs: ["Get a doctor to look at it."] },
+            { cat: "第三部分：使役動詞", q: "The boss didn't let the workers _____ early yesterday.", opts: ["leave", "left", "leaving", "to leave"], ans: 0, pattern: ["let (使役V)", "+", "O", "+", "VR"], exp: "let 使役動詞，後接原形動詞 leave。", exs: ["Let me finish."] },
+            { cat: "第三部分：要求/命令", q: "The police officer told the man _____ out of the car.", opts: ["get", "to get", "getting", "got"], ans: 1, pattern: ["told", "+", "O", "+", "to V"], exp: "tell 某人做某事：tell + O + to V。", exs: ["He told me to stop."] },
+            { cat: "第三部分：使役動詞", q: "His jokes always make us _____ out loud.", opts: ["laugh", "to laugh", "laughing", "laughed"], ans: 0, pattern: ["make (使役V)", "+", "O", "+", "VR"], exp: "make 使役動詞，後接原形動詞 laugh。", exs: ["She makes us work hard."] },
+
+            // 🏆 第四部分：動詞在句首的三種可能性 (15題)
+            { cat: "第四部分：句首動詞", q: "_____ enough water every day is important for your health.", opts: ["Drink", "To drinking", "Drinking", "Drank"], ans: 2, pattern: ["Drinking (V-ing當主詞)", "→", "is"], exp: "一件事當作主詞，要用動名詞 V-ing (Drinking)。", exs: ["Eating well is good."] },
+            { cat: "第四部分：句首動詞", q: "_____ English well, Peter practices speaking with foreigners every weekend.", opts: ["Learn", "Learning", "To learn", "Learned"], ans: 2, pattern: ["To learn (為了...)", ",", "S + V"], exp: "句首的 To V 用來表示目的，等同於 in order to (為了...)。", exs: ["To win, you must practice."] },
+            { cat: "第四部分：句首動詞", q: "_____ an umbrella with you, or you will get wet in the rain.", opts: ["Take", "Taking", "To take", "Took"], ans: 0, pattern: ["Take (祈使句)", "+", "or..."], exp: "祈使句給予忠告，用原形動詞開頭，搭配 or (否則)。", exs: ["Hurry up, or you'll be late."] },
+            { cat: "第四部分：句首動詞", q: "_____ to the teacher carefully in class helps me get good grades.", opts: ["Listen", "Listening", "To listening", "Listened"], ans: 1, pattern: ["Listening (V-ing當主詞)", "→", "helps"], exp: "專心聽這件事當主詞，要用動名詞 Listening。", exs: ["Reading books helps."] },
+            { cat: "第四部分：句首動詞", q: "_____ weight, she exercises for an hour and eats a lot of vegetables every day.", opts: ["Lose", "Losing", "To lose", "Lost"], ans: 2, pattern: ["To lose (為了...)", ",", "S + V"], exp: "表示「為了」減重，句首使用 To V 表目的。", exs: ["To save money, I walk to work."] },
+            { cat: "第四部分：句首動詞", q: "_____ early, and you will catch the first train to Taipei.", opts: ["Get up", "Getting up", "To get up", "Got up"], ans: 0, pattern: ["Get up (祈使句)", "+", "and..."], exp: "「VR... and 結果」表示「去做...，就會...」，用祈使句開頭。", exs: ["Study, and you'll pass."] },
+            { cat: "第四部分：句首動詞", q: "_____ friends in a new school is not easy for a shy boy like Tim.", opts: ["Make", "Makes", "Making", "Made"], ans: 2, pattern: ["Making (V-ing當主詞)", "→", "is"], exp: "交朋友這件事當主詞，用動名詞 Making。", exs: ["Making friends takes time."] },
+            { cat: "第四部分：句首動詞", q: "If you want to pass the exam, _____ hard!", opts: ["study", "studying", "to study", "studied"], ans: 0, pattern: ["If 子句", ",", "study (祈使句)"], exp: "條件句後接指示/命令，用原形動詞開頭的祈使句。", exs: ["If you are tired, rest."] },
+            { cat: "第四部分：句首動詞", q: "_____ a great writer is my sister's dream.", opts: ["Become", "Became", "Becoming", "Becomes"], ans: 2, pattern: ["Becoming (V-ing當主詞)", "→", "is"], exp: "成為作家這件事當作主詞，用動名詞 Becoming。", exs: ["Being a doctor is hard."] },
+            { cat: "第四部分：句首動詞", q: "_____ to buy some milk on your way home tonight. We don't have any left.", opts: ["Remember", "Remembering", "To remember", "Remembered"], ans: 0, pattern: ["Remember (祈使句)", "→", "to buy"], exp: "給予對方的提醒命令，使用祈使句開頭 (原形動詞)。", exs: ["Don't forget to call."] },
+            { cat: "第四部分：句首動詞", q: "_____ smart is not enough; you also need to work hard.", opts: ["Be", "Being", "To being", "Am"], ans: 1, pattern: ["Being (V-ing當主詞)", "→", "is"], exp: "很聰明這件事當主詞，be 動詞轉為動名詞 Being。", exs: ["Being kind is important."] },
+            { cat: "第四部分：句首動詞", q: "_____ the tickets, we waited in line outside the theater for three hours.", opts: ["Get", "Getting", "To get", "Got"], ans: 2, pattern: ["To get (為了...)", ",", "S + V"], exp: "表示「為了」買到票，句首用 To V 表目的。", exs: ["To see him, I waited all day."] },
+            { cat: "第四部分：句首動詞", q: "_____ the instructions carefully before you start to build the toy.", opts: ["Read", "Reading", "To read", "Reads"], ans: 0, pattern: ["Read (祈使句)", "→", "before 子句"], exp: "給予操作指示的命令句，使用原形動詞開頭。", exs: ["Read the rules first."] },
+            { cat: "第四部分：句首動詞", q: "_____ the piano well takes years of practice.", opts: ["Play", "Playing", "To playing", "Played"], ans: 1, pattern: ["Playing (V-ing當主詞)", "→", "takes"], exp: "彈琴這件事當作主詞，用動名詞 Playing。", exs: ["Learning math takes time."] },
+            { cat: "第四部分：句首動詞", q: "Hurry up, _____ we will miss the beginning of the movie!", opts: ["and", "so", "but", "or"], ans: 3, pattern: ["祈使句", "+", "or (否則)"], exp: "祈使句搭配 or 表示「否則會發生某種(通常不好的)結果」。", exs: ["Run, or you'll be late."] },
+
+            // 🏆 第五部分：Remember / Forget / Stop 的語意判斷 (15題)
+            { cat: "第五部分：Remember/Forget/Stop", q: "Oh, no! I forgot _____ the door when I left the house this morning. I hope nobody broke in.", opts: ["lock", "locking", "to lock", "locked"], ans: 2, pattern: ["forget", "+", "to V (忘記要去做)"], exp: "forget to V 表示「忘記要去執行某動作 (根本沒做)」。", exs: ["I forgot to bring my key."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "I clearly remember _____ this movie with you last year. It was so funny.", opts: ["watch", "to watch", "watching", "watched"], ans: 2, pattern: ["remember", "+", "V-ing (記得曾經做過)"], exp: "remember V-ing 表示「記得過去曾經做過某事」(由 last year 可知)。", exs: ["I remember meeting him."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "My dad had a bad cough, so the doctor told him to stop _____ immediately.", opts: ["smoke", "smoking", "to smoke", "smoked"], ans: 1, pattern: ["stop", "+", "V-ing (停止正在做的動作)"], exp: "stop V-ing 表示「停止正在做或習慣做的動作」。", exs: ["Stop talking!"] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "We drove for three hours and felt very tired, so we stopped _____ some coffee.", opts: ["have", "having", "to have", "had"], ans: 2, pattern: ["stop", "+", "to V (停下來為了做...)"], exp: "stop to V 表示「停下原本的動作，(為了)轉去做另一件事」。", exs: ["He stopped to look at his phone."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "Remember _____ the lights before you go to bed tonight.", opts: ["turn off", "turning off", "to turn off", "turned off"], ans: 2, pattern: ["Remember", "+", "to V (記得要去做)"], exp: "提醒別人「記得要去執行」某事，用 remember to V。", exs: ["Remember to lock up."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "I will never forget _____ to New York for the first time. Everything was so amazing!", opts: ["go", "going", "to go", "went"], ans: 1, pattern: ["forget", "+", "V-ing (忘記曾經做過)"], exp: "never forget V-ing 表示「永遠不會忘記曾經歷過的事」。", exs: ["I'll never forget seeing the ocean."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "Stop _____ noise! The baby is trying to sleep.", opts: ["make", "to make", "making", "made"], ans: 2, pattern: ["Stop", "+", "V-ing (停止動作)"], exp: "命令別人「停止當下正在做的動作」，用 stop V-ing。", exs: ["Stop crying."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "I forgot _____ him my phone number, so I need to text him now.", opts: ["give", "giving", "to give", "gave"], ans: 2, pattern: ["forget", "+", "to V (忘記要去給)"], exp: "因為現在才需要傳簡訊給他，代表之前「忘記去給 (沒給到)」。", exs: ["I forgot to tell you."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "He was walking on the street when he stopped _____ at a beautiful bird in the tree.", opts: ["look", "looking", "to look", "looked"], ans: 2, pattern: ["stop", "+", "to V (停下來為了看)"], exp: "他停下原本走路的動作，是「為了去看」樹上的鳥。", exs: ["I stopped to tie my shoes."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "Do you remember _____ my keys somewhere? I can't find them.", opts: ["see", "to see", "seeing", "saw"], ans: 2, pattern: ["remember", "+", "V-ing (記得看過)"], exp: "詢問對方「有沒有印象曾經看到過」，用 remember V-ing。", exs: ["Do you remember putting it here?"] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "Please stop _____ video games and go do your homework!", opts: ["play", "playing", "to play", "played"], ans: 1, pattern: ["stop", "+", "V-ing (停止動作)"], exp: "命令停止目前正在玩的動作。", exs: ["Stop wasting time."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "The teacher stopped _____ the lesson because the students were too loud. She waited for them to be quiet.", opts: ["teach", "teaching", "to teach", "taught"], ans: 1, pattern: ["stop", "+", "V-ing (停止教課)"], exp: "因為學生太吵，老師「停止(原本正在進行的)教課」。", exs: ["He stopped working."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "I remember _____ the book in my bag, but now it's gone!", opts: ["put", "to put", "putting", "puts"], ans: 2, pattern: ["remember", "+", "V-ing (記得曾經放過)"], exp: "我有印象「之前確實有放進去」，用 remember V-ing。", exs: ["I remember locking the door."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "On his way home, he stopped _____ some flowers for his wife's birthday.", opts: ["buy", "buying", "to buy", "bought"], ans: 2, pattern: ["stop", "+", "to V (停下來為了買)"], exp: "他在回家的路上停下來，是「為了買」花。", exs: ["We stopped to buy gas."] },
+            { cat: "第五部分：Remember/Forget/Stop", q: "I forgot _____ my homework, so the teacher was very angry with me today.", opts: ["bring", "bringing", "to bring", "brought"], ans: 2, pattern: ["forget", "+", "to V (忘記帶來)"], exp: "「忘記去帶」導致老師生氣(因為沒帶到)，用 forget to V。", exs: ["I forgot to do my homework."] }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function render() {
+            const quiz = rawData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('q-cat').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${rawData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / rawData.length) * 100}%`;
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-6 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-indigo-600 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-xl">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selected) {
+            const quiz = rawData[currentIdx];
+            const isCorrect = selected === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) btn.classList.add('success-bg', 'correct-border');
+                else if (idx === selected && !isCorrect) btn.classList.add('error-bg');
+                else btn.classList.add('opacity-40');
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            expArea.classList.remove('hidden');
+            
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            if (isCorrect) {
+                status.innerText = "答對了！結構判斷正確";
+                status.className = "font-black text-2xl text-indigo-600";
+                icon.innerHTML = '<i class="fas fa-check-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-indigo-500";
+                score++;
+            } else {
+                status.innerText = "可惜！注意文法結構與語意";
+                status.className = "font-black text-2xl text-rose-600";
+                icon.innerHTML = '<i class="fas fa-exclamation-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-rose-500";
+            }
+            document.getElementById('correct-ans-display').innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans]}`;
+
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+", ","].includes(part) || part === "and") {
+                    span.className = "text-slate-300 font-black text-xl mx-1";
+                } else if (part.includes("V-ing") || part.includes("to V") || part.includes("VR")) {
+                    span.className = "bg-indigo-600 text-white px-3 py-1 rounded-lg font-black text-xs";
+                } else {
+                    span.className = "bg-slate-100 text-slate-700 px-3 py-1 rounded-lg font-bold text-sm border border-slate-200 shadow-sm";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            const list = document.getElementById('examples-list');
+            list.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-4 bg-white rounded-2xl border-2 border-slate-50 hover:border-indigo-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex-shrink-0 mr-4 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                        <i class="fas fa-play text-xs"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold group-hover:text-indigo-700 transition-colors">${ex}</span>
+                `;
+                list.appendChild(item);
+            });
+
+            setTimeout(() => { expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < rawData.length) {
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / rawData.length) * 100);
+            container.innerHTML = `
+                <div class="text-center py-20 animate-fade-in">
+                    <div class="relative inline-block mb-10">
+                        <div class="w-48 h-48 rounded-full border-[12px] border-indigo-50 flex items-center justify-center bg-white shadow-2xl">
+                            <span class="text-6xl font-black text-indigo-600">${percent}%</span>
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">
+                        ${percent >= 90 ? '神級學霸！動詞變化大師' : 
+                          percent >= 70 ? '非常厲害！觀念很清晰' : 
+                          '不錯喔！可以再複習一下錯題'}
+                    </h2>
+                    <p class="text-slate-500 text-xl mb-12 font-bold">總計答對：${score} / ${rawData.length}</p>
+                    <button onclick="location.reload()" class="bg-indigo-600 text-white px-12 py-5 rounded-3xl font-black text-xl hover:bg-indigo-700 transition shadow-2xl transform active:scale-95">
+                        <i class="fas fa-redo mr-3"></i> 重新挑戰全 119 題
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(t) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(t);
+                u.lang = 'en-US'; u.rate = 0.85;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        window.onload = render;
+    </script>
+
+</body></html>

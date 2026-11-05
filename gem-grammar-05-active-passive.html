@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文：主被動語態全攻略 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0fdf4; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .pattern-box { border: 2px dashed #86efac; border-radius: 12px; padding: 16px; background: #ffffff; }
+        .success-bg { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .error-bg { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-border { border-color: #22c55e !important; border-width: 3px !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Progress Info -->
+        <div class="mb-6">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">主動與被動語態 <span class="text-emerald-600">全攻略</span></h1>
+                    <p class="text-slate-500 font-medium italic">Active vs. Passive Voice Master</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-black shadow-sm tracking-widest">LOADING...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
+                <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-600 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-12 mb-10 min-h-[580px]">
+            <div id="question-area">
+                <div class="flex items-center gap-3 mb-6">
+                    <span id="q-number" class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">1</span>
+                    <span id="q-cat" class="text-xs font-black px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-full uppercase tracking-wider">歷屆試題</span>
+                </div>
+                
+                <p id="question-text" class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-10 font-bold border-l-4 border-emerald-500 pl-4"></p>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area -->
+            <div id="explanation-area" class="mt-12 pt-10 border-t-2 border-slate-50 hidden animate-fade-in">
+                <div class="flex items-center mb-8">
+                    <div id="result-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-xl"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-xs font-black text-emerald-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-sitemap mr-2"></i> 視覺化文法結構
+                        </h3>
+                        <div id="visual-pattern" class="pattern-box flex flex-wrap items-center gap-2 shadow-inner">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-teal-600 uppercase tracking-widest mb-4 flex items-center">
+                            <i class="fas fa-key mr-2"></i> 核心破解解析
+                        </h3>
+                        <div class="bg-teal-50 p-6 rounded-2xl border border-teal-100">
+                            <p id="grammar-explanation" class="text-teal-900 leading-relaxed font-medium"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="text-xs font-black text-emerald-600 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fas fa-headphones mr-2"></i> 同步句型練習 (TTS)
+                    </h3>
+                    <div id="examples-list" class="space-y-3">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+                <button onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-800 transition shadow-xl flex items-center justify-center group">
+                    <span>NEXT 下一題</span>
+                    <i class="fas fa-chevron-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // --- 歷屆試題 (1-16) ---
+            {
+                cat: "歷屆試題",
+                q: "The housework in Mr. and Mrs. Wang’s family _____ between them and their kids. Everyone’s got their own job to do.",
+                opts: ["is shared", "are shared", "shares", "share"],
+                ans: 0,
+                pattern: ["Housework (S/無生命)", "→", "is shared (被動)", "→", "between kids"],
+                exp: "主詞 housework (家事) 為無生命且不可數，必須被分配。使用被動語態 be + p.p.，且動詞用單數 is。",
+                exs: ["The cleaning is done by him.", "The job is shared by two people.", "Is the room cleaned every day?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Fiona loves listening to her children sing songs _____ at school.",
+                opts: ["are learned", "that learned", "they learned", "that they are learned"],
+                ans: 2,
+                pattern: ["songs (O)", "←", "they learned (形容詞子句)"],
+                exp: "【陷阱題】這裡是形容詞子句修飾 songs。歌曲是孩子們「主動學習」的，這裡省略了關代 (which/that)，故選主動式的 they learned。",
+                exs: ["The bread they bought is on the table.", "I like the movies she made.", "Did you see the letter I wrote?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Many famous people visit this restaurant. Popular singers like A-mei and Jay Chou _____ here with their friends.",
+                opts: ["to be often seen", "often seen", "are often seen", "and are often seen"],
+                ans: 2,
+                pattern: ["Singers (S)", "→", "are often seen (被動)", "→", "here"],
+                exp: "歌手「被看見」出現在這裡。描述事實或常態，使用現在式被動 are + seen。often (頻率副詞) 置於 be 動詞之後。",
+                exs: ["Elephants are often seen in the wild.", "The movie is often watched by kids.", "Stars are often seen at the party."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Susan: Oh, no! The door and the window _____ ! \nVictor: Who could have done this?",
+                opts: ["are breaking", "have broken", "were broken", "will break"],
+                ans: 2,
+                pattern: ["Door & Window (S)", "→", "were broken (被動)", "→", "Who did this?"],
+                exp: "根據 Susan 的驚呼和 Victor 的問話，門窗「已經被打破了」。描述過去發生的事實（且被打破是被動），選 were broken。",
+                exs: ["The vase was broken by the cat.", "His arm was broken in the accident.", "My phone was broken yesterday."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "The little girl was _____ by a truck on her way home and was badly hurt.",
+                opts: ["hit", "led", "lost", "paid"],
+                ans: 0,
+                pattern: ["girl (S)", "→", "was hit (被動)", "→", "by a truck"],
+                exp: "描述車禍意外。女孩被卡車「撞到」 (hit)。hit 的三態同型 (hit-hit-hit)，此處為 p.p. 形式。",
+                exs: ["He was hit by a ball.", "The car was hit from behind.", "Nobody was hit by the falling tree."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "My dog Jimmy loves _____ with a comb. Every time I comb his hair, he will close his eyes.",
+                opts: ["to brush", "brushing", "to be brushing", "being brushed"],
+                ans: 3,
+                pattern: ["loves (V)", "→", "being brushed (Ving被動)"],
+                exp: "【高難度】love + Ving (喜好某活動)。因為小狗是「被梳理」，要把被動 (be + p.p.) 結合 Ving 變成 being brushed。",
+                exs: ["The cat likes being pet.", "He enjoys being praised.", "She hates being ignored."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "B&J Café _____ known as the tallest building in town. However, O&G Restaurant became the tallest building in 2010.",
+                opts: ["has been", "had been", "is", "would be"],
+                ans: 1,
+                pattern: ["had been known (過去完成被動)", "←", "became (過去)"],
+                exp: "在 2010 年 (過去點) 之前，B&J「一直被認為」是最高的。描述過去某點之前持續的被動狀態，用過去完成式被動 had been + p.p.。",
+                exs: ["The news had been known before he told us.", "She had been warned many times.", "The book had been read by everyone."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "The medicine I _____ you this morning should be taken three times a day.",
+                opts: ["to give", "given", "giving", "gave"],
+                ans: 3,
+                pattern: ["medicine (O)", "←", "I gave (主動子句)"],
+                exp: "【陷阱題】主句是被動 (should be taken)，但空格是形容詞子句修飾藥。藥是「我今早給」你的，為主動語態 gave。",
+                exs: ["The cake she made is sweet.", "The man I met is my uncle.", "The bike he bought is expensive."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "John: What’s wrong with Wendy? \nJean: Her knees hurt. She was _____ by a motorcycle this afternoon.",
+                opts: ["caught", "hit", "killed", "saved"],
+                ans: 1,
+                pattern: ["She", "→", "was hit (被撞到)", "→", "by a motorcycle"],
+                exp: "膝蓋受傷是因為被摩托車「撞到」 (hit)。",
+                exs: ["The boy was hit by a bicycle.", "Watch out! Don't get hit by a car.", "He was hit on the head."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Jean is crazy about the color purple. The walls of her house are all _____ purple.",
+                opts: ["built", "dug", "painted", "shown"],
+                ans: 2,
+                pattern: ["walls (S)", "→", "are painted (被粉刷)", "→", "purple"],
+                exp: "牆壁「被漆成」紫色。描述現在的狀態或事實，用 be + painted。",
+                exs: ["The door is painted red.", "The fence was painted white.", "Are the walls painted yet?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Ms. Wang found that her ring was on the table and was _____ by a book.",
+                opts: ["covered", "moved", "packed", "stopped"],
+                ans: 0,
+                pattern: ["it (ring)", "→", "was covered (被遮住)", "→", "by a book"],
+                exp: "戒指就在桌上，只是「被書遮住了」 (covered)。",
+                exs: ["The ground was covered with snow.", "His face was covered with a mask.", "The table is covered by a cloth."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Jessie felt sad because she was not _____ to the party. She really wanted to go.",
+                opts: ["invited", "scared", "followed", "impressed"],
+                ans: 0,
+                pattern: ["she", "→", "was not invited (沒被邀請)"],
+                exp: "因為想去派對卻「沒被邀請」 (invited) 而感到難過。被動否定 was not + p.p.。",
+                exs: ["I wasn't invited to the wedding.", "Who was invited to the meeting?", "They were all invited."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "A new road is going to _____ in town because traffic is getting busier.",
+                opts: ["build", "building", "be built", "have built"],
+                ans: 2,
+                pattern: ["road (S)", "→", "is going to", "→", "be built (未來被動)"],
+                exp: "未來式被動。馬路「將會被建造」。句型：be going to + be + p.p.。",
+                exs: ["The bridge is going to be built next year.", "A new school will be built here.", "Is the house going to be built soon?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "Most of Jeff's best books _____ when he was sick and poor.",
+                opts: ["have written", "were written", "would write", "wrote"],
+                ans: 1,
+                pattern: ["books (S)", "→", "were written (過去被動)"],
+                exp: "書是「被寫」出來的，且發生在過去的時間點 (when he was sick)，故用過去式被動 were written。",
+                exs: ["The letter was written in English.", "Many poems were written by him.", "The story was written long ago."]
+            },
+            {
+                cat: "歷屆試題",
+                q: "These pictures _____ when we took a trip to Kenting National Park.",
+                opts: ["took", "will take", "were taken", "will be taken"],
+                ans: 2,
+                pattern: ["pictures (S)", "→", "were taken (被拍攝)", "←", "when we took a trip"],
+                exp: "照片是「被拍」的。由後句 'took a trip' 可知是過去發生的事，故用過去式被動 were taken。",
+                exs: ["The photos were taken last year.", "Many pictures were taken at the zoo.", "Was this picture taken by you?"]
+            },
+            {
+                cat: "歷屆試題",
+                q: "“Are you dating anyone special now?” is a question that popular movie stars _____ in an interview.",
+                opts: ["to be often asked", "are often asked", "being often asked", "who are often asked"],
+                ans: 1,
+                pattern: ["stars (S)", "→", "are often asked (被動問到)"],
+                exp: "明星常在訪談中「被問到」這個問題。描述常態性事實，用現在式被動 are asked。",
+                exs: ["Teachers are often asked many questions.", "We were asked to leave.", "He is often asked about his family."]
+            },
+
+            // --- 額外特訓 (17-36) ---
+            {
+                cat: "進階特訓：完成式被動",
+                q: "Over the past few years, this popular comic book _____ into several different languages.",
+                opts: ["has translated", "have translated", "has been translated", "have been translated"],
+                ans: 2,
+                pattern: ["Over past few years (至今)", "→", "has been translated (被動)"],
+                exp: "Over the past few years 搭配現在完成式。書「被翻譯」，單數主詞用 has been translated。",
+                exs: ["The movie has been translated.", "Many books have been translated.", "Has it been translated yet?"]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "The police are still looking for the missing little girl. She _____ yet.",
+                opts: ["hasn't found", "haven't found", "hasn't been found", "haven't been found"],
+                ans: 2,
+                pattern: ["She (S)", "→", "hasn't been found (尚未被找到)"],
+                exp: "女孩「被找到」。yet 搭配現在完成式否定，單數主詞用 hasn't been found。",
+                exs: ["The keys haven't been found yet.", "The cat hasn't been found.", "He hasn't been found."]
+            },
+            {
+                cat: "進階特訓：主被動判斷",
+                q: "My brother _____ three cups of coffee since this morning because he stayed up late last night.",
+                opts: ["has drunk", "have drunk", "has been drunk", "have been drunk"],
+                ans: 0,
+                pattern: ["My brother (S-執行者)", "→", "has drunk (主動)"],
+                exp: "哥哥是「主動」喝咖啡，不是被喝掉。since 搭配現在完成式，三單主詞用 has drunk。",
+                exs: ["I have drunk much water today.", "She has eaten three apples.", "They have finished the work."]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "We can't use the meeting room right now because it _____ by the students.",
+                opts: ["has just cleaned", "have just cleaned", "has just been cleaned", "have just been cleaned"],
+                ans: 2,
+                pattern: ["room (S)", "→", "has just been cleaned (剛被清完)"],
+                exp: "房間剛「被清完」。描述剛完成的被動動作，三單主詞用 has been cleaned。",
+                exs: ["The floor has just been washed.", "The car has been cleaned.", "My room hasn't been cleaned."]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "Since 2010, millions of smartphones _____ by this famous company.",
+                opts: ["has sold", "have sold", "has been sold", "have been sold"],
+                ans: 3,
+                pattern: ["Since 2010", "→", "millions of phones (複數)", "→", "have been sold"],
+                exp: "Since 搭配現在完成式。手機「被賣出」，複數主詞用 have been sold。",
+                exs: ["Many tickets have been sold.", "The house has been sold.", "Have all the cakes been sold?"]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "Don't worry about the party tonight. All the food and drinks _____ on the table.",
+                opts: ["has already put", "have already put", "has already been put", "have already been put"],
+                ans: 3,
+                pattern: ["food and drinks (複數S)", "→", "have been put (被放好了)"],
+                exp: "食物飲料「被放好」。複數主詞搭配現在完成式被動 have been put。",
+                exs: ["The books have been put away.", "The files have been put on the desk.", "Where has it been put?"]
+            },
+            {
+                cat: "進階特訓：主被動判斷",
+                q: "Mr. Lin is a very experienced teacher. He _____ math in our school for more than twenty years.",
+                opts: ["has taught", "have taught", "has been taught", "have been taught"],
+                ans: 0,
+                pattern: ["He (S-執行者)", "→", "has taught (主動教書)"],
+                exp: "林老師是「主動教書」。若選被動會變成林老師被教導，不符語意。三單主詞用 has taught。",
+                exs: ["She has taught for ten years.", "I have learned much.", "He has worked here since 2000."]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "The old bridge _____ because it was too dangerous. We have to take another road now.",
+                opts: ["has closed down", "have closed down", "has been closed down", "have been closed down"],
+                ans: 2,
+                pattern: ["bridge (S)", "→", "has been closed down (被關閉了)"],
+                exp: "橋「被關閉」。單數主詞搭配現在完成式被動 has been closed down。",
+                exs: ["The shop has been closed down.", "The road has been blocked.", "The park has been opened."]
+            },
+            {
+                cat: "進階特訓：主被動判斷",
+                q: "Look! Someone _____ my favorite cake in the refrigerator! Who did it?",
+                opts: ["has eaten", "have eaten", "has been eaten", "have been eaten"],
+                ans: 0,
+                pattern: ["Someone (S-執行者)", "→", "has eaten (主動吃掉)"],
+                exp: "某人「主動」吃掉了蛋糕。Someone 視為單數主詞，用 has eaten。",
+                exs: ["Someone has taken my pen.", "Has anyone seen my cat?", "Everyone has arrived."]
+            },
+            {
+                cat: "進階特訓：完成式被動",
+                q: "A lot of beautiful trees _____ in the park by the workers since last month.",
+                opts: ["has planted", "have planted", "has been planted", "have been planted"],
+                ans: 3,
+                pattern: ["trees (複數S)", "→", "have been planted (被種植)"],
+                exp: "樹木「被種植」。複數主詞搭配現在完成式被動 have been planted。",
+                exs: ["Flowers have been planted.", "The garden has been fixed.", "Many trees were cut down."]
+            },
+            {
+                cat: "進階特訓：時態與被動",
+                q: "The window _____ by a strong wind last night. We need to fix it as soon as possible.",
+                opts: ["broke", "breaks", "was broken", "is broken"],
+                ans: 2,
+                pattern: ["window (S)", "→", "was broken (過去被動)", "←", "last night"],
+                exp: "窗戶「被打破」。由 last night 可知為過去式，單數主詞用 was broken。",
+                exs: ["The plate was broken by him.", "Was the window broken yesterday?", "My heart was broken."]
+            },
+            {
+                cat: "進階特訓：未來被動",
+                q: "A new library _____ in our town next year. I can't wait to read books there.",
+                opts: ["will build", "builds", "will be built", "is built"],
+                ans: 2,
+                pattern: ["library (S)", "→", "will be built (未來被動)", "→", "next year"],
+                exp: "圖書館「將被建造」。由 next year 可知為未來式，被動語態用 will be built。",
+                exs: ["The museum will be built soon.", "A new road will be built here.", "The bridge will be fixed next week."]
+            },
+            {
+                cat: "進階特訓：現在被動",
+                q: "English _____ in many countries around the world today. It's a very important language.",
+                opts: ["speaks", "spoke", "is spoken", "was spoken"],
+                ans: 2,
+                pattern: ["English (S)", "→", "is spoken (被說/現在事實)"],
+                exp: "英文「被說」。描述現狀事實，使用現在式被動 is spoken。",
+                exs: ["French is spoken in Canada.", "Is Chinese spoken in Singapore?", "Many languages are spoken here."]
+            },
+            {
+                cat: "進階特訓：主動對比",
+                q: "The bad guy ran away quickly, so the police _____ him yesterday.",
+                opts: ["didn't catch", "don't catch", "wasn't caught", "isn't caught"],
+                ans: 0,
+                pattern: ["police (S-執行者)", "→", "didn't catch (主動沒抓到)"],
+                exp: "警察是「主動」抓人。昨天的過去動作，用助動詞否定 didn't catch。",
+                exs: ["The cat didn't catch the mouse.", "I didn't find the key.", "He didn't see the sign."]
+            },
+            {
+                cat: "進階特訓：現在被動/常態",
+                q: "To keep everyone safe, all the bags and packages _____ at the airport before people get on the airplane.",
+                opts: ["check", "checked", "are checked", "were checked"],
+                ans: 2,
+                pattern: ["bags (S)", "→", "are checked (被檢查/常態)"],
+                exp: "行李「被檢查」。這是一個常態性規定，使用現在式被動 are checked。",
+                exs: ["Tickets are checked at the gate.", "Passwords are required here.", "All cars are checked."]
+            },
+            {
+                cat: "進階特訓：主動/現在習慣",
+                q: "My little sister usually _____ a cup of hot milk before going to bed.",
+                opts: ["drinks", "drank", "is drunk", "was drunk"],
+                ans: 0,
+                pattern: ["sister (S-執行者)", "→", "drinks (主動喝)"],
+                exp: "妹妹是「主動」喝牛奶。由 usually 可知為現在習慣，三單主詞用 drinks。",
+                exs: ["He drinks water every day.", "Do you drink tea?", "She doesn't drink milk."]
+            },
+            {
+                cat: "進階特訓：未來被動",
+                q: "The famous singer _____ to the popular TV show next Friday. All his fans are excited.",
+                opts: ["will invite", "invites", "will be invited", "is invited"],
+                ans: 2,
+                pattern: ["singer (S)", "→", "will be invited (將被邀請)"],
+                exp: "歌手「將被邀請」。由 next Friday 可知為未來式，被動用語 will be invited。",
+                exs: ["He will be invited to the party.", "Will you be invited?", "They will be invited next week."]
+            },
+            {
+                cat: "進階特訓：現在被動",
+                q: "Most of the housework in my family _____ by my dad when my mom is busy working.",
+                opts: ["does", "did", "is done", "was done"],
+                ans: 2,
+                pattern: ["housework (S)", "→", "is done (被做/常態)"],
+                exp: "家事「被做」。由後句 'is busy' 可知描述常態，現在式被動用 is done。注意 housework 不可數。",
+                exs: ["All the work is done.", "Is the homework done?", "The cleaning is done twice a week."]
+            },
+            {
+                cat: "進階特訓：過去被動",
+                q: "I didn't have any money because my wallet _____ on the bus this morning.",
+                opts: ["stole", "steals", "was stolen", "is stolen"],
+                ans: 2,
+                pattern: ["wallet (S)", "→", "was stolen (被偷了/過去)"],
+                exp: "錢包「被偷」。由 this morning 及前句 didn't 可知為過去事實，被動語態用 was stolen。",
+                exs: ["My bike was stolen.", "His car was stolen last night.", "Was anything stolen?"]
+            },
+            {
+                cat: "進階特訓：過去被動/形容詞",
+                q: "The doctor said Mary _____ badly in the car accident yesterday.",
+                opts: ["hurt", "hurts", "was hurt", "is hurt"],
+                ans: 2,
+                pattern: ["Mary (S)", "→", "was hurt (受傷了/過去)"],
+                exp: "描述 Mary「受傷了」。在英文中描述意外受傷常用 be + hurt 被動結構，過去事實用 was hurt。",
+                exs: ["He was hurt in the game.", "She wasn't hurt at all.", "Were you hurt?"]
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function render() {
+            const quiz = rawData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('q-cat').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${rawData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / rawData.length) * 100}%`;
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-6 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-emerald-600 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-xl">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selected) {
+            const quiz = rawData[currentIdx];
+            const isCorrect = selected === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) btn.classList.add('success-bg', 'correct-border');
+                else if (idx === selected && !isCorrect) btn.classList.add('error-bg');
+                else btn.classList.add('opacity-40');
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            expArea.classList.remove('hidden');
+            
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            if (isCorrect) {
+                status.innerText = "答對了！結構判斷正確";
+                status.className = "font-black text-2xl text-emerald-600";
+                icon.innerHTML = '<i class="fas fa-check-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-emerald-500";
+                score++;
+            } else {
+                status.innerText = "可惜！注意主詞與動詞關係";
+                status.className = "font-black text-2xl text-rose-600";
+                icon.innerHTML = '<i class="fas fa-exclamation-circle text-3xl"></i>';
+                icon.className = "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 text-white shadow-lg bg-rose-500";
+            }
+            document.getElementById('correct-ans-display').innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans]}`;
+
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+"].includes(part)) {
+                    span.className = "text-slate-300 font-black text-xl mx-1";
+                } else if (part.includes("被動") || part.includes("主動")) {
+                    span.className = "bg-emerald-600 text-white px-3 py-1 rounded-lg font-black text-xs";
+                } else {
+                    span.className = "bg-slate-100 text-slate-700 px-3 py-1 rounded-lg font-bold text-sm border border-slate-200 shadow-sm";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            const list = document.getElementById('examples-list');
+            list.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-4 bg-white rounded-2xl border-2 border-slate-50 hover:border-emerald-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex-shrink-0 mr-4 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                        <i class="fas fa-play text-xs"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold group-hover:text-emerald-700 transition-colors">${ex}</span>
+                `;
+                list.appendChild(item);
+            });
+
+            setTimeout(() => { expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < rawData.length) {
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / rawData.length) * 100);
+            container.innerHTML = `
+                <div class="text-center py-20 animate-fade-in">
+                    <div class="relative inline-block mb-10">
+                        <div class="w-48 h-48 rounded-full border-[12px] border-emerald-50 flex items-center justify-center bg-white shadow-2xl">
+                            <span class="text-6xl font-black text-emerald-600">${percent}%</span>
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">${percent >= 80 ? '太神了！被動語態大師' : '不錯喔！繼續加油'}</h2>
+                    <p class="text-slate-500 text-xl mb-12 font-bold">答對題數：${score} / ${rawData.length}</p>
+                    <button onclick="location.reload()" class="bg-emerald-600 text-white px-12 py-5 rounded-3xl font-black text-xl hover:bg-emerald-700 transition shadow-2xl transform active:scale-95">
+                        <i class="fas fa-redo mr-3"></i> 重新挑戰
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(t) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(t);
+                u.lang = 'en-US'; u.rate = 0.85;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        window.onload = render;
+    </script>
+
+</body></html>

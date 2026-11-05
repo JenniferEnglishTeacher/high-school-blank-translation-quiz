@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文：There be 句型總整理 - 互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f1f5f9; }
+        .glass-card { background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); }
+        .option-btn { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .pattern-block { border-radius: 10px; padding: 10px 15px; font-weight: 700; font-size: 0.9rem; }
+        .success-bg { background-color: #f0fdf4 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .error-bg { background-color: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .correct-opt { border-color: #22c55e !important; border-width: 3px !important; }
+        .cat-tag { background: #3b82f6; color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.4s ease-out; }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Progress Info -->
+        <div class="mb-8">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">There + be <span class="text-blue-600">全攻略</span></h1>
+                    <p class="text-slate-500 font-medium">歷屆試題 + 20 題進階陷阱特訓</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-black shadow-sm tracking-widest">LOADING...</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner border border-slate-300">
+                <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-12 mb-10 min-h-[600px] relative">
+            <div id="question-area">
+                <div class="flex items-center gap-3 mb-8">
+                    <span id="q-number" class="w-12 h-12 bg-slate-800 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">1</span>
+                    <span id="q-category" class="cat-tag">歷屆試題精選</span>
+                </div>
+                
+                <div id="question-text" class="text-2xl md:text-3xl text-slate-700 leading-snug mb-12 font-bold italic border-l-8 border-blue-500 pl-6 py-2"></div>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Options populated by JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Area -->
+            <div id="explanation-area" class="mt-16 pt-12 border-t-2 border-slate-100 hidden animate-slide-up">
+                <div class="flex items-center mb-10">
+                    <div id="result-icon" class="w-16 h-16 rounded-2xl flex items-center justify-center mr-6 text-white shadow-2xl"></div>
+                    <div>
+                        <h4 id="result-status" class="font-black text-2xl mb-1"></h4>
+                        <p id="correct-ans-display" class="text-slate-600 font-bold text-lg"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+                    <div>
+                        <h3 class="text-xs font-black text-blue-500 uppercase tracking-[0.2em] mb-4 flex items-center">
+                            <i class="fas fa-layer-group mr-2"></i> 視覺化文法句型結構
+                        </h3>
+                        <div id="visual-pattern" class="bg-white border-2 border-slate-100 p-8 rounded-3xl shadow-inner flex flex-wrap items-center gap-3">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-amber-600 uppercase tracking-[0.2em] mb-4 flex items-center">
+                            <i class="fas fa-key mr-2"></i> 核心破解解析
+                        </h3>
+                        <div class="bg-amber-50 p-8 rounded-3xl border border-amber-100">
+                            <p id="grammar-explanation" class="text-amber-900 leading-relaxed font-bold text-lg"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h3 class="text-xs font-black text-emerald-600 uppercase tracking-[0.2em] mb-6 flex items-center">
+                        <i class="fas fa-microphone-alt mr-2"></i> 相關句型朗讀 (點擊播放)
+                    </h3>
+                    <div id="examples-list" class="space-y-4">
+                        <!-- Examples populated by JS -->
+                    </div>
+                </div>
+
+                <button onclick="nextQuestion()" class="w-full bg-slate-900 text-white py-6 rounded-3xl font-black text-xl hover:bg-slate-800 transition-all shadow-2xl flex items-center justify-center group active:scale-[0.98]">
+                    <span>下一題 NEXT</span>
+                    <i class="fas fa-chevron-right ml-4 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center text-slate-400 text-sm font-bold opacity-50">
+            會考英文互動教材系列 | There + be 專題
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            // --- 歷屆試題 14 題 ---
+            {
+                cat: "歷屆試題精選",
+                q: "There _____ more than twenty clubs in our school. Which one would you like to join?",
+                opts: ["has", "have", "is", "are"],
+                ans: 3,
+                pattern: ["There", "+", "are", "→", "more than 20 clubs (複數)"],
+                exp: "本題單純描述「有」多少社團。主詞是後方的 clubs (複數)，且為事實，故用現在式 are。注意：英文中描述「某地有...」不能用 have/has。",
+                exs: ["There are many people in the park.", "There are five books on the desk.", "How many students are there in your class?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "_____ will be a welcome party next week for the new students. Will you come with me?",
+                opts: ["It", "There", "They", "We"],
+                ans: 1,
+                pattern: ["There", "+", "will be", "→", "a welcome party"],
+                exp: "描述未來「將會有」一場派對。There be 句型的未來式為 There will be，指某個活動或事物將存在。",
+                exs: ["There will be a movie tonight.", "There will be a meeting tomorrow.", "Will there be any food at the party?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "(In the office) Miss Huang: Sue, _____ students in the classroom? \nMiss Cheng: I don't think so.",
+                opts: ["are they", "do they", "is there", "are there"],
+                ans: 3,
+                pattern: ["Are there", "←", "students (複數)?"],
+                exp: "詢問「是否有學生在教室？」。主詞為 students (複數)，疑問句將 be 動詞搬到 There 前面，故用 Are there。",
+                exs: ["Are there any questions?", "Is there a post office nearby?", "Are there many cars on the road?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Paul: What did you find under his desk? \nTom: Oh, _____ all kinds of things: a basketball, pencils, a hat...",
+                opts: ["there were", "it was", "it had", "there was"],
+                ans: 0,
+                pattern: ["there were", "←", "all kinds of things (複數)"],
+                exp: "這是在描述「在那時發現有」什麼東西。因為後面條列的東西是複數且為過去發生的事實，故用 there were。",
+                exs: ["There were many apples on the tree before.", "There were some kids playing here.", "Were there any people waiting for you?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Jack: There is going to _____ a dance show on Saturday. Would you like to go?",
+                opts: ["be", "do", "get", "have"],
+                ans: 0,
+                pattern: ["There", "+", "is going to", "+", "be", "→", "show"],
+                exp: "There be 的未來式除了 will be，也可用 be going to be。這裡 be 是原形動詞形式。",
+                exs: ["There is going to be a storm.", "Is there going to be a test?", "There are going to be many fans at the concert."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Grace: How many pencils _____ in your pencil box? \nAllen: Only one.",
+                opts: ["are there", "are they", "is there", "is it"],
+                ans: 0,
+                pattern: ["How many pencils", "←", "are there?"],
+                exp: "How many (多少個) 句型後面接複數名詞，配合的 There be 疑問句型固定用 are there。",
+                exs: ["How many people are there?", "How many apples are there?", "How many stars are there in the sky?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Jenny’s bag is very heavy because _____ filled with toy cars.",
+                opts: ["it is", "they are", "there is", "there are"],
+                ans: 0,
+                pattern: ["Jenny's bag (S)", "→", "it is", "→", "filled (被動/形容詞)"],
+                exp: "【陷阱題】這裡是代名詞用法。because 後面要接代名詞代替前句的 Jenny's bag (單數)，故用 it is。",
+                exs: ["The box is heavy because it is big.", "My car is old, but it is fast.", "The apple is sweet because it is ripe."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Grace: How many people _____ in the office when the fire happened?",
+                opts: ["did they", "had they", "were there", "would there be"],
+                ans: 2,
+                pattern: ["How many people", "←", "were there", "←", "when fire happened (過去)"],
+                exp: "詢問火災發生時「有多少人在辦公室」。時間點為過去式，且詢問數量，故用 were there。",
+                exs: ["How many people were there at the party?", "Were there many cars on the street yesterday?", "There were five people here."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Doris: Why _____ so many things to do when I'm busy enough?",
+                opts: ["does it have", "have", "are they", "are there"],
+                ans: 3,
+                pattern: ["Why", "←", "are there", "←", "so many things (複數)?"],
+                exp: "描述「為什麼有這麼多事要做？」。主詞是 things (複數)，描述存在的事實，用 are there。",
+                exs: ["There are many things to learn.", "Why are there so many questions?", "There are few people here."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Somewhere along the road, _____ a shop which sells things from foreign countries.",
+                opts: ["that is", "it is", "it has", "there is"],
+                ans: 3,
+                pattern: ["Somewhere", "→", "there is", "→", "a shop (單數)"],
+                exp: "單純描述「沿路某個地方有一家店」。描述某地有某物，使用 There is。",
+                exs: ["There is a post office over there.", "There is a park nearby.", "Is there a bank around here?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Kate: Earl, is that tall boy your brother? \nEarl: Yes, _____.",
+                opts: ["it is", "he is", "that is", "you are"],
+                ans: 1,
+                pattern: ["that tall boy", "→", "Yes, he is."],
+                exp: "【代名詞陷阱】回答對「人」的身份確認。主詞為 that tall boy，代名詞用 he，回答用 Yes, he is.",
+                exs: ["Is she your sister? Yes, she is.", "Is that your father? Yes, he is.", "Are they your cousins? Yes, they are."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "When I entered the house for the first time, I found _____ was a big round table in the living room.",
+                opts: ["it", "that", "there", "this"],
+                ans: 2,
+                pattern: ["I found", "→", "there was", "→", "a table"],
+                exp: "發現「在那裡有」一個桌子。Found 之後省略了 that 名詞子句，內容為描述物品的存在，用 there was。",
+                exs: ["I found there were many ants.", "She found there was no bread left.", "Did you find there was a problem?"]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "This restaurant makes delicious chicken rice, so _____ always full of people at mealtime.",
+                opts: ["it is", "they are", "there is", "there are"],
+                ans: 0,
+                pattern: ["This restaurant (S)", "→", "it is", "→", "full of people"],
+                exp: "【陷阱題】主詞是這家餐廳。後句是描述這家餐廳 (it) 總是客滿 (full of people)，用代名詞 it is。",
+                exs: ["The library is quiet, so it is a good place to study.", "My school is far, so it is hard to walk there.", "This cake is good, so it is popular."]
+            },
+            {
+                cat: "歷屆試題精選",
+                q: "Now we have to take a taxi home because _____ are no buses after eleven o'clock.",
+                opts: ["here", "there", "they", "we"],
+                ans: 1,
+                pattern: ["because", "→", "there are", "→", "no buses (複數/沒有)"],
+                exp: "描述「沒有巴士」存在的情況。 There are no... 意思是「在那裡沒有...」。",
+                exs: ["There are no apples.", "There is no water.", "There are no students in the class."]
+            },
+
+            // --- 額外練習陷阱題 20 題 ---
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "A: Where did you buy these delicious apples? \nB: Oh, ________ from the new supermarket.",
+                opts: ["there are", "they are", "there have", "it is"],
+                ans: 1,
+                pattern: ["these apples (複數)", "→", "They are", "→", "from..."],
+                exp: "代名詞用法。他們 (they) 指的是 apples，這裡是在描述這些蘋果的來源地，不是描述「有」蘋果。",
+                exs: ["The cats are cute. They are my pets.", "The shoes are expensive. They are from Italy.", "Where are my keys? They are on the table."]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "The box on the desk is very heavy because ________ filled with old books.",
+                opts: ["there is", "it has", "it is", "there has"],
+                ans: 2,
+                pattern: ["The box (單數)", "→", "it is", "→", "filled (被動)"],
+                exp: "代名詞用法。it 指的是 the box。be filled with 是「充滿...」的意思。",
+                exs: ["The bottle is full because it is filled with milk.", "The house is bright because it is filled with sunlight.", "My bag is heavy because it is filled with books."]
+            },
+            {
+                cat: "進階特訓：存在 vs. 指代",
+                q: "Look at the dark clouds! ________ going to be a heavy rain soon.",
+                opts: ["There is", "It is", "There has", "It has"],
+                ans: 0,
+                pattern: ["There is", "→", "going to be", "→", "a heavy rain"],
+                exp: "描述「有...將會發生」。There is going to be + N 是描述某個事物將要存在的標準說法。",
+                exs: ["There is going to be a party.", "There is going to be a storm.", "Is there going to be a game?"]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "A: Did you see my glasses? \nB: ________ on the sofa in the living room.",
+                opts: ["There are", "They have", "They are", "There have"],
+                ans: 2,
+                pattern: ["my glasses (複數)", "→", "They are", "→", "on the sofa"],
+                exp: "代名詞用法。they 指的是 glasses。這是指「他們（眼鏡）在沙發上」。",
+                exs: ["Where are my socks? They are in the drawer.", "The students are here. They are in the gym.", "Your pens are there. They are on the floor."]
+            },
+            {
+                cat: "進階特訓：發現存在",
+                q: "When I walked into the dark room, I found ________ a strange man hiding behind the door.",
+                opts: ["it was", "he was", "there had", "there was"],
+                ans: 3,
+                pattern: ["I found", "→", "there was", "→", "a man"],
+                exp: "描述在某地發現有某人存在。過去發生的事實用 there was。",
+                exs: ["I found there was a letter for me.", "She found there was no one home.", "He found there was an insect in his soup."]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "This restaurant is very famous for its beef noodles, so ________ always full of people.",
+                opts: ["there is", "there has", "it is", "they are"],
+                ans: 2,
+                pattern: ["This restaurant (單數)", "→", "it is", "→", "full of people"],
+                exp: "代名詞用法。it 指的是這家餐廳。是指這家餐廳客滿，不是指「有」這家餐廳客滿。",
+                exs: ["The museum is small, but it is interesting.", "The shop is open, and it is busy.", "This room is large; it is very nice."]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "A: Mom, I'm hungry. Are there any cookies left? \nB: Yes, ________ in the kitchen.",
+                opts: ["there are", "they are", "there have", "they have"],
+                ans: 1,
+                pattern: ["cookies (複數)", "→", "They are", "→", "in the kitchen"],
+                exp: "代名詞用法。they 指的是 cookies。指「餅乾在廚房裡」。",
+                exs: ["Where are the children? They are in the park.", "The cars are new. They are in the garage.", "Are the books here? Yes, they are."]
+            },
+            {
+                cat: "進階特訓：存在描述",
+                q: "Somewhere in this small town, ________ a secret garden that very few people know about.",
+                opts: ["it is", "there has", "there is", "that is"],
+                ans: 2,
+                pattern: ["Somewhere", "→", "there is", "→", "a garden"],
+                exp: "單純描述在某處存在著一個東西。使用 There is。",
+                exs: ["There is a treasure hidden here.", "There is a lake behind the hill.", "There is a story about this house."]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "I don't like to carry this umbrella with me because ________ too big and heavy.",
+                opts: ["there is", "it is", "it has", "there has"],
+                ans: 1,
+                pattern: ["this umbrella (單數)", "→", "it is", "→", "big and heavy"],
+                exp: "代名詞用法。it 指的是這把傘。描述這把傘的特徵。",
+                exs: ["The table is old; it is broken.", "This bag is new; it is cool.", "The phone is expensive; it is fast."]
+            },
+            {
+                cat: "進階特訓：代名詞混淆",
+                q: "A: Wow! Are those tall boys your brothers? \nB: Yes, ________.",
+                opts: ["there are", "they have", "they are", "there have"],
+                ans: 2,
+                pattern: ["those boys", "→", "Yes, they are."],
+                exp: "代名詞用法。they 指代前面提到的 tall boys。",
+                exs: ["Are they your teachers? Yes, they are.", "Are those your dogs? Yes, they are.", "Are these your pens? Yes, they are."]
+            },
+            {
+                cat: "進階特訓：中式英文與時態",
+                q: "________ a lot of rain in Taipei this week, so the ground is very wet now.",
+                opts: ["There has", "It has", "There has been", "There is"],
+                ans: 2,
+                pattern: ["this week (持續至今)", "→", "There has been", "→", "rain"],
+                exp: "現在完成式。描述從這週初到現在「一直有」很多雨。注意：There has been 是正確形式，不可寫成 There has a lot of rain (中式英文)。",
+                exs: ["There has been a lot of snow lately.", "There have been many changes.", "Has there been any news?"]
+            },
+            {
+                cat: "進階特訓：未來時態",
+                q: "The teacher told us that ________ a math test tomorrow morning.",
+                opts: ["there will have", "it will be", "there is going to have", "there will be"],
+                ans: 3,
+                pattern: ["tomorrow (未來)", "→", "there will be", "→", "a test"],
+                exp: "There be 的未來式。注意不可寫成 There will have (中式英文：將會有)。",
+                exs: ["There will be a party tonight.", "Will there be any people?", "There will be no school tomorrow."]
+            },
+            {
+                cat: "進階特訓：過去時態",
+                q: "I couldn't sleep well last night because ________ too much noise outside.",
+                opts: ["there had", "there was", "it had", "there has"],
+                ans: 1,
+                pattern: ["last night (過去)", "→", "there was", "→", "noise (不可數)"],
+                exp: "描述過去存在的狀態。noise 是不可數名詞，配合單數 be 動詞 was。不可用 there had (中式英文：那時有)。",
+                exs: ["There was a fire yesterday.", "There were some problems.", "Was there any sugar?"]
+            },
+            {
+                cat: "進階特訓：完成時態",
+                q: "Since the new shopping mall opened, ________ many traffic problems in this area.",
+                opts: ["there have", "they have", "there have been", "there are"],
+                ans: 2,
+                pattern: ["Since (自從)", "→", "There have been", "→", "problems (複數)"],
+                exp: "現在完成式。Since 指從過去某點持續到現在。複數名詞搭配 There have been。",
+                exs: ["There have been many accidents since then.", "There has been no water since morning.", "Have there been any calls for me?"]
+            },
+            {
+                cat: "進階特訓：描述事故",
+                q: "Peter: Sorry, ________ a terrible car accident on the bridge.",
+                opts: ["there was", "there had", "it had", "it has"],
+                ans: 0,
+                pattern: ["there was", "→", "an accident (過去事實)"],
+                exp: "描述過去發生的事件（車禍）。使用 There was。注意不可用 there had (中式英文)。",
+                exs: ["There was a meeting at two.", "There was a sound in the dark.", "Was there a reason for it?"]
+            },
+            {
+                cat: "進階特訓：If 子句與未來",
+                q: "If we keep throwing trash, ________ no clean water in the future.",
+                opts: ["there will have", "it will have", "there will be", "they will have"],
+                ans: 2,
+                pattern: ["in the future (未來)", "→", "there will be", "→", "no water"],
+                exp: "未來式描述存在。There will be no... 指「屆時將會沒有...」。同樣要避開 will have 的中式翻譯。",
+                exs: ["There will be no plants if there is no rain.", "Will there be any animals left?", "There will be more robots in the future."]
+            },
+            {
+                cat: "進階特訓：過去十年以來",
+                q: "Over the past ten years, ________ many changes in my hometown.",
+                opts: ["there has been", "there have", "there have been", "they have been"],
+                ans: 2,
+                pattern: ["Over the past years (持續至今)", "→", "There have been", "→", "changes (複數)"],
+                exp: "現在完成式。Over the past... 搭配現在完成式。複數名詞選 There have been。",
+                exs: ["There have been many new buildings.", "There has been a lot of work to do.", "There have been no problems so far."]
+            },
+            {
+                cat: "進階特訓：未來進行打算",
+                q: "A: Let's go early. B: You're right. ________ going to be a lot of fans waiting.",
+                opts: ["There are", "They are", "There have", "It has"],
+                ans: 0,
+                pattern: ["There are", "→", "going to be", "→", "a lot of fans (複數)"],
+                exp: "未來式 be going to be。因為後方名詞 a lot of fans 是複數，前面的 be 動詞用 are。",
+                exs: ["There are going to be many kids at the zoo.", "Is there going to be a sale?", "There is going to be a big cake."]
+            },
+            {
+                cat: "進階特訓：存在與狀態",
+                q: "________ a beautiful old tree here, but it was cut down last year.",
+                opts: ["It was", "There was", "There had", "It had"],
+                ans: 1,
+                pattern: ["There was", "→", "a tree", "←", "cut down (過去事實)"],
+                exp: "描述「過去在那裡有一棵樹」。使用 There was 描述過去事物的存在。",
+                exs: ["There was a park here ten years ago.", "There was once a king.", "Was there a piano in your room?"]
+            },
+            {
+                cat: "進階特訓：現在存在",
+                q: "Look! ________ someone standing outside the window.",
+                opts: ["There has", "It has", "There is", "He is"],
+                ans: 2,
+                pattern: ["Look! (現在看)", "→", "There is", "→", "someone (單數)"],
+                exp: "描述「現在有一人站在那」。There is + 人 + Ving 是常見的描述正在發生的存在的句型。",
+                exs: ["There is a bird singing.", "There are some people dancing.", "Is there anyone calling me?"]
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function renderQuestion() {
+            const quiz = quizData[currentIdx];
+            document.getElementById('q-number').innerText = currentIdx + 1;
+            document.getElementById('q-category').innerText = quiz.cat;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${quizData.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / quizData.length) * 100}%`;
+            
+            document.getElementById('question-text').innerText = quiz.q;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            quiz.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-6 rounded-3xl border-2 border-slate-100 font-bold text-slate-700 bg-white shadow-sm flex items-center group";
+                btn.innerHTML = `
+                    <span class="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center mr-5 text-sm font-black group-hover:bg-blue-600 group-hover:text-white transition-colors">${String.fromCharCode(65 + idx)}</span> 
+                    <span class="text-xl">${opt}</span>
+                `;
+                btn.onclick = () => checkAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('explanation-area').classList.add('hidden');
+        }
+
+        function checkAnswer(selectedIdx) {
+            const quiz = quizData[currentIdx];
+            const isCorrect = selectedIdx === quiz.ans;
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, idx) => {
+                btn.onclick = null;
+                if (idx === quiz.ans) {
+                    btn.classList.add('success-bg', 'correct-opt');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.add('error-bg');
+                } else {
+                    btn.classList.add('opacity-40');
+                }
+            });
+
+            const expArea = document.getElementById('explanation-area');
+            const status = document.getElementById('result-status');
+            const icon = document.getElementById('result-icon');
+            const ansDisplay = document.getElementById('correct-ans-display');
+            
+            expArea.classList.remove('hidden');
+            if (isCorrect) {
+                status.innerText = "答對了！太強了！";
+                status.className = "font-black text-2xl text-green-600";
+                icon.innerHTML = '<i class="fas fa-check-circle text-3xl"></i>';
+                icon.className = "w-16 h-16 rounded-2xl flex items-center justify-center mr-6 text-white shadow-2xl bg-green-500";
+                score++;
+            } else {
+                status.innerText = "哎呀！沒關係再加油";
+                status.className = "font-black text-2xl text-red-600";
+                icon.innerHTML = '<i class="fas fa-times-circle text-3xl"></i>';
+                icon.className = "w-16 h-16 rounded-2xl flex items-center justify-center mr-6 text-white shadow-2xl bg-red-500";
+            }
+            
+            ansDisplay.innerText = `正確答案：(${String.fromCharCode(65 + quiz.ans)}) ${quiz.opts[quiz.ans]}`;
+
+            // Visual Pattern
+            const patternDiv = document.getElementById('visual-pattern');
+            patternDiv.innerHTML = '';
+            quiz.pattern.forEach(part => {
+                const span = document.createElement('span');
+                if (["→", "←", "↔", "+", "!"].includes(part)) {
+                    span.className = "text-slate-300 font-black text-xl mx-1";
+                } else if (["There", "They", "It", "I", "someone"].includes(part)) {
+                    span.className = "bg-slate-100 text-slate-800 px-4 py-2 rounded-xl font-black text-sm border-2 border-slate-200";
+                } else {
+                    span.className = "bg-blue-600 text-white px-4 py-2 rounded-xl font-black text-sm shadow-md";
+                }
+                span.innerText = part;
+                patternDiv.appendChild(span);
+            });
+
+            document.getElementById('grammar-explanation').innerText = quiz.exp;
+
+            const examplesList = document.getElementById('examples-list');
+            examplesList.innerHTML = '';
+            quiz.exs.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = "flex items-center p-5 bg-white rounded-2xl border-2 border-slate-50 hover:border-emerald-200 transition-all cursor-pointer shadow-sm group";
+                item.onclick = () => speak(ex);
+                item.innerHTML = `
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex-shrink-0 mr-5 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-sm">
+                        <i class="fas fa-play text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 font-bold text-lg group-hover:text-emerald-700 transition-colors">${ex}</span>
+                `;
+                examplesList.appendChild(item);
+            });
+
+            setTimeout(() => {
+                expArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                renderQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quiz-container');
+            const percent = Math.round((score / quizData.length) * 100);
+            let feedback = percent >= 90 ? "神等級！There be 難不倒你！" : (percent >= 70 ? "很優秀喔！再注意一下細節就滿分了。" : "有努力過，再把解析讀一遍吧！");
+            
+            container.innerHTML = `
+                <div class="text-center py-20 animate-slide-up">
+                    <div class="relative inline-block mb-12">
+                        <div class="w-56 h-56 rounded-full border-[12px] border-blue-50 flex items-center justify-center bg-white shadow-2xl">
+                            <span class="text-6xl font-black text-blue-600">${percent}%</span>
+                        </div>
+                        <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-10 py-3 rounded-2xl font-black text-xl shadow-2xl">
+                            MISSION CLEAR
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-4">${feedback}</h2>
+                    <p class="text-slate-500 text-xl mb-16 font-bold">總共答對：${score} / ${quizData.length} 題</p>
+                    <button onclick="location.reload()" class="bg-blue-600 text-white px-16 py-6 rounded-3xl font-black text-2xl hover:bg-blue-700 transition shadow-2xl transform active:scale-95 flex items-center justify-center mx-auto">
+                        <i class="fas fa-redo-alt mr-4"></i> 重新特訓
+                    </button>
+                </div>
+            `;
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const ut = new SpeechSynthesisUtterance(text);
+                ut.lang = 'en-US';
+                ut.rate = 0.85;
+                window.speechSynthesis.speak(ut);
+            }
+        }
+
+        window.onload = renderQuestion;
+    </script>
+
+</body></html>

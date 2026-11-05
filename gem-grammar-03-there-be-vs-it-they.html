@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文文法挑戰：It/They vs There be</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; }
+        .option-btn { transition: all 0.2s; }
+        .option-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="p-4 md:p-8"><a href="dashboard.html" style="position:fixed;top:10px;left:10px;z-index:2147483647;background:#1e3a8a;color:#fff;padding:8px 14px;border-radius:10px;font:700 14px Arial,'Microsoft JhengHei',sans-serif;text-decoration:none;box-shadow:0 4px 12px #0003">← 回到 Dashboard</a>
+    <div id="app" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Progress Bar -->
+        <div class="h-2 bg-gray-200">
+            <div id="progress" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <div class="p-6 md:p-10">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-xl font-bold text-gray-800">二句式文法測驗</h1>
+                <span id="score-display" class="text-sm font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">得分: 0</span>
+            </div>
+
+            <div id="quiz-container">
+                <div class="mb-8">
+                    <p id="question-text" class="text-lg text-gray-700 leading-relaxed font-medium mb-2"></p>
+                    <p id="chinese-hint" class="text-sm text-gray-400 italic mb-4"></p>
+                </div>
+
+                <div id="options-container" class="grid grid-cols-1 gap-4"></div>
+
+                <div id="feedback" class="mt-8 p-4 rounded-lg hidden">
+                    <p id="feedback-text" class="font-bold"></p>
+                    <p id="explanation-text" class="text-sm mt-2 text-gray-600"></p>
+                    <button onclick="nextQuestion()" class="mt-4 w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700">下一題</button>
+                </div>
+            </div>
+
+            <div id="result-container" class="hidden text-center py-10">
+                <div class="text-6xl mb-4">🎉</div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">測驗結束！</h2>
+                <p id="final-score" class="text-xl text-blue-600 font-bold mb-6"></p>
+                <button onclick="restartQuiz()" class="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition">重新練習</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Jenny’s bag is very heavy. ______ filled with toy cars.", hint: "珍妮的包包很重。它裝滿了玩具車。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用代名詞 It 代替前句的 bag。It is filled with 表示包包的狀態。" },
+            { q: "Look at the pencil box on the desk. ______ five pencils in it.", hint: "看桌上的鉛筆盒。裡面有五支鉛筆。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達「某處有...」，且五支鉛筆是複數，故用 There are。" },
+            { q: "The old box is in the corner. ______ full of dust and spider webs.", hint: "舊盒子在角落。它充滿了灰塵和蜘蛛網。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用 It 代替單數的 box。It is full of 表示盒子的情況。" },
+            { q: "Look at the sky! ______ many dark clouds. It’s going to rain.", hint: "看天空！有很多烏雲。快下雨了。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達「天空中有...」，複數名詞 clouds 搭配 There are。" },
+            { q: "The little girl is crying. Her eyes ______ filled with tears.", hint: "小女孩在哭。她的眼睛充滿淚水。", options: ["is", "are", "there is", "there are"], correct: 1, exp: "主詞是 Her eyes (複數)，故搭配 be 動詞 are。" },
+            { q: "The bus is too crowded. ______ no more space for us.", hint: "公車太擠了。沒有空間給我們了。", options: ["It is", "They are", "There is", "There are"], correct: 2, exp: "表達存在狀況。space (空間) 不可數，用 There is。" },
+            { q: "This bottle of juice is almost empty. ______ only a little left.", hint: "這瓶果汁快空了。只剩下一點點了。", options: ["It is", "They are", "There is", "There are"], correct: 2, exp: "表達剩餘的量「有...」，用 There is。" },
+            { q: "The basketball court is very noisy. ______ many students playing there.", hint: "籃球場很吵。那裡有很多學生在打球。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達「有學生」，複數用 There are。" },
+            { q: "Look at that truck. ______ filled with heavy stones.", hint: "看那輛卡車。它裝滿了沈重的石頭。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用 It 指代單數的 truck。It is filled with (它被裝滿)。" },
+            { q: "The kitchen smells great. ______ many delicious dishes on the table.", hint: "廚房聞起來很香。桌上有許多美味菜餚。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達存在。dishes 為複數，用 There are。" },
+            { q: "I like the library near my house. ______ many interesting books there.", hint: "我喜歡家附近的圖書館。那裡有很多有趣的書。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達存在。books 是複數，用 There are。" },
+            { q: "Don't knock over the glass. ______ full of cold water.", hint: "別弄倒玻璃杯。它裝滿了冰水。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用 It 指代單數的 glass。It is full of (它充滿了)。" },
+            { q: "Peter's pockets are bulging. ______ filled with candies.", hint: "彼得的口袋鼓鼓的。它們裝滿了糖果。", options: ["It is", "They are", "There is", "There are"], correct: 1, exp: "用 They 指代複數的 pockets。They are filled with (它們被裝滿)。" },
+            { q: "The park is beautiful in spring. ______ many flowers everywhere.", hint: "公園在春天很美。到處都有許多花。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達存在。flowers 是複數，用 There are。" },
+            { q: "Please open the fridge. ______ some milk for the cake.", hint: "請打開冰箱。有一些做蛋糕要用的牛奶。", options: ["It is", "They are", "There is", "There are"], correct: 2, exp: "表達存在。milk 不可數，用 There is。" },
+            { q: "The classroom is very quiet now. ______ no students inside.", hint: "現在教室很安靜。裡面沒有學生。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達存在。students 是複數，用 There are。" },
+            { q: "Don't go into that room. ______ many bees in it.", hint: "別進那房間。裡面有很多蜜蜂。", options: ["It is", "They are", "There is", "There are"], correct: 3, exp: "表達存在。bees 是複數，用 There are。" },
+            { q: "The suitcase is so light. ______ nothing in it.", hint: "行李箱很輕。裡面沒東西。", options: ["It is", "They are", "There is", "There are"], correct: 2, exp: "表達存在。nothing 為單數概念，用 There is。" },
+            { q: "The swimming pool is very busy today. ______ full of children.", hint: "游泳池今天很忙。它充滿了小孩。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用 It 指代 pool。It is full of 表示該處狀態。" },
+            { q: "The gift box looks pretty. ______ filled with many colorful ribbons.", hint: "禮物盒看起來很漂亮。它裝飾著許多彩色緞帶。", options: ["It is", "They are", "There is", "There are"], correct: 0, exp: "用 It 指代 box。It is filled with 表示被裝飾/裝滿。" }
+        ];
+
+        let currentIdx = 0, score = 0, answered = false;
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('question-text').textContent = `${currentIdx + 1}. ${q.q}`;
+            document.getElementById('chinese-hint').textContent = q.hint;
+            document.getElementById('progress').style.width = `${((currentIdx) / questions.length) * 100}%`;
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 text-gray-700 font-medium";
+                btn.innerHTML = `<span class="inline-block w-8 font-bold text-blue-500">(${String.fromCharCode(65 + i)})</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i);
+                container.appendChild(btn);
+            });
+            document.getElementById('feedback').classList.add('hidden');
+            answered = false;
+        }
+
+        function checkAnswer(idx) {
+            if (answered) return;
+            answered = true;
+            const q = questions[currentIdx];
+            const isCorrect = idx === q.correct;
+            const feedback = document.getElementById('feedback');
+            if (isCorrect) { score += 5; document.getElementById('feedback-text').textContent = "✅ 正確！"; feedback.className = "mt-8 p-4 rounded-lg bg-green-50 block text-green-700"; }
+            else { document.getElementById('feedback-text').textContent = `❌ 錯誤！正確答案是 (${String.fromCharCode(65 + q.correct)})`; feedback.className = "mt-8 p-4 rounded-lg bg-red-50 block text-red-700"; }
+            document.getElementById('explanation-text').textContent = q.exp;
+            document.getElementById('score-display').textContent = `得分: ${score}`;
+            document.querySelectorAll('.option-btn').forEach((btn, i) => {
+                if (i === q.correct) btn.classList.add('border-green-500', 'bg-green-50');
+                else if (i === idx && !isCorrect) btn.classList.add('border-red-500', 'bg-red-50');
+                btn.disabled = true;
+            });
+        }
+
+        function nextQuestion() { currentIdx++; if (currentIdx < questions.length) loadQuestion(); else showResults(); }
+        function showResults() { document.getElementById('quiz-container').classList.add('hidden'); document.getElementById('result-container').classList.remove('hidden'); document.getElementById('final-score').textContent = `得分：${score} / 100`; }
+        function restartQuiz() { currentIdx = 0; score = 0; document.getElementById('score-display').textContent = `得分: 0`; document.getElementById('quiz-container').classList.remove('hidden'); document.getElementById('result-container').classList.add('hidden'); loadQuestion(); }
+        window.onload = loadQuestion;
+    </script>
+
+</body></html>
