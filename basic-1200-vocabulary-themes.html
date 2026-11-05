@@ -11,17 +11,17 @@
 </style>
 </head>
 <body><main class="wrap">
-<section class="hero"><div class="eyebrow">國中小英文單字</div><h1>國中小基礎1200單字</h1><p><b>37 個主題、1,335 筆 Q&amp;A／例句</b>。主題 01–04 已更新為新版主題中文 Q&amp;A；其餘主題保留原有例句。</p><p class="note">答對後會播放完整英文 Q&amp;A 或例句，並可選擇進行 STT 朗讀評分；朗讀是選做，不影響前往下一題。完成練習後會依實際作答題數批改並登錄成績。</p><div class="toolbar"><a class="btn" href="dashboard.html">← 回測驗總覽</a></div></section>
+<section class="hero"><div class="eyebrow">國中小英文單字</div><h1>國中小基礎1200單字</h1><p><b>37 個主題、1,331 筆新版 Q&amp;A</b>。第 01 區保留原版；第 02–37 區已依全區合輯更新題目、詞性、中文與完整 Q&amp;A。</p><p class="note">答對後會播放完整英文 Q&amp;A，並可選擇進行 STT 朗讀評分；朗讀是選做，不影響前往下一題。完成練習後會依實際作答題數批改並登錄成績。</p><div class="toolbar"><a class="btn" href="dashboard.html">← 回測驗總覽</a></div></section>
 
 <section id="select" class="card"><h2>選擇練習主題</h2><div id="themes" class="themes"></div><div class="toolbar"><button id="all" class="btn">全部主題</button><button id="none" class="btn">全部取消</button><button id="random20" class="btn">隨機 20 題</button><button id="weakOnly" class="btn">只練待加強</button></div><label class="opt"><input id="shuffle" type="checkbox" checked> 打亂出題順序</label><p id="picked" class="note"></p><div id="list"></div><div class="actions"><button id="start" class="btn primary">開始練習</button></div></section>
 
 <section id="quiz" class="card hidden"><div class="progress"><div id="bar" class="bar"></div></div><div class="meta"><span id="meta"></span><span id="themeMeta"></span></div><div class="prompt"><div><span id="themeBadge" class="badge"></span><span id="pos" class="badge"></span></div><div id="meaning" class="meaning"></div></div><div class="sentence"><h2 style="font-size:19px">完成 Q&amp;A／例句</h2><div id="example" class="example"></div><div id="translation" class="zh"></div><p class="note">請輸入本題核心單字或附件所列詞條。</p><input id="answer" class="answer" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="toolbar"><button id="check" class="btn primary">檢查答案</button></div><div id="feedback" class="feedback hidden"></div></div><div id="listenBox" class="listen-box locked"><b>🔊 英文整句朗讀</b><p id="listenStatus" class="note">答對後自動播放完整英文 Q&amp;A 或例句。</p><button id="speak" class="btn voice" disabled>再聽一次</button></div><div id="sttBox" class="stt-box locked"><b>🎤 Pronunciation Check（選做）</b><p class="note">答對後可朗讀下方英文，系統會顯示辨識文字與相似度；不朗讀也可以進入下一題。</p><p class="stt-target">朗讀目標：<span id="sttTarget">答對後顯示</span></p><div class="toolbar"><button id="sttStart" class="btn primary" disabled>開始朗讀評分（選做）</button><button id="sttStop" class="btn" disabled>停止</button></div><p id="sttStatus" class="note">尚未開放。</p><div id="sttResult"></div></div><div class="actions"><button id="next" class="btn primary" disabled>下一題 →</button><button id="weak" class="btn" disabled>待加強，下一題 →</button><button id="finish" class="btn danger">結束練習</button></div></section>
 
 <section id="result" class="card hidden"><h2>練習結果</h2><div id="summary" class="summary"></div><div id="reviewList"></div><div class="actions"><button id="retry" class="btn primary">重練本輪錯題</button><button id="download" class="btn">下載待加強 DOCX</button><button id="restart" class="btn">重新選擇主題</button></div></section>
-<p class="footer">主題 01–04 的詞條、詞性、中文、Q&amp;A 與翻譯依新版 Revision Q&amp;A 附件呈現；主題 05–37 保留原有資料。</p>
+<p class="footer">第 01 區保留原版；第 02–37 區的詞條、詞性、中文、Q&amp;A 與翻譯依全 37 區 Revision 合輯呈現。</p>
 </main>
 <script src="basic-1200-data.js"></script>
-<script src="basic-1200-revision-qa-data.js?v=20261029-1"></script>
+<script src="basic-1200-revision-qa-data.js?v=20261105-1"></script>
 <script>
 const Q=window.BASIC_1200||[],THEMES=window.BASIC_1200_THEMES||[],STORE='basic-1200-themes-v2',$=id=>document.getElementById(id);
 let saved={weak:[]};try{saved=Object.assign(saved,JSON.parse(localStorage.getItem(STORE)||'{}'))}catch(e){}saved.weak=Array.isArray(saved.weak)?saved.weak:[];
