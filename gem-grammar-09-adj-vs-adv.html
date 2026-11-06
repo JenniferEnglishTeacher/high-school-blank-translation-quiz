@@ -525,7 +525,7 @@
   function App() {
     const [answers, setAnswers] = (0, import_react3.useState)({});
     const handleSelect = (questionId, option) => {
-      if (!answers[questionId]) {
+      if (!answers[questionId]) { try { const mq = quizData.find((x) => x.id === questionId); if (mq && mq.correct !== option && window.MistakeKit) MistakeKit.add({ key: mq.id, no: mq.id, question: mq.text, options: mq.options, yourAnswer: option, correctAnswer: mq.correct, explanation: mq.explanation }); } catch (e) {}
         setAnswers((prev) => __spreadProps(__spreadValues({}, prev), {
           [questionId]: option
         }));
@@ -2013,4 +2013,5 @@ react/cjs/react.development.js:
         </script>
     
 
+<script src="mistake-kit.js?v=20261106-3"></script><script>MistakeKit.init({title:"Adjectives vs. Adverbs｜形容詞 vs 副詞"});</script>
 </body></html>

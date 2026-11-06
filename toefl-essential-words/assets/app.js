@@ -4,6 +4,8 @@
   const passagesEl=document.getElementById('passages');
   const nameInput=document.getElementById('student-name');
   const state={completed:new Set(),wrong:new Set(),correct:new Set(),total:20};
+  const entryById={};let finished=false;
+  if(window.MistakeKit)MistakeKit.init({title:`Essential Words for TOEFL｜Unit ${unit}`,onEnd:()=>{if(!finished)finishUnit();}});
 
   try{
     const response=await fetch(`data/units/unit-${String(unit).padStart(2,'0')}.json`);
@@ -41,7 +43,7 @@
   }
 
   function sentenceWithBlank(entry,id){
-    const sentence=ensureTargetSentence(entry);
+    const sentence=ensureTargetSentence(entry);entryById[id]={entry,sentence};
     const pattern=new RegExp(escapeRegExp(entry.word),'i');
     const match=sentence.match(pattern);
     if(!match)return escapeHtml(sentence);
@@ -98,6 +100,7 @@
         state.correct.add(blank.dataset.id);
       }else{
         wrongNow++;
+        recordMistake(blank,input.value);
         if(attempt>=2){
           blank.classList.remove('incorrect');blank.classList.add('revealed');
           input.replaceWith(reveal(input.dataset.answer));
@@ -120,9 +123,17 @@
     }
   }
 
+  function recordMistake(blank,typed){
+    if(!window.MistakeKit)return;const info=entryById[blank.dataset.id];if(!info)return;const prefix=blank.querySelector('.blank-prefix')?.textContent||'';
+    const e=info.entry,shown=info.sentence.replace(new RegExp(escapeRegExp(e.word),'i'),m=>m.replace(new RegExp(escapeRegExp(prefix+input0(blank)),'i'),x=>x.slice(0,prefix.length)+'_____'));
+    MistakeKit.add({key:e.word,category:e.pos,question:shown,yourAnswer:prefix+String(typed).trim(),correctAnswer:e.word,explanation:[e.definition,e.zh].filter(Boolean).join('\n')});
+  }
+  function input0(blank){return blank.querySelector('input')?.dataset.answer||'';}
+
   function reveal(answer){const span=document.createElement('span');span.className='answer-reveal';span.textContent=answer;return span;}
 
   async function finishUnit(){
+    if(finished)return;finished=true;
     const panel=document.getElementById('final-panel');
     const score=state.total-state.wrong.size;
     const percent=Math.round(score/state.total*100);

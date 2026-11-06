@@ -195,5 +195,11 @@
 })();
 </script>
 <script src="quiz-result-recorder.js?v=20261027-1" defer></script>
+<script src="mistake-kit.js?v=20261106-3"></script><script>
+MistakeKit.init({title:'TOEIC Phone USA 錯題'});
+MistakeKit.syncFrom(()=>{const st=JSON.parse(localStorage.getItem('toeicPhoneUsaProgressV1')||'{}'),out=[];(window.TOEIC_PHONE_UNITS||[]).forEach(u=>{const d=st[u.id];if(!d)return;
+(d.clozeMistakes||[]).forEach(n=>{const line=(u.cloze.find(([s,l])=>l.includes('('+n+')'))||['',''])[1];out.push({key:u.id+'-c'+n,no:'填空 '+n,category:'Conversation '+u.id+'｜'+u.titleZh,question:line.replace(/\((\d+)\)_+/g,(m,k)=>'('+k+')______'),yourAnswer:(d.cloze||{})[n]||'',correctAnswer:u.answers[n-1]})});
+(d.readingMistakes||[]).forEach(n=>{const q=u.reading[n-1];if(!q)return;out.push({key:u.id+'-r'+n,no:'閱讀 '+n,category:'Conversation '+u.id+'｜'+u.titleZh,question:q.question,options:Object.values(q.options),yourAnswer:(d.reading||{})[n]||'',correctAnswer:q.answer+'. '+q.options[q.answer]})});});return out});
+</script>
 </body>
 </html>

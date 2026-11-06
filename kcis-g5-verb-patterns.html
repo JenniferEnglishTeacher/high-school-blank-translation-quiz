@@ -49,4 +49,8 @@ $('#mic').onclick=listen;
 function finish(){try{recognition?.abort()}catch(e){}window.speechSynthesis?.cancel();$('#quiz').classList.add('hidden');$('#result').classList.remove('hidden');$('#summary').innerHTML=`<div class="stat">本輪題數<b>${items.length}</b></div><div class="stat">完成題數<b>${correct.size}</b></div><div class="stat">一次答對<b>${firstTry.size}</b></div><div class="stat">曾答錯<b>${wrong.size}</b></div>`;$('#wrongList').innerHTML=wrong.size?'<h3>錯題紀錄</h3>'+[...wrong.values()].map(r=>`<div class="wrong-card"><b>${esc(r.item.id)}</b>　${esc(r.item.p.replace(/\{\d+\}/g,'____'))}<br><strong>作答：</strong>${r.attempts.map(esc).join('；')}<br><strong>答案：</strong>${esc(r.item.blanks.map(answerShow).join(' ／ '))}<br><span class="muted">${esc(r.item.tip)}</span></div>`).join(''):'<div class="feedback ok">🎉 目前沒有錯題紀錄。</div>'}
 $('#back').onclick=()=>{window.speechSynthesis?.cancel();$('#quiz').classList.add('hidden');$('#result').classList.add('hidden');$('#select').classList.remove('hidden')};$('#restart').onclick=()=>location.reload();
 renderGroups();
-</script><script src="/high-school-blank-translation-quiz/quiz-result-recorder.js?v=20261027-1" defer></script></body></html>
+</script><script src="/high-school-blank-translation-quiz/quiz-result-recorder.js?v=20261027-1" defer></script><script src="mistake-kit.js?v=20261106-3"></script><script>
+MistakeKit.init({title:document.querySelector('h1')?.innerText||document.title,onEnd:()=>{if(!document.getElementById('quiz').classList.contains('hidden'))finish()}});
+MistakeKit.syncFrom(()=>[...wrong.values()].map(r=>({key:r.item.id,no:r.item.id,category:r.item.group||'',question:r.item.p.replace(/\{\d+\}/g,'____')+(r.item.cue?'\n'+r.item.cue:''),yourAnswer:r.attempts.join('；'),correctAnswer:r.item.blanks.map(answerShow).join(' ／ ')+'\n'+r.item.sentence,explanation:[r.item.zh,r.item.tip].filter(Boolean).join('\n')})));
+</script>
+</body></html>
