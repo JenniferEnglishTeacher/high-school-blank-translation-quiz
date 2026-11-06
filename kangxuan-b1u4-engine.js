@@ -18,7 +18,7 @@
   function correctText(q){return MODE==='mcq'?String.fromCharCode(65+q.answer)+'. '+q.options[q.answer]:MODE==='sentence'?q.show:MODE==='multi'?q.answers.map((answers,index)=>(index+1)+'. '+answers.join(' / ')).join('；'):q.answers.join(' / ')}
   function showExplain(q){if(!q.exp){explain.classList.add('hidden');return}explain.innerHTML='<b>詳解</b>'+esc(q.exp);explain.classList.remove('hidden')}
   function renderList(){list.innerHTML=Q.map(q=>'<label class="pick"><input class="pickbox" type="checkbox" value="'+q.id+'" checked><b>第 '+q.id+' 題</b></label>').join('')}
-  $('#pageTitle').textContent=TITLE;document.title=TITLE;$('h1').textContent=TITLE;$('#count').textContent=Q.length;
+  const pageTitle=$('#pageTitle');if(pageTitle)pageTitle.textContent=TITLE;document.title=TITLE;$('h1').textContent=TITLE;$('#count').textContent=Q.length;
   $('#all').onclick=()=>document.querySelectorAll('.pickbox').forEach(box=>box.checked=true);
   $('#none').onclick=()=>document.querySelectorAll('.pickbox').forEach(box=>box.checked=false);
   $('#start').onclick=()=>{const ids=[...document.querySelectorAll('.pickbox:checked')].map(box=>+box.value);if(!ids.length)return alert('請至少選一題。');chosen=Q.filter(q=>ids.includes(q.id));idx=0;wrong.clear();completed.clear();attempted.clear();select.classList.add('hidden');result.classList.add('hidden');quiz.classList.remove('hidden');show()};
