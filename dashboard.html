@@ -13,13 +13,16 @@
     .zone{margin:25px 0}.zone-title{display:flex;align-items:center;gap:10px;font-size:27px;margin:0 0 13px}.zone-title::before{content:"";width:8px;height:31px;border-radius:6px;background:var(--high)}#travel-daily .zone-title::before{background:#0891b2}#junior .zone-title::before{background:var(--junior)}#jiren-g3-fall .zone-title::before{background:#14b8a6}
     details.publisher{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;box-shadow:0 5px 15px #0f172a0a;overflow:hidden}details.publisher>summary{cursor:pointer;list-style:none;padding:17px 19px;font-size:20px;font-weight:900;display:flex;justify-content:space-between;gap:10px}details.publisher>summary::-webkit-details-marker{display:none}details.publisher>summary::after{content:"＋";color:var(--blue)}details[open].publisher>summary::after{content:"－"}.content{padding:0 18px 18px}.unit{border-top:1px solid var(--line);padding-top:15px;margin-top:4px}.unit h3{margin:0 0 10px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.grammar-subgroup{grid-column:1/-1;border:1px solid #c7d2fe;border-radius:14px;background:#f5f3ff;overflow:hidden}.grammar-subgroup>summary{cursor:pointer;list-style:none;padding:15px 17px;font-size:19px;font-weight:900;display:flex;justify-content:space-between;gap:10px}.grammar-subgroup>summary::-webkit-details-marker{display:none}.grammar-subgroup>summary::after{content:"＋";color:#6d28d9}.grammar-subgroup[open]>summary::after{content:"－"}.grammar-subgroup .subgroup-content{padding:0 13px 13px}.quiz{display:flex;flex-direction:column;min-height:118px;padding:15px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;text-decoration:none;color:var(--ink);transition:.15s}.quiz:hover{transform:translateY(-2px);border-color:#60a5fa;box-shadow:0 7px 15px #2563eb18}.quiz b{font-size:17px}.quiz span{color:var(--muted);font-size:14px;margin-top:5px}.quiz em{margin-top:auto;color:var(--blue);font-style:normal;font-weight:900}.empty{padding:13px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:var(--muted)}.hidden-by-search{display:none!important}.footer{text-align:center;color:var(--muted);padding:22px 0}@media(max-width:600px){.wrap{padding:10px}.hero{padding:21px}.profile-fields{grid-template-columns:1fr}.zone-title{font-size:23px}details.publisher>summary{font-size:18px;padding:15px}.content{padding:0 13px 15px}.grid{grid-template-columns:1fr}.grammar-subgroup>summary{font-size:17px}}
     #awl .zone-title::before{background:#c8962e}#toefl-ew .zone-title::before{background:#1f5c99}.awl-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;margin-bottom:6px;border:1px solid #f0c060;border-radius:12px;background:#fffbf0;color:#7a5c00;font-weight:700}.awl-sheet{flex-shrink:0;padding:10px 16px;border-radius:10px;background:#2d7a4f;color:#fff;text-decoration:none;font-weight:900}.awl-count{margin-left:8px;color:var(--muted);font-size:14px;font-weight:600}
+
+    .directory{margin:20px 0 26px;padding:20px;border:1px solid #bfdbfe;border-radius:18px;background:linear-gradient(145deg,#eff6ff,#fff);box-shadow:0 8px 20px #1e40af0d}.directory h2{margin:0 0 13px;font-size:24px}.directory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.directory article{padding:15px;border:1px solid var(--line);border-radius:14px;background:#fff}.directory article.wide{grid-column:span 2}.directory h3{margin:0 0 9px;font-size:18px}.directory a{display:inline-block;margin:3px 5px 3px 0;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;text-decoration:none;font-weight:800}.directory a:hover{background:#dbeafe;color:#1d4ed8}.publisher-group{scroll-margin-top:92px}.group-title{margin:20px 0 8px;padding-left:12px;border-left:5px solid var(--blue);font-size:21px}.vocab-stage{scroll-margin-top:92px;margin:18px 0 24px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#f8fafc}.vocab-stage>h3{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:21px}.vocab-stage>h3 span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-size:15px}.external-card{max-width:520px}.external-card .quiz{background:#fff}.zone{scroll-margin-top:84px}#primary .zone-title::before{background:#14b8a6}#vocabulary .zone-title::before{background:#d97706}#grammar .zone-title::before{background:#7c3aed}#travel-english .zone-title::before{background:#0891b2}#other .zone-title::before{background:#64748b}
+    @media(max-width:760px){.directory-grid{grid-template-columns:1fr}.directory article.wide{grid-column:auto}.vocab-stage{padding:11px}.vocab-stage>h3{font-size:18px}}
   </style>
 </head>
 <body><main class="wrap">
   <header class="hero">
     <h1>英文互動測驗 Dashboard</h1>
-    <p>高中與國中英文測驗統一入口｜依出版社、冊別、單元與題型整理</p>
-    <div class="stats"><span id="publishedCount" class="stat">258 個已發布測驗</span><span class="stat">高中英文</span><span class="stat">國中英文</span></div>
+    <p>高中、國中、國小、分級單字、文法與生活英文統一入口</p>
+    <div class="stats"><span id="publishedCount" class="stat">已發布測驗</span><span class="stat">高中・國中・國小</span><span class="stat">單字由簡至難</span></div>
   </header>
   <form id="quiz-result-profile" class="profile-card">
     <h2>📊 學生成績自動紀錄</h2>
@@ -32,11 +35,22 @@
   </form>
   <div class="controls">
     <input id="search" class="search" type="search" placeholder="搜尋出版社、冊別、單元或題型，例如：龍騰、B1U1、翻譯">
-    <nav class="jump"><a href="#senior">高中英文區</a><a href="#exam-topics">學測／TOEFL／IELTS／FCE 主題單字</a><a href="#awl">AWL 學術單字</a><a href="#toefl-ew">TOEFL Essential Words</a><a href="#travel-daily">Travel Daily Conversation English</a><a href="#junior">國中英文區</a><a href="#jiren">及人國小</a><a href="#other">其他專題</a></nav>
+    <nav class="jump"><a href="#senior">高中英文</a><a href="#junior">國中英文</a><a href="#primary">國小英文</a><a href="#vocabulary">各階段單字</a><a href="#grammar">Grammar 文法</a><a href="#travel-english">Travel English</a><a href="#other">其他</a></nav>
   </div>
 
-  <section id="senior" class="zone"><h2 class="zone-title">高中英文區</h2>
-    <details class="publisher" open data-search="龍騰 普高 book 1 b1"><summary><span>龍騰普高 Book 1</span><small>62 份測驗</small></summary><div class="content">
+    <section class="directory" aria-labelledby="directory-title">
+    <h2 id="directory-title">分區快速入口</h2>
+    <div class="directory-grid">
+      <article><h3>高中英文</h3><a href="#senior-longteng">龍騰</a><a href="#senior-sanmin">三民</a></article>
+      <article><h3>國中英文</h3><a href="#junior-hanlin">翰林</a><a href="#junior-kangxuan">康軒</a></article>
+      <article><h3>國小英文</h3><a href="#primary-jiren">及人國小</a><a href="#primary-henry">Henry 靜心</a></article>
+      <article class="wide"><h3>各階段單字（由簡至難）</h3><a href="#vocab-1200">1200</a><a href="#vocab-800">800</a><a href="#vocab-gept">捷進 GEPT 初級</a><a href="#vocab-2001">2001–3000</a><a href="#vocab-awl">AWL</a><a href="#vocab-topics">學測／IELTS／TOEFL 主題</a><a href="#vocab-sat">SAT</a></article>
+      <article><h3>專項練習</h3><a href="#grammar">Grammar 文法</a><a href="#travel-english">Travel English</a><a href="#other">其他</a></article>
+    </div>
+  </section>
+  <section id="senior" class="zone"><h2 class="zone-title">高中英文</h2>
+    <div id="senior-longteng" class="publisher-group"><h3 class="group-title">龍騰</h3>
+<details class="publisher" data-search="龍騰 普高 book 1 b1"><summary><span>龍騰普高 Book 1</span><small>62 份測驗</small></summary><div class="content">
       <div class="unit" data-search="b1u1 龍騰 單字選擇 詞類變化 整句朗讀 STT pronunciation"><h3>B1U1</h3><div class="grid">
         <a class="quiz" href="longteng-b1u1-vocabulary-mcq.html?v=20261026-5"><b>單字選擇</b><span>30 題｜附解析與中文｜整句朗讀＋必做 STT</span><em>開始測驗 →</em></a>
         <a class="quiz" href="longteng-b1u1-context-vocabulary.html?v=20261026-5"><b>文意字彙</b><span>127 題｜附解析與中文｜整句朗讀＋必做 STT</span><em>開始測驗 →</em></a>
@@ -122,8 +136,7 @@
         <a class="quiz" href="longteng-b1-u1-u3-r1-vocab-collocations.html"><b>單字・搭配詞・例句填空</b><span>255 題｜片語＋例句拼字｜整句朗讀</span><em>開始測驗 →</em></a>
       </div></div>
     </div></details>
-
-    <details class="publisher" open data-search="龍騰 普高 book 3 b3"><summary><span>龍騰普高 Book 3</span><small>49 份測驗</small></summary><div class="content">
+<details class="publisher" data-search="龍騰 普高 book 3 b3"><summary><span>龍騰普高 Book 3</span><small>49 份測驗</small></summary><div class="content">
       <div class="unit" data-search="b3u2 龍騰 全題型"><h3>B3U2</h3><div class="grid"><a class="quiz" href="longteng-b3u2-quiz/"><b>全題型互動測驗</b><span>單字、文法與翻譯整合</span><em>開啟題庫 →</em></a></div></div>
       <div class="unit" data-search="b3u4 龍騰 單字 文意字彙 詞類變化 文法 課本句型 其他考點 引導式翻譯 整句式翻譯"><h3>B3U4</h3><div class="grid">
         <a class="quiz" href="longteng-b3u4-vocabulary-mcq.html"><b>單字選擇</b><span>30 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
@@ -192,8 +205,9 @@
         <a class="quiz" href="longteng-b3-u1-u3-r1-vocab-collocations.html"><b>單字・搭配詞・句型・例句填空</b><span>227 題｜A 單字 170＋B 片語 43＋C 句型 14｜整句朗讀</span><em>開始測驗 →</em></a>
       </div></div>
     </div></details>
-
-    <details class="publisher" open data-search="三民 普高 book 3 b3 u7 u8 u9 u10 r3 r4 詞彙選擇 文法選擇 文意選填 篇章結構 引導式翻譯"><summary><span>三民普高 Book 3</span><small>28 份測驗</small></summary><div class="content">
+    </div>
+    <div id="senior-sanmin" class="publisher-group"><h3 class="group-title">三民</h3>
+<details class="publisher" data-search="三民 普高 book 3 b3 u7 u8 u9 u10 r3 r4 詞彙選擇 文法選擇 文意選填 篇章結構 引導式翻譯"><summary><span>三民普高 Book 3</span><small>28 份測驗</small></summary><div class="content">
       <div class="unit" data-search="三民 b3u7 詞彙 文法 文意選填 篇章結構 引導式翻譯"><h3>B3U7</h3><div class="grid">
         <a class="quiz" href="sanmin-b3u7-vocabulary-mcq.html?v=20261031-1"><b>詞彙選擇</b><span>46 題｜四選一｜答對後整句播放＋選做 STT</span><em>開始測驗 →</em></a>
         <a class="quiz" href="sanmin-b3u7-grammar-mcq.html?v=20261031-1"><b>文法選擇</b><span>55 題｜四選一｜答對後整句播放＋選做 STT</span><em>開始測驗 →</em></a>
@@ -235,112 +249,119 @@
         <a class="quiz" href="sanmin-b3r4-passage-structure.html?v=20261106-1"><b>篇章結構</b><span>8 題｜2 篇文章｜逐格即時批改</span><em>開始測驗 →</em></a>
       </div></div>
     </div></details>
+    </div>
   </section>
 
-  <section id="exam-topics" class="zone"><h2 class="zone-title">學測／TOEFL／IELTS／FCE 主題單字</h2>
-    <details class="publisher" open data-search="學測 TOEFL IELTS FCE 主題單字 AI technology artificial intelligence 人工智慧 科技 學術單字 固定片語 搭配詞"><summary><span>AI Technology</span><small>420 組單字與例句</small></summary><div class="content"><div class="grid">
-      <a class="quiz" href="exam-topic-ai-technology-vocab.html?v=20261016-2"><b>AI Technology｜人工智慧與科技</b><span>主題單字 200＋學術單字 200＋固定片語 20｜答對後自動播放整句｜錄音朗讀選做</span><em>開始練習 →</em></a>
-    </div></div></details>
-    <details class="publisher" open data-search="學測 TOEFL IELTS FCE 主題單字 culture history civilization 文化 歷史 文明 古文明 考古 帝國 宗教 戰爭 殖民 藝術 建築 貿易 觀光 移民 片語"><summary><span>Culture, History &amp; Civilization</span><small>752 組單字與例句</small></summary><div class="content"><div class="grid">
-      <a class="quiz" href="exam-topic-culture-history-civilization-vocab.html?v=20261028-3"><b>Culture, History &amp; Civilization｜文化、歷史與文明</b><span>14 個主題｜每題先聽單字發音｜答對後播放整句｜錄音朗讀選做</span><em>開始練習 →</em></a>
-    </div></div></details>
-  </section>
-
-  <section id="awl" class="zone"><h2 class="zone-title">AWL 學術單字 Academic Word List</h2>
-    <details class="publisher" open data-search="awl academic word list 學術單字 sublist 1 2 3 4 5 6 7 8 9 10 learning quiz 學習 測驗"><summary><span>Academic Word List（AWL）Sublist 1–10</span><small>1399 個單字／片語｜每個 Sublist：學習區＋測驗</small></summary><div class="content">
-      <div class="awl-bar"><span>完成測驗後，成績會自動寫入試算表。點右邊按鈕查看全班成績與錯字。</span><a class="awl-sheet" href="https://docs.google.com/spreadsheets/d/1zAOZnP69d4VUrBXwgdP20hkSAWjUujFDgra56OqzkxY/edit?gid=0#gid=0" target="_blank" rel="noopener">📊 查看 AWL 成績表 View Results</a></div>
-      <div class="unit" data-search="awl academic word list sublist 1 學術單字"><h3>Sublist 1<small class="awl-count">138 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=1&v=20261103-1"><b>📖 Sublist 1｜學習區 Learning</b><span>138 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-1-quiz.html?v=20261106-3"><b>📝 Sublist 1｜測驗 Quiz</b><span>138 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+  <section id="junior" class="zone"><h2 class="zone-title">國中英文</h2>
+    <div id="junior-hanlin" class="publisher-group"><h3 class="group-title">翰林</h3>
+<details class="publisher" data-search="翰林 book 1 b1"><summary><span>翰林 Book 1</span><small>尚未建立</small></summary><div class="content"><div class="empty">目前尚未建立翰林 Book 1 測驗。</div></div></details>
+<details class="publisher" data-search="翰林 book 4 b4"><summary><span>翰林 Book 4（既有測驗）</span><small>28 份測驗</small></summary><div class="content">
+      <div class="unit" data-search="翰林 b4u1 dialogue reading grammar translation fill blanks"><h3>B4U1</h3><div class="grid">
+        <a class="quiz" href="index.html"><b>Dialogue 課文填空</b><span>課文填空與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-grammar-mcq.html"><b>文法選擇</b><span>單元文法</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-reading.html"><b>Reading</b><span>閱讀課文練習</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U1-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
       </div></div>
-      <div class="unit" data-search="awl academic word list sublist 2 學術單字"><h3>Sublist 2<small class="awl-count">128 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=2&v=20261103-1"><b>📖 Sublist 2｜學習區 Learning</b><span>128 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-2-quiz.html?v=20261106-3"><b>📝 Sublist 2｜測驗 Quiz</b><span>128 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      <div class="unit" data-search="翰林 b4u2 dialogue reading grammar translation spelling fill blanks"><h3>B4U2</h3><div class="grid">
+        <a class="quiz" href="B4U2-dialogue.html"><b>Dialogue 課文填空</b><span>對話課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-reading.html"><b>Reading 課文填空</b><span>閱讀課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-spelling.html"><b>單字拼字</b><span>第六大題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-grammar-mcq.html"><b>文法選擇</b><span>第二大題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U2-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
       </div></div>
-      <div class="unit" data-search="awl academic word list sublist 3 學術單字"><h3>Sublist 3<small class="awl-count">156 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=3&v=20261103-1"><b>📖 Sublist 3｜學習區 Learning</b><span>156 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-3-quiz.html?v=20261106-3"><b>📝 Sublist 3｜測驗 Quiz</b><span>156 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      <div class="unit" data-search="翰林 b4u3 dialogue reading cocoa children 課文填空 字彙選擇 文法選擇 對話 完成句子 文意字彙 填充 看圖回答 題庫 單字例句 發音測驗 pronunciation"><h3>B4U3</h3><div class="grid">
+        <a class="quiz" href="B4U3-dialogue.html"><b>Dialogue 課文填空</b><span>18 題｜農場動物與權利｜整句朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-reading.html"><b>Reading 課文填空</b><span>15 題｜Cocoa Children｜整句朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-vocabulary-mcq.html"><b>第一大題｜字彙選擇</b><span>50 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-grammar-mcq.html"><b>第二大題｜文法選擇</b><span>48 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-dialogue-completion.html"><b>第三大題｜對話與完成句子</b><span>41 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-context-vocabulary.html"><b>第六大題｜文意字彙</b><span>40 題｜拼字填空｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-fill-in-blanks.html"><b>第七大題｜填充題</b><span>10 大題｜逐格作答｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-picture-questions.html"><b>第八大題｜看圖回答問題</b><span>15 題｜完整句作答｜原題圖片</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U3-vocabulary-examples-pronunciation.html"><b>單字例句・發音測驗</b><span>369 組｜講義例句｜麥克風發音評分</span><em>開始測驗 →</em></a>
       </div></div>
-      <div class="unit" data-search="awl academic word list sublist 4 學術單字"><h3>Sublist 4<small class="awl-count">133 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=4&v=20261103-1"><b>📖 Sublist 4｜學習區 Learning</b><span>133 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-4-quiz.html?v=20261106-3"><b>📝 Sublist 4｜測驗 Quiz</b><span>133 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 5 學術單字"><h3>Sublist 5<small class="awl-count">152 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=5&v=20261103-1"><b>📖 Sublist 5｜學習區 Learning</b><span>152 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-5-quiz.html?v=20261106-3"><b>📝 Sublist 5｜測驗 Quiz</b><span>152 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 6 學術單字"><h3>Sublist 6<small class="awl-count">135 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=6&v=20261103-1"><b>📖 Sublist 6｜學習區 Learning</b><span>135 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-6-quiz.html?v=20261106-3"><b>📝 Sublist 6｜測驗 Quiz</b><span>135 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 7 學術單字"><h3>Sublist 7<small class="awl-count">148 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=7&v=20261103-1"><b>📖 Sublist 7｜學習區 Learning</b><span>148 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-7-quiz.html?v=20261106-3"><b>📝 Sublist 7｜測驗 Quiz</b><span>148 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 8 學術單字"><h3>Sublist 8<small class="awl-count">142 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=8&v=20261103-1"><b>📖 Sublist 8｜學習區 Learning</b><span>142 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-8-quiz.html?v=20261106-3"><b>📝 Sublist 8｜測驗 Quiz</b><span>142 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 9 學術單字"><h3>Sublist 9<small class="awl-count">176 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=9&v=20261103-1"><b>📖 Sublist 9｜學習區 Learning</b><span>176 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-9-quiz.html?v=20261106-3"><b>📝 Sublist 9｜測驗 Quiz</b><span>176 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="awl academic word list sublist 10 學術單字"><h3>Sublist 10<small class="awl-count">91 個單字／片語</small></h3><div class="grid">
-        <a class="quiz" href="awl/awl-learn.html?sublist=10&v=20261103-1"><b>📖 Sublist 10｜學習區 Learning</b><span>91 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
-        <a class="quiz" href="awl/awl-sublist-10-quiz.html?v=20261106-3"><b>📝 Sublist 10｜測驗 Quiz</b><span>91 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      <div class="unit" data-search="翰林 b4u4 dialogue reading rescue dogs 課文填空 字彙選擇 文法選擇 對話 完成句子 文意字彙 填充 看圖回答 題庫"><h3>B4U4</h3><div class="grid">
+        <a class="quiz" href="B4U4-dialogue.html"><b>Dialogue 課文填空</b><span>20 題｜颱風來臨｜整句朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-reading.html"><b>Reading 課文填空</b><span>12 題｜Rescue Dogs｜整句朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-vocabulary-mcq.html"><b>第一大題｜字彙選擇</b><span>40 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-grammar-mcq.html"><b>第二大題｜文法選擇</b><span>42 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-dialogue-completion.html"><b>第三大題｜對話與完成句子</b><span>40 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-context-vocabulary.html"><b>第六大題｜文意字彙</b><span>40 題｜拼字填空｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-fill-in-blanks.html"><b>第七大題｜填充題</b><span>21 大題｜逐格作答｜附解析</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="B4U4-picture-questions.html"><b>第八大題｜看圖回答問題</b><span>15 題｜完整句作答｜原題圖片</span><em>開始測驗 →</em></a>
       </div></div>
     </div></details>
-  </section>
-
-  <section id="toefl-ew" class="zone"><h2 class="zone-title">Essential Words for TOEFL（7th Ed.）</h2>
-    <details class="publisher" open data-search="toefl essential words 7th edition complete the words 托福 單字 填空 unit 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"><summary><span>Essential Words for TOEFL｜2026 Complete the Words</span><small>30 單元｜500 字｜60 篇文章</small></summary><div class="content">
-      <div class="awl-bar"><span>每單元：單字庫（中英釋義＋例句＋美式發音）→ 2 篇補完單字填空。完成後成績自動寫入試算表。</span><a class="awl-sheet" href="https://docs.google.com/spreadsheets/d/1y8aIYpMF2gLxjtJD-fSHpqznhhCwLojIfCMVspjW-Js/edit" target="_blank" rel="noopener">📊 查看 TOEFL 成績表 View Results</a></div>
-      <div class="grid">
-        <a class="quiz" href="toefl-essential-words/index.html?v=20261106-1"><b>📚 總覽 Motherboard</b><span>30 單元總覽｜顯示各單元最佳成績</span><em>進入 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-01.html?v=20261106-3"><b>Unit 1</b><span>17 字｜abroad → withdraw｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-02.html?v=20261106-3"><b>Unit 2</b><span>17 字｜advantage → worthwhile｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-03.html?v=20261106-3"><b>Unit 3</b><span>17 字｜alter → vital｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-04.html?v=20261106-3"><b>Unit 4</b><span>17 字｜ambiguous → stagnant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-05.html?v=20261106-3"><b>Unit 5</b><span>17 字｜baffle → work out｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-06.html?v=20261106-3"><b>Unit 6</b><span>17 字｜chiefly → visibly｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-07.html?v=20261106-3"><b>Unit 7</b><span>17 字｜brash → theoretically｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-08.html?v=20261106-3"><b>Unit 8</b><span>17 字｜accelerate → transport｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-09.html?v=20261106-3"><b>Unit 9</b><span>17 字｜account for → vibrant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-10.html?v=20261106-3"><b>Unit 10</b><span>17 字｜distinct → vigorous｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-11.html?v=20261106-3"><b>Unit 11</b><span>17 字｜amenity → release｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-12.html?v=20261106-3"><b>Unit 12</b><span>17 字｜benefit → susceptible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-13.html?v=20261106-3"><b>Unit 13</b><span>17 字｜accolade → uphold｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-14.html?v=20261106-3"><b>Unit 14</b><span>17 字｜ample → withstand｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-15.html?v=20261106-3"><b>Unit 15</b><span>16 字｜adept → underscore｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-16.html?v=20261106-3"><b>Unit 16</b><span>17 字｜conscientious → zenith｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-17.html?v=20261106-3"><b>Unit 17</b><span>17 字｜abysmal → nominal｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-18.html?v=20261106-3"><b>Unit 18</b><span>17 字｜absurd → swift｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-19.html?v=20261106-3"><b>Unit 19</b><span>17 字｜coherent → varied｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-20.html?v=20261106-3"><b>Unit 20</b><span>17 字｜accentuate → streamline｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-21.html?v=20261106-3"><b>Unit 21</b><span>17 字｜affluent → vanishing｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-22.html?v=20261106-3"><b>Unit 22</b><span>16 字｜account → provoke｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-23.html?v=20261106-3"><b>Unit 23</b><span>16 字｜allusion → teeming｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-24.html?v=20261106-3"><b>Unit 24</b><span>16 字｜affordable → tedious｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-25.html?v=20261106-3"><b>Unit 25</b><span>16 字｜briefly → upstanding｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-26.html?v=20261106-3"><b>Unit 26</b><span>16 字｜abolish → striking｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-27.html?v=20261106-3"><b>Unit 27</b><span>16 字｜aptly → tangible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-28.html?v=20261106-3"><b>Unit 28</b><span>16 字｜aggravating → underestimated｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-29.html?v=20261106-3"><b>Unit 29</b><span>16 字｜acknowledge → vast｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-        <a class="quiz" href="toefl-essential-words/unit-30.html?v=20261106-3"><b>Unit 30</b><span>16 字｜charisma → woo｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
-      </div>
+    </div>
+    <div id="junior-kangxuan" class="publisher-group"><h3 class="group-title">康軒</h3>
+<details class="publisher" data-search="康軒 國中 book 1 b1 dialogue reading 句子重組 整句式翻譯 填充"><summary><span>康軒國中 Book 1</span><small>23 份測驗</small></summary><div class="content">
+      <div class="unit" data-search="康軒 國中 b1u1 book 1"><h3>B1U1</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u1-context-vocabulary.html"><b>文意字彙</b><span>38 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-vocabulary-mcq.html"><b>字彙測驗</b><span>48 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-grammar-mcq.html"><b>文法測驗</b><span>70 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-guided-answers.html"><b>依提示回答問題</b><span>22 題｜整句作答</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-dialogue.html"><b>Dialogue 課文填空</b><span>22 題｜對話課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u1-reading.html"><b>Reading 課文填空</b><span>19 題｜閱讀課文與朗讀</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="康軒 國中 b1u2 book 1"><h3>B1U2</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u2-context-vocabulary.html"><b>文意字彙</b><span>30 題｜拼字填空</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-vocabulary-mcq.html"><b>字彙測驗</b><span>47 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-grammar-mcq.html"><b>文法測驗</b><span>78 題｜四選一</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-guided-answers.html"><b>依提示回答問題</b><span>28 題｜整句作答</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-dialogue.html"><b>Dialogue 課文填空</b><span>18 題｜對話課文與朗讀</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u2-reading.html"><b>Reading 課文填空</b><span>12 題｜閱讀課文與朗讀</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="康軒 國中 book 1 b1u3 文意字彙 字彙測驗 文法測驗 依提示回答問題 句子重組 整句式翻譯 填充"><h3>B1U3</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u3-context-vocabulary.html?v=20261029-1"><b>文意字彙</b><span>39 題｜第一大題｜拼字填空｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-vocabulary-mcq.html?v=20261029-1"><b>字彙測驗</b><span>43 題｜第二大題｜四選一｜含看圖題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-grammar-mcq.html?v=20261029-1"><b>文法測驗</b><span>77 題｜第三大題｜四選一｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-guided-answers.html?v=20261029-1"><b>依提示回答問題</b><span>21 題｜第七大題｜完整句作答｜保留畫線提示</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-reorder.html?v=20261029-2"><b>句子重組</b><span>8 題｜第八大題｜完整句作答｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-translation.html?v=20261029-2"><b>整句式翻譯</b><span>14 題｜第九大題｜完整句作答｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u3-fill.html?v=20261029-2"><b>填充</b><span>38 大題｜第十大題｜多格分開批改｜含 6 組看圖題</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="康軒 國中 book 1 b1u4 文意字彙 字彙測驗 文法測驗 依提示回答問題"><h3>B1U4</h3><div class="grid">
+        <a class="quiz" href="kangxuan-b1u4-context-vocabulary.html?v=20261106-2"><b>文意字彙</b><span>34 題｜第一大題｜拼字填空｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u4-vocabulary-mcq.html?v=20261106-2"><b>字彙測驗</b><span>46 題｜第二大題｜四選一｜含看圖題</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u4-grammar-mcq.html?v=20261106-2"><b>文法測驗</b><span>38 題｜第三大題｜四選一｜附詳解</span><em>開始測驗 →</em></a>
+        <a class="quiz" href="kangxuan-b1u4-guided-answers.html?v=20261106-2"><b>依提示回答問題</b><span>28 題｜第七大題｜完整句作答｜保留畫線提示</span><em>開始測驗 →</em></a>
+      </div></div>
     </div></details>
+    </div>
   </section>
 
-  <section id="travel-daily" class="zone"><h2 class="zone-title">Travel Daily Conversation English</h2>
-    <details class="publisher" open data-search="travel daily conversation english TOEIC listening cell phone mobile phone USA buying repairing phones 美國 買手機 修手機 生活會話 聽力 填空 閱讀 選擇">
-      <summary><span>Buying &amp; Repairing Phones in the U.S.</span><small>4 篇對話｜110 格填空＋20 題閱讀</small></summary><div class="content"><div class="grid">
-        <a class="quiz" href="toeic-phone-usa.html?v=20261029-1"><b>在美國買手機與修手機</b><span>4 個情境｜原始 MP3｜聽力填空｜閱讀選擇｜即時訂正與成績紀錄</span><em>開始練習 →</em></a>
+  <section id="primary" class="zone"><h2 class="zone-title">國小英文</h2>
+    <div id="primary-jiren" class="publisher-group"><h3 class="group-title">及人國小</h3>
+<details class="publisher" data-search="及人 及人國小 G3 grade 3 fall midterm 期中 Big English 3 unit 1 unit 2 daily activities jobs occupations workplaces 單字 文法 選擇 重組 問答">
+      <summary><span>G3 fall midterm</span><small>Big English 3 U1–U2｜120 題</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="jiren-g3-fall-midterm.html"><b>G3 fall midterm｜Big English 3 Units 1–2</b><span>120 題｜單字填空・單字選擇・情境用語・文法選擇・重組句子・問與答</span><em>開始練習 →</em></a>
       </div></div>
     </details>
+<details class="publisher" data-search="及人 及人國小 G6 grade 6 fall midterm 期中 mock test version 2 English Time 6 unit 1 2 3 My Next Grammar 3 Reading Success 1 comparatives superlatives similes as as negative questions sense verbs seem 比較級 最高級 否定疑問句 感官動詞 閱讀">
+      <summary><span>及人國小G6 fall midterm</span><small>English Time 6 U1–3・My Next Grammar 3・Reading Success 1｜159 題</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="jiren-g6-fall-midterm.html?v=20261106-3"><b>G6 fall midterm｜Mock Test Version 2</b><span>159 題｜拼字・單字選擇・購物對話・比較級表格・as…as・否定疑問句・感官動詞・重組・改錯・5 篇閱讀・完整句作答</span><em>開始練習 →</em></a>
+      </div></div>
+    </details>
+    </div>
+    <div id="primary-henry" class="publisher-group"><h3 class="group-title">Henry 靜心</h3>
+<details class="publisher" data-search="Henry 靜心 Module 2 Week 2 Week 3 vocabulary worksheet 改錯 單字 選擇 配對 閱讀">
+      <summary><span>Henry 靜心｜Vocabulary Worksheets</span><small>2 份完整練習</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="henry-m2w2-vocabulary-worksheet.html"><b>Module 2 Week 2 Vocabulary Worksheet</b><span>10 篇改錯｜46 題單字選擇｜配對・填空・完整句・閱讀</span><em>開始練習 →</em></a>
+        <a class="quiz" href="henry-m2w3-vocabulary-worksheet.html"><b>Module 2 Week 3 Vocabulary Worksheet</b><span>7 篇改錯｜21 題單字選擇｜配對・填空・完整句・閱讀</span><em>開始練習 →</em></a>
+      </div></div>
+    </details>
+    </div>
   </section>
 
-  <section id="junior" class="zone"><h2 class="zone-title">國中英文區</h2>
-    <details class="publisher" open data-search="捷進 GEPT 初級 單字書 elementary vocabulary A1 A2 unit 1 100 學習 發音 例句 Quiz 情境選擇 解析 朗讀 STT">
+  <section id="vocabulary" class="zone"><h2 class="zone-title">各階段單字｜由簡至難</h2>
+    <div id="vocab-1200" class="vocab-stage"><h3><span>1</span>國中小基礎 1200 單字</h3><details class="publisher" data-search="國中小 基礎 1200 單字 主題 分類 Q&A 朗讀 STT 成績"><summary><span>國中小基礎1200單字</span><small>37 主題｜1,331 筆新版 Q&amp;A</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="basic-1200-vocabulary-themes.html?v=20261105-1"><b>國中小基礎1200單字｜主題分類 Q&amp;A 填空</b><span>02–37 全面更新｜即時批改｜整句朗讀｜選做 STT｜成績登錄</span><em>開始練習 →</em></a>
+    </div></div></details></div>
+    <div id="vocab-800" class="vocab-stage"><h3><span>2</span>國中小進階 800 字</h3><details class="publisher" data-search="國中小 進階 800 字 單字 例句 填空 A-Z"><summary><span>國中小進階800字</span><small>804 筆｜A–Z 字首分類</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="advanced-800-vocabulary-examples.html?v=20261105-2"><b>國中小進階800字｜單字例句填空</b><span>單字發音｜完整例句播放｜選做 STT｜動詞與名詞變化｜錯題下載</span><em>開始練習 →</em></a>
+    </div></div></details></div>
+    <div id="vocab-gept" class="vocab-stage"><h3><span>3</span>捷進 GEPT 全民英檢初級單字書</h3><details class="publisher" data-search="捷進 GEPT 初級 單字書 elementary vocabulary A1 A2 unit 1 100 學習 發音 例句 Quiz 情境選擇 解析 朗讀 STT">
       <summary><span>捷進 GEPT 初級單字書</span><small>Unit 1–100｜100 個學習區＋100 個 Quiz</small></summary><div class="content">
       <div class="unit" data-search="GEPT Unit 1 ankle–throat Human Body, Physical Actions & Health"><h3>Unit 1｜ankle–throat</h3><div class="grid">
         <a class="quiz" href="gept-jiejin-elementary-vocab-u01-learn.html?v=20261106-2"><b>學習區</b><span>10 字｜單字發音＋例句發音＋選做朗讀評分</span><em>開始學習 →</em></a>
@@ -744,8 +765,113 @@
         <a class="quiz" href="gept-jiejin-elementary-vocab-u100-quiz.html?v=20261108-1"><b>Quiz</b><span>25 題｜情境選擇｜附繁中解析＋整句播放＋選做朗讀</span><em>開始測驗 →</em></a>
       </div></div>
       <!-- GEPT Units 41-100 end -->
-    </div></details>
-    <details class="publisher" open data-search="國小 國中 高中 Grammar 文法 KCIS Grade 1 G1 Grade 4 G4 Grade 5 G5 Grade 6 G6 grammar verb patterns gerund infinitive make have let ask get tell see hear watch listen to p.p. 使役動詞 感官動詞 not to V G1-G6文法 be verbs singular plural nouns present simple continuous past mixed tenses active passive voice to V V-ing VR typhoon 時態 主動 被動 不定詞 動名詞 原形動詞 單數 複數 名詞 標點 逗號 comma conjunction fanboys 從屬連接詞 形容詞 比較級 最高級 comparative superlative">
+    </div></details></div>
+    <div id="vocab-2001" class="vocab-stage"><h3><span>4</span>2001–3000 單字</h3><details class="publisher" data-search="國中會考 會考 單字 片語 一字多義 動詞片語 be動詞 形容詞片語 介系詞片語 副詞片語 連接詞片語 名詞片語 數量詞 慣用語 句型 轉折詞 transition words 選擇題 MCQ"><summary><span>國中會考單字片語</span><small>10 個分類｜1083 題選擇題</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="cap-vocab-all.html?v=20261106-3"><b>🧩 全部主題綜合練習</b><span>1083 題｜10 個主題｜可選單一主題／隨機 20 題／全部｜隨時結束→下載 DOCX 錯題</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-01-polysemy.html?v=20261106-3"><b>一字多義 Polysemy</b><span>先教學：688 筆詞彙表｜再測驗：230 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-02-verb-phrases.html?v=20261106-3"><b>動詞片語 Verb Phrases</b><span>先教學：1031 筆詞彙表｜再測驗：344 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-03-be-adj-phrases.html?v=20261106-3"><b>be動詞+形容詞片語 be + Adjective Phrases</b><span>先教學：124 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-04-adjective-phrases.html?v=20261106-3"><b>形容詞片語 Adjective Phrases</b><span>先教學：43 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-05-prepositional-phrases.html?v=20261106-3"><b>介系詞片語 Prepositional Phrases</b><span>先教學：53 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-06-adverb-phrases.html?v=20261106-3"><b>副詞片語 Adverb Phrases</b><span>先教學：259 筆詞彙表｜再測驗：87 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-07-conjunction-phrases.html?v=20261106-3"><b>連接詞片語 Conjunction Phrases</b><span>先教學：23 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-08-noun-phrases.html?v=20261106-3"><b>名詞片語（含數量詞） Noun &amp; Quantity Phrases</b><span>先教學：176 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-09-expressions-patterns.html?v=20261106-3"><b>慣用語與句型 Expressions &amp; Sentence Patterns</b><span>先教學：148 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+        <a class="quiz" href="cap-vocab-10-transition-words.html?v=20261106-3"><b>轉折詞 Transition Words</b><span>先教學：185 筆詞彙表｜再測驗：62 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
+    </div></div></details><details class="publisher" data-search="國中 2000 單字 food sports leisure"><summary><span>國中補充題庫</span><small>2 份測驗</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="junior-2000-food-vocabulary/"><b>國中 2000 字：Food</b><span>食物、蔬果、烹飪與餐具</span><em>開始測驗 →</em></a>
+      <a class="quiz" href="junior-2000-sports-leisure-activities.html"><b>國中 2000 字：Sports & Leisure</b><span>文法、拼字與完整句朗讀</span><em>開始測驗 →</em></a>
+    </div></div></details></div>
+    <div id="vocab-awl" class="vocab-stage"><h3><span>5</span>AWL 學術單字</h3><details class="publisher" data-search="awl academic word list 學術單字 sublist 1 2 3 4 5 6 7 8 9 10 learning quiz 學習 測驗"><summary><span>Academic Word List（AWL）Sublist 1–10</span><small>1399 個單字／片語｜每個 Sublist：學習區＋測驗</small></summary><div class="content">
+      <div class="awl-bar"><span>完成測驗後，成績會自動寫入試算表。點右邊按鈕查看全班成績與錯字。</span><a class="awl-sheet" href="https://docs.google.com/spreadsheets/d/1zAOZnP69d4VUrBXwgdP20hkSAWjUujFDgra56OqzkxY/edit?gid=0#gid=0" target="_blank" rel="noopener">📊 查看 AWL 成績表 View Results</a></div>
+      <div class="unit" data-search="awl academic word list sublist 1 學術單字"><h3>Sublist 1<small class="awl-count">138 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=1&v=20261103-1"><b>📖 Sublist 1｜學習區 Learning</b><span>138 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-1-quiz.html?v=20261106-3"><b>📝 Sublist 1｜測驗 Quiz</b><span>138 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 2 學術單字"><h3>Sublist 2<small class="awl-count">128 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=2&v=20261103-1"><b>📖 Sublist 2｜學習區 Learning</b><span>128 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-2-quiz.html?v=20261106-3"><b>📝 Sublist 2｜測驗 Quiz</b><span>128 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 3 學術單字"><h3>Sublist 3<small class="awl-count">156 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=3&v=20261103-1"><b>📖 Sublist 3｜學習區 Learning</b><span>156 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-3-quiz.html?v=20261106-3"><b>📝 Sublist 3｜測驗 Quiz</b><span>156 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 4 學術單字"><h3>Sublist 4<small class="awl-count">133 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=4&v=20261103-1"><b>📖 Sublist 4｜學習區 Learning</b><span>133 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-4-quiz.html?v=20261106-3"><b>📝 Sublist 4｜測驗 Quiz</b><span>133 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 5 學術單字"><h3>Sublist 5<small class="awl-count">152 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=5&v=20261103-1"><b>📖 Sublist 5｜學習區 Learning</b><span>152 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-5-quiz.html?v=20261106-3"><b>📝 Sublist 5｜測驗 Quiz</b><span>152 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 6 學術單字"><h3>Sublist 6<small class="awl-count">135 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=6&v=20261103-1"><b>📖 Sublist 6｜學習區 Learning</b><span>135 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-6-quiz.html?v=20261106-3"><b>📝 Sublist 6｜測驗 Quiz</b><span>135 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 7 學術單字"><h3>Sublist 7<small class="awl-count">148 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=7&v=20261103-1"><b>📖 Sublist 7｜學習區 Learning</b><span>148 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-7-quiz.html?v=20261106-3"><b>📝 Sublist 7｜測驗 Quiz</b><span>148 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 8 學術單字"><h3>Sublist 8<small class="awl-count">142 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=8&v=20261103-1"><b>📖 Sublist 8｜學習區 Learning</b><span>142 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-8-quiz.html?v=20261106-3"><b>📝 Sublist 8｜測驗 Quiz</b><span>142 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 9 學術單字"><h3>Sublist 9<small class="awl-count">176 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=9&v=20261103-1"><b>📖 Sublist 9｜學習區 Learning</b><span>176 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-9-quiz.html?v=20261106-3"><b>📝 Sublist 9｜測驗 Quiz</b><span>176 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+      <div class="unit" data-search="awl academic word list sublist 10 學術單字"><h3>Sublist 10<small class="awl-count">91 個單字／片語</small></h3><div class="grid">
+        <a class="quiz" href="awl/awl-learn.html?sublist=10&v=20261103-1"><b>📖 Sublist 10｜學習區 Learning</b><span>91 字｜看中文與例句→輸入單字→大聲朗讀（STT）｜可隱藏單字做拼字挑戰</span><em>開始學習 →</em></a>
+        <a class="quiz" href="awl/awl-sublist-10-quiz.html?v=20261106-3"><b>📝 Sublist 10｜測驗 Quiz</b><span>91 題｜例句填空四選一｜送出後成績自動寫入試算表</span><em>開始測驗 →</em></a>
+      </div></div>
+    </div></details></div>
+    <div id="vocab-topics" class="vocab-stage"><h3><span>6</span>學測／IELTS／TOEFL 主題與核心單字</h3><details class="publisher" data-search="學測 TOEFL IELTS FCE 主題單字 AI technology artificial intelligence 人工智慧 科技 學術單字 固定片語 搭配詞"><summary><span>AI Technology</span><small>420 組單字與例句</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="exam-topic-ai-technology-vocab.html?v=20261016-2"><b>AI Technology｜人工智慧與科技</b><span>主題單字 200＋學術單字 200＋固定片語 20｜答對後自動播放整句｜錄音朗讀選做</span><em>開始練習 →</em></a>
+    </div></div></details><details class="publisher" data-search="學測 TOEFL IELTS FCE 主題單字 culture history civilization 文化 歷史 文明 古文明 考古 帝國 宗教 戰爭 殖民 藝術 建築 貿易 觀光 移民 片語"><summary><span>Culture, History &amp; Civilization</span><small>752 組單字與例句</small></summary><div class="content"><div class="grid">
+      <a class="quiz" href="exam-topic-culture-history-civilization-vocab.html?v=20261028-3"><b>Culture, History &amp; Civilization｜文化、歷史與文明</b><span>14 個主題｜每題先聽單字發音｜答對後播放整句｜錄音朗讀選做</span><em>開始練習 →</em></a>
+    </div></div></details><details class="publisher" data-search="toefl essential words 7th edition complete the words 托福 單字 填空 unit 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"><summary><span>Essential Words for TOEFL｜2026 Complete the Words</span><small>30 單元｜500 字｜60 篇文章</small></summary><div class="content">
+      <div class="awl-bar"><span>每單元：單字庫（中英釋義＋例句＋美式發音）→ 2 篇補完單字填空。完成後成績自動寫入試算表。</span><a class="awl-sheet" href="https://docs.google.com/spreadsheets/d/1y8aIYpMF2gLxjtJD-fSHpqznhhCwLojIfCMVspjW-Js/edit" target="_blank" rel="noopener">📊 查看 TOEFL 成績表 View Results</a></div>
+      <div class="grid">
+        <a class="quiz" href="toefl-essential-words/index.html?v=20261106-1"><b>📚 總覽 Motherboard</b><span>30 單元總覽｜顯示各單元最佳成績</span><em>進入 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-01.html?v=20261106-3"><b>Unit 1</b><span>17 字｜abroad → withdraw｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-02.html?v=20261106-3"><b>Unit 2</b><span>17 字｜advantage → worthwhile｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-03.html?v=20261106-3"><b>Unit 3</b><span>17 字｜alter → vital｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-04.html?v=20261106-3"><b>Unit 4</b><span>17 字｜ambiguous → stagnant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-05.html?v=20261106-3"><b>Unit 5</b><span>17 字｜baffle → work out｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-06.html?v=20261106-3"><b>Unit 6</b><span>17 字｜chiefly → visibly｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-07.html?v=20261106-3"><b>Unit 7</b><span>17 字｜brash → theoretically｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-08.html?v=20261106-3"><b>Unit 8</b><span>17 字｜accelerate → transport｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-09.html?v=20261106-3"><b>Unit 9</b><span>17 字｜account for → vibrant｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-10.html?v=20261106-3"><b>Unit 10</b><span>17 字｜distinct → vigorous｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-11.html?v=20261106-3"><b>Unit 11</b><span>17 字｜amenity → release｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-12.html?v=20261106-3"><b>Unit 12</b><span>17 字｜benefit → susceptible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-13.html?v=20261106-3"><b>Unit 13</b><span>17 字｜accolade → uphold｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-14.html?v=20261106-3"><b>Unit 14</b><span>17 字｜ample → withstand｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-15.html?v=20261106-3"><b>Unit 15</b><span>16 字｜adept → underscore｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-16.html?v=20261106-3"><b>Unit 16</b><span>17 字｜conscientious → zenith｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-17.html?v=20261106-3"><b>Unit 17</b><span>17 字｜abysmal → nominal｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-18.html?v=20261106-3"><b>Unit 18</b><span>17 字｜absurd → swift｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-19.html?v=20261106-3"><b>Unit 19</b><span>17 字｜coherent → varied｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-20.html?v=20261106-3"><b>Unit 20</b><span>17 字｜accentuate → streamline｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-21.html?v=20261106-3"><b>Unit 21</b><span>17 字｜affluent → vanishing｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-22.html?v=20261106-3"><b>Unit 22</b><span>16 字｜account → provoke｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-23.html?v=20261106-3"><b>Unit 23</b><span>16 字｜allusion → teeming｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-24.html?v=20261106-3"><b>Unit 24</b><span>16 字｜affordable → tedious｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-25.html?v=20261106-3"><b>Unit 25</b><span>16 字｜briefly → upstanding｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-26.html?v=20261106-3"><b>Unit 26</b><span>16 字｜abolish → striking｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-27.html?v=20261106-3"><b>Unit 27</b><span>16 字｜aptly → tangible｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-28.html?v=20261106-3"><b>Unit 28</b><span>16 字｜aggravating → underestimated｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-29.html?v=20261106-3"><b>Unit 29</b><span>16 字｜acknowledge → vast｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+        <a class="quiz" href="toefl-essential-words/unit-30.html?v=20261106-3"><b>Unit 30</b><span>16 字｜charisma → woo｜單字庫＋2 篇 Complete the Words</span><em>開始練習 →</em></a>
+      </div>
+    </div></details></div>
+    <div id="vocab-sat" class="vocab-stage"><h3><span>7</span>SAT</h3>
+      <div class="external-card"><a class="quiz" href="https://jenniferenglishteacher.github.io/Barron-s-1100-words-webpage-new/" target="_blank" rel="noopener"><b>Barron’s 1100 Words｜SAT Vocabulary</b><span>外部單字學習網站｜另開新分頁</span><em>開啟 SAT 單字 →</em></a></div>
+    </div>
+  </section>
+
+  <section id="grammar" class="zone"><h2 class="zone-title">國小國中高中 Grammar 文法</h2>
+<details class="publisher" data-search="國小 國中 高中 Grammar 文法 KCIS Grade 1 G1 Grade 4 G4 Grade 5 G5 Grade 6 G6 grammar verb patterns gerund infinitive make have let ask get tell see hear watch listen to p.p. 使役動詞 感官動詞 not to V G1-G6文法 be verbs singular plural nouns present simple continuous past mixed tenses active passive voice to V V-ing VR typhoon 時態 主動 被動 不定詞 動名詞 原形動詞 單數 複數 名詞 標點 逗號 comma conjunction fanboys 從屬連接詞 形容詞 比較級 最高級 comparative superlative">
       <summary><span>國小國中高中 Grammar 文法</span><small>72 份完整練習</small></summary><div class="content"><div class="grid">
         <a class="quiz" href="grammar-capitalization-proper-nouns.html?v=20261030-1"><b>Capitalization of Proper Nouns</b><span>40 題｜專有名詞大寫改錯｜局部修正遊戲</span><em>開始遊戲 →</em></a>
         <a class="quiz" href="grammar-subject-object-pronouns.html?v=20261030-1"><b>Subject and Object Pronouns</b><span>40 題｜主格與受格代名詞替換</span><em>開始遊戲 →</em></a>
@@ -766,7 +892,7 @@
         <a class="quiz" href="kcis-g1-be-verb-mock-tests.html"><b>G1 Be Verb Mock Tests</b><span>298 題｜台灣新聞與節慶主題｜肯定、否定、縮寫與問句</span><em>開始練習 →</em></a>
         <a class="quiz" href="kcis-g1-plurals-be-verbs.html"><b>G1 Singular / Plural Nouns＋Be Verbs</b><span>123 題｜原 120Q＋3 題加題｜代名詞與否定縮寫</span><em>開始練習 →</em></a>
         <a class="quiz" href="kcis-g4-fall-cet-be-verbs.html?v=20261031-1"><b>KCIS G4 Fall CET Grammar</b><span>85 題｜be 動詞現在式與過去式・問句・that/those・所有格・地方介系詞</span><em>開始練習 →</em></a>
-        <details class="grammar-subgroup" open data-search="passive voice 被動語態 active passive 13 types typhoon"><summary><span>Passive Voice 被動語態</span><small>14 個子分類｜355 題</small></summary><div class="subgroup-content"><div class="grid">
+        <details class="grammar-subgroup" data-search="passive voice 被動語態 active passive 13 types typhoon"><summary><span>Passive Voice 被動語態</span><small>14 個子分類｜355 題</small></summary><div class="subgroup-content"><div class="grid">
         <a class="quiz" href="kcis-g5-past-simple-active-passive.html?v=20261030-2"><b>情境綜合｜Past Simple Active &amp; Passive</b><span>30 題｜Typhoon Day 故事、語態選擇與整句改寫</span><em>開始練習 →</em></a>
         <a class="quiz" href="passive-voice-13-types.html?group=1&amp;v=20261030-1"><b>Passive Voice Type 1｜Present Simple</b><span>25 題｜am / is / are + p.p.</span><em>開始練習 →</em></a>
         <a class="quiz" href="passive-voice-13-types.html?group=2&amp;v=20261030-1"><b>Passive Voice Type 2｜Past Simple</b><span>25 題｜was / were + p.p.</span><em>開始練習 →</em></a>
@@ -789,7 +915,7 @@
         <a class="quiz" href="kcis-g6-mixed-four-tenses.html"><b>Mix Present Simple / Present Continuous / Past Simple / Past Continuous</b><span>67 題｜四種時態綜合｜Part 3 全題</span><em>開始練習 →</em></a>
         <a class="quiz" href="comma-conjunctions-fanboys.html"><b>Comma or No Comma?｜FANBOYS 與從屬連接詞</b><span>100 題｜逗號判斷｜四大規則＋例句表</span><em>開始測驗 →</em></a>
         <a class="quiz" href="adjective-comparative-superlative.html"><b>形容詞比較級與最高級</b><span>文法補充練習</span><em>開始測驗 →</em></a>
-        <details class="grammar-subgroup" open data-search="國中會考 會考 歷屆試題 文法 CAP 時態 there be used to 省略句 附加問句 被動 動詞形式 使役 感官 spend cost take 代名詞 another the other 形容詞 比較級 副詞 too enough so that 名詞子句 連接詞 詞彙 片語 介係詞 關係代名詞 克漏字 類似題 115 錯題 複習講義 閱讀測驗"><summary><span>國中會考文法歷屆試題（至 115 年）</span><small>22 個分類｜611 題（歷屆＋講義錯題）＋1833 題類似題</small></summary><div class="subgroup-content"><div class="grid">
+        <details class="grammar-subgroup" data-search="國中會考 會考 歷屆試題 文法 CAP 時態 there be used to 省略句 附加問句 被動 動詞形式 使役 感官 spend cost take 代名詞 another the other 形容詞 比較級 副詞 too enough so that 名詞子句 連接詞 詞彙 片語 介係詞 關係代名詞 克漏字 類似題 115 錯題 複習講義 閱讀測驗"><summary><span>國中會考文法歷屆試題（至 115 年）</span><small>22 個分類｜611 題（歷屆＋講義錯題）＋1833 題類似題</small></summary><div class="subgroup-content"><div class="grid">
         <a class="quiz" href="cap-grammar-all.html?v=20261106-3"><b>🧩 全部主題綜合練習</b><span>2444 題｜22 個主題｜可選單一主題／隨機 20 題／全部｜隨時結束→下載 DOCX 錯題</span><em>開始練習 →</em></a>
         <a class="quiz" href="cap-review-book-mistakes.html?v=20261106-3"><b>⭐ 會考複習講義錯題整理</b><span>87 題｜分三區：單題 66／克漏字 4／閱讀測驗 17｜附完整文章與中文解析</span><em>開始練習 →</em></a>
         <a class="quiz" href="cap-grammar-01-tense.html?v=20261106-3"><b>時態＋整句結構</b><span>77 題（會考歷屆＋講義錯題）＋231 題類似題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
@@ -815,7 +941,7 @@
         <a class="quiz" href="cap-grammar-21-relative-pronouns.html?v=20261106-3"><b>關係代名詞</b><span>19 題（會考歷屆＋講義錯題）＋57 題類似題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
         <a class="quiz" href="cap-grammar-22-cloze-mixed.html?v=20261106-3"><b>綜合（克漏字）</b><span>96 題（會考歷屆＋講義錯題）＋288 題類似題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
         </div></div></details>
-        <details class="grammar-subgroup" open data-search="國中 國小 文法 會考 時態 陷阱 there be it is they are 省略句 附加問句 所有格代名詞 主動 被動 動詞形式 Ving to V p.p. VR 感官動詞 對等 lend borrow spend take cost pay 授予動詞 形容詞 副詞 Gemini"><summary><span>國中小文法互動練習（9 主題）</span><small>9 份測驗｜357 題</small></summary><div class="subgroup-content"><div class="grid">
+        <details class="grammar-subgroup" data-search="國中 國小 文法 會考 時態 陷阱 there be it is they are 省略句 附加問句 所有格代名詞 主動 被動 動詞形式 Ving to V p.p. VR 感官動詞 對等 lend borrow spend take cost pay 授予動詞 形容詞 副詞 Gemini"><summary><span>國中小文法互動練習（9 主題）</span><small>9 份測驗｜357 題</small></summary><div class="subgroup-content"><div class="grid">
         <a class="quiz" href="gem-grammar-01-tense-traps.html?v=20261106-3"><b>時態陷阱模擬試題</b><span>29 題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
         <a class="quiz" href="gem-grammar-02-there-be.html?v=20261106-3"><b>There + be 動詞</b><span>34 題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
         <a class="quiz" href="gem-grammar-03-there-be-vs-it-they.html?v=20261106-3"><b>There + be 或 It is / They are</b><span>20 題｜四選一｜附中文解析</span><em>開始練習 →</em></a>
@@ -828,124 +954,18 @@
         </div></div></details>
       </div></div>
     </details>
-    <details class="publisher" open data-search="國中會考 會考 單字 片語 一字多義 動詞片語 be動詞 形容詞片語 介系詞片語 副詞片語 連接詞片語 名詞片語 數量詞 慣用語 句型 轉折詞 transition words 選擇題 MCQ"><summary><span>國中會考單字片語</span><small>10 個分類｜1083 題選擇題</small></summary><div class="content"><div class="grid">
-        <a class="quiz" href="cap-vocab-all.html?v=20261106-3"><b>🧩 全部主題綜合練習</b><span>1083 題｜10 個主題｜可選單一主題／隨機 20 題／全部｜隨時結束→下載 DOCX 錯題</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-01-polysemy.html?v=20261106-3"><b>一字多義 Polysemy</b><span>先教學：688 筆詞彙表｜再測驗：230 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-02-verb-phrases.html?v=20261106-3"><b>動詞片語 Verb Phrases</b><span>先教學：1031 筆詞彙表｜再測驗：344 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-03-be-adj-phrases.html?v=20261106-3"><b>be動詞+形容詞片語 be + Adjective Phrases</b><span>先教學：124 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-04-adjective-phrases.html?v=20261106-3"><b>形容詞片語 Adjective Phrases</b><span>先教學：43 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-05-prepositional-phrases.html?v=20261106-3"><b>介系詞片語 Prepositional Phrases</b><span>先教學：53 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-06-adverb-phrases.html?v=20261106-3"><b>副詞片語 Adverb Phrases</b><span>先教學：259 筆詞彙表｜再測驗：87 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-07-conjunction-phrases.html?v=20261106-3"><b>連接詞片語 Conjunction Phrases</b><span>先教學：23 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-08-noun-phrases.html?v=20261106-3"><b>名詞片語（含數量詞） Noun &amp; Quantity Phrases</b><span>先教學：176 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-09-expressions-patterns.html?v=20261106-3"><b>慣用語與句型 Expressions &amp; Sentence Patterns</b><span>先教學：148 筆詞彙表｜再測驗：60 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-        <a class="quiz" href="cap-vocab-10-transition-words.html?v=20261106-3"><b>轉折詞 Transition Words</b><span>先教學：185 筆詞彙表｜再測驗：62 題四選一｜附答案與中譯</span><em>開始練習 →</em></a>
-    </div></div></details>
-    <details class="publisher" open data-search="國中小 基礎 1200 單字 主題 分類 Q&A 朗讀 STT 成績"><summary><span>國中小基礎1200單字</span><small>37 主題｜1,331 筆新版 Q&amp;A</small></summary><div class="content"><div class="grid">
-      <a class="quiz" href="basic-1200-vocabulary-themes.html?v=20261105-1"><b>國中小基礎1200單字｜主題分類 Q&amp;A 填空</b><span>02–37 全面更新｜即時批改｜整句朗讀｜選做 STT｜成績登錄</span><em>開始練習 →</em></a>
-    </div></div></details>
-    <details class="publisher" open data-search="國中小 進階 800 字 單字 例句 填空 A-Z"><summary><span>國中小進階800字</span><small>804 筆｜A–Z 字首分類</small></summary><div class="content"><div class="grid">
-      <a class="quiz" href="advanced-800-vocabulary-examples.html?v=20261105-2"><b>國中小進階800字｜單字例句填空</b><span>單字發音｜完整例句播放｜選做 STT｜動詞與名詞變化｜錯題下載</span><em>開始練習 →</em></a>
-    </div></div></details>
-    <details class="publisher" data-search="翰林 book 1 b1"><summary><span>翰林 Book 1</span><small>尚未建立</small></summary><div class="content"><div class="empty">目前尚未建立翰林 Book 1 測驗。</div></div></details>
-    <details class="publisher" open data-search="翰林 book 4 b4"><summary><span>翰林 Book 4（既有測驗）</span><small>28 份測驗</small></summary><div class="content">
-      <div class="unit" data-search="翰林 b4u1 dialogue reading grammar translation fill blanks"><h3>B4U1</h3><div class="grid">
-        <a class="quiz" href="index.html"><b>Dialogue 課文填空</b><span>課文填空與朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U1-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U1-grammar-mcq.html"><b>文法選擇</b><span>單元文法</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U1-reading.html"><b>Reading</b><span>閱讀課文練習</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U1-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="翰林 b4u2 dialogue reading grammar translation spelling fill blanks"><h3>B4U2</h3><div class="grid">
-        <a class="quiz" href="B4U2-dialogue.html"><b>Dialogue 課文填空</b><span>對話課文與朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U2-reading.html"><b>Reading 課文填空</b><span>閱讀課文與朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U2-fill-in-blanks.html"><b>綜合填空</b><span>句子填空</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U2-spelling.html"><b>單字拼字</b><span>第六大題</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U2-grammar-mcq.html"><b>文法選擇</b><span>第二大題</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U2-translation.html"><b>翻譯</b><span>中翻英練習</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="翰林 b4u3 dialogue reading cocoa children 課文填空 字彙選擇 文法選擇 對話 完成句子 文意字彙 填充 看圖回答 題庫 單字例句 發音測驗 pronunciation"><h3>B4U3</h3><div class="grid">
-        <a class="quiz" href="B4U3-dialogue.html"><b>Dialogue 課文填空</b><span>18 題｜農場動物與權利｜整句朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-reading.html"><b>Reading 課文填空</b><span>15 題｜Cocoa Children｜整句朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-vocabulary-mcq.html"><b>第一大題｜字彙選擇</b><span>50 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-grammar-mcq.html"><b>第二大題｜文法選擇</b><span>48 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-dialogue-completion.html"><b>第三大題｜對話與完成句子</b><span>41 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-context-vocabulary.html"><b>第六大題｜文意字彙</b><span>40 題｜拼字填空｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-fill-in-blanks.html"><b>第七大題｜填充題</b><span>10 大題｜逐格作答｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-picture-questions.html"><b>第八大題｜看圖回答問題</b><span>15 題｜完整句作答｜原題圖片</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U3-vocabulary-examples-pronunciation.html"><b>單字例句・發音測驗</b><span>369 組｜講義例句｜麥克風發音評分</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="翰林 b4u4 dialogue reading rescue dogs 課文填空 字彙選擇 文法選擇 對話 完成句子 文意字彙 填充 看圖回答 題庫"><h3>B4U4</h3><div class="grid">
-        <a class="quiz" href="B4U4-dialogue.html"><b>Dialogue 課文填空</b><span>20 題｜颱風來臨｜整句朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-reading.html"><b>Reading 課文填空</b><span>12 題｜Rescue Dogs｜整句朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-vocabulary-mcq.html"><b>第一大題｜字彙選擇</b><span>40 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-grammar-mcq.html"><b>第二大題｜文法選擇</b><span>42 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-dialogue-completion.html"><b>第三大題｜對話與完成句子</b><span>40 題｜四選一｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-context-vocabulary.html"><b>第六大題｜文意字彙</b><span>40 題｜拼字填空｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-fill-in-blanks.html"><b>第七大題｜填充題</b><span>21 大題｜逐格作答｜附解析</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="B4U4-picture-questions.html"><b>第八大題｜看圖回答問題</b><span>15 題｜完整句作答｜原題圖片</span><em>開始測驗 →</em></a>
-      </div></div>
-    </div></details>
-    <details class="publisher" open data-search="康軒 國中 book 1 b1 dialogue reading 句子重組 整句式翻譯 填充"><summary><span>康軒國中 Book 1</span><small>23 份測驗</small></summary><div class="content">
-      <div class="unit" data-search="康軒 國中 b1u1 book 1"><h3>B1U1</h3><div class="grid">
-        <a class="quiz" href="kangxuan-b1u1-context-vocabulary.html"><b>文意字彙</b><span>38 題｜拼字填空</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u1-vocabulary-mcq.html"><b>字彙測驗</b><span>48 題｜四選一</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u1-grammar-mcq.html"><b>文法測驗</b><span>70 題｜四選一</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u1-guided-answers.html"><b>依提示回答問題</b><span>22 題｜整句作答</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u1-dialogue.html"><b>Dialogue 課文填空</b><span>22 題｜對話課文與朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u1-reading.html"><b>Reading 課文填空</b><span>19 題｜閱讀課文與朗讀</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="康軒 國中 b1u2 book 1"><h3>B1U2</h3><div class="grid">
-        <a class="quiz" href="kangxuan-b1u2-context-vocabulary.html"><b>文意字彙</b><span>30 題｜拼字填空</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u2-vocabulary-mcq.html"><b>字彙測驗</b><span>47 題｜四選一</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u2-grammar-mcq.html"><b>文法測驗</b><span>78 題｜四選一</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u2-guided-answers.html"><b>依提示回答問題</b><span>28 題｜整句作答</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u2-dialogue.html"><b>Dialogue 課文填空</b><span>18 題｜對話課文與朗讀</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u2-reading.html"><b>Reading 課文填空</b><span>12 題｜閱讀課文與朗讀</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="康軒 國中 book 1 b1u3 文意字彙 字彙測驗 文法測驗 依提示回答問題 句子重組 整句式翻譯 填充"><h3>B1U3</h3><div class="grid">
-        <a class="quiz" href="kangxuan-b1u3-context-vocabulary.html?v=20261029-1"><b>文意字彙</b><span>39 題｜第一大題｜拼字填空｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-vocabulary-mcq.html?v=20261029-1"><b>字彙測驗</b><span>43 題｜第二大題｜四選一｜含看圖題</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-grammar-mcq.html?v=20261029-1"><b>文法測驗</b><span>77 題｜第三大題｜四選一｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-guided-answers.html?v=20261029-1"><b>依提示回答問題</b><span>21 題｜第七大題｜完整句作答｜保留畫線提示</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-reorder.html?v=20261029-2"><b>句子重組</b><span>8 題｜第八大題｜完整句作答｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-translation.html?v=20261029-2"><b>整句式翻譯</b><span>14 題｜第九大題｜完整句作答｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u3-fill.html?v=20261029-2"><b>填充</b><span>38 大題｜第十大題｜多格分開批改｜含 6 組看圖題</span><em>開始測驗 →</em></a>
-      </div></div>
-      <div class="unit" data-search="康軒 國中 book 1 b1u4 文意字彙 字彙測驗 文法測驗 依提示回答問題"><h3>B1U4</h3><div class="grid">
-        <a class="quiz" href="kangxuan-b1u4-context-vocabulary.html?v=20261106-2"><b>文意字彙</b><span>34 題｜第一大題｜拼字填空｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u4-vocabulary-mcq.html?v=20261106-2"><b>字彙測驗</b><span>46 題｜第二大題｜四選一｜含看圖題</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u4-grammar-mcq.html?v=20261106-2"><b>文法測驗</b><span>38 題｜第三大題｜四選一｜附詳解</span><em>開始測驗 →</em></a>
-        <a class="quiz" href="kangxuan-b1u4-guided-answers.html?v=20261106-2"><b>依提示回答問題</b><span>28 題｜第七大題｜完整句作答｜保留畫線提示</span><em>開始測驗 →</em></a>
-      </div></div>
-    </div></details>
-    <details class="publisher" open data-search="國中 2000 單字 food sports leisure"><summary><span>國中補充題庫</span><small>2 份測驗</small></summary><div class="content"><div class="grid">
-      <a class="quiz" href="junior-2000-food-vocabulary/"><b>國中 2000 字：Food</b><span>食物、蔬果、烹飪與餐具</span><em>開始測驗 →</em></a>
-      <a class="quiz" href="junior-2000-sports-leisure-activities.html"><b>國中 2000 字：Sports & Leisure</b><span>文法、拼字與完整句朗讀</span><em>開始測驗 →</em></a>
-    </div></div></details>
   </section>
 
-  <section id="jiren" class="zone"><h2 class="zone-title">及人國小</h2>
-    <details class="publisher" open data-search="及人 及人國小 G3 grade 3 fall midterm 期中 Big English 3 unit 1 unit 2 daily activities jobs occupations workplaces 單字 文法 選擇 重組 問答">
-      <summary><span>G3 fall midterm</span><small>Big English 3 U1–U2｜120 題</small></summary><div class="content"><div class="grid">
-        <a class="quiz" href="jiren-g3-fall-midterm.html"><b>G3 fall midterm｜Big English 3 Units 1–2</b><span>120 題｜單字填空・單字選擇・情境用語・文法選擇・重組句子・問與答</span><em>開始練習 →</em></a>
-      </div></div>
-    </details>
-    <details class="publisher" open data-search="及人 及人國小 G6 grade 6 fall midterm 期中 mock test version 2 English Time 6 unit 1 2 3 My Next Grammar 3 Reading Success 1 comparatives superlatives similes as as negative questions sense verbs seem 比較級 最高級 否定疑問句 感官動詞 閱讀">
-      <summary><span>及人國小G6 fall midterm</span><small>English Time 6 U1–3・My Next Grammar 3・Reading Success 1｜159 題</small></summary><div class="content"><div class="grid">
-        <a class="quiz" href="jiren-g6-fall-midterm.html?v=20261106-3"><b>G6 fall midterm｜Mock Test Version 2</b><span>159 題｜拼字・單字選擇・購物對話・比較級表格・as…as・否定疑問句・感官動詞・重組・改錯・5 篇閱讀・完整句作答</span><em>開始練習 →</em></a>
+  <section id="travel-english" class="zone"><h2 class="zone-title">Travel English</h2>
+<details class="publisher" data-search="travel daily conversation english TOEIC listening cell phone mobile phone USA buying repairing phones 美國 買手機 修手機 生活會話 聽力 填空 閱讀 選擇">
+      <summary><span>Buying &amp; Repairing Phones in the U.S.</span><small>4 篇對話｜110 格填空＋20 題閱讀</small></summary><div class="content"><div class="grid">
+        <a class="quiz" href="toeic-phone-usa.html?v=20261029-1"><b>在美國買手機與修手機</b><span>4 個情境｜原始 MP3｜聽力填空｜閱讀選擇｜即時訂正與成績紀錄</span><em>開始練習 →</em></a>
       </div></div>
     </details>
   </section>
 
-  <section id="other" class="zone"><h2 class="zone-title">其他高中英文專題</h2>
-    <details class="publisher" open data-search="Henry 靜心 Module 2 Week 2 Week 3 vocabulary worksheet 改錯 單字 選擇 配對 閱讀">
-      <summary><span>Henry 靜心｜Vocabulary Worksheets</span><small>2 份完整練習</small></summary><div class="content"><div class="grid">
-        <a class="quiz" href="henry-m2w2-vocabulary-worksheet.html"><b>Module 2 Week 2 Vocabulary Worksheet</b><span>10 篇改錯｜46 題單字選擇｜配對・填空・完整句・閱讀</span><em>開始練習 →</em></a>
-        <a class="quiz" href="henry-m2w3-vocabulary-worksheet.html"><b>Module 2 Week 3 Vocabulary Worksheet</b><span>7 篇改錯｜21 題單字選擇｜配對・填空・完整句・閱讀</span><em>開始練習 →</em></a>
-      </div></div>
-    </details>
-    <details class="publisher" open data-search="其他 高中 專題 unit 11 13 writing school ai"><summary><span>完整測驗與主題寫作</span><small>6 份測驗</small></summary><div class="content"><div class="grid">
+  <section id="other" class="zone"><h2 class="zone-title">其他</h2>
+<details class="publisher" data-search="其他 高中 專題 unit 11 13 writing school ai"><summary><span>完整測驗與主題寫作</span><small>6 份測驗</small></summary><div class="content"><div class="grid">
       <a class="quiz" href="Unit11-A-Healthy-Future-full-test.html"><b>Unit 11：A Healthy Future</b><span>完整測驗</span><em>開始測驗 →</em></a>
       <a class="quiz" href="Unit13-Mixed-Feelings-full-test.html"><b>Unit 13：Mixed Feelings</b><span>完整測驗</span><em>開始測驗 →</em></a>
       <a class="quiz" href="AI-generated-actors-and-dramas.html"><b>AI-generated Actors and Dramas</b><span>主題英文</span><em>開始測驗 →</em></a>
