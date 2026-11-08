@@ -695,7 +695,7 @@ body {
     AWL Academic Word List · AWL Sublist 2
   </div>
   <h1 class="splash-title">AWL<br><em>Quiz</em></h1>
-  <p class="splash-sub">Fill-in-the-Blank &nbsp;·&nbsp; TTS &nbsp;·&nbsp; Online Dictionary</p>
+  <p class="splash-sub">Fill-in-the-Blank &nbsp;·&nbsp; Choose your range 選擇範圍</p>
 
   <div class="splash-card">
     <label class="field-label" for="nameInput">
@@ -704,19 +704,14 @@ body {
     <input class="name-input" type="text" id="nameInput"
            placeholder="Type your name / 請輸入姓名…" autocomplete="off">
 
-    <div id="totalCountDisplay" style="
-      text-align:center;
-      padding: 0.75rem 0;
-      margin-bottom: 1.4rem;
-      background: var(--color-surface);
-      border-radius: var(--radius-sm);
-      font-size: 0.88rem;
-      color: var(--color-muted);
-      border: 1px solid var(--color-border);
-    ">
-      <i class="fas fa-list-ol" style="color:var(--color-accent);margin-right:6px"></i>
-      All <strong id="poolCount" style="color:var(--color-primary)">0</strong> vocabulary entries will be tested
-      <br><span style="font-size:0.78rem;margin-top:3px;display:block">全部單字皆會出題，隨機排列</span>
+    <div id="totalCountDisplay" style="padding:0.9rem 1rem;margin-bottom:1.4rem;background:var(--color-surface);border-radius:var(--radius-sm);font-size:0.9rem;color:var(--color-muted);border:1px solid var(--color-border);">
+      <label class="field-label" style="margin-bottom:0.5rem"><i class="fas fa-list-ol" style="color:var(--color-accent);margin-right:4px"></i> 測驗範圍 Range（編號與講義相同）</label>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:600;color:var(--color-primary)">
+        From # <input id="rangeFrom" type="number" inputmode="numeric" min="1" style="width:76px;padding:8px;border:2px solid var(--color-border);border-radius:8px;font-size:1rem;text-align:center">
+        To # <input id="rangeTo" type="number" inputmode="numeric" min="1" style="width:76px;padding:8px;border:2px solid var(--color-border);border-radius:8px;font-size:1rem;text-align:center">
+        <span style="font-weight:400;color:var(--color-muted)">/ <strong id="poolCount">0</strong></span>
+      </div>
+      <div id="rangeNote" style="margin-top:6px;font-size:0.8rem">共 <b id="rangeCount">0</b> 題，隨機排列</div>
     </div>
 
     <button class="start-btn" onclick="startQuiz()">
@@ -3297,9 +3292,56 @@ function renderPassage(text) {
 }
 
 // Show pool count on splash load
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("poolCount").textContent = QUESTION_POOL.length;
-});
+
+
+// ══════════════════════════════════════════════════════
+//  RANGE (numbers match the printed handout grid)
+// ══════════════════════════════════════════════════════
+let RANGE = null;
+function getRange() {
+  const T = QUESTION_POOL.length;
+  let a = parseInt(document.getElementById("rangeFrom").value, 10), b = parseInt(document.getElementById("rangeTo").value, 10);
+  if (!a && !b) { a = 1; b = T; }
+  if (!a || !b) return null;
+  a = Math.max(1, Math.min(T, a)); b = Math.max(1, Math.min(T, b));
+  return a <= b ? [a, b] : [b, a];
+}
+function rangeLabel() { return RANGE && !(RANGE[0] === 1 && RANGE[1] === QUESTION_POOL.length) ? ` #${RANGE[0]}-${RANGE[1]}` : ""; }
+function updateRangeCount() {
+  const r = getRange(); document.getElementById("rangeCount").textContent = r ? (r[1] - r[0] + 1) : 0;
+  document.querySelectorAll('a[href*="awl-learn.html"]').forEach(l => { l.href = `awl-learn.html?sublist=${SUBLIST_NO}` + (r ? `&from=${r[0]}&to=${r[1]}` : ""); });
+}
+const SUBLIST_NO = parseInt(UNIT_NAME.replace(/\D/g, ""), 10);
+(function initRange() {
+  const T = QUESTION_POOL.length, q = new URLSearchParams(location.search);
+  const f = document.getElementById("rangeFrom"), t = document.getElementById("rangeTo");
+  f.max = t.max = T; f.value = parseInt(q.get("from"), 10) || 1; t.value = parseInt(q.get("to"), 10) || T;
+  document.getElementById("poolCount").textContent = T;
+  f.addEventListener("input", updateRangeCount); t.addEventListener("input", updateRangeCount);
+  updateRangeCount();
+})();
+
+// ══════════════════════════════════════════════════════
+//  RELIABLE SENDING (iPad/Safari-safe): sendBeacon + text/plain, offline queue
+// ══════════════════════════════════════════════════════
+const AWL_QUEUE_KEY = "awlQuizResultQueueV1";
+function sendPayload(payload) {
+  const body = JSON.stringify(payload);
+  try {
+    if (navigator.sendBeacon && navigator.sendBeacon(SCRIPT_URL, new Blob([body], { type: "text/plain;charset=utf-8" }))) return Promise.resolve(true);
+  } catch (e) {}
+  return fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", cache: "no-store", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body }).then(() => true);
+}
+function queuePayload(p) { try { const q = JSON.parse(localStorage.getItem(AWL_QUEUE_KEY) || "[]"); q.push(p); localStorage.setItem(AWL_QUEUE_KEY, JSON.stringify(q.slice(-50))); } catch (e) {} }
+async function flushQueue() {
+  let q = []; try { q = JSON.parse(localStorage.getItem(AWL_QUEUE_KEY) || "[]"); } catch (e) {}
+  if (!q.length || !navigator.onLine) return;
+  const left = [];
+  for (const p of q) { try { await sendPayload(p); } catch (e) { left.push(p); } }
+  try { localStorage.setItem(AWL_QUEUE_KEY, JSON.stringify(left)); } catch (e) {}
+}
+window.addEventListener("online", flushQueue);
+setTimeout(flushQueue, 1500);
 
 // ══════════════════════════════════════════════════════
 //  START QUIZ  — uses ALL entries, shuffled
@@ -3308,7 +3350,11 @@ function startQuiz() {
   studentName = document.getElementById("nameInput").value.trim();
   if (!studentName) { alert("Please enter your name first! 請先輸入姓名！"); return; }
 
-  questions = shuffle(QUESTION_POOL);   // ALL entries in random order
+  const rg = getRange();
+  if (!rg) { alert("請輸入正確範圍 Please enter a valid range (1–" + QUESTION_POOL.length + ")."); return; }
+  RANGE = rg;
+  try { const p = JSON.parse(localStorage.getItem('jenniferQuizStudentProfileV1') || '{}'); p.studentName = studentName; localStorage.setItem('jenniferQuizStudentProfileV1', JSON.stringify(p)); } catch (e) {}
+  questions = shuffle(QUESTION_POOL.slice(rg[0] - 1, rg[1]));   // only the selected range, random order
   totalQ    = questions.length;
   currentQ  = 0; score = 0; answered = false; wrongWords = []; lookedUp = new Set();
 
@@ -3748,28 +3794,28 @@ async function submitResults(pct) {
   const st = document.getElementById("submitStatus");
   st.className = "submit-status status-sending show";
   st.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Submitting results… 成績送出中…`;
-
   const payload = {
     timestamp:    new Date().toISOString(),
     studentName:  studentName,
-    subunitName:  UNIT_NAME,
+    subunitName:  UNIT_NAME + rangeLabel(),
     scorePercent: pct,
     wrongWords:   [...new Set(wrongWords)],
     lookedUpWords:[...lookedUp]
   };
-
+  if (!navigator.onLine) {
+    queuePayload(payload);
+    st.className = "submit-status status-err show";
+    st.innerHTML = `<i class="fas fa-wifi"></i> 目前沒有網路，成績已暫存，連上網路後會自動送出。Offline — saved and will be sent when you are back online.`;
+    return;
+  }
   try {
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode:   "no-cors",
-      headers:{ "Content-Type": "application/json" },
-      body:   JSON.stringify(payload)
-    });
+    await sendPayload(payload);
     st.className = "submit-status status-ok show";
     st.innerHTML = `<i class="fas fa-circle-check"></i> Results submitted! 成績已成功送出！`;
   } catch(e) {
+    queuePayload(payload);
     st.className = "submit-status status-err show";
-    st.innerHTML = `<i class="fas fa-circle-exclamation"></i> Could not submit. Please check your internet connection.`;
+    st.innerHTML = `<i class="fas fa-circle-exclamation"></i> 送出失敗，成績已暫存，下次開啟測驗時會自動重送。Could not submit — saved and will retry next time.`;
   }
 }
 
@@ -3781,7 +3827,7 @@ function restartQuiz() {
   document.getElementById("quizArea").style.display = "block";
   document.getElementById("quizScreen").style.display = "none";
   document.getElementById("splashScreen").style.display = "flex";
-  document.getElementById("nameInput").value = "";
+  updateRangeCount();
 }
 
 // Prefill name from dashboard profile
@@ -3793,6 +3839,6 @@ if (document.getElementById("poolCount")) {
   document.getElementById("poolCount").textContent = QUESTION_POOL.length;
 }
 </script>
-<script src="../mistake-kit.js?v=20261106-3"></script><script src="awl-mistake-adapter.js?v=20261106-3"></script>
+<script src="../mistake-kit.js?v=20261106-3"></script><script src="awl-mistake-adapter.js?v=20261109-1"></script>
 </body>
 </html>
