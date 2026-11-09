@@ -115,7 +115,7 @@ function init(DATA){
   const $ = id => document.getElementById(id);
   const KEY = 'b4LearnV1-unit-' + N;
   document.title = '4000 Words Book 4 Unit ' + N + ' – Learning 學習區';
-  $('title').innerHTML = 'Book 4 · Unit ' + N + '<small>學習區 · ' + TOTAL + ' 字</small>';
+  $('title').innerHTML = 'Book 4 · Unit ' + N + '<small>' + (DATA.title ? String(DATA.title).replace(/[<>&]/g, '') + ' · ' : '') + '學習區 · ' + TOTAL + ' 字</small>';
 
   const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const stripNotes = w => w.replace(/\([^)]*\)/g, ' ').replace(/[　-鿿＀-￯]+/g, ' ').replace(/\+\s*N\b/g, ' ').replace(/\s+/g, ' ').trim();
