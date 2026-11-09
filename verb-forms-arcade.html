@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>動詞三態闖關 Verb Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800;900&display=swap">
+<style>
+/* Layout: game-show console. A felt-green stage band on top (score + progress pips), a paper card for each question below, mini-games open as a stage overlay. */
+:root{
+  --felt:#0f5747;        /* stage band */
+  --felt-deep:#0a3f34;
+  --paper:#fffdf7;       /* question card */
+  --ground:#eef3ef;      /* page */
+  --ink:#1d2a26;
+  --muted:#5f716b;
+  --line:#d5e0da;
+  --gold:#f2b632;        /* score + highlight */
+  --gold-deep:#b9820f;
+  --coral:#e2574c;       /* wrong */
+  --mint:#1f9d6b;        /* right */
+  --sky:#2f6fd6;         /* chosen chips */
+  --display:"Lilita One","Arial Rounded MT Bold","Microsoft JhengHei",sans-serif;
+  --body:"Nunito","Noto Sans TC","Microsoft JhengHei","PingFang TC",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ground)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+button{font:inherit;color:inherit}
+.hidden{display:none!important}
+.stage{background:radial-gradient(120% 140% at 50% 0%,#17725d 0%,var(--felt) 45%,var(--felt-deep) 100%);color:#fff;padding-block:18px 22px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.stage-in{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand a{color:#cfe8df;font-size:14px;text-decoration:none;font-weight:800}
+.brand a:hover{color:#fff}
+h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,42px);letter-spacing:.5px;line-height:1.1;text-wrap:balance}
+h1 small{display:block;font-family:var(--body);font-size:15px;font-weight:800;color:#cfe8df;letter-spacing:0;margin-top:4px}
+.scoreboard{display:flex;gap:10px;align-items:stretch}
+.tile{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px 14px;min-width:92px;text-align:center}
+.tile b{display:block;font-family:var(--display);font-weight:400;font-size:30px;line-height:1.1;color:var(--gold);font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;font-weight:800;letter-spacing:.06em;color:#cfe8df}
+.pips{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.pip{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);background:transparent;transition:background .2s,transform .2s}
+.pip.on{background:var(--gold);transform:scale(1.1)}
+main{max-width:980px;margin:0 auto;padding-block:18px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 6px 18px rgba(15,87,71,.07)}
+.panel h2{margin:0 0 4px;font-size:20px;font-weight:900;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.panel h2 em{font-style:normal;font-size:13px;font-weight:800;color:var(--muted)}
+.step{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--felt);color:#fff;font-family:var(--display);font-weight:400;font-size:16px;flex:none}
+.chips{display:grid;gap:10px;margin-top:12px}
+.chips.games{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.chips.grammar{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.chips.zones{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.chip{position:relative;text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:11px 13px 11px 44px;cursor:pointer;min-width:0;transition:border-color .15s,background .15s}
+.chip::before{content:"";position:absolute;left:13px;top:13px;width:20px;height:20px;border-radius:6px;border:2px solid #9fb3ab;background:#fff}
+.chip[aria-pressed="true"]{border-color:var(--sky);background:#f0f5ff}
+.chip[aria-pressed="true"]::before{background:var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3.2L15 7' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;border-color:var(--sky)}
+.chip:hover{border-color:#8fb0e8}
+.chip:focus-visible,.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.chip b{display:block;font-size:16px;font-weight:900;line-height:1.35}
+.chip span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px;line-height:1.45;overflow-wrap:anywhere}
+.chip .tag{display:inline-block;vertical-align:2px;margin-left:6px;font-size:11px;font-style:normal;font-weight:900;color:var(--felt);background:#e2f1ea;border-radius:999px;padding:1px 8px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:800;cursor:pointer;color:var(--felt)}
+.mini:hover{background:#eef7f2}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:8px 14px;font-weight:900;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--felt);color:#fff}
+.btn{border:0;border-radius:12px;padding:12px 20px;font-weight:900;font-size:16px;cursor:pointer;background:#e4ebe7;color:var(--ink)}
+.btn.go{background:var(--gold);color:#3a2a00;box-shadow:0 4px 0 var(--gold-deep)}
+.btn.go:active{transform:translateY(2px);box-shadow:0 2px 0 var(--gold-deep)}
+.btn.dark{background:var(--felt);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.warn{color:var(--coral);font-weight:800;font-size:14px}
+.start-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+/* question */
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.badge{display:inline-block;background:#e2f1ea;color:var(--felt);font-weight:900;font-size:13px;border-radius:999px;padding:3px 11px}
+.badge.zone{background:#fff3d6;color:#8a5b00}
+.qnum{font-family:var(--display);font-weight:400;font-size:18px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sentence{font-size:clamp(21px,3.4vw,28px);font-weight:800;line-height:1.55;margin:6px 0 4px;overflow-wrap:anywhere}
+.blank{display:inline-block;min-width:110px;border-bottom:3px solid var(--felt);text-align:center;color:var(--felt);padding:0 6px}
+.blank.right{color:var(--mint);border-color:var(--mint)}
+.blank.wrong{color:var(--coral);border-color:var(--coral)}
+.given{font-size:16px;color:var(--muted);font-weight:800;margin:0 0 6px}
+.hint{display:inline-block;font-size:15px;font-weight:900;color:#8a5b00;background:#fff3d6;border-radius:8px;padding:2px 10px;margin:4px 0 12px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{display:flex;gap:10px;align-items:center;text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;font-size:19px;font-weight:800;cursor:pointer;min-width:0;overflow-wrap:anywhere}
+.opt kbd{flex:none;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#eef3ef;font:900 14px var(--body);color:var(--muted)}
+.opt:hover:not(:disabled){border-color:var(--felt);background:#f4faf7}
+.opt.right{border-color:var(--mint);background:#e9f8f0}
+.opt.wrong{border-color:var(--coral);background:#fdeceb}
+.opt:disabled{cursor:default}
+.typebox{display:flex;gap:10px;flex-wrap:wrap}
+.typebox input{flex:1 1 220px;min-width:0;font:800 22px var(--body);padding:11px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.typebox input:focus{outline:none;border-color:var(--felt)}
+.feedback{margin-top:14px;border-radius:14px;padding:14px 16px;font-weight:700;line-height:1.65}
+.feedback.ok{background:#e9f8f0;border:1px solid #b9e6cf}
+.feedback.no{background:#fdeceb;border:1px solid #f4c4bf}
+.feedback strong{font-weight:900}
+.forms{display:inline-block;margin-top:6px;background:#fff;border-radius:8px;padding:2px 10px;font-weight:900;border:1px solid var(--line)}
+.qactions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:14px}
+.speak{display:inline-flex;align-items:center;gap:6px}
+.speak svg{width:18px;height:18px}
+/* summary */
+.statrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.stat{border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;background:#fff}
+.stat b{display:block;font-family:var(--display);font-weight:400;font-size:30px;color:var(--felt);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted);font-weight:800}
+.wrong-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.wrong-item{border-left:4px solid var(--coral);background:#fff;border-radius:8px;padding:9px 12px;font-size:15px}
+.wrong-item b{color:var(--mint)}
+/* overlay mini-games */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(6,32,26,.82);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow:auto}
+.arena{width:min(760px,100%);background:radial-gradient(130% 120% at 50% 0%,#17725d,var(--felt-deep));border:3px solid var(--gold);border-radius:22px;color:#fff;padding:20px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.arena h3{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(26px,5vw,36px);color:var(--gold);letter-spacing:.5px}
+.arena p{margin:6px 0 12px;color:#dcefe8;font-weight:800}
+.arena .result{font-family:var(--display);font-weight:400;font-size:28px;color:var(--gold);min-height:40px;margin-top:10px}
+.arena .btn{margin-top:10px}
+/* cards */
+.table{position:relative;height:190px;margin:10px auto 0;max-width:640px}
+.card{position:absolute;top:10px;width:18%;max-width:110px;aspect-ratio:2.5/3.5;perspective:800px;cursor:default;border:0;padding:0;background:transparent;transition:left .32s cubic-bezier(.5,0,.3,1)}
+.card .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .45s}
+.card.down .in{transform:rotateY(180deg)}
+.card .f,.card .b{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;display:grid;place-items:center}
+.card .f{background:#fffdf7;color:var(--felt-deep);border:3px solid var(--gold);font-family:var(--display);font-size:clamp(24px,5vw,38px)}
+.card .f.top{background:var(--gold);color:#3a2a00}
+.card .b{transform:rotateY(180deg);background:repeating-linear-gradient(45deg,#c8453b 0 8px,#b23a31 8px 16px);border:3px solid #fff}
+.card .b::after{content:"?";font-family:var(--display);font-size:34px;color:#fff}
+.card.pickable{cursor:pointer}
+.card.pickable:hover .in{transform:rotateY(180deg) translateY(-6px)}
+.card.picked{outline:4px solid var(--gold);border-radius:14px}
+/* wheel */
+.wheel-wrap{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:6px auto 0}
+.wheel-wrap canvas{width:100%;height:100%;transition:transform 3.2s cubic-bezier(.12,.7,.15,1)}
+.pointer{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:28px solid var(--gold);filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+/* moles */
+.mole-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:560px;margin:8px auto 0}
+.hole{position:relative;aspect-ratio:1.6;border-radius:50%/40%;background:radial-gradient(ellipse at 50% 70%,#06261f 0 55%,#0b3a30 56%);overflow:hidden}
+.mole{position:absolute;left:6%;right:6%;bottom:-100%;height:78%;border:0;border-radius:40% 40% 12% 12%;background:#d9a066;color:#3b220b;font-weight:900;font-size:clamp(12px,2.6vw,16px);line-height:1.2;padding:4px;cursor:pointer;transition:bottom .18s;overflow-wrap:anywhere}
+.mole.up{bottom:6%}
+.mole.hitok{background:var(--mint);color:#fff}
+.mole.hitbad{background:var(--coral);color:#fff}
+.timerbar{height:10px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;max-width:560px;margin:8px auto 0}
+.timerbar i{display:block;height:100%;background:var(--gold);width:100%}
+/* stopwatch */
+.clock{font-family:var(--display);font-size:clamp(56px,14vw,96px);color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.1;margin:8px 0}
+@media (max-width:620px){
+  .opts{grid-template-columns:1fr}
+  .statrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .scoreboard{width:100%}
+  .tile{flex:1;min-width:0}
+  .table{height:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<header class="stage">
+  <div class="stage-in">
+    <div class="brand">
+      <a href="dashboard.html#grammar">← 回到 Dashboard 文法區</a>
+      <h1>動詞三態闖關 Verb Arcade<small>依過去式變化分區出題｜每答對 5 題進入一分鐘小遊戲</small></h1>
+    </div>
+    <div class="scoreboard" aria-live="polite">
+      <div class="tile"><b id="scoreTxt">0</b><span>總分</span></div>
+      <div class="tile"><b id="rightTxt">0</b><span>答對</span></div>
+      <div class="tile"><b id="streakTxt">0</b><span>連對</span><div class="pips" id="pips" aria-label="距離小遊戲"></div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- SETUP -->
+  <section id="setup" class="panel" aria-labelledby="setupTitle">
+    <h2 id="setupTitle"><span class="step">1</span>小遊戲類別 <em>可複選，每答對 5 題隨機抽一個</em></h2>
+    <div class="chips games" id="gameChips"></div>
+
+    <h2 style="margin-top:22px"><span class="step">2</span>文法考點 <em>可複選，混合出題</em></h2>
+    <div class="row"><button class="mini" data-all="grammar" type="button">全選</button><button class="mini" data-none="grammar" type="button">全不選</button></div>
+    <div class="chips grammar" id="grammarChips"></div>
+
+    <h2 style="margin-top:22px"><span class="step">3</span>動詞分區 <em>依「動詞三態變化整理表」分區，可複選</em></h2>
+    <div class="row"><button class="mini" data-all="zones" type="button">全選</button><button class="mini" data-none="zones" type="button">全不選</button><button class="mini" id="pickRegular" type="button">只選規則變化</button><button class="mini" id="pickIrregular" type="button">只選不規則變化</button></div>
+    <div class="chips zones" id="zoneChips"></div>
+
+    <h2 style="margin-top:22px"><span class="step">4</span>題數</h2>
+    <div class="start-bar" style="margin-top:10px">
+      <div class="seg" id="countSeg" role="group" aria-label="題數">
+        <button type="button" data-n="10" aria-pressed="false">10 題</button>
+        <button type="button" data-n="20" aria-pressed="true">20 題</button>
+        <button type="button" data-n="30" aria-pressed="false">30 題</button>
+        <button type="button" data-n="0" aria-pressed="false">不限題數</button>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <span class="warn" id="setupWarn" role="alert"></span>
+        <button class="btn go" id="startBtn" type="button">開始練習 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="panel hidden" aria-live="polite">
+    <div class="qhead">
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge" id="qCat"></span><span class="badge zone" id="qZone"></span></div>
+      <span class="qnum" id="qNum"></span>
+    </div>
+    <p class="given hidden" id="qGiven"></p>
+    <div class="sentence" id="qText"></div>
+    <div class="hint" id="qHint"></div>
+    <div id="qArea"></div>
+    <div id="qFeedback"></div>
+    <div class="qactions">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn speak hidden" id="speakBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>整句朗讀</button>
+        <button class="btn" id="endBtn" type="button">結束練習</button>
+      </div>
+      <button class="btn dark hidden" id="nextBtn" type="button">下一題 →</button>
+    </div>
+  </section>
+
+  <!-- SUMMARY (result) -->
+  <section id="summary" class="panel hidden">
+    <h2>練習結果</h2>
+    <div class="statrow">
+      <div class="stat"><b id="sTotal">0</b><span>已作答</span></div>
+      <div class="stat"><b id="sRight">0</b><span>答對題數</span></div>
+      <div class="stat"><b id="sWrong">0</b><span>錯題數</span></div>
+      <div class="stat"><b id="sScore">0</b><span>總分（含小遊戲）</span></div>
+    </div>
+    <div id="wrongList" class="wrong-list"></div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn go" id="againBtn" type="button">重新選題</button>
+      <button class="btn dark hidden" id="retryWrongBtn" type="button">再做一次錯題</button>
+    </div>
+  </section>
+</main>
+
+<div class="overlay hidden" id="overlay" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+  <div class="arena" id="arena"></div>
+</div>
+
+<script>
+/* =========================================================
+   VERB DATA — 依《動詞三態變化整理表》分區
+   格式：原形|過去式|過去分詞|中文|補語|旗標
+   補語：[單數受詞]、{複數受詞}（被動語態用）
+   旗標：s=狀態動詞(不考進行式/動名詞)  x=不考祈使句  n=只適合否定祈使/勸告
+         be=be動詞  S:單數主詞/複數主詞（固定主詞）
+   過去式/過去分詞多種寫法用「/」分隔，第一個為主要答案
+   ========================================================= */
+const ZONES = [
+  {id:'R1', name:'規則變化：加 -d', note:'agree → agreed', regular:true, data:`
+agree|agreed|agreed|同意|with the plan|s
+arrive|arrived|arrived|到達|at school early|
+barbecue|barbecued|barbecued|烤肉|[the meat] in the park|
+believe|believed|believed|相信|[the story]|s,x
+cause|caused|caused|造成|[a big problem]|x
+close|closed|closed|關上|[the door]|
+continue|continued|continued|繼續|[the game]|
+damage|damaged|damaged|損毀|[the old bike]|n
+dance|danced|danced|跳舞|to the music|
+decide|decided|decided|決定|on a new plan|x
+die|died|died|死亡|in the hot weather|x,S:The fish/The fish
+donate|donated|donated|捐贈|{old clothes} to the poor|
+excuse|excused|excused|原諒|[the little mistake]|
+exercise|exercised|exercised|運動|in the park|
+experience|experienced|experienced|經歷|[a big earthquake]|x
+graduate|graduated|graduated|畢業|from junior high school|x
+hate|hated|hated|討厭|rainy days|s,x
+hike|hiked|hiked|健行|in the mountains|
+hope|hoped|hoped|希望|for good weather|s,x
+invite|invited|invited|邀請|{the new neighbors} to the party|
+like|liked|liked|喜歡|ice cream|s,x
+live|lived|lived|居住|in Taipei|s,x
+love|loved|loved|喜愛|animals|s,x
+move|moved|moved|移動；搬|[the desk] to the corner|
+notice|noticed|noticed|注意到|[the new sign]|s,x
+pollute|polluted|polluted|污染|[the river]|n
+practice|practiced|practiced|練習|the piano|
+prepare|prepared|prepared|準備|[dinner] for the family|
+produce|produced|produced|製造|{toys} in the factory|x
+provide|provided|provided|提供|[free lunch] for the students|x
+receive|received|received|收到|[a letter] from Grandma|x
+recycle|recycled|recycled|回收|{plastic bottles}|
+reduce|reduced|reduced|減少|[food waste]|
+reuse|reused|reused|再使用|{shopping bags}|
+save|saved|saved|儲存；拯救|[money] for a new bike|
+scare|scared|scared|驚嚇|[the little cat]|n
+share|shared|shared|分享|[the cake] with friends|
+smile|smiled|smiled|微笑|at the baby|
+store|stored|stored|儲存|[the food] in the fridge|
+taste|tasted|tasted|嚐|[the soup]|
+use|used|used|使用|[the computer]|
+welcome|welcomed|welcomed|歡迎|{the new students}|
+wipe|wiped|wiped|擦拭|[the table]|`},
+  {id:'R2', name:'規則變化：加 -ed', note:'clean → cleaned', regular:true, data:`
+answer|answered|answered|回答|[the question]|
+appear|appeared|appeared|出現|on TV|x
+ask|asked|asked|詢問|{questions} in class|
+bark|barked|barked|（狗）吠|at strangers|x,S:The dog/The dogs
+book|booked|booked|訂（票）|{the tickets} online|
+brush|brushed|brushed|刷|[the dog's hair]|
+bump|bumped|bumped|碰撞|into a tree|n
+call|called|called|打電話|Grandma on the phone|
+camp|camped|camped|露營|by the lake|
+check|checked|checked|查看|{the answers}|
+clean|cleaned|cleaned|打掃|[the classroom]|
+climb|climbed|climbed|爬；攀登|[the mountain]|
+collect|collected|collected|收集|{stamps}|
+color|colored|colored|著色|[the picture]|
+cook|cooked|cooked|煮；烹飪|[dinner]|
+count|counted|counted|數數|{the apples}|
+design|designed|designed|設計|[a new poster]|
+destroy|destroyed|destroyed|破壞|{the trees}|n
+dial|dialed|dialed|撥號|[the number]|
+dream|dreamed/dreamt|dreamed/dreamt|夢想|of a trip to Japan|x
+dress|dressed|dressed|穿著；打扮|up for the party|
+enjoy|enjoyed|enjoyed|享受|[the music]|
+enter|entered|entered|進入|[the room]|
+fix|fixed|fixed|修理|[the bike]|
+follow|followed|followed|遵守；跟隨|{the rules}|
+form|formed|formed|組織；成立|[a band]|
+guess|guessed|guessed|猜測|[the answer]|
+hand|handed|handed|遞|[the book] to the teacher|
+happen|happened|happened|發生|at school|x,S:Something strange/Many strange things
+help|helped|helped|幫忙|{the old people}|
+join|joined|joined|參加|[the basketball team]|
+jump|jumped|jumped|跳|into the pool|
+knock|knocked|knocked|敲|on the door|
+learn|learned/learnt|learned/learnt|學習|[English] online|
+light|lighted/lit|lighted/lit|點亮；點燃|{the candles}|
+listen|listened|listened|聆聽|to the radio|
+look|looked|looked|看|at the stars|
+miss|missed|missed|錯過；想念|[the bus]|n
+need|needed|needed|需要|a new bag|s,x
+open|opened|opened|打開|[the window]|
+order|ordered|ordered|訂購；點餐|[a pizza]|
+pack|packed|packed|打包|[the suitcase]|
+paint|painted|painted|畫圖|[a picture]|
+pick|picked|picked|撿；挑|up the trash|
+plant|planted|planted|種植|{trees} in the yard|
+play|played|played|玩|basketball in the park|
+preview|previewed|previewed|預習|[the new lesson]|
+pull|pulled|pulled|拉|[the rope]|
+push|pushed|pushed|推|[the cart]|
+rain|rained|rained|下雨|hard|x,S:It
+relax|relaxed|relaxed|放鬆|at home|
+remember|remembered|remembered|記得|[the password]|s,x
+repeat|repeated|repeated|重複|[the sentence]|
+rest|rested|rested|休息|under the tree|
+return|returned|returned|歸還|{the books} to the library|
+review|reviewed|reviewed|複習|[the lesson]|
+roll|rolled|rolled|滾動|down the hill|x,S:The ball/The balls
+scold|scolded|scolded|責罵|[the naughty boy]|n
+shout|shouted|shouted|喊叫|at the kids|n
+show|showed|showed/shown|秀出；顯示|{the photos} to the class|
+smell|smelled/smelt|smelled/smelt|聞|{the flowers}|
+sort|sorted|sorted|分類|[the trash]|
+sound|sounded|sounded|聽起來|great|s,x,S:That idea/Those ideas
+spell|spelled/spelt|spelled/spelt|拼字|[the word]|
+start|started|started|開始|[the meeting] on time|
+stay|stayed|stayed|停留|at home|
+stretch|stretched|stretched|伸展|after running|
+sunburn|sunburned/sunburnt|sunburned/sunburnt|曬傷|easily at the beach|x
+surf|surfed|surfed|瀏覽（網路）|the Internet|
+talk|talked|talked|說話|with friends|
+thank|thanked|thanked|謝謝|[the teacher]|
+touch|touched|touched|摸|{the paintings}|n
+travel|traveled|traveled|旅行|around Taiwan|
+turn|turned|turned|轉彎|left at the corner|
+visit|visited|visited|參觀；拜訪|[the museum]|
+volunteer|volunteered|volunteered|自願|at the hospital|
+wait|waited|waited|等待|for the bus|
+walk|walked|walked|蹓（狗）|[the dog] in the park|
+want|wanted|wanted|想要|a new phone|s,x
+wash|washed|washed|洗|{the dishes}|
+wish|wished|wished|希望|for a white Christmas|s,x
+work|worked|worked|工作|in the garden|
+watch|watched|watched|觀看|[the baseball game]|`},
+  {id:'R3', name:'規則變化：去 y 加 -ied', note:'study → studied', regular:true, data:`
+cry|cried|cried|哭泣|at the sad movie|n
+hurry|hurried|hurried|加快；趕緊|to the station|
+study|studied|studied|研讀|[English] at home|
+try|tried|tried|嘗試|[the new dish]|
+worry|worried|worried|擔心|about the test|n`},
+  {id:'R4', name:'規則變化：重複字尾加 -ed', note:'stop → stopped', regular:true, data:`
+chat|chatted|chatted|聊天|online with friends|
+jog|jogged|jogged|慢跑|in the park|
+mop|mopped|mopped|用拖把拖|[the floor]|
+picnic|picnicked|picnicked|野餐|by the river|
+plan|planned|planned|計劃|[a trip] to Kenting|
+shop|shopped|shopped|購物|for clothes|
+skip|skipped|skipped|不參加；略過|[breakfast]|n
+stop|stopped|stopped|停止|[the car]|`},
+  {id:'I1', name:'不規則：A-A-A 型', note:'cut → cut → cut', regular:false, data:`
+cost|cost|cost|花費|500 dollars|s,x,S:This bag/These shoes
+cut|cut|cut|切；割|[the cake]|
+hit|hit|hit|撞；打擊|[the ball] hard|
+hurt|hurt|hurt|傷害|[the little dog]|n
+let|let|let|讓|the cat in|
+put|put|put|放；放置|{the books} on the shelf|
+read|read|read|閱讀；唸|[the newspaper]|
+cast|cast|cast|投；拋|[the net] into the sea|
+set|set|set|放置；設定|[the table] for dinner|
+shut|shut|shut|關閉|[the gate]|
+spread|spread|spread|塗；散播|[butter] on the bread|`},
+  {id:'I2', name:'不規則：A-B-A 型', note:'come → came → come', regular:false, data:`
+come|came|come|來|to the party|
+become|became|become|變成|famous|x
+run|ran|run|跑|in the playground|`},
+  {id:'I3', name:'不規則：A-B-B 型', note:'buy → bought → bought', regular:false, data:`
+bring|brought|brought|攜帶；帶來|[the lunch box] to school|
+build|built|built|建造|[a sandcastle]|
+buy|bought|bought|購買|[a new jacket]|
+catch|caught|caught|接住|[the ball]|
+dig|dug|dug|挖掘|[a hole] in the yard|
+dream|dreamt/dreamed|dreamt/dreamed|夢想|of a trip to Japan|x
+feed|fed|fed|餵養|[the fish]|
+feel|felt|felt|感覺|tired|s,x
+fight|fought|fought|打架；爭吵|over the toy|n
+find|found|found|找到|[the key]|
+forget|forgot|forgotten/forgot|忘記|[the password]|n
+have|had|had|擁有；吃|lunch with friends|
+hear|heard|heard|聽見|a strange noise|s,x
+hold|held|held|拿著；舉辦|[a party] at home|
+keep|kept|kept|保持；飼養|[the room] clean|
+lead|led|led|帶領；導致|[the team]|
+learn|learnt/learned|learnt/learned|學習|[English] online|
+leave|left|left|離開|the classroom|
+lend|lent|lent|借出|[the bike] to a friend|
+light|lit/lighted|lit/lighted|點亮；點燃|{the candles}|
+lose|lost|lost|遺失|[the wallet]|n
+make|made|made|製作|[a cake]|
+mean|meant|meant|意指|a lot to the family|s,x,S:This gift/These gifts
+meet|met|met|遇見|new friends at the club|
+pay|paid|paid|付費|[the bill]|
+say|said|said|說|hello to everyone|
+sell|sold|sold|賣|{used books} online|
+send|sent|sent|送；寄|[a card] to Grandma|
+shoot|shot|shot|投（籃）；發射|[the ball] into the basket|
+sit|sat|sat|坐|under the tree|
+sleep|slept|slept|睡覺|on the sofa|
+smell|smelt/smelled|smelt/smelled|聞|{the flowers}|
+spell|spelt/spelled|spelt/spelled|拼字|[the word]|
+spend|spent|spent|花費|[a lot of money] on games|
+stand|stood|stood|站立|in line|
+sunburn|sunburnt/sunburned|sunburnt/sunburned|曬傷|easily at the beach|x
+teach|taught|taught|教導|[math] at school|
+tell|told|told|告訴|[a funny story]|
+think|thought|thought|想；思考|about the question|
+win|won|won|贏|[the game]|
+hang|hung|hung|掛|[the picture] on the wall|
+shine|shone|shone|照耀|brightly|x,S:The sun
+sweep|swept|swept|掃|[the floor]|
+understand|understood|understood|理解|[the question]|s,x`},
+  {id:'I4', name:'不規則：A-B-C 型', note:'go → went → gone', regular:false, data:`
+be|was/were|been|是；在|at home|be
+bite|bit|bitten|咬|[the bone]|x,S:The dog/The dogs
+blow|blew|blown|吹|out the candles|
+break|broke|broken|打破；弄壞|[the window]|n
+choose|chose|chosen|選擇|[a gift] for Mom|
+do|did|done|做|[the homework]|
+draw|drew|drawn|畫|[a map]|
+drink|drank|drunk|喝|[the milk]|
+drive|drove|driven|開車|[the car] to work|
+eat|ate|eaten|吃|{the cookies}|
+fall|fell|fallen|墜落；掉落|off the bike|x
+fly|flew|flown|飛；放（風箏）|[a kite] in the park|
+get|got|gotten/got|得到|a gift from Dad|
+give|gave|given|給|[a present] to the teacher|
+go|went|gone|去|to the park|
+grow|grew|grown|成長；種植|{vegetables} in the garden|
+hide|hid|hidden|藏|[the money] under the bed|
+lie|lay|lain|躺|on the grass|
+ride|rode|ridden|騎|a bike to school|
+see|saw|seen|看見|a rainbow|s,x
+shake|shook|shaken|握（手）；搖動|hands with the guests|
+show|showed|shown/showed|秀出；顯示|{the photos} to the class|
+sing|sang|sung|唱歌|[a song]|
+speak|spoke|spoken|說話|[English] in class|
+swim|swam|swum|游泳|in the sea|
+take|took|taken|拿；搭乘|the bus to school|
+throw|threw|thrown|丟|[the ball] to the dog|
+wake|woke|woken|醒來|up|
+wear|wore|worn|穿；戴|[a uniform] to school|
+write|wrote|written|寫|[a letter] to Grandpa|
+begin|began|begun|開始|[the class] on time|
+sink|sank|sunk|下沉|to the bottom|x,S:The boat/The boats
+ring|rang|rung|按（鈴）；響|[the bell]|
+tear|tore|torn|撕破|[the paper]|n
+know|knew|known|知道|[the answer]|s,x
+steal|stole|stolen|偷|[the wallet]|n
+rise|rose|risen|升起|in the east|x,S:The sun
+sew|sewed|sewn/sewed|縫|[a button] on the shirt|
+beat|beat|beaten|打敗|[the other team]|`}
+];
+
+/* ---------- grammar groups ---------- */
+const GRAMMAR = [
+  {id:'modal', name:'助動詞 can / could / should / must', ex:'You should clean the room.'},
+  {id:'imper', name:'祈使句與提議句型', ex:"Let's / Please / Don't / Why not / Why don't you + VR｜How about / What about + Ving"},
+  {id:'ps', name:'現在簡單式', ex:'三單加 s｜do / does｜don\'t / doesn\'t｜WH 問句'},
+  {id:'pc', name:'現在進行式', ex:'am / is / are + Ving'},
+  {id:'past', name:'過去簡單式', ex:'不規則動詞考拼字｜規則動詞選 -ed｜didn\'t / Did + VR'},
+  {id:'pastc', name:'過去進行式＋used to', ex:'was / were + Ving｜used to + VR'},
+  {id:'fut', name:'未來式 will / be going to', ex:'will + VR｜am / is / are going to + VR'},
+  {id:'perf', name:'現在完成式', ex:'have / has + p.p.（不規則考拼字）'},
+  {id:'passive', name:'被動語態（各時態）', ex:'is / was / will be / has been / must be + p.p.'},
+  {id:'ving', name:'Ving 還是 to V？', ex:'看關鍵字：enjoy / keep / be busy / look forward to + Ving｜want / decide / It is…  / My dream is + to V'},
+  {id:'causal', name:'感官動詞與使役動詞', ex:'see / hear + O + VR / Ving / p.p.｜make / let / have + O + VR｜ask / tell / get + O + (not) to V'}
+];
+
+const GAMES = [
+  {id:'cards', name:'翻牌比大小', desc:'記住最高分的牌，洗牌後猜它在哪'},
+  {id:'wheel', name:'幸運轉盤', desc:'轉一次，看停在幾分'},
+  {id:'moles', name:'打地鼠三態', desc:'20 秒內只敲正確的過去式'},
+  {id:'clock', name:'停在 5.00 秒', desc:'數字會消失，憑感覺按停'}
+];
+
+/* ---------- parse ---------- */
+function parseVerbs(){
+  const out=[];
+  ZONES.forEach(z=>{
+    z.verbs=[];
+    z.data.trim().split('\n').forEach(line=>{
+      const [base,past,pp,zh,compRaw='',flagStr='']=line.split('|').map(s=>s.trim());
+      const flags={};let subj=null;
+      flagStr.split(',').map(s=>s.trim()).filter(Boolean).forEach(f=>{
+        if(f.startsWith('S:')){const [sg,pl]=f.slice(2).split('/');subj={sg:sg,pl:pl||null};}
+        else flags[f]=true;
+      });
+      let obj=null,objPl=false,rest='';
+      const m=compRaw.match(/^(?:(.*?)\s)?[\[{](.+?)[\]}]\s*(.*)$/);
+      if(m && !m[1]){obj=m[2];objPl=compRaw.trim().startsWith('{');rest=m[3]||'';}
+      const comp=compRaw.replace(/[\[\]{}]/g,'').trim();
+      const v={base,pasts:past.split('/'),pps:pp.split('/'),zh,comp,obj,objPl,rest,flags,subj,zone:z.id,regular:z.regular};
+      v.past=v.pasts[0];v.pp=v.pps[0];
+      z.verbs.push(v);out.push(v);
+    });
+  });
+  return out;
+}
+
+/* ---------- morphology ---------- */
+const DOUBLE=new Set(['chat','jog','mop','plan','shop','skip','stop','run','swim','sit','get','cut','hit','put','let','set','shut','dig','win','begin','forget']);
+function ing(b){
+  if(b==='be')return 'being';
+  if(b==='picnic')return 'picnicking';
+  if(DOUBLE.has(b))return b+b.slice(-1)+'ing';
+  if(b.endsWith('ie'))return b.slice(0,-2)+'ying';
+  if(/(ee|ye|oe)$/.test(b))return b+'ing';
+  if(b.endsWith('e'))return b.slice(0,-1)+'ing';
+  return b+'ing';
+}
+function s3(b){
+  const irr={have:'has',be:'is',do:'does',go:'goes'};
+  if(irr[b])return irr[b];
+  if(/(s|x|z|ch|sh|o)$/.test(b))return b+'es';
+  if(/[^aeiou]y$/.test(b))return b.slice(0,-1)+'ies';
+  return b+'s';
+}
+function badPast(v){
+  const b=v.base;
+  if(v.zone==='R1')return b+'ed';
+  if(v.zone==='R2'){ if(/[aeiou]y$/.test(b))return b.slice(0,-1)+'ied'; return b+b.slice(-1)+'ed'; }
+  if(v.zone==='R3')return b+'ed';
+  if(v.zone==='R4')return b==='picnic'?'picniced':b+'ed';
+  return b.endsWith('e')?b+'d':b+'ed';
+}
+
+/* ---------- subjects ---------- */
+const PEOPLE=[
+  {en:'I',t:'1',pr:'I'},{en:'you',t:'2',pr:'you'},{en:'he',t:'3',pr:'he'},{en:'she',t:'3',pr:'she'},
+  {en:'we',t:'p',pr:'we'},{en:'they',t:'p',pr:'they'},{en:'Tom',t:'3',pr:'he'},{en:'Amy',t:'3',pr:'she'},
+  {en:'my brother',t:'3',pr:'he'},{en:'my parents',t:'p',pr:'they'},{en:'the students',t:'p',pr:'they'},
+  {en:'Kevin and Lisa',t:'p',pr:'they'},{en:'my sister',t:'3',pr:'she'}
+];
+const R=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const chance=p=>Math.random()<p;
+function subjFor(v){
+  if(v.subj){
+    if(v.subj.pl && chance(.5))return {en:v.subj.pl.charAt(0).toLowerCase()+v.subj.pl.slice(1),t:'p',pr:'they',fixed:true};
+    const sg=v.subj.sg;return {en:sg==='It'?'it':sg.charAt(0).toLowerCase()+sg.slice(1),t:'3',pr:'it',fixed:true};
+  }
+  return R(PEOPLE);
+}
+const beNow=s=>s.t==='1'?'am':s.t==='3'?'is':'are';
+const beNowNeg=s=>s.t==='1'?'am not':s.t==='3'?"isn't":"aren't";
+const bePast=s=>(s.t==='1'||s.t==='3')?'was':'were';
+const doNow=s=>s.t==='3'?'does':'do';
+const haveNow=s=>s.t==='3'?'has':'have';
+const vNow=(b,s)=>s.t==='3'?s3(b):b;
+function pastOf(v,s){return v.base==='be'?bePast(s):v.past;}
+function presentOf(v,s){return v.base==='be'?beNow(s):vNow(v.base,s);}
+function capFirst(t){return t.replace(/^(\s*)([a-z])/,(m,a,b)=>a+b.toUpperCase());}
+
+/* ---------- question builder ---------- */
+let CUR_VERB=null;
+function makeQ(o){
+  // o: text (含 ___), answers[], options[] or type:true, explain, cat, given
+  const startBlank=/^\s*___/.test(o.text);
+  const fix=t=>startBlank?capFirst(t):t;
+  const answers=o.answers.map(fix);
+  let options=null;
+  if(!o.type){
+    const seen=new Set();options=[];
+    [o.answers[0],...o.options].forEach(x=>{const f=fix(x);if(!seen.has(f.toLowerCase())){seen.add(f.toLowerCase());options.push(f);}});
+    options=shuffle(options.slice(0,4));
+  }
+  return {cat:o.cat,verb:CUR_VERB,text:capFirst(o.text.trim()).replace(/([!?.]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()),answers,options,type:!!o.type,explain:o.explain,given:o.given||'',hint:o.hint!==false};
+}
+const cmp=v=>v.comp?' '+v.comp:'';
+
+/* ---------- generators ---------- */
+const GEN={};
+const eligible={
+  modal:v=>true,
+  imper:v=>!v.flags.x&&!v.subj&&!v.flags.be,
+  ps:v=>true,
+  pc:v=>!v.flags.s&&!v.flags.be,
+  past:v=>true,
+  pastc:v=>true,
+  fut:v=>true,
+  perf:v=>true,
+  passive:v=>!!v.obj&&!v.flags.be,
+  ving:v=>!v.flags.s&&!v.subj&&!v.flags.be&&!v.flags.x&&!v.flags.n,
+  causal:v=>!v.flags.s&&!v.flags.be&&(v.subj?/^The /.test(v.subj.sg):!v.flags.x)
+};
+
+GEN.modal=v=>{
+  const s=subjFor(v);
+  const m=s.fixed?R(['could','must']):R(['can','could','should','must',"can't","shouldn't",'must not']);
+  if(chance(.25)&&!s.fixed&&!['must not'].includes(m)){
+    const mm=R(['Can','Could','Should']);
+    return makeQ({cat:'modal',text:`${mm} ${s.en} ___${cmp(v)}?`,answers:[v.base],options:[presentOf(v,{t:'3'}),ing(v.base),'to '+v.base],explain:`助動詞 <strong>${mm}</strong> 開頭的問句，主詞後面接<strong>原形動詞 VR</strong>。`});
+  }
+  return makeQ({cat:'modal',text:`${s.en} ${m} ___${cmp(v)}.`,answers:[v.base],options:[v.base==='be'?'is':s3(v.base),ing(v.base),'to '+v.base,pastOf(v,{t:'3'})],explain:`助動詞 <strong>${m}</strong> 後面一定接<strong>原形動詞 VR</strong>，不加 s、不加 ing、不加 to。`});
+};
+
+GEN.imper=v=>{
+  const neg=!!v.flags.n;
+  const VR=v.base,VI=ing(v.base);
+  const forms=neg?[
+    {pre:"Don't",ans:VR,ex:"<strong>Don't</strong> + VR：否定祈使句，叫別人不要做某事。"},
+    {pre:"Please don't",ans:VR,ex:"<strong>Please don't</strong> + VR：禮貌地請別人不要做某事。"},
+    {pre:'You should not',ans:VR,ex:'<strong>should not</strong> + VR：勸告別人不應該做某事。'}
+  ]:[
+    {pre:"Let's",ans:VR,ex:"<strong>Let's</strong> + VR：我們一起來做某事吧。"},
+    {pre:'Please',ans:VR,ex:'<strong>Please</strong> + VR：祈使句用原形動詞開頭。'},
+    {pre:"Don't",ans:VR,ex:"<strong>Don't</strong> + VR：否定祈使句。"},
+    {pre:'Why not',ans:VR,end:'?',ex:'<strong>Why not</strong> + VR？＝何不做某事？'},
+    {pre:"Why don't you",ans:VR,end:'?',ex:"<strong>Why don't you</strong> + VR？＝你何不做某事？"},
+    {pre:"Why don't we",ans:VR,end:'?',ex:"<strong>Why don't we</strong> + VR？＝我們何不做某事？"},
+    {pre:'How about',ans:VI,end:'?',ex:'<strong>How about</strong> 的 about 是介系詞，後面接 <strong>Ving</strong>。'},
+    {pre:'What about',ans:VI,end:'?',ex:'<strong>What about</strong> 的 about 是介系詞，後面接 <strong>Ving</strong>。'}
+  ];
+  const f=R(forms);
+  const base=f.ans===VI?VR:VI;
+  return makeQ({cat:'imper',text:`${f.pre} ___${cmp(v)}${f.end||'.'}`,answers:[f.ans],options:[base,'to '+VR,s3(VR)],explain:f.ex});
+};
+
+GEN.ps=v=>{
+  const s=subjFor(v);
+  const time=R(['every day','every morning','on weekends','after school','every Sunday']);
+  const freq=R(['usually','always','often','sometimes']);
+  if(v.flags.be){
+    return makeQ({cat:'ps',text:`${s.en} ___ ${freq} ${v.comp} ${time}.`,answers:[beNow(s)],options:['am','is','are','be'],explain:`主詞 <strong>${s.en}</strong> 搭配 be 動詞 <strong>${beNow(s)}</strong>（I→am；三單→is；複數/you→are）。`});
+  }
+  const kind=R(['aff','aff','neg','yn','wh']);
+  if((kind==='yn'||kind==='wh')&&s.en==='I')Object.assign(s,{en:'you',t:'2',pr:'you'});
+  const third=s.t==='3';
+  const why=third?`主詞 <strong>${s.en}</strong> 是第三人稱單數`:`主詞 <strong>${s.en}</strong> 不是第三人稱單數`;
+  if(kind==='aff'){
+    const useFreq=chance(.5);
+    const text=useFreq?`${s.en} ${freq} ___${cmp(v)}.`:`${s.en} ___${cmp(v)} ${time}.`;
+    return makeQ({cat:'ps',text,answers:[vNow(v.base,s)],options:[third?v.base:s3(v.base),ing(v.base),v.past],explain:`${why}，現在簡單式動詞${third?'要加 <strong>s / es</strong>':'用<strong>原形</strong>'}。關鍵字：<strong>${useFreq?freq:time}</strong>。`});
+  }
+  if(kind==='neg'){
+    const ans=(third?"doesn't ":"don't ")+v.base;
+    return makeQ({cat:'ps',text:`${s.en} ___${cmp(v)} ${time}.`,answers:[ans],options:[(third?"don't ":"doesn't ")+v.base,(third?"doesn't ":"don't ")+s3(v.base),beNowNeg(s)+' '+v.base],explain:`${why}，否定用 <strong>${third?"doesn't":"don't"} + VR</strong>（doesn't 後面動詞不再加 s）。`});
+  }
+  if(kind==='yn'){
+    return makeQ({cat:'ps',text:`___ ${s.en} ${v.base}${cmp(v)} ${time}?`,answers:[third?'Does':'Do'],options:['Do','Does','Is','Are'],explain:`${why}，一般動詞的問句用 <strong>${third?'Does':'Do'}</strong> + 主詞 + VR。`});
+  }
+  const wh=R(['When','Where','Why','How often']);
+  return makeQ({cat:'ps',text:`${wh} ___ ${s.en} ${wh==='How often'?'':freq} ${v.base}${cmp(v)}?`,answers:[third?'does':'do'],options:['do','does','is','are'],explain:`WH 問句：${wh} + <strong>${third?'does':'do'}</strong> + 主詞 + VR。${why}。`});
+};
+
+GEN.pc=v=>{
+  const s=subjFor(v);
+  const cue=R([['Look!',''],['Listen!',''],['','now'],['','right now'],['','at the moment']]);
+  const be=beNow(s),VI=ing(v.base);
+  const kind=R(['aff','aff','neg','q']);
+  if(kind==='q'){
+    const B=be.charAt(0).toUpperCase()+be.slice(1);
+    return makeQ({cat:'pc',text:`___ ${s.en} ${VI}${cmp(v)} ${cue[1]||'now'}?`,answers:[B],options:['Am','Is','Are',s.t==='3'?'Does':'Do'],explain:`現在進行式問句：<strong>Am / Is / Are</strong> + 主詞 + Ving。主詞 ${s.en} 用 <strong>${be}</strong>。`});
+  }
+  if(kind==='neg'){
+    const ans=beNowNeg(s)+' '+VI;
+    const wrongBe=s.t==='3'?"aren't":"isn't";
+    return makeQ({cat:'pc',text:`${cue[0]} ${s.en} ___${cmp(v)} ${cue[1]||'now'}.`,answers:[ans],options:[(s.t==='3'?"doesn't ":"don't ")+v.base,wrongBe+' '+VI,beNowNeg(s)+' '+v.base],explain:`關鍵字 <strong>${cue[0]||cue[1]||'now'}</strong> → 現在進行式。否定：am / is / are + <strong>not</strong> + Ving。`});
+  }
+  const ans=be+' '+VI;
+  const wrongBe=s.t==='3'?'are':'is';
+  return makeQ({cat:'pc',text:`${cue[0]} ${s.en} ___${cmp(v)} ${cue[1]}.`.replace(/\s+\./,'.'),answers:[ans],options:[wrongBe+' '+VI,vNow(v.base,s),be+' '+v.base],explain:`關鍵字 <strong>${cue[0]||cue[1]}</strong> → 正在發生，用現在進行式 <strong>${be} + Ving</strong>。`});
+};
+
+GEN.past=v=>{
+  const s=subjFor(v);
+  const time=R(['yesterday','last night','last weekend','two days ago','last Friday','in 2020']);
+  const kind=v.flags.be?'aff':R(['aff','aff','aff','neg','q']);
+  if(kind==='aff'){
+    const pAns=v.base==='be'?[bePast(s)]:v.pasts;
+    if(!v.regular){
+      return makeQ({cat:'past',type:true,text:`${s.en} ___ ${v.comp} ${time}.`.replace(/\s+/g,' '),answers:pAns,explain:`關鍵字 <strong>${time}</strong> → 過去簡單式。<strong>${v.base}</strong> 是不規則動詞，過去式是 <strong>${pAns.join(' / ')}</strong>。`});
+    }
+    return makeQ({cat:'past',text:`${s.en} ___${cmp(v)} ${time}.`,answers:v.pasts,options:[badPast(v),v.base,ing(v.base),vNow(v.base,{t:'3'})].filter(x=>!v.pasts.includes(x)).slice(0,3),explain:`關鍵字 <strong>${time}</strong> → 過去簡單式。${zoneRule(v)}`});
+  }
+  if(kind==='neg'){
+    return makeQ({cat:'past',text:`${s.en} ___${cmp(v)} ${time}.`,answers:["didn't "+v.base],options:["didn't "+v.past,"don't "+v.base,bePast(s)+"n't "+v.base],explain:`關鍵字 <strong>${time}</strong> → 過去式否定：<strong>didn't + VR</strong>（didn't 已經表示過去，動詞用原形）。`});
+  }
+  if(chance(.5)){
+    return makeQ({cat:'past',text:`___ ${s.en} ${v.base}${cmp(v)} ${time}?`,answers:['Did'],options:['Do','Does',bePast(s)==='was'?'Was':'Were'],explain:`關鍵字 <strong>${time}</strong> → 過去式問句：<strong>Did</strong> + 主詞 + VR？`});
+  }
+  return makeQ({cat:'past',text:`Did ${s.en} ___${cmp(v)} ${time}?`,answers:[v.base],options:[v.past,ing(v.base),s3(v.base)],explain:`<strong>Did</strong> 已經表示過去，後面的動詞用<strong>原形 VR</strong>。`});
+};
+function zoneRule(v){
+  return {R1:'字尾是 e，直接加 <strong>-d</strong>。',R2:'一般動詞直接加 <strong>-ed</strong>。',R3:'子音 + y 結尾：<strong>去 y 加 -ied</strong>。',R4:'短母音 + 單子音結尾：<strong>重複字尾再加 -ed</strong>。'}[v.zone]||'';
+}
+
+GEN.pastc=v=>{
+  const s=subjFor(v);
+  const doUsed=chance(.4)||v.flags.s||v.flags.be;
+  if(doUsed){
+    const dn=s.pr==='I'||s.pr==='you'||s.pr==='we'||s.pr==='they'?"don't":"doesn't";
+    return makeQ({cat:'pastc',text:`${s.en} ___${cmp(v)}, but now ${s.pr} ${dn}.`,answers:['used to '+v.base],options:['used to '+ing(v.base),'use to '+v.base,beNow(s)+' used to '+v.base],explain:`「以前常常／以前是，但現在不再」用 <strong>used to + VR</strong>。注意不是 use to，也不是 be used to（習慣於 + Ving）。`});
+  }
+  const be=bePast(s),VI=ing(v.base);
+  const cue=R([['','at eight last night'],['When the phone rang,',''],['','at this time yesterday'],['','when the lights went out'],['While Mom was cooking dinner,','']]);
+  const wrongBe=be==='was'?'were':'was';
+  return makeQ({cat:'pastc',text:`${cue[0]} ${s.en} ___${cmp(v)} ${cue[1]}.`.replace(/\s+\./,'.'),answers:[be+' '+VI],options:[wrongBe+' '+VI,v.past,beNow(s)+' '+VI],explain:`關鍵字 <strong>${(cue[0]||cue[1]).replace(/,$/,'')}</strong> → 過去某時間點正在進行，用過去進行式 <strong>${be} + Ving</strong>（I/三單→was；複數/you→were）。`});
+};
+
+GEN.fut=v=>{
+  const s=subjFor(v);
+  const time=R(['tomorrow','next week','next Saturday','in two days','this weekend','soon']);
+  const kind=R(['will','will','goingW','goingP']);
+  if(kind==='will'){
+    const neg=chance(.3);
+    return makeQ({cat:'fut',text:`${s.en} ${neg?"won't":'will'} ___${cmp(v)} ${time}.`,answers:[v.base],options:[v.base==='be'?'is':s3(v.base),ing(v.base),'to '+v.base],explain:`關鍵字 <strong>${time}</strong> → 未來式。<strong>${neg?"won't":'will'}</strong> 是助動詞，後面接 <strong>VR</strong>。`});
+  }
+  const be=beNow(s);
+  if(kind==='goingW'){
+    const wrongBe=s.t==='3'?'are':'is';
+    return makeQ({cat:'fut',text:`${s.en} ___${cmp(v)} ${time}.`,answers:[be+' going to '+v.base],options:[be+' going to '+ing(v.base),wrongBe+' going to '+v.base,'will going to '+v.base],explain:`<strong>be going to + VR</strong> 表示打算、即將。主詞 ${s.en} 用 <strong>${be}</strong>，to 後面接原形。`});
+  }
+  return makeQ({cat:'fut',text:`${s.en} ${be} going to ___${cmp(v)} ${time}.`,answers:[v.base],options:[ing(v.base),v.base==='be'?'is':s3(v.base),v.past],explain:'<strong>be going to</strong> 的 to 是不定詞，後面接 <strong>VR</strong>。'});
+};
+
+GEN.perf=v=>{
+  const s=subjFor(v);
+  const h=haveNow(s),adv=R(['already','just','never']);
+  const kind=R(['form','form','have','ever']);
+  if(kind==='have'){
+    return makeQ({cat:'perf',text:`${s.en} ___ ${adv} ${v.pp}${cmp(v)}.`,answers:[h],options:[h==='has'?'have':'has','did',beNow(s)],explain:`現在完成式 <strong>have / has + p.p.</strong>。主詞 ${s.en} ${s.t==='3'?'是第三人稱單數，用 <strong>has</strong>':'用 <strong>have</strong>'}。`});
+  }
+  if(kind==='ever'){
+    const H=h.charAt(0).toUpperCase()+h.slice(1);
+    if(!v.regular)return makeQ({cat:'perf',type:true,text:`${H} ${s.en} ever ___ ${v.comp}?`.replace(/\s+/g,' '),answers:v.pps,explain:`<strong>${H} + 主詞 + ever + p.p.</strong>？＝曾經…嗎？ ${v.base} 的過去分詞是 <strong>${v.pps.join(' / ')}</strong>。`});
+    return makeQ({cat:'perf',text:`${H} ${s.en} ever ___${cmp(v)}?`,answers:v.pps,options:[v.base,ing(v.base),badPast(v)],explain:`<strong>${H} + 主詞 + ever + p.p.</strong>？＝曾經…嗎？`});
+  }
+  if(!v.regular){
+    return makeQ({cat:'perf',type:true,text:`${s.en} ${h} ${adv} ___ ${v.comp}.`.replace(/\s+/g,' '),answers:v.pps,explain:`關鍵字 <strong>${adv}</strong> → 現在完成式 ${h} + p.p.。<strong>${v.base}</strong> 是不規則動詞：${v.base} – ${v.past} – <strong>${v.pp}</strong>。`});
+  }
+  const wrongH=h==='has'?'have':'has';
+  return makeQ({cat:'perf',text:`${s.en} ___${cmp(v)}.`,answers:[h+' '+adv+' '+v.pp],options:[wrongH+' '+adv+' '+v.pp,h+' '+adv+' '+v.base,beNow(s)+' '+adv+' '+v.pp],explain:`<strong>${adv}</strong> 常和現在完成式連用：<strong>${h} + ${adv} + p.p.</strong>。`});
+};
+
+GEN.passive=v=>{
+  const obj=v.obj, pl=v.objPl;
+  const O=capFirst(obj);
+  const agentPool=v.subj?['by '+v.subj.sg.charAt(0).toLowerCase()+v.subj.sg.slice(1)]:['by Tom','by the students','by my mom','by Amy','by the workers'];
+  const by=chance(.45)?' '+R(agentPool):'';
+  const rest=v.rest?' '+v.rest:'';
+  const pp=v.pp, VI=ing(v.base);
+  const isAre=pl?'are':'is', wasWere=pl?'were':'was', hh=pl?'have':'has';
+  const tenses=[
+    {k:'現在簡單式',ans:`${isAre} ${pp}`,end:'every day',d:[vNow(v.base,{t:pl?'p':'3'}),`${isAre} ${VI}`,`${isAre} ${v.base}`]},
+    {k:'過去簡單式',ans:`${wasWere} ${pp}`,end:'yesterday',d:[v.past,`${wasWere} ${VI}`,`${isAre} ${pp}`]},
+    {k:'未來式 will',ans:`will be ${pp}`,end:'tomorrow',d:[`will ${v.base}`,`will be ${VI}`,`will ${pp}`]},
+    {k:'未來式 be going to',ans:`${isAre} going to be ${pp}`,end:'next week',d:[`${isAre} going to ${v.base}`,`${isAre} going to ${pp}`,`${isAre} going to being ${pp}`]},
+    {k:'現在進行式',ans:`${isAre} being ${pp}`,end:'now',d:[`${isAre} ${VI}`,`${isAre} been ${pp}`,`${isAre} be ${pp}`]},
+    {k:'現在完成式',ans:`${hh} been ${pp}`,end:'already',d:[`${hh} ${pp}`,`${hh} being ${pp}`,`${hh} be ${pp}`]},
+    {k:'助動詞',ans:`must be ${pp}`,end:'',d:[`must ${pp}`,`must ${v.base}`,`must being ${pp}`]}
+  ];
+  const t=R(tenses);
+  // irregular: add past-form trap when past ≠ pp
+  const d=t.d.slice();
+  if(!v.regular&&v.past!==pp){const trap=t.ans.replace(new RegExp(pp+'$'),v.past);d[2]=trap;}
+  return makeQ({cat:'passive',text:`${O} ___${rest}${by} ${t.end}.`.replace(/\s+\./,'.'),answers:[t.ans],options:d,explain:`主詞 <strong>${obj}</strong> 是「被」${v.zh.split('；')[0]}的，用被動語態（${t.k}）：<strong>${t.ans.replace(pp,'p.p.')}</strong>。${v.regular?'':`${v.base} 的 p.p. 是 <strong>${pp}</strong>。`}`});
+};
+
+GEN.ving=v=>{
+  const VR=v.base,VI=ing(VR),TO='to '+VR;
+  const s=R(PEOPLE);
+  const c=cmp(v);
+  const be=beNow(s);
+  const frames=[
+    {k:'enjoy',t:`${s.en} ${vNow('enjoy',s)} ___${c}.`,a:VI},
+    {k:'keep',t:`${s.en} kept ___${c} all day.`,a:VI},
+    {k:'finish',t:`${s.en} finished ___${c} before dinner.`,a:VI},
+    {k:'practice',t:`${s.en} ${vNow('practice',s)} ___${c} every day.`,a:VI},
+    {k:'mind',t:`Would you mind ___${c}?`,a:VI},
+    {k:'spend',t:`${s.en} spent two hours ___${c}.`,a:VI},
+    {k:'be busy',t:`${s.en} ${be} busy ___${c} now.`,a:VI},
+    {k:'have fun',t:`${s.en} had fun ___${c}.`,a:VI},
+    {k:'have a hard time',t:`${s.en} had a hard time ___${c}.`,a:VI},
+    {k:'have difficulty',t:`${s.en} ${haveNow(s)} difficulty ___${c}.`,a:VI},
+    {k:'have problems',t:`${s.en} had problems ___${c}.`,a:VI},
+    {k:'look forward to',t:`${s.en} ${be} looking forward to ___${c}.`,a:VI},
+    {k:'be good at',t:`${s.en} ${be} good at ___${c}.`,a:VI},
+    {k:'be interested in',t:`${s.en} ${be} interested in ___${c}.`,a:VI},
+    {k:'Ving 當主詞',t:`___${c} is a good way to relax.`,a:VI},
+    {k:'want',t:`${s.en} ${vNow('want',s)} ___${c}.`,a:TO},
+    {k:'need',t:`${s.en} ${vNow('need',s)} ___${c}.`,a:TO},
+    {k:'would like',t:`${s.en} would like ___${c}.`,a:TO},
+    {k:'plan',t:`${s.en} planned ___${c} this weekend.`,a:TO},
+    {k:'decide',t:`${s.en} decided ___${c}.`,a:TO},
+    {k:'expect',t:`${s.en} ${vNow('expect',s)} ___${c} soon.`,a:TO},
+    {k:'hope',t:`${s.en} ${vNow('hope',s)} ___${c} someday.`,a:TO},
+    {k:'It is…to V',t:`It is fun ___${c}.`,a:TO},
+    {k:'It is…to V',t:`It is important ___${c}.`,a:TO},
+    {k:'My dream is',t:`My dream is ___${c}.`,a:TO},
+    {k:'My goal is',t:`My goal is ___${c}.`,a:TO},
+    {k:'to V 當形容詞',t:`${s.en} ${haveNow(s)} no time ___${c}.`,a:TO}
+  ];
+  if(['do','say','eat','drink','read','write','wear'].includes(VR))frames.push({k:'nothing to V',t:`${s.en} ${haveNow(s)} nothing ___.`,a:TO});
+  // subject-verb agreement after gerund subject
+  if(chance(.12)){
+    return makeQ({cat:'ving',given:'動名詞（Ving）當主詞，視為單數',text:`${capFirst(VI)}${c} ___ fun.`,answers:['is'],options:['are','am','be'],hint:false,explain:'<strong>Ving 當主詞</strong>視為單數，動詞用 <strong>is</strong>（或其他單數動詞）。'});
+  }
+  if(chance(.12)){
+    return makeQ({cat:'ving',given:`${capFirst(VI)}${c} is fun.`,text:`= It is fun ___${c}.`,answers:[TO],options:[VI,VR,v.past],explain:'<strong>Ving + V…</strong> 可以改寫成 <strong>It + V… + to V</strong>（虛主詞 It 代替後面的 to V）。'});
+  }
+  const f=R(frames);
+  const isIng=f.a===VI;
+  const ex=isIng?`關鍵字 <strong>${f.k}</strong> 後面接 <strong>Ving</strong>。`:`關鍵字 <strong>${f.k}</strong> 後面接 <strong>to V</strong>。`;
+  return makeQ({cat:'ving',text:f.t,answers:[f.a],options:[isIng?TO:VI,VR,f.k==='mind'||f.k==='Ving 當主詞'?v.past:(isIng?v.past:s3(VR))],explain:ex});
+};
+
+GEN.causal=v=>{
+  const VR=v.base,VI=ing(VR);
+  const c=cmp(v);
+  const objPeople=['me','him','her','us','them','Tom','Amy','the kids'];
+  const seePeople=['Tom','Amy','the kids','him','her','them','my sister'];
+  let O=v.subj?v.subj.sg.charAt(0).toLowerCase()+v.subj.sg.slice(1):R(objPeople);
+  const kind=v.subj?'percep':R(['percep','percep','make','make','tell','tellNot','percPP']);
+  const SEE_PP=['clean','fix','break','cut','steal','paint','move','close','open','hit','push','pull','sweep','mop','wash','throw','damage','destroy','tear','shut','wipe','plant','build'];
+  const HEAR_PP=['sing','speak'];
+  if(kind==='percPP'&&v.obj&&(SEE_PP.includes(VR)||HEAR_PP.includes(VR))){
+    const sv=HEAR_PP.includes(VR)?'heard':R(['saw','watched']);
+    return makeQ({cat:'causal',text:`${R(['I','We','Tom','Amy'])} ${sv} ${v.obj} ___${v.rest?' '+v.rest:''}.`,answers:[v.pp],options:[VI,'to '+VR,s3(VR)],explain:`感官動詞 <strong>${sv}</strong> + O + <strong>p.p.</strong>：受詞 ${v.obj} 是「被」${v.zh.split('；')[0]}的，用過去分詞 <strong>${v.pp}</strong>。`});
+  }
+  if(kind==='percep'||kind==='percPP'){
+    const SOUND=['sing','shout','talk','cry','knock','ring','practice','bark','speak','say','chat','repeat','answer','scold'];
+    const sv=SOUND.includes(VR)?R(['heard','listened to','saw']):R(['saw','watched','noticed']);
+    const useIng=chance(.5);
+    const ans=useIng?VI:VR;
+    if(!v.subj)O=R(seePeople);
+    const S=R(['I','We','Tom','Amy','They'].filter(x=>x!==O));
+    return makeQ({cat:'causal',text:`${S} ${sv} ${O} ___${c}.`,answers:[ans],options:['to '+VR,v.past===VR?s3(VR):v.past,s3(VR)],explain:`感官動詞 <strong>${sv}</strong> + O + <strong>VR</strong>（看到整個動作）或 <strong>Ving</strong>（看到正在進行）。不可用 to V。`});
+  }
+  if(kind==='make'&&!v.flags.n){
+    const cv=R([['made','make'],['let','let'],['had','have'],['makes','make'],['lets','let']]);
+    const who=R(['Mom','Dad','The teacher','My coach']);
+    return makeQ({cat:'causal',text:`${who} ${cv[0]} ${O} ___${c}.`,answers:[VR],options:['to '+VR,VI,v.past===VR?s3(VR):v.past],explain:`使役動詞 <strong>${cv[1]}</strong> + 人 + <strong>VR</strong>（原形動詞，不加 to）。`});
+  }
+  if(kind==='tellNot'||v.flags.n){
+    const cv=R(['told','asked']);
+    const who=R(['Mom','Dad','The teacher','The doctor']);
+    return makeQ({cat:'causal',text:`${who} ${cv} ${O} ___${c}.`,answers:['not to '+VR],options:["don't "+VR,'not '+VR,'to not '+VI],explain:`<strong>${cv}</strong> + 人 + <strong>not to V</strong>：叫某人不要做某事，not 放在 to 前面。`});
+  }
+  const cv=R([['asked','ask'],['told','tell'],['got','get'],['wants','want'],['would like','would like']]);
+  const who=R(['Mom','Dad','The teacher','My coach']);
+  return makeQ({cat:'causal',text:`${who} ${cv[0]} ${O} ___${c}.`,answers:['to '+VR],options:[VR,VI,v.past===VR?s3(VR):v.past],explain:`<strong>${cv[1]}</strong> + 人 + <strong>to V</strong>。比較：make / let / have + 人 + VR。`});
+};
+
+function generate(catIds,zoneIds,avoid){
+  const verbs=ZONES.filter(z=>zoneIds.includes(z.id)).flatMap(z=>z.verbs);
+  const cats=catIds.filter(c=>verbs.some(eligible[c]));
+  if(!cats.length)return null;
+  for(let tries=0;tries<30;tries++){
+    const c=R(cats);
+    const pool=verbs.filter(eligible[c]);
+    const v=R(pool);
+    if(avoid&&avoid.has(v.base+c)&&tries<20)continue;
+    CUR_VERB=v;
+    const q=GEN[c](v);
+    q.text=q.text.replace(/\s+/g,' ').replace(/\s([?.!,])/g,'$1');
+    return q;
+  }
+  return null;
+}
+function catsAvailable(catIds,zoneIds){
+  const verbs=ZONES.filter(z=>zoneIds.includes(z.id)).flatMap(z=>z.verbs);
+  return catIds.filter(c=>verbs.some(eligible[c]));
+}
+
+/* =========================================================
+   UI
+   ========================================================= */
+const $=s=>document.querySelector(s);
+const state={games:new Set(GAMES.map(g=>g.id)),grammar:new Set(['ps','past','ving']),zones:new Set(ZONES.map(z=>z.id)),count:20,
+  score:0,right:0,wrong:0,streak:0,toGame:0,n:0,q:null,answered:false,log:[],wrongQs:[],recent:new Set(),lastGame:'',retryQueue:null};
+
+function chip(container,key,item,label,desc,tag){
+  const b=document.createElement('button');
+  b.type='button';b.className='chip';b.dataset.id=item;
+  b.setAttribute('aria-pressed',state[key].has(item)?'true':'false');
+  b.innerHTML=`<b>${label}${tag?`<i class="tag">${tag}</i>`:''}</b><span>${desc}</span>`;
+  b.addEventListener('click',()=>{state[key].has(item)?state[key].delete(item):state[key].add(item);b.setAttribute('aria-pressed',state[key].has(item));checkSetup();});
+  container.appendChild(b);
+}
+function refreshChips(key,sel){document.querySelectorAll(sel+' .chip').forEach(b=>b.setAttribute('aria-pressed',state[key].has(b.dataset.id)));checkSetup();}
+function buildSetup(){
+  GAMES.forEach(g=>chip($('#gameChips'),'games',g.id,g.name,g.desc));
+  GRAMMAR.forEach(g=>chip($('#grammarChips'),'grammar',g.id,g.name,g.ex));
+  ZONES.forEach(z=>chip($('#zoneChips'),'zones',z.id,z.name,z.note+'｜'+z.verbs.slice(0,5).map(v=>v.base).join(', ')+'…',z.verbs.length+' 字'));
+  document.querySelectorAll('[data-all]').forEach(b=>b.onclick=()=>{const k=b.dataset.all;state[k]=new Set((k==='grammar'?GRAMMAR:ZONES).map(x=>x.id));refreshChips(k,k==='grammar'?'#grammarChips':'#zoneChips');});
+  document.querySelectorAll('[data-none]').forEach(b=>b.onclick=()=>{const k=b.dataset.none;state[k]=new Set();refreshChips(k,k==='grammar'?'#grammarChips':'#zoneChips');});
+  $('#pickRegular').onclick=()=>{state.zones=new Set(ZONES.filter(z=>z.regular).map(z=>z.id));refreshChips('zones','#zoneChips');};
+  $('#pickIrregular').onclick=()=>{state.zones=new Set(ZONES.filter(z=>!z.regular).map(z=>z.id));refreshChips('zones','#zoneChips');};
+  document.querySelectorAll('#countSeg button').forEach(b=>b.onclick=()=>{state.count=+b.dataset.n;document.querySelectorAll('#countSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+  $('#startBtn').onclick=start;
+  checkSetup();
+}
+function checkSetup(){
+  const w=$('#setupWarn');let msg='';
+  const avail=catsAvailable([...state.grammar],[...state.zones]);
+  if(!state.grammar.size)msg='請至少選一個文法考點。';
+  else if(!state.zones.size)msg='請至少選一個動詞分區。';
+  else if(!avail.length)msg='這些分區沒有適合這個文法的動詞，請多選一個分區。';
+  else{
+    const skipped=[...state.grammar].filter(c=>!avail.includes(c)).map(c=>GRAMMAR.find(g=>g.id===c).name);
+    if(skipped.length)msg='這些分區不適合：'+skipped.join('、')+'（會略過）';
+  }
+  w.textContent=msg;
+  $('#startBtn').disabled=!state.grammar.size||!state.zones.size||!avail.length;
+}
+function renderPips(){
+  $('#pips').innerHTML=Array.from({length:5},(_,i)=>`<i class="pip${i<state.toGame?' on':''}"></i>`).join('');
+  $('#scoreTxt').textContent=state.score;$('#rightTxt').textContent=state.right;$('#streakTxt').textContent=state.streak;
+}
+function start(retry){
+  Object.assign(state,{score:0,right:0,wrong:0,streak:0,toGame:0,n:0,log:[],wrongQs:[],recent:new Set()});
+  state.retryQueue=Array.isArray(retry)?shuffle(retry):null;
+  $('#setup').classList.add('hidden');$('#summary').classList.add('hidden');$('#quiz').classList.remove('hidden');
+  renderPips();next();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function next(){
+  if(state.retryQueue){
+    if(!state.retryQueue.length)return finish();
+    state.q=state.retryQueue.shift();
+  }else{
+    if(state.count&&state.n>=state.count)return finish();
+    state.q=generate([...state.grammar],[...state.zones],state.recent);
+    if(!state.q)return finish();
+    state.recent.add(state.q.verb.base+state.q.cat);if(state.recent.size>25)state.recent.delete(state.recent.values().next().value);
+  }
+  state.n++;state.answered=false;
+  const q=state.q;
+  const total=state.retryQueue?state.n+state.retryQueue.length:state.count;
+  $('#qNum').textContent=total?`第 ${state.n} / ${total} 題`:`第 ${state.n} 題`;
+  $('#qCat').textContent=GRAMMAR.find(g=>g.id===q.cat).name;
+  $('#qZone').textContent=ZONES.find(z=>z.id===q.verb.zone).name;
+  $('#qGiven').classList.toggle('hidden',!q.given);$('#qGiven').textContent=q.given;
+  $('#qText').innerHTML=esc(q.text).replace('___','<span class="blank" id="blank">&nbsp;</span>');
+  $('#qHint').classList.toggle('hidden',!q.hint);
+  $('#qHint').textContent=`( ${q.verb.base}  ${q.verb.zh} )`;
+  $('#qFeedback').innerHTML='';$('#nextBtn').classList.add('hidden');$('#speakBtn').classList.add('hidden');
+  const area=$('#qArea');area.innerHTML='';
+  if(q.type){
+    area.innerHTML=`<form class="typebox" id="typeForm" autocomplete="off"><input id="typeInput" aria-label="輸入答案" placeholder="拼出正確的字" autocapitalize="off" spellcheck="false"><button class="btn dark" type="submit">送出</button></form>`;
+    $('#typeForm').onsubmit=e=>{e.preventDefault();const val=$('#typeInput').value.trim();if(!val){$('#typeInput').focus();return;}answer(val);};
+    setTimeout(()=>$('#typeInput').focus(),30);
+  }else{
+    const box=document.createElement('div');box.className='opts';
+    q.options.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.innerHTML=`<kbd>${i+1}</kbd><span>${esc(o)}</span>`;b.onclick=()=>answer(o,b);box.appendChild(b);});
+    area.appendChild(box);
+  }
+}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(t){return t.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').trim();}
+function answer(val,btn){
+  if(state.answered)return;state.answered=true;
+  const q=state.q;
+  const ok=q.answers.some(a=>norm(a)===norm(val));
+  const blank=$('#blank');blank.textContent=q.answers[0];blank.classList.add(ok?'right':'wrong');
+  if(q.type){$('#typeInput').disabled=true;$('#typeForm button').disabled=true;}
+  else document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const t=b.querySelector('span').textContent;if(q.answers.some(a=>norm(a)===norm(t)))b.classList.add('right');else if(b===btn)b.classList.add('wrong');});
+  const v=q.verb;
+  const forms=`<span class="forms">${v.base} – ${v.pasts.join('/')} – ${v.pps.join('/')}｜${v.zh}</span>`;
+  if(ok){
+    state.right++;state.streak++;state.toGame++;
+    const gain=10+Math.min(state.streak-1,5)*2;state.score+=gain;
+    $('#qFeedback').innerHTML=`<div class="feedback ok"><strong>答對了！+${gain}</strong>　${q.explain}<br>${forms}</div>`;
+  }else{
+    state.wrong++;state.streak=0;
+    state.wrongQs.push(q);
+    $('#qFeedback').innerHTML=`<div class="feedback no"><strong>正確答案：${esc(q.answers.join(' / '))}</strong>${q.type?`（你寫的是 ${esc(val)}）`:''}<br>${q.explain}<br>${forms}</div>`;
+  }
+  state.log.push({questionNumber:state.n,question:q.text.replace('___','( '+q.answers[0]+' )'),studentAnswer:val,correctAnswer:q.answers[0],isCorrect:ok,category:GRAMMAR.find(g=>g.id===q.cat).name});
+  renderPips();
+  $('#speakBtn').classList.remove('hidden');
+  const nb=$('#nextBtn');nb.classList.remove('hidden');
+  if(ok&&state.toGame>=5&&state.games.size){nb.textContent='進入小遊戲 →';}else nb.textContent='下一題 →';
+  nb.focus();
+}
+$('#nextBtn').onclick=()=>{
+  if(state.toGame>=5&&state.games.size){state.toGame=0;renderPips();launchGame();}
+  else{if(state.toGame>=5){state.toGame=0;renderPips();}next();}
+};
+$('#speakBtn').onclick=()=>{try{const u=new SpeechSynthesisUtterance(state.q.text.replace('___',state.q.answers[0]).replace(/^=\s*/,''));u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}};
+$('#endBtn').onclick=()=>{if(!state.answered)state.n--;finish();};
+$('#againBtn').onclick=()=>{$('#summary').classList.add('hidden');$('#setup').classList.remove('hidden');Object.assign(state,{score:0,right:0,streak:0,toGame:0});renderPips();window.scrollTo({top:0,behavior:'smooth'});};
+$('#retryWrongBtn').onclick=()=>{const qs=state.wrongQs.map(q=>Object.assign({},q,{options:q.options?shuffle(q.options):null}));start(qs);};
+document.addEventListener('keydown',e=>{
+  if(!$('#overlay').classList.contains('hidden'))return;
+  if($('#quiz').classList.contains('hidden'))return;
+  if(e.target.tagName==='INPUT'&&!state.answered)return;
+  if(!state.answered&&/^[1-4]$/.test(e.key)){const b=document.querySelectorAll('.opt')[+e.key-1];if(b)b.click();}
+  else if(state.answered&&e.key==='Enter'&&document.activeElement!==$('#nextBtn')){e.preventDefault();$('#nextBtn').click();}
+});
+
+function finish(){
+  closeGame();
+  $('#quiz').classList.add('hidden');$('#summary').classList.remove('hidden');
+  const total=state.log.length;
+  $('#sTotal').textContent=total;$('#sRight').textContent=state.right;$('#sWrong').textContent=state.wrong;$('#sScore').textContent=state.score;
+  const wl=$('#wrongList');
+  wl.innerHTML=state.wrong?state.log.filter(r=>!r.isCorrect).map(r=>`<div class="wrong-item">第 ${r.questionNumber} 題｜${esc(r.category)}<br>${esc(r.question)}<br>你的答案：${esc(r.studentAnswer)}　正確：<b>${esc(r.correctAnswer)}</b></div>`).join(''):'<div class="wrong-item" style="border-color:var(--mint)">全部答對，太厲害了！</div>';
+  $('#retryWrongBtn').classList.toggle('hidden',!state.wrong);
+  if(total>0){
+    const wrongNums=state.log.filter(r=>!r.isCorrect).map(r=>r.questionNumber).join(', ');
+    document.dispatchEvent(new CustomEvent('quiz-result-ready',{detail:{total,correct:state.right,wrong:state.wrong,mistakeQuestionNumbers:wrongNums,responses:state.log}}));
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =========================================================
+   MINI GAMES — each ≤ 1 minute
+   ========================================================= */
+let gameTimers=[];
+function later(fn,ms){const t=setTimeout(fn,ms);gameTimers.push(t);return t;}
+function every(fn,ms){const t=setInterval(fn,ms);gameTimers.push(t);return t;}
+function closeGame(){gameTimers.forEach(t=>{clearTimeout(t);clearInterval(t);});gameTimers=[];$('#overlay').classList.add('hidden');$('#arena').innerHTML='';}
+function launchGame(){
+  const pool=[...state.games];
+  let g=R(pool);if(pool.length>1){while(g===state.lastGame)g=R(pool);}
+  state.lastGame=g;
+  $('#overlay').classList.remove('hidden');
+  ({cards:gameCards,wheel:gameWheel,moles:gameMoles,clock:gameClock})[g]();
+}
+function award(pts,msg){
+  state.score+=pts;renderPips();
+  const r=$('#gResult');if(r)r.textContent=msg;
+  const b=document.createElement('button');b.className='btn go';b.type='button';b.textContent='回到題目 →';
+  b.onclick=()=>{closeGame();next();};
+  $('#arena').appendChild(b);b.focus();
+}
+
+/* 1. 翻牌比大小 */
+function gameCards(){
+  const vals=shuffle([10,20,30,50,100]);
+  const top=Math.max(...vals);
+  $('#arena').innerHTML=`<h3 id="gameTitle">翻牌比大小</h3><p id="gMsg">記住 <b style="color:var(--gold)">${top}</b> 分在哪一張！</p><div class="table" id="table"></div><div class="result" id="gResult"></div>`;
+  const table=$('#table');
+  const slots=vals.map((_,i)=>i);
+  const cards=vals.map((val,i)=>{
+    const c=document.createElement('button');c.type='button';c.className='card';c.disabled=true;
+    c.innerHTML=`<div class="in"><div class="f${val===top?' top':''}">${val}</div><div class="b"></div></div>`;
+    c.dataset.val=val;table.appendChild(c);return c;
+  });
+  const place=()=>cards.forEach((c,i)=>{c.style.left=(slots[i]*20+1)+'%';});
+  place();
+  later(()=>{cards.forEach(c=>c.classList.add('down'));$('#gMsg').textContent='洗牌中…盯緊它！';},1800);
+  let swaps=0;
+  later(()=>{
+    every(()=>{
+      if(swaps>=9)return;
+      const a=Math.floor(Math.random()*5);let b=Math.floor(Math.random()*5);if(b===a)b=(a+1)%5;
+      [slots[a],slots[b]]=[slots[b],slots[a]];place();swaps++;
+      if(swaps===9)later(pickable,450);
+    },380);
+  },2400);
+  function pickable(){
+    $('#gMsg').textContent='最高分的牌在哪裡？選一張！';
+    cards.forEach(c=>{c.disabled=false;c.classList.add('pickable');c.onclick=()=>{
+      cards.forEach(x=>{x.disabled=true;x.classList.remove('pickable');x.onclick=null;});
+      c.classList.add('picked');c.classList.remove('down');
+      later(()=>cards.forEach(x=>x.classList.remove('down')),700);
+      const val=+c.dataset.val;
+      award(val,val===top?`猜中最高分！+${val}`:`得到 +${val} 分`);
+    };});
+  }
+}
+
+/* 2. 幸運轉盤 */
+function gameWheel(){
+  const segs=[5,20,10,50,15,30,10,100];
+  const colors=['#e2574c','#f2b632','#2f6fd6','#1f9d6b','#8e5ad1','#f08a3c','#2bb0b6','#c43d6b'];
+  $('#arena').innerHTML=`<h3 id="gameTitle">幸運轉盤</h3><p>按下去，轉到幾分就加幾分</p><div class="wheel-wrap"><canvas id="wheel" width="600" height="600"></canvas><div class="pointer"></div></div><button class="btn go" id="spin" type="button">轉！</button><div class="result" id="gResult"></div>`;
+  const cv=$('#wheel'),ctx=cv.getContext('2d'),n=segs.length,arc=Math.PI*2/n;
+  segs.forEach((v,i)=>{
+    ctx.beginPath();ctx.moveTo(300,300);ctx.arc(300,300,290,i*arc-Math.PI/2,(i+1)*arc-Math.PI/2);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.stroke();
+    ctx.save();ctx.translate(300,300);ctx.rotate(i*arc+arc/2);ctx.fillStyle='#fff';ctx.font='64px "Lilita One", Arial';ctx.textAlign='center';ctx.fillText(v,0,-190);ctx.restore();
+  });
+  ctx.beginPath();ctx.arc(300,300,38,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();
+  $('#spin').onclick=()=>{
+    $('#spin').disabled=true;
+    const idx=Math.floor(Math.random()*n);
+    const target=360*5+(360-(idx*360/n+360/n/2))+(Math.random()*20-10)*.6;
+    cv.style.transform=`rotate(${target}deg)`;
+    later(()=>{$('#spin').remove();award(segs[idx],`轉到 ${segs[idx]} 分！`);},3300);
+  };
+  $('#spin').focus();
+}
+
+/* 3. 打地鼠三態 */
+function gameMoles(){
+  const verbs=ZONES.filter(z=>state.zones.has(z.id)).flatMap(z=>z.verbs).filter(v=>v.base!=='be');
+  const pool=verbs.length?verbs:ZONES.flatMap(z=>z.verbs).filter(v=>v.base!=='be');
+  const DUR=20000;
+  $('#arena').innerHTML=`<h3 id="gameTitle">打地鼠三態</h3><p>只敲<strong style="color:var(--gold)">過去式正確</strong>的地鼠！對 +5，錯 −3</p><div class="timerbar"><i id="tbar"></i></div><div class="mole-grid" id="mg"></div><div class="result" id="gResult">0 分</div>`;
+  const mg=$('#mg');const holes=[];
+  for(let i=0;i<9;i++){const h=document.createElement('div');h.className='hole';const m=document.createElement('button');m.type='button';m.className='mole';h.appendChild(m);mg.appendChild(h);holes.push(m);}
+  let pts=0,live=true;const t0=Date.now();
+  const tb=$('#tbar');
+  every(()=>{const left=Math.max(0,1-(Date.now()-t0)/DUR);tb.style.width=(left*100)+'%';},100);
+  function wrongForm(v){
+    const opts=[badPast(v),v.base+'ed',v.pp!==v.past?v.pp:null,v.base==='go'?'goed':null,ing(v.base)].filter(x=>x&&!v.pasts.includes(x));
+    return R(opts);
+  }
+  function pop(){
+    if(!live)return;
+    const free=holes.filter(m=>!m.classList.contains('up'));if(!free.length)return;
+    const m=R(free),v=R(pool),good=chance(.55);
+    m.textContent=`${v.base} → ${good?v.past:wrongForm(v)}`;m.dataset.good=good?'1':'0';m.className='mole up';
+    m.onclick=()=>{if(!m.classList.contains('up')||m.dataset.hit)return;m.dataset.hit='1';
+      if(m.dataset.good==='1'){pts+=5;m.classList.add('hitok');}else{pts-=3;m.classList.add('hitbad');m.textContent=`${v.base} → ${v.past}`;}
+      $('#gResult').textContent=pts+' 分';later(()=>{m.className='mole';delete m.dataset.hit;},450);};
+    later(()=>{if(!m.dataset.hit)m.className='mole';},1300);
+  }
+  every(pop,650);pop();
+  later(()=>{live=false;holes.forEach(m=>{m.className='mole';m.onclick=null;});const p=Math.max(0,pts);award(p,`時間到！得到 +${p} 分`);},DUR);
+}
+
+/* 4. 停在 5.00 秒 */
+function gameClock(){
+  $('#arena').innerHTML=`<h3 id="gameTitle">停在 5.00 秒</h3><p>按開始，數字 2 秒後會消失，憑感覺在 5.00 秒按停！</p><div class="clock" id="clk">0.00</div><button class="btn go" id="clkBtn" type="button">開始</button><div class="result" id="gResult"></div>`;
+  let t0=0,run=false,raf=0;
+  const clk=$('#clk'),btn=$('#clkBtn');
+  const tick=()=>{if(!run)return;const s=(performance.now()-t0)/1000;clk.textContent=s<2?s.toFixed(2):'?.??';raf=requestAnimationFrame(tick);};
+  btn.onclick=()=>{
+    if(!run){run=true;t0=performance.now();btn.textContent='停！';tick();return;}
+    run=false;cancelAnimationFrame(raf);
+    const s=(performance.now()-t0)/1000;clk.textContent=s.toFixed(2);btn.remove();
+    const d=Math.abs(s-5);const p=d<=.1?50:d<=.3?30:d<=.6?15:5;
+    award(p,`差 ${d.toFixed(2)} 秒｜+${p} 分`);
+  };
+  later(()=>{if(run)btn.click();},12000);
+  btn.focus();
+}
+
+parseVerbs();buildSetup();renderPips();
+</script>
+<script src="quiz-result-recorder.js?v=20261027-1" defer></script>
+</body>
+</html>
