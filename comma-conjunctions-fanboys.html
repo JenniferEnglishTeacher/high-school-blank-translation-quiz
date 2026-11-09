@@ -329,5 +329,5 @@ render();
 MistakeKit.init({title:document.querySelector('h1')?.innerText||document.title,onEnd:()=>document.getElementById('showAll')?.click()});
 (()=>{const orig=answer;window.answer=function(k,p){try{if(!(k in state)){const [t,c,a,r]=Q[order[k]];if(p!==a)MistakeKit.add({key:k,no:k+1,category:'Rule '+r,question:t.replace('|',' ___ '),options:['Comma','No comma'],yourAnswer:p?'Comma':'No comma',correctAnswer:a?'Comma（加逗號）':'No comma（不加逗號）',explanation:WHY[r]})}}catch(e){}return orig.apply(this,arguments)}})();
 </script>
-</body>
+<script src="/high-school-blank-translation-quiz/reward-games.js?v=20261110-1" defer></script></body>
 </html>

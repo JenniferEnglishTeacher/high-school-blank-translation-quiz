@@ -53,4 +53,4 @@ renderGroups();
 MistakeKit.init({title:document.querySelector('h1')?.innerText||document.title,onEnd:()=>{if(!document.getElementById('quiz').classList.contains('hidden'))finish()}});
 MistakeKit.syncFrom(()=>[...wrong.values()].map(r=>({key:r.item.id,no:r.item.id,category:r.item.group||'',question:r.item.p.replace(/\{\d+\}/g,'____')+(r.item.cue?'\n'+r.item.cue:''),yourAnswer:r.attempts.join('；'),correctAnswer:r.item.blanks.map(answerShow).join(' ／ ')+'\n'+r.item.sentence,explanation:[r.item.zh,r.item.tip].filter(Boolean).join('\n')})));
 </script>
-</body></html>
+<script src="/high-school-blank-translation-quiz/reward-games.js?v=20261110-1" defer></script></body></html>
