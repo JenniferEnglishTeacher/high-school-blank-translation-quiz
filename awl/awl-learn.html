@@ -51,7 +51,10 @@ header a{color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;paddin
 .cn{font-family:var(--zh);color:#6a4c93;font-weight:600;font-size:1.05rem}
 .def{color:#374151;font-size:.95rem;margin-bottom:8px}
 .ex{background:#fffbf0;border-left:4px solid var(--a);border-radius:8px;padding:9px 11px;display:flex;gap:8px;align-items:flex-start}
-.ex button{border:0;background:none;color:var(--a);font-size:1.2rem;cursor:pointer;padding:0 2px}
+.ex .spk-s{width:36px;height:36px;font-size:.95rem}
+.cb{padding-left:118px}
+@media (hover:hover) and (pointer:fine){.hov-on .hov-w:hover,.hov-on .hov-s:hover{outline:2px solid var(--al);outline-offset:3px;border-radius:8px;cursor:default}}
+.speaking{outline:2px solid var(--a)!important;outline-offset:3px;border-radius:8px}
 .ex .en{line-height:1.6}
 .ex mark{background:var(--al);padding:0 3px;border-radius:3px;font-weight:700;color:var(--p)}
 .ex mark.hide{color:transparent;background:#e5e1d8}
@@ -61,7 +64,7 @@ header a{color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;paddin
 .dock{position:fixed;left:0;right:0;bottom:0;background:#fffffff2;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:10px;flex-wrap:wrap;z-index:9;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .dock .info{align-self:center;font-weight:700;color:var(--p);font-size:.9rem}
 .err{padding:40px 20px;text-align:center}
-@media(max-width:560px){.cb{padding-left:14px}.word{font-size:1.3rem}}
+@media(max-width:560px){.cb{padding-left:14px!important}.word{font-size:1.3rem}}
 </style>
 </head>
 <body>
@@ -80,7 +83,10 @@ header a{color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;paddin
   <section id="study" style="display:none">
     <div class="tools">
       <div class="rangeTitle" id="rangeTitle"></div>
-      <label><input type="checkbox" id="hideToggle"> 自我測驗：遮住單字 Hide the words</label>
+      <span style="display:flex;gap:16px;flex-wrap:wrap">
+        <label id="hoverWrap" style="display:none"><input type="checkbox" id="hoverToggle" checked> 滑鼠移過自動發音 Hover to listen</label>
+        <label><input type="checkbox" id="hideToggle"> 自我測驗：遮住單字 Hide the words</label>
+      </span>
     </div>
     <div id="cards"></div>
   </section>
@@ -131,7 +137,7 @@ function init(DATA){
   let st = { seen: [], from: 0, to: 0, hide: false };
   try { st = Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
   let seen = new Set(st.seen);
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ seen: [...seen], from: st.from, to: st.to, hide: st.hide })); } catch (e) {} };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ seen: [...seen], from: st.from, to: st.to, hide: st.hide, hover: st.hover })); } catch (e) {} };
   $('hideToggle').checked = !!st.hide;
 
   // TTS (works on iPad Safari)
@@ -184,10 +190,10 @@ function init(DATA){
     for (let k = a; k <= b; k++) {
       const it = ITEMS[k - 1], f = fillSentence(it);
       html += '<article class="card' + (seen.has(k) ? ' seen' : '') + '" data-k="' + k + '">' +
-        '<div class="ch"><span class="num">' + k + '</span><div class="word' + (hide ? ' hide' : '') + '"><span>' + esc(it.w) + '</span></div><button class="spk" data-say="w" aria-label="Listen">🔊</button></div>' +
+        '<div class="ch"><span class="num">' + k + '</span><button class="spk" data-say="w" aria-label="Listen">🔊</button><div class="word hov-w' + (hide ? ' hide' : '') + '"><span>' + esc(it.w) + '</span></div></div>' +
         '<div class="cb"><div class="meta"><span class="pos">' + esc(it.pos || '—') + '</span><span class="cn">' + esc(it.cn) + '</span></div>' +
         '<div class="def">' + esc(it.def || '') + '</div>' +
-        '<div class="ex"><button data-say="s" aria-label="Listen to sentence">▶</button><div><div class="en">' + f.html.replace(/<mark>/g, hide ? '<mark class="hide">' : '<mark>') + '</div><div class="zh">' + esc(it.zh) + '</div></div></div>' +
+        '<div class="ex hov-s"><button class="spk spk-s" data-say="s" aria-label="Listen to sentence">▶</button><div><div class="en">' + f.html.replace(/<mark>/g, hide ? '<mark class="hide">' : '<mark>') + '</div><div class="zh">' + esc(it.zh) + '</div></div></div>' +
         '<button class="seenBtn">' + (seen.has(k) ? '✓ 已複習 Reviewed' : '○ 標記已複習 Mark as reviewed') + '</button></div></article>';
     }
     $('cards').innerHTML = html;
@@ -212,6 +218,32 @@ function init(DATA){
       save(); updateDock(); renderChips(); renderResume();
     }
   };
+
+  // hover-to-listen for mouse/trackpad users (not touch screens)
+  const canHover = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  let hoverOn = canHover && st.hover !== false, hoverTimer = null, lastHover = null;
+  if (canHover) { $('hoverWrap').style.display = ''; $('hoverToggle').checked = hoverOn; }
+  document.body.classList.toggle('hov-on', hoverOn);
+  $('hoverToggle').onchange = e => { hoverOn = e.target.checked; st.hover = hoverOn; save(); document.body.classList.toggle('hov-on', hoverOn); };
+  // browsers only allow speech after the first click/tap on the page
+  let unlocked = false;
+  document.addEventListener('pointerdown', () => { if (!unlocked && 'speechSynthesis' in window) { unlocked = true; const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } }, { once: true });
+  $('cards').addEventListener('mouseover', e => {
+    if (!hoverOn) return;
+    const zone = e.target.closest('.hov-w, .hov-s'); if (!zone || zone === lastHover) return;
+    if (zone.classList.contains('hide') || zone.querySelector('mark.hide')) return; // don't give away hidden words
+    lastHover = zone; clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => {
+      const card = zone.closest('.card'), it = ITEMS[+card.dataset.k - 1];
+      document.querySelectorAll('.speaking').forEach(x => x.classList.remove('speaking'));
+      zone.classList.add('speaking'); setTimeout(() => zone.classList.remove('speaking'), 1200);
+      zone.classList.contains('hov-w') ? speak(primary(it.w).replace(/\.{2,}/g, ' '), .8) : speak(fillSentence(it).text, .9);
+    }, 250);
+  });
+  $('cards').addEventListener('mouseout', e => {
+    const zone = e.target.closest('.hov-w, .hov-s');
+    if (zone && !zone.contains(e.relatedTarget)) { if (zone === lastHover) lastHover = null; clearTimeout(hoverTimer); }
+  });
   $('hideToggle').onchange = e => { st.hide = e.target.checked; save(); if (st.from) openRange(st.from, st.to); };
 
   renderChips(); renderResume();
