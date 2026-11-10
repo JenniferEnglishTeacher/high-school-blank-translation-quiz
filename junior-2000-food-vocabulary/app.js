@@ -156,6 +156,12 @@ function checkAnswer(event) {
     els.feedback.className = 'feedback feedback--correct';
     els.feedback.textContent = '✓ 答對了！';
     renderAnswerLine(item.answerTemplate, answerFor(item));
+    window.__j2kSeen = window.__j2kSeen || new Set();
+    if (!window.__j2kSeen.has(key)) {
+      window.__j2kSeen.add(key);
+      const j2kCount = window.__j2kSeen.size;
+      if (window.J2KGames) setTimeout(() => window.J2KGames.after(j2kCount), 900);
+    }
   } else {
     els.feedback.className = 'feedback feedback--wrong';
     els.feedback.textContent = '再試一次，注意單複數或動詞變化。';
