@@ -18,8 +18,9 @@
   };
   const words = D.words;
   const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const sayable = t => String(t).replace(/\*\*/g, '').replace(/\bV-ing\b/g, 'doing').replace(/\bto V\b/g, 'to do').replace(/\bV\b/g, 'do').replace(/\bN\b/g, 'something').replace(/\s*\/\s*/g, ', or ').replace(/[（(][^)）]*[)）]/g, '');
   function speak(text) {
-    try { const u = new SpeechSynthesisUtterance(text.replace(/\*\*/g, '')); u.lang = 'en-US'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (_) { }
+    try { const u = new SpeechSynthesisUtterance(sayable(text)); u.lang = 'en-US'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (_) { }
   }
   const STORY_RE = /\[([^\]>]+)>([^\]]+)\]|\{([^}>]+)>([^}]+)\}/g;
   const storyKey = st => st.replace(STORY_RE, (a, b, c, d, e) => b ? c : e);
@@ -27,6 +28,7 @@
   // ---------- sections ----------
   const SECTIONS = [
     { id: 'cards', name: '單字卡 Word Cards', desc: `${words.length} 個單字｜意思、詞形、搭配詞、朗讀`, scored: false },
+    ...(D.mcq && D.mcq.length ? [{ id: 'choice', name: '單字選擇題 Collocation Quiz', desc: `${D.mcq.length} 題｜每個搭配詞都考｜動詞時態・名詞單複數`, scored: true }] : []),
     { id: 'meaning', name: '看意思寫單字 Meaning → Word', desc: `${words.length} 題｜拼字作答`, scored: true },
     { id: 'sentence', name: '單句填空（詞形變化）', desc: `${D.sentenceSets.flat().length} 題｜動詞時態・名詞單複數`, scored: true },
     { id: 'paragraph', name: '段落填空 Paragraph Fill-in', desc: `${D.paragraphs.length} 篇｜${D.paragraphs.reduce((n, p) => n + p.answers.length, 0)} 格`, scored: true },
@@ -47,11 +49,12 @@
     let items;
     if (id === 'cards') items = words.map(w => ({ w }));
     if (id === 'meaning') items = shuffle(words).map(w => ({ w, a: w.w }));
+    if (id === 'choice') items = D.mcq.map(x => ({ ...x, opts: shuffle(x.o) }));
     if (id === 'sentence') items = D.sentenceSets.flat().map(x => ({ ...x }));
     if (id === 'paragraph') items = D.paragraphs.map(p => ({ p }));
     if (id === 'fix') items = words.map(w => ({ w }));
     if (id === 'make') items = words.map(w => ({ w }));
-    if (retryItems) items = retryItems;
+    if (retryItems) items = retryItems.map(x => ({ ...x, done: false, tries: 0, ...(x.o ? { opts: shuffle(x.o) } : {}) }));
     items.forEach((it, i) => it.no = it.no || i + 1);
     state = { sec, items, i: 0, total: 0, wrong: 0, wrongNos: [], wrongItems: [], responses: [] };
     if (sec.scored) state.total = id === 'paragraph' ? items.reduce((n, it) => n + it.p.answers.length, 0) : id === 'fix' ? items.reduce((n, it) => n + countFix(it.w.story), 0) : items.length;
@@ -86,11 +89,23 @@
         <button class="btn voice small" data-say="${esc(w.w)}">🔊</button></div>
         ${w.forms ? `<p class="forms">${esc(w.forms)}</p>` : ''}
         <ol class="means">${w.meanings.map(m => `<li>${esc(m.en)}<br><span class="zh">${esc(m.zh)}</span></li>`).join('')}</ol>
-        <h4>Collocations 常見搭配</h4><ul class="coll">${w.coll.map(c => `<li><b>${esc(c.en)}</b> <span class="zh">${esc(c.zh)}</span></li>`).join('')}</ul>
+        <h4>Collocations 常見搭配</h4><ul class="coll">${w.coll.map(c => `<li><button type="button" class="say" data-say="${esc(c.en)}" aria-label="朗讀 ${esc(c.en)}"><span aria-hidden="true">🔊</span> <b>${esc(c.en)}</b></button> <span class="zh">${esc(c.zh)}</span></li>`).join('')}</ul>
         ${w.family ? `<p class="forms">Word family 詞類變化：${esc(w.family)}</p>` : ''}
         <p class="sample">例句：${esc(w.sample)} <button class="btn voice small" data-say="${esc(w.sample)}">🔊</button></p></div>`;
-      area.querySelectorAll('[data-say]').forEach(b => b.onclick = () => speak(b.dataset.say));
+      area.querySelectorAll('[data-say]').forEach(b => {
+        b.onclick = () => speak(b.dataset.say);
+        if (b.classList.contains('say')) {
+          let t; b.onmouseenter = () => { t = setTimeout(() => speak(b.dataset.say), 250); }; b.onmouseleave = () => clearTimeout(t);
+        }
+      });
       $('#check').classList.add('hidden'); $('#next').classList.remove('hidden');
+      return;
+    }
+    if (id === 'choice') {
+      area.innerHTML = `<div class="question">${esc(it.s).replace('___', '<span class="blank">______</span>')}</div>
+        <div class="choices">${it.opts.map((o, k) => `<button type="button" class="choice" data-o="${esc(o)}"><span class="lt">(${'ABCD'[k]})</span> ${esc(o)}</button>`).join('')}</div>`;
+      area.querySelectorAll('.choice').forEach(b => b.onclick = () => pick(b));
+      $('#check').classList.add('hidden');
       return;
     }
     if (id === 'meaning') {
@@ -142,6 +157,17 @@
     (w.irr || []).forEach(x => s.add(x.toLowerCase())); return s;
   }
 
+  function pick(btn) {
+    const it = state.items[state.i]; if (it.done) return; it.done = true;
+    const right = it.o[0], ok = btn.dataset.o === right;
+    document.querySelectorAll('#area .choice').forEach(b => { b.disabled = true; if (b.dataset.o === right) b.classList.add('correct'); else if (b === btn) b.classList.add('incorrect'); });
+    if (!ok) miss(it, 1, `${it.s.replace('___', '___')} → 選 ${btn.dataset.o}，正解 ${right}`);
+    const w = words.find(x => x.w === it.w) || {}; const c = (w.coll || []).find(x => x.en === it.coll) || { en: it.coll, zh: '' };
+    const full = it.s.replace('___', right);
+    feedback(ok, `${ok ? '✔ 答對了！' : '✘ 正確答案：<b>' + esc(right) + '</b>'}<br><span class="rule">搭配詞</span> <button type="button" class="say inline" data-say="${esc(c.en)}">🔊 ${esc(c.en)}</button> ${esc(c.zh)}<span class="full">${esc(full)}</span>`);
+    const sb = document.querySelector('#feedback .say'); if (sb) sb.onclick = () => speak(sb.dataset.say);
+    speak(full); finishItem();
+  }
   function check() {
     const it = state.items[state.i], id = state.sec.id;
     if (id === 'meaning') {
