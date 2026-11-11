@@ -14,9 +14,12 @@
     pp: ['p.p. 完成式', 'have / has / had + 動詞 → 過去分詞'],
     plural: ['複數 Plural', 'two / many / several / some / all the… + 名詞 → 加 -s / -es / -ies'],
     sing: ['單數 Singular', 'a / an / one / every + 名詞 → 單數'],
-    none: ['不變 No change', '形容詞、副詞不加 -s 或 -ed，照原樣寫'],
+    none: ['不變 No change', '形容詞、副詞（和不可數名詞）不加 -s 或 -ed，照原樣寫'],
+    base: ['原形 Base form', "to / can / will / should / didn't / don't + 動詞 → 用原形"],
+    ppadj: ['過去分詞 p.p.', 'be 動詞 + p.p. 表被動；very / felt + p.p. 當形容詞用'],
   };
   const words = D.words;
+  const SENT = D.sentenceSets.flat().concat(D.extraSentences || []);
   const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const sayable = t => String(t).replace(/\*\*/g, '').replace(/\bV-ing\b/g, 'doing').replace(/\bto V\b/g, 'to do').replace(/\bV\b/g, 'do').replace(/\bN\b/g, 'something').replace(/\s*\/\s*/g, ', or ').replace(/[（(][^)）]*[)）]/g, '');
   function speak(text) {
@@ -30,7 +33,7 @@
     { id: 'cards', name: '單字卡 Word Cards', desc: `${words.length} 個單字｜意思、詞形、搭配詞、朗讀`, scored: false },
     ...(D.mcq && D.mcq.length ? [{ id: 'choice', name: '單字選擇題 Collocation Quiz', desc: `${D.mcq.length} 題｜每個搭配詞都考｜動詞時態・名詞單複數`, scored: true }] : []),
     { id: 'meaning', name: '看意思寫單字 Meaning → Word', desc: `${words.length} 題｜拼字作答`, scored: true },
-    { id: 'sentence', name: '單句填空（詞形變化）', desc: `${D.sentenceSets.flat().length} 題｜動詞時態・名詞單複數`, scored: true },
+    { id: 'sentence', name: '單句填空（詞形變化）', desc: `${SENT.length} 題｜動詞時態・名詞單複數`, scored: true },
     { id: 'paragraph', name: '段落填空 Paragraph Fill-in', desc: `${D.paragraphs.length} 篇｜${D.paragraphs.reduce((n, p) => n + p.answers.length, 0)} 格`, scored: true },
     { id: 'fix', name: '改錯 Grammar Fix', desc: `${words.length} 篇小短文｜動詞變化・名詞單複數`, scored: true },
     { id: 'make', name: '造句 Sentence Making', desc: `${words.length} 題｜情境造句＋範例`, scored: false },
@@ -50,7 +53,7 @@
     if (id === 'cards') items = words.map(w => ({ w }));
     if (id === 'meaning') items = shuffle(words).map(w => ({ w, a: w.w }));
     if (id === 'choice') items = D.mcq.map(x => ({ ...x, opts: shuffle(x.o) }));
-    if (id === 'sentence') items = D.sentenceSets.flat().map(x => ({ ...x }));
+    if (id === 'sentence') items = D.sentenceSets.flat().map(x => ({ ...x })).concat(shuffle(D.extraSentences || []).map(x => ({ ...x })));
     if (id === 'paragraph') items = D.paragraphs.map(p => ({ p }));
     if (id === 'fix') items = words.map(w => ({ w }));
     if (id === 'make') items = words.map(w => ({ w }));
@@ -180,6 +183,9 @@
     if (id === 'sentence') {
       const v = $('#ans').value; if (!v.trim()) return;
       const ok = same(v, it.a); it.tries++;
+      if (!ok && it.tries === 1 && !it.clue) {
+        feedback(false, '再想一次！看看空格前後：主詞是單數還是複數？有沒有 yesterday、has、is、to、two 這類線索？'); $('#ans').select(); return;
+      }
       if (!ok && it.tries === 1) {
         const b = it.s.indexOf('___'); let c = it.s.lastIndexOf(it.clue, b); if (c < 0) c = it.s.indexOf(it.clue, b);
         const parts = [it.s.slice(0, c), it.s.slice(c, c + it.clue.length), it.s.slice(c + it.clue.length)];
