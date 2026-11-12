@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>不規則動詞時態與句型總複習</title>
+<style>
+:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--card:#fff;--teal:#0f7c7c;--teal-l:#e3f2f2;--red:#c00000;--ok:#15803d;--ok-l:#dcfce7;--bad:#b91c1c;--bad-l:#fee2e2;--blue:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+a{color:var(--blue)}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+h1{margin:0;font-size:24px}
+.back{font-weight:700;text-decoration:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 4px 14px #0f172a0a}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer;font-size:15px}
+.tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.chip{display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:1px solid var(--line);background:#fbfdff;border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit;color:inherit}
+.chip:hover{border-color:var(--teal);background:var(--teal-l)}
+.chip b{font-size:17px}.chip small{color:var(--muted);font-size:12.5px}
+.hint{color:var(--muted);font-size:14px;margin:4px 0 0}
+.forms{display:grid;grid-template-columns:repeat(4,1fr);border-radius:12px;overflow:hidden;border:1px solid var(--teal)}
+.forms div{padding:8px 10px;background:var(--teal);color:#fff}
+.forms div b{display:block;font-size:18px}.forms div span{font-size:12.5px;opacity:.9}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.filters label{display:flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;cursor:pointer;font-size:14px;font-weight:700}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0}
+.bar{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .2s}
+.stat{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:4px;font-weight:700}
+.sec-title{margin:22px 0 8px;padding:10px 14px;background:var(--teal-l);color:var(--teal);font-weight:900;border-radius:12px;font-size:17px}
+.row{display:grid;grid-template-columns:200px 280px 1fr;border:1px solid var(--line);border-radius:14px;background:#fff;margin:8px 0;overflow:hidden}
+.row>div{padding:12px}
+.c1{border-right:1px solid var(--line);background:#fcfdfd}
+.c1 .g{font-weight:900}.c1 .z{font-weight:900}.c1 .u{color:var(--muted);font-size:13px;margin-top:4px}.c1 .s{color:var(--teal);font-size:13px;font-style:italic;margin-top:4px}
+.c2{border-right:1px solid var(--line);font-size:14.5px}.c2 div{margin-bottom:3px}
+.q{margin:0 0 12px;font-size:16px}
+.q:last-child{margin-bottom:0}
+.q .n{color:var(--teal);font-weight:900;margin-right:4px}
+.q .eq{display:block;margin-top:2px}
+.trig{color:var(--red);font-weight:900}
+.subj{font-weight:900}
+.chg{color:var(--red);font-weight:900;text-decoration:underline}
+.sig{text-decoration:underline}
+.grp{display:inline-flex;flex-wrap:wrap;gap:4px;vertical-align:middle;margin:2px 2px}
+.opt{font:inherit;font-size:15px;border:1.5px solid #cbd5e1;background:#f8fafc;border-radius:8px;padding:2px 9px;cursor:pointer;color:var(--ink)}
+.opt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-l)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-l);border-color:var(--ok);color:var(--ok);font-weight:900}
+.opt.wrong{background:var(--bad-l);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.opt.dim{opacity:.45}
+.note{color:var(--muted);font-size:14px;font-style:italic}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{font:inherit;font-weight:900;border:0;border-radius:12px;padding:11px 18px;cursor:pointer;background:var(--teal);color:#fff}
+.btn.sec{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+#result h2{margin:0 0 6px}
+#result .big{font-size:30px;font-weight:900;color:var(--teal)}
+#wrongList li{margin:6px 0}
+.hidden{display:none!important}
+@media(max-width:900px){.row{grid-template-columns:1fr}.c1,.c2{border-right:0;border-bottom:1px solid var(--line)}.forms{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>不規則動詞時態與句型總複習</h1>
+    <a class="back" href="dashboard.html#grammar">← 回 Grammar 文法區</a>
+  </header>
+
+  <section id="picker" class="panel">
+    <div class="tabs" id="tabs"></div>
+    <div class="chips" id="chips"></div>
+    <p class="hint">選一個動詞開始：左邊看文法與句型，右邊點選正確的動詞形式。答錯會直接顯示正確答案。</p>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <h2 id="verbTitle" style="margin:0;font-size:22px"></h2>
+        <button class="btn sec" id="changeVerb" type="button">換動詞</button>
+      </div>
+      <div class="forms" id="forms"></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="sticky"><div class="bar"><i id="barFill"></i></div><div class="stat"><span id="statDone"></span><span id="statRight"></span></div></div>
+    <div id="rows"></div>
+    <div class="btns"><button class="btn" id="finish" type="button">完成並看成績</button></div>
+  </section>
+
+  <section id="result" class="panel hidden">
+    <h2>練習結果</h2>
+    <div id="resultText"></div>
+    <div id="wrongList"></div>
+    <div class="btns"><button class="btn" id="again" type="button">同一個動詞再練一次</button><button class="btn sec" id="another" type="button">換動詞</button></div>
+  </section>
+</div>
+
+<script src="verb-forms-review-data.js?v=20261113-1"></script>
+<script>
+(() => {
+  const D = window.VERB_REVIEW;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const params = new URLSearchParams(location.search);
+  let group = D.groups[params.get('group')] ? params.get('group') : 'ABC';
+  let verb = null, questions = [], parts = { 0: true, 1: true, 2: true };
+  const GROUP_LABEL = { ABC: 'A-B-C 型', ABB: 'A-B-B 型', ABA: 'A-B-A 型', AAA: 'A-A-A 型' };
+
+  function countQ(v) { return Object.values(D.verbs[v].rows).reduce((a, r) => a + r.length, 0); }
+  function renderPicker() {
+    $('#tabs').innerHTML = Object.keys(D.groups).map(g => `<button class="tab ${g === group ? 'on' : ''}" data-g="${g}" type="button">${GROUP_LABEL[g]}（${D.groups[g].length}）</button>`).join('');
+    $('#chips').innerHTML = D.groups[group].map(v => { const V = D.verbs[v]; return `<button class="chip" data-v="${v}" type="button"><b>${esc(V.VR)}</b><small>${esc(V.past)} · ${esc(V.pp)}</small><small>${esc(V.zh.split(/[（(；]/)[0])}｜${countQ(v)} 題</small></button>`; }).join('');
+  }
+  $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-g]'); if (!b) return; group = b.dataset.g; renderPicker(); });
+  $('#chips').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) openVerb(b.dataset.v); });
+
+  function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+  // inline markup -> html; choice groups become buttons
+  function inline(str, qi, gcounter) {
+    let html = '', last = 0, m; const re = /\{([^}]+)\}|_([^_]+)_|\[\[(.+?)\]\]|\*\*(.+?)\*\*|==(.+?)==/g;
+    while ((m = re.exec(str))) {
+      html += esc(str.slice(last, m.index));
+      if (m[1]) {
+        const gi = gcounter.n++; const opts = shuffle(m[1].split('|'));
+        const ans = opts.find(o => o.endsWith('*')).slice(0, -1);
+        questions[qi].groups.push({ answer: ans, chosen: null });
+        html += `<span class="grp" data-q="${qi}" data-gi="${gi}">` + opts.map(o => { const t = o.replace(/\*$/, ''); return `<button type="button" class="opt" data-t="${esc(t)}">${esc(t)}</button>`; }).join('') + '</span>';
+      } else if (m[2]) html += `<span class="sig">${esc(m[2])}</span>`;
+      else if (m[3]) html += `<span class="trig">${esc(m[3])}</span>`;
+      else if (m[4]) html += `<span class="subj">${esc(m[4])}</span>`;
+      else html += `<span class="chg">${esc(m[5])}</span>`;
+      last = re.lastIndex;
+    }
+    return html + esc(str.slice(last));
+  }
+
+  function openVerb(v) {
+    verb = v; const V = D.verbs[v];
+    history.replaceState(null, '', `?group=${V.g}&verb=${v}`);
+    $('#verbTitle').textContent = `${V.VR}（${V.zh}）`;
+    $('#forms').innerHTML = [[`${V.VR} / ${V.Vs}`, 'VR / Vs 原形'], [V.past, 'past tense 過去式'], [V.pp, 'past participle 過去分詞'], [V.ing, 'Ving 現在分詞']].map(([a, b]) => `<div><b>${esc(a)}</b><span>${b}</span></div>`).join('');
+    const avail = D.template.map((s, i) => s.rows.some(r => V.rows[r.key]) ? i : -1).filter(i => i >= 0);
+    parts = {}; avail.forEach(i => parts[i] = true);
+    $('#filters').innerHTML = '<b style="font-size:14px">練習範圍：</b>' + avail.map(i => `<label><input type="checkbox" data-p="${i}" checked> ${esc(D.template[i].title.split('  ')[0])} ${esc(D.template[i].title.split('  ')[1] || '')}</label>`).join('');
+    $('#picker').classList.add('hidden'); $('#result').classList.add('hidden'); $('#quiz').classList.remove('hidden');
+    buildRows(); scrollTo(0, 0);
+  }
+  $('#filters').addEventListener('change', e => { const c = e.target.closest('[data-p]'); if (!c) return; parts[c.dataset.p] = c.checked; buildRows(); });
+
+  function buildRows() {
+    const V = D.verbs[verb]; questions = []; let html = '';
+    D.template.forEach((sec, si) => {
+      if (!parts[si]) return;
+      const rows = sec.rows.filter(r => V.rows[r.key]);
+      if (!rows.length) return;
+      if (si === 1) { const other = sec.rows.find(r => r.key === 'p_other'); if (other) rows.push(other); }
+      html += `<div class="sec-title">${esc(sec.title)}</div>`;
+      rows.forEach(r => {
+        const sents = V.rows[r.key] || [];
+        let c3 = sents.map(s => {
+          const qi = questions.length; questions.push({ groups: [], text: s, row: r.g }); const gc = { n: 0 };
+          let body;
+          if (s.includes(' => ')) { const [pre, post] = s.split(' => '); body = inline(pre, qi, gc) + `<span class="eq">= ${inline(post, qi, gc)}</span>`; }
+          else body = inline(s, qi, gc);
+          return `<p class="q" id="q${qi}"><span class="n">${qi + 1}.</span>${body}</p>`;
+        }).join('');
+        if (r.key === 'p_other' && r.note) c3 += `<p class="note">※ ${esc(r.note)}</p>`;
+        html += `<div class="row"><div class="c1"><div class="g">${esc(r.g)}</div><div class="z">${esc(r.zh)}</div>${r.use ? `<div class="u">${esc(r.use)}</div>` : ''}${r.sig ? `<div class="s">⏱ ${esc(r.sig)}</div>` : ''}</div><div class="c2">${r.p.map(p => `<div>${esc(p)}</div>`).join('')}</div><div class="c3">${c3}</div></div>`;
+      });
+    });
+    $('#rows').innerHTML = html; updateStats();
+  }
+
+  $('#rows').addEventListener('click', e => {
+    const b = e.target.closest('.opt'); if (!b || b.disabled) return;
+    const span = b.parentElement; const q = questions[+span.dataset.q]; const g = q.groups[+span.dataset.gi];
+    g.chosen = b.dataset.t;
+    span.querySelectorAll('.opt').forEach(o => {
+      o.disabled = true;
+      if (o.dataset.t === g.answer) o.classList.add('right');
+      else if (o === b) o.classList.add('wrong'); else o.classList.add('dim');
+    });
+    updateStats();
+    if (questions.length && questions.every(done)) setTimeout(finish, 600);
+  });
+
+  const done = q => q.groups.every(g => g.chosen !== null);
+  const right = q => q.groups.every(g => g.chosen === g.answer);
+  function updateStats() {
+    const total = questions.length, d = questions.filter(done).length, r = questions.filter(q => done(q) && right(q)).length;
+    $('#barFill').style.width = total ? (d / total * 100) + '%' : '0';
+    $('#statDone').textContent = `已作答 ${d} / ${total}`;
+    $('#statRight').textContent = `答對 ${r}`;
+  }
+
+  function plain(s) { return s.replace(/\{([^}]+)\}/g, (m, o) => '(' + o.split('|').map(x => x.replace('*', '')).join(' / ') + ')').replace(/\[\[|\]\]|\*\*|==|_/g, '').replace(' => ', '  →  '); }
+  function finish() {
+    if (!questions.length) return;
+    const total = questions.length, answered = questions.filter(done);
+    const wrongQs = questions.map((q, i) => ({ q, i })).filter(({ q }) => !done(q) || !right(q));
+    const correct = total - wrongQs.length;
+    $('#resultText').innerHTML = `<p><b>${esc(D.verbs[verb].VR)}</b>｜作答 ${answered.length} / ${total} 題</p><p class="big">答對 ${correct} / ${total}</p>`;
+    $('#wrongList').innerHTML = wrongQs.length ? '<h3>需要再看一次的題目</h3><ul class="wrong-list">' + wrongQs.map(({ q, i }) => `<li><b>${i + 1}.</b> ${esc(plain(q.text))}<br><span style="color:var(--ok);font-weight:800">正確答案：${esc(q.groups.map(g => g.answer).join(' ／ '))}</span>${q.groups.some(g => g.chosen) ? `　<span style="color:var(--bad)">你的答案：${esc(q.groups.map(g => g.chosen || '未作答').join(' ／ '))}</span>` : ''}</li>`).join('') + '</ul>' : '<p>全部答對，太棒了！</p>';
+    $('#quiz').classList.add('hidden'); $('#result').classList.remove('hidden'); scrollTo(0, 0);
+    document.dispatchEvent(new CustomEvent('quiz-result-ready', { detail: {
+      total, correct, wrong: wrongQs.length, mistakeQuestionNumbers: wrongQs.map(w => w.i + 1).join(','),
+      responses: questions.map((q, i) => ({ number: i + 1, question: plain(q.text), answer: q.groups.map(g => g.answer).join(' / '), response: q.groups.map(g => g.chosen || '').join(' / '), correct: right(q) }))
+    } }));
+  }
+  $('#finish').addEventListener('click', () => {
+    const left = questions.filter(q => !done(q)).length;
+    if (left && !confirm(`還有 ${left} 題沒作答，確定要交卷嗎？`)) return;
+    finish();
+  });
+  $('#again').addEventListener('click', () => openVerb(verb));
+  const toPicker = () => { $('#quiz').classList.add('hidden'); $('#result').classList.add('hidden'); $('#picker').classList.remove('hidden'); history.replaceState(null, '', `?group=${group}`); renderPicker(); scrollTo(0, 0); };
+  $('#another').addEventListener('click', toPicker); $('#changeVerb').addEventListener('click', toPicker);
+
+  renderPicker();
+  const pv = params.get('verb'); if (pv && D.verbs[pv]) { group = D.verbs[pv].g; openVerb(pv); }
+})();
+</script>
+<script src="quiz-result-recorder.js?v=20261027-1" defer></script>
+</body>
+</html>
