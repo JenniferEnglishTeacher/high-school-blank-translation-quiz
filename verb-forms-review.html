@@ -98,7 +98,7 @@ h1{margin:0;font-size:24px}
   </section>
 </div>
 
-<script src="verb-forms-review-data.js?v=20261113-1"></script>
+<script src="verb-forms-review-data.js?v=20261113-2"></script>
 <script>
 (() => {
   const D = window.VERB_REVIEW;
@@ -107,7 +107,7 @@ h1{margin:0;font-size:24px}
   const params = new URLSearchParams(location.search);
   let group = D.groups[params.get('group')] ? params.get('group') : 'ABC';
   let verb = null, questions = [], parts = { 0: true, 1: true, 2: true };
-  const GROUP_LABEL = { ABC: 'A-B-C 型', ABB: 'A-B-B 型', ABA: 'A-B-A 型', AAA: 'A-A-A 型' };
+  const GROUP_LABEL = { ABC: 'A-B-C 型', ABB: 'A-B-B 型', ABA: 'A-B-A 型', AAA: 'A-A-A 型', REG: '規則動詞' };
 
   function countQ(v) { return Object.values(D.verbs[v].rows).reduce((a, r) => a + r.length, 0); }
   function renderPicker() {
