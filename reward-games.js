@@ -155,13 +155,21 @@ border:2px solid #f2b632;border-radius:999px;background:#0f5747;color:#fff;paddi
       }, 380);
     }, 2400);
     function pickable() {
-      q('#rg-msg').textContent = '最高分的牌在哪裡？選一張！';
+      const MAX = 4; let left = MAX, best = 0;
+      const msg = () => { q('#rg-msg').innerHTML = `最高分的牌在哪裡？你有 <b style="color:var(--gold)">${left}</b> 次機會！`; };
+      msg();
       cards.forEach(c => {
         c.disabled = false; c.classList.add('pickable'); c.onclick = () => {
+          if (c.classList.contains('picked')) return;
+          left--; c.disabled = true; c.classList.remove('pickable'); c.classList.add('picked'); c.classList.remove('down');
+          const val = +c.dataset.val; best = Math.max(best, val);
+          const end = val === top || left === 0;
+          if (!end) { q('#rg-msg').innerHTML = `這張是 ${val} 分，不是最高分！還有 <b style="color:var(--gold)">${left}</b> 次機會`; return; }
           cards.forEach(x => { x.disabled = true; x.classList.remove('pickable'); x.onclick = null; });
-          c.classList.add('picked'); c.classList.remove('down');
           later(() => cards.forEach(x => x.classList.remove('down')), 700);
-          const val = +c.dataset.val; award(val, val === top ? `猜中最高分！+${val}` : `得到 +${val} 分`);
+          const used = MAX - left;
+          if (val === top) award(top, `第 ${used} 次就猜中最高分！+${top}`);
+          else award(best, `4 次機會用完了，最高分的牌沒找到。得到 +${best} 分`);
         };
       });
     }

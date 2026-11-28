@@ -64,6 +64,7 @@
     $('#select').classList.add('hidden'); $('#done').classList.add('hidden'); $('#play').classList.remove('hidden');
     show(); $('#play').scrollIntoView({ block: 'start' });
   }
+  const area0 = () => $('#area');
   const countFix = st => (st.match(STORY_RE) || []).length;
 
   function chrome() {
@@ -125,9 +126,10 @@
     }
     if (id === 'paragraph') {
       const p = it.p; const bank = shuffle(p.answers.map(a => a.w));
-      area.innerHTML = `<h3 class="ptitle">${esc(p.title)}</h3><div class="bank">${bank.map(w => `<span class="word">${esc(w)}</span>`).join('')}</div>
-        <p class="hint">每個字只用一次；動詞和名詞要變化形式。</p>` +
-        p.text.split('\n\n').map(par => `<p class="para">${esc(par).replace(/\{(\d+)\}/g, (_, n) => `<input class="inl" data-k="${n - 1}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="blank ${n}" placeholder="(${n})">`)}</p>`).join('');
+      area.innerHTML = `<h3 class="ptitle">${esc(p.title)}</h3><div class="bank pbank">${bank.map(w => `<span class="word dragw" data-w="${esc(w)}" role="button" tabindex="0">${esc(w)}</span>`).join('')}</div>
+        <p class="hint">把單字<b>拖曳</b>到空格（或先點單字、再點空格）。每個字只用一次；出現 <span class="formtip">⚠ 要變化形式！</span> 時，記得改成正確的詞形（過去式、-s、-ing、複數…）。</p>` +
+        p.text.split('\n\n').map(par => `<p class="para">${esc(par).replace(/\{(\d+)\}/g, (_, n) => `<span class="slot"><input class="inl" data-k="${n - 1}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="blank ${n}" placeholder="(${n})"><span class="formtip hidden">⚠ 要變化形式！</span></span>`)}</p>`).join('');
+      setupDrag(area, p);
       return;
     }
     if (id === 'fix') {
@@ -149,6 +151,64 @@
       $('#check').textContent = '看範例';
       return;
     }
+  }
+
+  // ---------- paragraph word bank: drag & drop (mouse + touch) / tap-to-place ----------
+  (function addDragCss() {
+    const st = document.createElement('style');
+    st.textContent = `.pbank .dragw{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;padding:8px 16px;font-size:17px;border:2px solid #93c5fd;transition:opacity .15s}
+.pbank .dragw.sel{background:#fde68a;border-color:#f59e0b}.pbank .dragw.used{opacity:.35;text-decoration:line-through}
+.dragghost{position:fixed;z-index:9999;pointer-events:none;padding:8px 16px;border-radius:999px;background:#fde68a;border:2px solid #f59e0b;color:#1e3a8a;font:800 17px Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.25);transform:translate(-50%,-60%)}
+.slot{white-space:nowrap}.inl.over{border-color:#f59e0b;background:#fef3c7}
+.formtip{display:inline-block;margin-left:4px;padding:1px 8px;border-radius:999px;background:#fef3c7;color:#b45309;font:800 13px Arial,"Noto Sans TC",sans-serif;text-indent:0;line-height:1.6}.formtip.hidden{display:none}`;
+    document.head.appendChild(st);
+  })();
+  function setupDrag(area, p) {
+    const chips = [...area.querySelectorAll('.dragw')], inputs = [...area.querySelectorAll('.inl')];
+    const baseSet = new Set(p.answers.map(a => norm(a.w)));
+    let sel = null;
+    const refresh = () => {
+      chips.forEach(c => c.classList.toggle('used', inputs.some(i => i.dataset.from === c.dataset.w)));
+      inputs.forEach(inp => {
+        const a = p.answers[+inp.dataset.k], v = norm(inp.value);
+        const needs = norm(a.a) !== norm(a.w);
+        inp.parentNode.querySelector('.formtip').classList.toggle('hidden', !(needs && v && baseSet.has(v) && !inp.disabled));
+      });
+    };
+    const place = (inp, w) => {
+      if (!inp || inp.disabled) return;
+      inputs.forEach(o => { if (o !== inp && o.dataset.from === w) { o.value = ''; delete o.dataset.from; } });
+      inp.value = w; inp.dataset.from = w; refresh();
+      if (sel) { sel.classList.remove('sel'); sel = null; }
+    };
+    inputs.forEach(inp => {
+      inp.addEventListener('input', () => { if (!inp.value.trim()) delete inp.dataset.from; refresh(); });
+      inp.addEventListener('click', () => { if (sel) place(inp, sel.dataset.w); });
+    });
+    chips.forEach(c => {
+      c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSel(c); } });
+      c.addEventListener('pointerdown', e => {
+        if (e.button > 0) return; e.preventDefault();
+        const x0 = e.clientX, y0 = e.clientY; let ghost = null, over = null;
+        const target = (x, y) => { const el = document.elementFromPoint(x, y); return el && (el.closest('.inl') || (el.closest('.slot') && el.closest('.slot').querySelector('.inl'))); };
+        const move = ev => {
+          if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 6) { ghost = document.createElement('div'); ghost.className = 'dragghost'; ghost.textContent = c.dataset.w; document.body.appendChild(ghost); }
+          if (!ghost) return; ev.preventDefault();
+          ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
+          const t = target(ev.clientX, ev.clientY); if (over && over !== t) over.classList.remove('over'); over = t; if (t) t.classList.add('over');
+          if (ev.clientY < 40) window.scrollBy(0, -12); else if (ev.clientY > innerHeight - 40) window.scrollBy(0, 12);
+        };
+        const up = ev => {
+          window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+          if (over) over.classList.remove('over');
+          if (ghost) { ghost.remove(); place(target(ev.clientX, ev.clientY), c.dataset.w); }
+          else toggleSel(c);
+        };
+        window.addEventListener('pointermove', move, { passive: false }); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+      });
+    });
+    function toggleSel(c) { if (sel === c) { c.classList.remove('sel'); sel = null; return; } if (sel) sel.classList.remove('sel'); sel = c; c.classList.add('sel'); }
+    area._refreshBank = refresh;
   }
   function focusEnter() {
     const inp = $('#ans'); setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (_) { } }, 30);
@@ -206,6 +266,8 @@
         inp.classList.toggle('correct', ok); inp.classList.toggle('incorrect', !ok); inp.disabled = true;
         if (!ok) { wrong++; det.push(`(${+inp.dataset.k + 1}) ${inp.value || '—'} → ${a.a}`); inp.insertAdjacentHTML('afterend', `<span class="fixans">${esc(a.a)}</span>`); }
       });
+      area0().querySelectorAll('.formtip').forEach(t => { if (t.closest('.slot')) t.classList.add('hidden'); });
+      area0().querySelectorAll('.dragw').forEach(c => c.style.pointerEvents = 'none');
       if (wrong) miss(it, wrong, det.join('; '));
       feedback(!wrong, wrong ? `✘ 錯 ${wrong} 格，正確答案已標在旁邊（綠字）。` : '✔ 全部正確！');
       speak(p.text.replace(/\{(\d+)\}/g, (_, n) => p.answers[n - 1].a)); return finishItem();
